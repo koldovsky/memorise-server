@@ -27,7 +27,7 @@ namespace MemoRise.Controllers
             cardBll.AddCard(item);
         }
 
-        public bool PutCCard(Card item)
+        public bool PutCard(Card item)
         {
             return cardBll.UpdateCard(item);
         }
