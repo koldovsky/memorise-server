@@ -30,7 +30,7 @@ namespace MemoBll
 
         public List<Deck> GetAllFreeDecks(DateTime fromDate)
         {
-            throw new Exception();
+            throw new NotImplementedException();
         }
 
         public decimal GetDeskPrice(int deckId)
@@ -40,7 +40,12 @@ namespace MemoBll
 
         public List<Deck> GetAllNewDecks(DateTime fromDate)
         {
-            throw new Exception();
+            throw new NotImplementedException();
+        }
+
+        public Course GetCourseByName(string name)
+        {
+            return unitOfWork.Course.GetAll().FirstOrDefault(x => x.Name == name);
         }
     }
 }
