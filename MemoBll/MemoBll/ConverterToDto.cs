@@ -40,5 +40,15 @@ namespace MemoBll
         {
             return new CategoryDTO() { Name = category.Name };
         }
+
+        public CardTypeDTO ConvertToCardTypeDTO(CardType cardtype)
+        {
+            return new CardTypeDTO { Name = cardtype.Name };
+        }
+
+        public AnswerDTO ConvertToAnswerDTO(Answer answer)
+        {
+            return new AnswerDTO { IsCorrect = answer.IsCorrect, Text = answer.Text };
+        }
     }
 }
