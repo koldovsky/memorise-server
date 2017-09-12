@@ -5,9 +5,8 @@ using System.Web;
 
 namespace MemoDTO
 {
-    public class UserRole: BaseEntity
+    public class RoleDTO:BaseEntity
     {
-        public UserDTO User { get; set; }
-        public RoleDTO Role { get; set; }
+        public string Name { get; set; }
     }
 }

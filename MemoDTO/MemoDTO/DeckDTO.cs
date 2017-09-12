@@ -5,8 +5,9 @@ using System.Web;
 
 namespace MemoDTO
 {
-    public class Role:BaseEntity
+    public class DeckDTO: BaseEntity
     {
         public string Name { get; set; }
+        public int Price { get; set; }
     }
 }

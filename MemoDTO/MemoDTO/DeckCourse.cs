@@ -7,7 +7,7 @@ namespace MemoDTO
 {
     public class DeckCourse:BaseEntity
     {
-        public Deck Deck { get; set; }
-        public Course Course { get; set; } 
+        public DeckDTO Deck { get; set; }
+        public CourseDTO Course { get; set; } 
     }
 }

@@ -5,12 +5,12 @@ using System.Web;
 
 namespace MemoDTO
 {
-    public class User : BaseEntity
+    public class UserDTO : BaseEntity
     {
-        public User()
+        public UserDTO()
         {
-            Comments = new List<Comment>();
-            Reports = new List<Report>();
+            Comments = new List<CommentDTO>();
+            Reports = new List<ReportDTO>();
         }
         public string Login { get; set; }
         public string Password { get; set; }
@@ -18,7 +18,7 @@ namespace MemoDTO
         public string Email { get; set; }
         public bool IsBlocked { get; set; }
 
-        public virtual ICollection<Comment> Comments { get; set; }
-        public virtual ICollection<Report> Reports { get; set; }
+        public virtual ICollection<CommentDTO> Comments { get; set; }
+        public virtual ICollection<ReportDTO> Reports { get; set; }
     }
 }

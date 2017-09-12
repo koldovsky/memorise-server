@@ -6,11 +6,11 @@ using System.Web;
 namespace MemoDTO
 {
 
-    public class Statistic: BaseEntity
+    public class StatisticDTO: BaseEntity
 
     {
         public int SuccessPercent { get; set; }
-        public User User { get; set; }
-        public Deck Deck { get; set; }
+        public UserDTO User { get; set; }
+        public DeckDTO Deck { get; set; }
     }
 }

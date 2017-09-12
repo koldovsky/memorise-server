@@ -5,14 +5,14 @@ using System.Web;
 
 namespace MemoDTO
 {
-    public class CardType: BaseEntity
+    public class CardTypeDTO: BaseEntity
     {
-        public CardType()
+        public CardTypeDTO()
         {
-            Cards = new List<Card>();
+            Cards = new List<CardDTO>();
         }
         public string Name { get; set; }
 
-        public virtual ICollection<Card> Cards { get; set; }
+        public virtual ICollection<CardDTO> Cards { get; set; }
     }
 }
