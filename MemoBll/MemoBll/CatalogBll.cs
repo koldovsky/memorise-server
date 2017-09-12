@@ -13,9 +13,20 @@ namespace MemoBll
     {
         UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
 
-        public List<Category> GetAllCategories()
+        public List<MemoDTO.CategoryDTO> GetAllCategories()
         {
-            return unitOfWork.Categories.GetAll().ToList();
+            List<MemoDTO.CategoryDTO> categoryDtos = new List<MemoDTO.CategoryDTO>();
+            List<Category> categories = unitOfWork.Categories.GetAll().ToList();
+            foreach (Category category in categories)
+            {
+                categoryDtos.Add(GetCategoryDTO(category));
+            }
+            return categoryDtos;
+        }
+
+        private MemoDTO.CategoryDTO GetCategoryDTO(Category category)
+        {
+            return new MemoDTO.CategoryDTO { Name = category.Name };
         }
 
         public List<string> GetAllCourses()
