@@ -11,6 +11,5 @@ namespace MemoDTO
 
         public virtual UserDTO User { get; set; }
         public virtual CourseDTO Course { get; set; }
-        public virtual CardDTO Card { get; set; }
     }
 }
