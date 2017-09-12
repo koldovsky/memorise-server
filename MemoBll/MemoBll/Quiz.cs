@@ -48,15 +48,16 @@ namespace MemoBll
         //{
         //    return unitOfWork.Cards.Get(cardId).Answers.ToList();
         //}
-        private MemoDTO.CardDTO ConvertToCardDTO(Card card)     
+        private MemoDTO.CardDTO ConvertToCardDTO(Card card)
         {
-            MemoDTO.CardDTO cardDto = new MemoDTO.CardDTO
-            {
-                
-                MemoDTO.CardTypeDTO=new MemoDTO.CardTypeDTO {Id=card.CardType.Id,
-                
-                Answers = new List<AnswerDT>() { },
-            };
+            MemoDTO.CardDTO cardDto = null;       
+
+                //MemoDTO.CardTypeDTO = new MemoDTO.CardTypeDTO
+                //{
+                //    Id = card.CardType.Id,
+                //    Answers = new List<AnswerDT>()
+                //}
+        
             return cardDto;
         }
 
@@ -66,7 +67,7 @@ namespace MemoBll
             Deck deck = unitOfWork.Decks.GetAll().FirstOrDefault(x => x.Name == deckName);
             foreach (Card card in deck.Cards)   
             {
-                cards.Add(GetCardDTO(card));
+                //cards.Add(GetCardDTO(card));
             }
             return cards;
         }
