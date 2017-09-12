@@ -25,18 +25,24 @@ namespace MemoBll
             return courses;
         }
 
-      /*  public List<MemoDTO.DeckDTO> GetDecksByUser(string login) 
+        public List<MemoDTO.DeckDTO> GetDecksByUser(string login) 
         {
             List<MemoDTO.DeckDTO> decks = new List<MemoDTO.DeckDTO>();
             IEnumerable<UserCourse> userCourses = unitOfWork.UserCourses.Find(x => x.User.Login == login);
 
-            List<Course> courses = new List<Course>();
+            List<DeckCourse> deckCourses = new List<DeckCourse>();
             foreach (UserCourse userCourse in userCourses)
             {
-                courses.Add(userCourse.Course);
+                deckCourses.AddRange(unitOfWork.DeckCourses.Find(x => x.Course.Id == userCourse.Course.Id));
             }
-            return courses;
+            
+            foreach(DeckCourse deckCourse in deckCourses)
+            {
+                decks.Add(converterToDto.ConvertToDeckDTO(deckCourse.Deck));
+            }
+
+            return decks;
         }
-        */
+        
     }
 }
