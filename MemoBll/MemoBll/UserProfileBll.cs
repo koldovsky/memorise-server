@@ -18,9 +18,12 @@ namespace MemoBll
         {
             List<MemoDTO.CourseDTO> courses = new List<MemoDTO.CourseDTO>();
             IEnumerable<UserCourse> userCourses = unitOfWork.UserCourses.Find(x => x.User.Email == userEmail);
-            foreach(UserCourse userCourse in userCourses)
+            if (userCourses != null && userCourses.ToList().Count > 0)
             {
-                courses.Add(converterToDto.ConvertToCourseDTO(userCourse.Course));
+                foreach (UserCourse userCourse in userCourses)
+                {
+                    courses.Add(converterToDto.ConvertToCourseDTO(userCourse.Course));
+                }
             }
             return courses;
         }
@@ -30,17 +33,22 @@ namespace MemoBll
             List<MemoDTO.DeckDTO> decks = new List<MemoDTO.DeckDTO>();
             IEnumerable<UserCourse> userCourses = unitOfWork.UserCourses.Find(x => x.User.Login == login);
 
-            List<DeckCourse> deckCourses = new List<DeckCourse>();
-            foreach (UserCourse userCourse in userCourses)
+            if (userCourses != null && userCourses.ToList().Count > 0)
             {
-                deckCourses.AddRange(unitOfWork.DeckCourses.Find(x => x.Course.Id == userCourse.Course.Id));
-            }
-            
-            foreach(DeckCourse deckCourse in deckCourses)
-            {
-                decks.Add(converterToDto.ConvertToDeckDTO(deckCourse.Deck));
-            }
+                List<DeckCourse> deckCourses = new List<DeckCourse>();
+                foreach (UserCourse userCourse in userCourses)
+                {
+                    deckCourses.AddRange(unitOfWork.DeckCourses.Find(x => x.Course.Id == userCourse.Course.Id));
+                }
 
+                if (deckCourses.Count > 0)
+                {
+                    foreach (DeckCourse deckCourse in deckCourses)
+                    {
+                        decks.Add(converterToDto.ConvertToDeckDTO(deckCourse.Deck));
+                    }
+                }
+            }
             return decks;
         }
         
