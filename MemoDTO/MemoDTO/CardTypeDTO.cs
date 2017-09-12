@@ -6,10 +6,7 @@ using System.Web;
 namespace MemoDTO
 {
     public class CardTypeDTO
-    {
-               
+    {    
         public string Name { get; set; }
-
-       
     }
 }

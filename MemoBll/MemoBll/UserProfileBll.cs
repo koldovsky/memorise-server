@@ -20,20 +20,23 @@ namespace MemoBll
             IEnumerable<UserCourse> userCourses = unitOfWork.UserCourses.Find(x => x.User.Email == userEmail);
             foreach(UserCourse userCourse in userCourses)
             {
-                courses.Add(converterToDto.ConvertToCourseDTO(userCourse.Course);
+                courses.Add(converterToDto.ConvertToCourseDTO(userCourse.Course));
             }
             return courses;
         }
 
-        public List<MemoDTO.CourseDTO> GetDecksByUser(string userEmail)
+      /*  public List<MemoDTO.DeckDTO> GetDecksByUser(string login) 
         {
-            List<MemoDTO.DeckDTO> courses = new List<MemoDTO.DeckDTO>();
-            IEnumerable<UserCourse> userCourses = unitOfWork.Statistics.Find(x => x.User.Email == userEmail);
+            List<MemoDTO.DeckDTO> decks = new List<MemoDTO.DeckDTO>();
+            IEnumerable<UserCourse> userCourses = unitOfWork.UserCourses.Find(x => x.User.Login == login);
+
+            List<Course> courses = new List<Course>();
             foreach (UserCourse userCourse in userCourses)
             {
-                courses.Add(converterToDto.ConvertToCourseDTO(userCourse.Course);
+                courses.Add(userCourse.Course);
             }
             return courses;
         }
+        */
     }
 }

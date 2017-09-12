@@ -14,11 +14,9 @@ namespace MemoDTO
         }
         public string Question { get; set; }
 
-        
-        public virtual string CardType { get; set; }
-        public virtual int DeckId { get; set; }
+        public virtual CardTypeDTO CardType { get; set; }
+        public virtual DeckDTO Deck { get; set; }
         public virtual ICollection<CommentDTO> Comments { get; set; }
         public virtual ICollection<AnswerDTO> Answers { get; set; }
-
     }
 }

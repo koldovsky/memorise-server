@@ -48,7 +48,7 @@ namespace MemoBll
         //{
         //    return unitOfWork.Cards.Get(cardId).Answers.ToList();
         //}
-        private MemoDTO.CardDTO ConvertToCardDTO(Card card)     
+       /* private MemoDTO.CardDTO ConvertToCardDTO(Card card)     
         {
             MemoDTO.CardDTO cardDto = new MemoDTO.CardDTO
             {
@@ -69,6 +69,6 @@ namespace MemoBll
                 cards.Add(GetCardDTO(card));
             }
             return cards;
-        }
+        }*/
     }
 }
