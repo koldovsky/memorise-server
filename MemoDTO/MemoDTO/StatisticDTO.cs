@@ -6,7 +6,7 @@ using System.Web;
 namespace MemoDTO
 {
 
-    public class StatisticDTO: BaseEntity
+    public class StatisticDTO
 
     {
         public int SuccessPercent { get; set; }

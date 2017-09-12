@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MemoDTO
 {
-    public class AnswerDTO: BaseEntity
+    public class AnswerDTO
     {
         public string Text { get; set; }
         public bool IsCorrect { get; set; }

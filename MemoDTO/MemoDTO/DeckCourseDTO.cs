@@ -5,8 +5,9 @@ using System.Web;
 
 namespace MemoDTO
 {
-    public abstract class BaseEntity
+    public class DeckCourseDTO
     {
-        public int Id { get; set; }
+        public DeckDTO Deck { get; set; }
+        public CourseDTO Course { get; set; } 
     }
 }

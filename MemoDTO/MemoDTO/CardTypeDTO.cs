@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MemoDTO
 {
-    public class CardTypeDTO: BaseEntity
+    public class CardTypeDTO
     {
         public CardTypeDTO()
         {

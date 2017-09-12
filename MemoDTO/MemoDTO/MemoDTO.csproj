@@ -41,14 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnswerDTO.cs" />
-    <Compile Include="BaseEntity.cs" />
     <Compile Include="CardDTO.cs" />
     <Compile Include="CardTypeDTO.cs" />
     <Compile Include="CategoryDTO.cs" />
     <Compile Include="CommentDTO.cs" />
     <Compile Include="CourseDTO.cs" />
     <Compile Include="DeckDTO.cs" />
-    <Compile Include="DeckCourse.cs" />
+    <Compile Include="DeckCourseDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportDTO.cs" />
     <Compile Include="RoleDTO.cs" />

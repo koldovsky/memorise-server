@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MemoDTO
 {
-    public class CommentDTO: BaseEntity
+    public class CommentDTO
     {
         public string Message { get; set; }
 

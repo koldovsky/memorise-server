@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MemoDTO
 {
-    public class CategoryDTO: BaseEntity
+    public class CategoryDTO
     {
         public string Name { get; set; }
     }

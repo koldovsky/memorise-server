@@ -12,15 +12,28 @@ namespace MemoBll
     public class UserProfileBll
     {
         UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
+        ConverterToDto converterToDto = new ConverterToDto();
 
-        public MemoDTO.CourseDTO GetCoursesByUser(string userEmail)
+        public List<MemoDTO.CourseDTO> GetCoursesByUser(string userEmail)
         {
             List<MemoDTO.CourseDTO> courses = new List<MemoDTO.CourseDTO>();
             IEnumerable<UserCourse> userCourses = unitOfWork.UserCourses.Find(x => x.User.Email == userEmail);
             foreach(UserCourse userCourse in userCourses)
             {
-                userCourse.Course
+                courses.Add(converterToDto.ConvertToCourseDTO(userCourse.Course);
             }
+            return courses;
+        }
+
+        public List<MemoDTO.CourseDTO> GetDecksByUser(string userEmail)
+        {
+            List<MemoDTO.DeckDTO> courses = new List<MemoDTO.DeckDTO>();
+            IEnumerable<UserCourse> userCourses = unitOfWork.Statistics.Find(x => x.User.Email == userEmail);
+            foreach (UserCourse userCourse in userCourses)
+            {
+                courses.Add(converterToDto.ConvertToCourseDTO(userCourse.Course);
+            }
+            return courses;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace MemoBll
             List<Category> categories = unitOfWork.Categories.GetAll().ToList();
             foreach (Category category in categories)
             {
-                categoryDtos.Add(converterToDto.GetCategoryDTO(category));
+                categoryDtos.Add(converterToDto.ConvertToCategoryDTO(category));
             }
             return categoryDtos;
         }
@@ -52,7 +52,7 @@ namespace MemoBll
             List<Deck> decks = unitOfWork.Decks.GetAll().ToList();
             foreach (Deck deck in decks)
             {
-                deckDTOs.Add(converterToDto.GetDeckDTO(deck));
+                deckDTOs.Add(converterToDto.ConvertToDeckDTO(deck));
             }
             return deckDTOs;
         }
@@ -63,7 +63,7 @@ namespace MemoBll
             IEnumerable<DeckCourse> deckCourses = unitOfWork.DeckCourses.Find(x => x.Course.Name == courseName);
             foreach(DeckCourse deckCourse in deckCourses)
             {
-                decks.Add(converterToDto.GetDeckDTO(deckCourse));
+                decks.Add(converterToDto.ConvertToDeckDTO(deckCourse));
             }
             return decks;
         }
@@ -74,7 +74,7 @@ namespace MemoBll
             Category category = unitOfWork.Categories.GetAll().FirstOrDefault(x => x.Name == categoryName);
             foreach (Deck deck in category.Decks)
             {
-                decks.Add(converterToDto.GetDeckDTO(deck));
+                decks.Add(converterToDto.ConvertToDeckDTO(deck));
             }
             return decks;
         }

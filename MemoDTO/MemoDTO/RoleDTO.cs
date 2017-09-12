@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MemoDTO
 {
-    public class RoleDTO:BaseEntity
+    public class RoleDTO
     {
         public string Name { get; set; }
     }
