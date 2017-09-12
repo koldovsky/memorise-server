@@ -12,6 +12,7 @@ namespace MemoBll
     public class CatalogBll
     {
         UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
+        ConverterToDto converterToDto = new ConverterToDto();
 
         public List<MemoDTO.CategoryDTO> GetAllCategories()
         {
@@ -19,14 +20,9 @@ namespace MemoBll
             List<Category> categories = unitOfWork.Categories.GetAll().ToList();
             foreach (Category category in categories)
             {
-                categoryDtos.Add(GetCategoryDTO(category));
+                categoryDtos.Add(converterToDto.GetCategoryDTO(category));
             }
             return categoryDtos;
-        }
-
-        private MemoDTO.CategoryDTO GetCategoryDTO(Category category)
-        {
-            return new MemoDTO.CategoryDTO() { Name = category.Name };
         }
 
         public List<MemoDTO.CourseDTO> GetAllCourses()
@@ -56,37 +52,42 @@ namespace MemoBll
             List<Deck> decks = unitOfWork.Decks.GetAll().ToList();
             foreach (Deck deck in decks)
             {
-                deckDTOs.Add(GetDeckDTO(deck));
+                deckDTOs.Add(converterToDto.GetDeckDTO(deck));
             }
             return deckDTOs;
         }
 
-        private MemoDTO.DeckDTO GetDeckDTO(Deck deck)
-        {
-            return new MemoDTO.DeckDTO() { Name = deck.Name, Price = deck.Price };
-        }
-
-
-
-
-
-
         public List<MemoDTO.DeckDTO> GetAllDecksByCourse(string courseName)
         {
             List<MemoDTO.DeckDTO> decks = new List<MemoDTO.DeckDTO>();
-            IEnumerable<DeckCourse> deckCourses = unitOfWork.DeckCourses.Find(x => x.Course.Id == courseId);
-                
+            IEnumerable<DeckCourse> deckCourses = unitOfWork.DeckCourses.Find(x => x.Course.Name == courseName);
+            foreach(DeckCourse deckCourse in deckCourses)
+            {
+                decks.Add(converterToDto.GetDeckDTO(deckCourse));
+            }
             return decks;
         }
 
-        public List<Deck> GetAllPaidDecks()
+        public List<MemoDTO.DeckDTO> GetAllDecksByCategory(string categoryName)
         {
-            return unitOfWork.Decks.Find(x => x.Price > 0).ToList();
+            List<MemoDTO.DeckDTO> decks = new List<MemoDTO.DeckDTO>();
+            Category category = unitOfWork.Categories.GetAll().FirstOrDefault(x => x.Name == categoryName);
+            foreach (Deck deck in category.Decks)
+            {
+                decks.Add(converterToDto.GetDeckDTO(deck));
+            }
+            return decks;
         }
 
-        public List<Deck> GetAllFreeDecks()
+        public List<MemoDTO.CourseDTO> GetAllCourseByCategory(string categoryName)
         {
-            return unitOfWork.Decks.Find(x => x.Price == 0).ToList();
+            List<MemoDTO.CourseDTO> courses = new List<MemoDTO.CourseDTO>();
+            Category category = unitOfWork.Categories.GetAll().FirstOrDefault(x => x.Name == categoryName);
+            foreach (Course course in category.Courses)
+            {
+                courses.Add(GetCourseDTO(course));
+            }
+            return courses;
         }
     }
     
