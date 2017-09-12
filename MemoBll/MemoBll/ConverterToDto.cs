@@ -6,28 +6,29 @@ using System.Threading.Tasks;
 using MemoDAL;
 using MemoDAL.Entities;
 using MemoDAL.EF;
+using MemoDTO;
 
 namespace MemoBll
 {
     class ConverterToDto
     {
-        public MemoDTO.DeckDTO GetDeckDTO(DeckCourse deckCourse)
+        public DeckDTO GetDeckDTO(DeckCourse deckCourse)
         {
-            return new MemoDTO.DeckDTO()
+            return new DeckDTO()
             {
                 Name = deckCourse.Deck.Name,
                 Price = deckCourse.Deck.Price
             };
         }
 
-        public MemoDTO.DeckDTO GetDeckDTO(Deck deck)
+        public DeckDTO GetDeckDTO(Deck deck)
         {
-            return new MemoDTO.DeckDTO() { Name = deck.Name, Price = deck.Price };
+            return new DeckDTO() { Name = deck.Name, Price = deck.Price };
         }
 
-        public MemoDTO.CourseDTO GetCourseDTO(Course course)
+        public CourseDTO GetCourseDTO(Course course)
         {
-            return new MemoDTO.CourseDTO()
+            return new CourseDTO()
             {
                 Name = course.Name,
                 Price = course.Price,
@@ -35,9 +36,18 @@ namespace MemoBll
             };
         }
 
-        public MemoDTO.CategoryDTO GetCategoryDTO(Category category)
+        public CategoryDTO GetCategoryDTO(Category category)
         {
-            return new MemoDTO.CategoryDTO() { Name = category.Name };
+            return new CategoryDTO() { Name = category.Name };
+        }
+
+        public CardTypeDTO ConvertToCardTypeDTO(CardType cardtype)
+        {
+            return new CardTypeDTO { Id = cardtype.Id, Name = cardtype.Name };
+        }
+        public AnswerDTO ConvertToAnswerDTO(Answer answer)
+        {
+            return new AnswerDTO { Id = answer.Id, IsCorrect = answer.IsCorrect, Text = answer.Text };
         }
     }
 }

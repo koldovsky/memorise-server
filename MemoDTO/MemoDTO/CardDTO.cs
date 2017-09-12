@@ -9,7 +9,7 @@ namespace MemoDTO
     {
         public CardDTO()
         {
-            Comments = new List<CommentDTO>();
+            
             Answers = new List<AnswerDTO>();
         }
         public string Question { get; set; }
@@ -17,7 +17,7 @@ namespace MemoDTO
         
         public virtual CardTypeDTO CardType { get; set; }
         public virtual DeckDTO Deck { get; set; }
-        public virtual ICollection<CommentDTO> Comments { get; set; }
+       
         public virtual ICollection<AnswerDTO> Answers { get; set; }
 
     }
