@@ -12,6 +12,7 @@ namespace MemoBll
     public class CatalogBll
     {
         UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
+        ConverterToDto converterToDto = new ConverterToDto();
 
         public List<MemoDTO.CategoryDTO> GetAllCategories()
         {
@@ -19,14 +20,9 @@ namespace MemoBll
             List<Category> categories = unitOfWork.Categories.GetAll().ToList();
             foreach (Category category in categories)
             {
-                categoryDtos.Add(GetCategoryDTO(category));
+                categoryDtos.Add(converterToDto.GetCategoryDTO(category));
             }
             return categoryDtos;
-        }
-
-        private MemoDTO.CategoryDTO GetCategoryDTO(Category category)
-        {
-            return new MemoDTO.CategoryDTO() { Name = category.Name };
         }
 
         public List<MemoDTO.CourseDTO> GetAllCourses()
@@ -56,14 +52,9 @@ namespace MemoBll
             List<Deck> decks = unitOfWork.Decks.GetAll().ToList();
             foreach (Deck deck in decks)
             {
-                deckDTOs.Add(GetDeckDTO(deck));
+                deckDTOs.Add(converterToDto.GetDeckDTO(deck));
             }
             return deckDTOs;
-        }
-
-        private MemoDTO.DeckDTO GetDeckDTO(Deck deck)
-        {
-            return new MemoDTO.DeckDTO() { Name = deck.Name, Price = deck.Price };
         }
 
         public List<MemoDTO.DeckDTO> GetAllDecksByCourse(string courseName)
@@ -72,18 +63,9 @@ namespace MemoBll
             IEnumerable<DeckCourse> deckCourses = unitOfWork.DeckCourses.Find(x => x.Course.Name == courseName);
             foreach(DeckCourse deckCourse in deckCourses)
             {
-                decks.Add(GetDeckDTO(deckCourse));
+                decks.Add(converterToDto.GetDeckDTO(deckCourse));
             }
             return decks;
-        }
-
-        private MemoDTO.DeckDTO GetDeckDTO(DeckCourse deckCourse)
-        {
-            return new MemoDTO.DeckDTO()
-            {
-                Name = deckCourse.Deck.Name,
-                Price = deckCourse.Deck.Price
-            };
         }
 
         public List<MemoDTO.DeckDTO> GetAllDecksByCategory(string categoryName)
@@ -92,7 +74,7 @@ namespace MemoBll
             Category category = unitOfWork.Categories.GetAll().FirstOrDefault(x => x.Name == categoryName);
             foreach (Deck deck in category.Decks)
             {
-                decks.Add(GetDeckDTO(deck));
+                decks.Add(converterToDto.GetDeckDTO(deck));
             }
             return decks;
         }

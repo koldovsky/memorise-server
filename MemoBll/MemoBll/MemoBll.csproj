@@ -43,6 +43,7 @@
     <Compile Include="Adminisrtation.cs" />
     <Compile Include="CardEditor.cs" />
     <Compile Include="CatalogBll.cs" />
+    <Compile Include="ConverterToDto.cs" />
     <Compile Include="CourseDetails.cs" />
     <Compile Include="CustomerAccount.cs" />
     <Compile Include="CustomerCourse.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SingIn.cs" />
     <Compile Include="Quiz.cs" />
+    <Compile Include="UserProfileBll.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\MemoDAL\MemoDAL\MemoDAL.csproj">
