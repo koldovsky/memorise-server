@@ -11,6 +11,6 @@ namespace MemoDTO
         public string Text { get; set; }
         public bool IsCorrect { get; set; }
 
-        public virtual CardDTO Card { get; set; }
+        
     }
 }

@@ -7,12 +7,9 @@ namespace MemoDTO
 {
     public class CardTypeDTO
     {
-        public CardTypeDTO()
-        {
-            Cards = new List<CardDTO>();
-        }
+               
         public string Name { get; set; }
 
-        public virtual ICollection<CardDTO> Cards { get; set; }
+       
     }
 }
