@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Adminisrtation.cs" />
     <Compile Include="CardEditor.cs" />
+    <Compile Include="CatalogBll.cs" />
     <Compile Include="CourseDetails.cs" />
     <Compile Include="CustomerAccount.cs" />
     <Compile Include="CustomerCourse.cs" />
