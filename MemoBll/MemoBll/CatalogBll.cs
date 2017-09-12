@@ -66,27 +66,46 @@ namespace MemoBll
             return new MemoDTO.DeckDTO() { Name = deck.Name, Price = deck.Price };
         }
 
-
-
-
-
-
         public List<MemoDTO.DeckDTO> GetAllDecksByCourse(string courseName)
         {
             List<MemoDTO.DeckDTO> decks = new List<MemoDTO.DeckDTO>();
-            IEnumerable<DeckCourse> deckCourses = unitOfWork.DeckCourses.Find(x => x.Course.Id == courseId);
-                
+            IEnumerable<DeckCourse> deckCourses = unitOfWork.DeckCourses.Find(x => x.Course.Name == courseName);
+            foreach(DeckCourse deckCourse in deckCourses)
+            {
+                decks.Add(GetDeckDTO(deckCourse));
+            }
             return decks;
         }
 
-        public List<Deck> GetAllPaidDecks()
+        private MemoDTO.DeckDTO GetDeckDTO(DeckCourse deckCourse)
         {
-            return unitOfWork.Decks.Find(x => x.Price > 0).ToList();
+            return new MemoDTO.DeckDTO()
+            {
+                Name = deckCourse.Deck.Name,
+                Price = deckCourse.Deck.Price
+            };
         }
 
-        public List<Deck> GetAllFreeDecks()
+        public List<MemoDTO.DeckDTO> GetAllDecksByCategory(string categoryName)
         {
-            return unitOfWork.Decks.Find(x => x.Price == 0).ToList();
+            List<MemoDTO.DeckDTO> decks = new List<MemoDTO.DeckDTO>();
+            Category category = unitOfWork.Categories.GetAll().FirstOrDefault(x => x.Name == categoryName);
+            foreach (Deck deck in category.Decks)
+            {
+                decks.Add(GetDeckDTO(deck));
+            }
+            return decks;
+        }
+
+        public List<MemoDTO.CourseDTO> GetAllCourseByCategory(string categoryName)
+        {
+            List<MemoDTO.CourseDTO> courses = new List<MemoDTO.CourseDTO>();
+            Category category = unitOfWork.Categories.GetAll().FirstOrDefault(x => x.Name == categoryName);
+            foreach (Course course in category.Courses)
+            {
+                courses.Add(GetCourseDTO(course));
+            }
+            return courses;
         }
     }
     
