@@ -1,74 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MemoDAL;
 using MemoDAL.Entities;
 using MemoDAL.EF;
+using MemoDTO;
 
 namespace MemoBll
 {
     class Quiz
     {
         UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
+        ConverterToDto converterToDto = new ConverterToDto();
 
-        //public void SetStatistics(Deck deck, User user, int successPercent)
-        //{
-        //    if (deck != null && user != null)
-        //    {
-        //        List<Statistic> statistics = unitOfWork.Statistics.Find(x => x.Deck.Id == deck.Id && x.User.Id == user.Id).ToList();
-        //        if (statistics.Count > 1)
-        //        {
-        //            //UpdateStatistics(deck, user, successPercent);
-        //        }
-        //        else
-        //        {
-        //            Statistic statistic = new Statistic();
-        //            statistic.Deck = deck;
-        //            statistic.User = user;
-        //            statistic.SuccessPercent = successPercent;
-        //            unitOfWork.Statistics.Create(statistic);
-        //            unitOfWork.Save();
-        //        }
-        //    }
-        //}
-
-        //public List<Card> GetAllCardsInDeck(int deckId)
-        //{
-        //    return unitOfWork.Cards.GetAll().Where(x => x.Deck.Id == deckId).ToList();
-        //}
-
-        //public Card GetCard(int cardId)
-        //{
-        //    return unitOfWork.Cards.Get(cardId);
-        //}
-
-        //public List<Answer> GetAllAnswersInCard(int cardId)
-        //{
-        //    return unitOfWork.Cards.Get(cardId).Answers.ToList();
-        //}
-       /* private MemoDTO.CardDTO ConvertToCardDTO(Card card)     
+        public bool CheckAnswer (AnswerDTO answer, int cardId)  
         {
-            MemoDTO.CardDTO cardDto = new MemoDTO.CardDTO
+            Card card = unitOfWork.Cards.GetAll().FirstOrDefault(x => x.Id == cardId);
+            foreach (Answer answers in card.Answers)    
             {
-                
-                MemoDTO.CardTypeDTO=new MemoDTO.CardTypeDTO {Id=card.CardType.Id,
-                
-                Answers = new List<AnswerDT>() { },
-            };
-            return cardDto;
+                if (converterToDto.ConvertToAnswerDTO(answers) == answer) 
+                {
+                    return answer.IsCorrect;
+                }
+            }
+            return false;
         }
 
-        public List<MemoDTO.CardDTO> GetCardsByDeck(string deckName)   
+        // I don't know if this is method is correct?
+        public List<AnswerDTO> GetAllAnswersInCard(int cardId)
         {
-            List<MemoDTO.CardDTO> cards = new List<MemoDTO.CardDTO>();
-            Deck deck = unitOfWork.Decks.GetAll().FirstOrDefault(x => x.Name == deckName);
-            foreach (Card card in deck.Cards)   
+            List<AnswerDTO> answers = new List<AnswerDTO>();
+            Card card = unitOfWork.Cards.GetAll().FirstOrDefault(x => x.Id == cardId);
+            foreach (Answer answer in card.Answers)
             {
-                cards.Add(GetCardDTO(card));
+                answers.Add(converterToDto.ConvertToAnswerDTO(answer));
             }
-            return cards;
-        }*/
+            return answers;
+        }
+        
+
+         public List<CardDTO> GetCardsByDeck(string deckName)   
+         {
+             List<CardDTO> cards = new List<CardDTO>();
+             Deck deck = unitOfWork.Decks.GetAll().FirstOrDefault(x => x.Name == deckName);
+             foreach (Card card in deck.Cards)   
+             {
+                 cards.Add(converterToDto.ConvertToCardDTO(card));
+             }
+             return cards;
+         }
     }
 }

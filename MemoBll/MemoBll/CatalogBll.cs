@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MemoDAL;
 using MemoDAL.Entities;
 using MemoDAL.EF;
@@ -93,7 +90,7 @@ namespace MemoBll
             {
                 foreach (Course course in category.Courses)
                 {
-                    courses.Add(GetCourseDTO(course));
+                    courses.Add(converterToDto.ConvertToCourseDTO(course));
                 }
             }
             return courses;

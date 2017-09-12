@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MemoDAL;
 using MemoDAL.Entities;
 using MemoDAL.EF;
@@ -12,35 +10,6 @@ namespace MemoBll
     class Adminisrtation
     {
         UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
-
-        //It should be enum of reasons. 
-        //After add enum, we should replace string parameter to someEnum.
-        public int GetReportCountForReason(string reason)
-        {
-            return unitOfWork.Reports.Find(x => x.Reason == reason).Count();
-        }
-
-        //It should be enum of reasons. 
-        //After add enum, we should replace string parameter to someEnum.
-        public List<MemoDAL.Entities.Report> GetAllReportsOnReason(string reason)
-        {
-            return unitOfWork.Reports.Find(x => x.Reason == reason).ToList();
-        }
-
-        public List<Report> GetAllReportsOnDate(DateTime date)
-        {
-            return unitOfWork.Reports.Find(x => x.Date == date).ToList();
-        }
-
-        public List<Report> GetAllReportsFromDate(DateTime date)
-        {
-            return unitOfWork.Reports.Find(x => x.Date >= date).ToList();
-        }
-
-        public Report GetReport(int reportId)
-        {
-            return unitOfWork.Reports.Get(reportId);
-        }
 
         public List<Role> GetAllRoles()
         {
@@ -149,32 +118,6 @@ namespace MemoBll
         public List<User> GetAllBlocedUser()
         {
             return unitOfWork.Users.Find(x => x.IsBlocked == true).ToList();
-        }
-
-        //Returns all users which add some course
-        //Maybe will be method that returns users whish evaluate or pass some course
-        public List<User> GetAllUsersByCouse(int courseId)
-        {
-            List<UserCourse> userCourses = unitOfWork.UserCourses.Find(x => x.Course.Id == courseId).ToList();
-            List<User> users = new List<User>();
-            foreach (UserCourse userCourse in userCourses)
-            {
-                users.Add(userCourse.User);
-            }
-            return users;
-        }
-
-        //Returns all users which add some deck
-        //Maybe will be method that returns users whish evaluate or pass some deck
-        public List<User> GetAllUsersByDeck(int deckId)
-        {
-            List<Statistic> statistics = unitOfWork.Statistics.Find(x => x.Deck.Id == deckId).ToList();
-            List<User> users = new List<User>();
-            foreach (Statistic item in statistics)
-            {
-                users.Add(item.User);
-            }
-            return users;
         }
 
         //admin

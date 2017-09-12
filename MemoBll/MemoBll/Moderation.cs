@@ -91,7 +91,7 @@ namespace MemoBll
             unitOfWork.Save();
         }
 
-        public List<User> GetAllUsersByCouse(int courseId)
+        public List<User> GetAllUsersByCourse(int courseId) 
         {
             List<UserCourse> userCourses = unitOfWork.UserCourses.Find(x => x.Course.Id == courseId).ToList();
             List<User> users = new List<User>();
