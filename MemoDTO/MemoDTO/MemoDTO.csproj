@@ -40,21 +40,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Answer.cs" />
+    <Compile Include="AnswerDTO.cs" />
     <Compile Include="BaseEntity.cs" />
-    <Compile Include="Card.cs" />
-    <Compile Include="CardType.cs" />
+    <Compile Include="CardDTO.cs" />
+    <Compile Include="CardTypeDTO.cs" />
     <Compile Include="CategoryDTO.cs" />
-    <Compile Include="Comment.cs" />
-    <Compile Include="Course.cs" />
-    <Compile Include="Deck.cs" />
+    <Compile Include="CommentDTO.cs" />
+    <Compile Include="CourseDTO.cs" />
+    <Compile Include="DeckDTO.cs" />
     <Compile Include="DeckCourse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Report.cs" />
-    <Compile Include="Role.cs" />
-    <Compile Include="Statistic.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="UserCourse.cs" />
+    <Compile Include="ReportDTO.cs" />
+    <Compile Include="RoleDTO.cs" />
+    <Compile Include="StatisticDTO.cs" />
+    <Compile Include="UserDTO.cs" />
+    <Compile Include="UserCourseDTO.cs" />
     <Compile Include="UserRole.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

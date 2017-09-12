@@ -9,7 +9,7 @@ using MemoDAL.EF;
 
 namespace MemoBll
 {
-     public class CatalogBll
+    public class CatalogBll
     {
         UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
 
@@ -26,31 +26,56 @@ namespace MemoBll
 
         private MemoDTO.CategoryDTO GetCategoryDTO(Category category)
         {
-            return new MemoDTO.CategoryDTO { Name = category.Name };
+            return new MemoDTO.CategoryDTO() { Name = category.Name };
         }
 
-        public List<string> GetAllCourses()
+        public List<MemoDTO.CourseDTO> GetAllCourses()
         {
-            List<string> names = new List<string>();
-            foreach (Course course in unitOfWork.Course.GetAll())
+            List<MemoDTO.CourseDTO> categoryDtos = new List<MemoDTO.CourseDTO>();
+            List<Course> curses = unitOfWork.Course.GetAll().ToList();
+            foreach (Course course in curses)
             {
-                names.Add(course.Name);
+                categoryDtos.Add(GetCourseDTO(course));
             }
-            return names;
+            return categoryDtos;
         }
 
-        public List<Deck> GetAllDecks()
+        private MemoDTO.CourseDTO GetCourseDTO(Course course)
         {
-            return unitOfWork.Decks.GetAll().ToList();
+            return new MemoDTO.CourseDTO()
+            {
+                Name = course.Name,
+                Price = course.Price,
+                Description = course.Description
+            };
         }
 
-        public List<Deck> GetAllDecksByCourse(string id)
+        public List<MemoDTO.DeckDTO> GetAllDecks()
         {
-            int courseId;
-            int.TryParse(id, out courseId);
-            List<Deck> decks = new List<Deck>();
-            unitOfWork.DeckCourses.Find(x => x.Course.Id == courseId).ToList()
-                .ForEach(x => decks.Add(x.Deck));
+            List<MemoDTO.DeckDTO> deckDTOs = new List<MemoDTO.DeckDTO>();
+            List<Deck> decks = unitOfWork.Decks.GetAll().ToList();
+            foreach (Deck deck in decks)
+            {
+                deckDTOs.Add(GetDeckDTO(deck));
+            }
+            return deckDTOs;
+        }
+
+        private MemoDTO.DeckDTO GetDeckDTO(Deck deck)
+        {
+            return new MemoDTO.DeckDTO() { Name = deck.Name, Price = deck.Price };
+        }
+
+
+
+
+
+
+        public List<MemoDTO.DeckDTO> GetAllDecksByCourse(string courseName)
+        {
+            List<MemoDTO.DeckDTO> decks = new List<MemoDTO.DeckDTO>();
+            IEnumerable<DeckCourse> deckCourses = unitOfWork.DeckCourses.Find(x => x.Course.Id == courseId);
+                
             return decks;
         }
 
@@ -59,9 +84,9 @@ namespace MemoBll
             return unitOfWork.Decks.Find(x => x.Price > 0).ToList();
         }
 
-        public List<Deck> GetAllFreeDecks(DateTime fromDate)
+        public List<Deck> GetAllFreeDecks()
         {
-            throw new Exception();
+            return unitOfWork.Decks.Find(x => x.Price == 0).ToList();
         }
     }
     
