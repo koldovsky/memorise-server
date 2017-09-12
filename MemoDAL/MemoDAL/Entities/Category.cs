@@ -13,7 +13,7 @@ namespace MemoDAL.Entities
             Decks = new List<Deck>();
         }
         public string Name { get; set; }
-        
+
         public virtual ICollection<Course> Courses { get; set; }
         public virtual ICollection<Deck> Decks { get; set; }
     }
