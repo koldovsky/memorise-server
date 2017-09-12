@@ -59,6 +59,10 @@
       <Project>{4d151ebe-00e1-4048-b5a8-9581b928851b}</Project>
       <Name>MemoDAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\MemoDTO\MemoDTO\MemoDTO.csproj">
+      <Project>{658e019f-215b-491b-bbdc-b96cc76f0ebd}</Project>
+      <Name>MemoDTO</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
