@@ -11,7 +11,7 @@ using System.Web.Http.Cors;
 
 namespace MemoRise.Controllers
 {
-    //[EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class CatalogController : ApiController
     {
 
