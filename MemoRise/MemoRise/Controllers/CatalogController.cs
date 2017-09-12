@@ -14,7 +14,7 @@ namespace MemoRise.Controllers
     {
         public string GetCategories()
         {
-            FilterS catalog = new FilterS();
+            CatalogBll catalog = new CatalogBll();
             var categories = JsonConvert.SerializeObject(catalog.GetAllCategories());
             return categories;
         }

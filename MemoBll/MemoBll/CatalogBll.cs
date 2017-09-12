@@ -9,7 +9,7 @@ using MemoDAL.EF;
 
 namespace MemoBll
 {
-    class CatalogBll
+     public class CatalogBll
     {
         UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
 

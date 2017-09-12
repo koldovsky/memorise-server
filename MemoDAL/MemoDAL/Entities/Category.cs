@@ -14,10 +14,7 @@ namespace MemoDAL.Entities
         }
         public string Name { get; set; }
 
-        public ICollection<Course> Courses { get; set; }
-        public ICollection<Deck> Decks { get; set; }
-
-        //public virtual ICollection<Course> Courses { get; set; }
-        //public virtual ICollection<Deck> Decks { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
+        public virtual ICollection<Deck> Decks { get; set; }
     }
 }
