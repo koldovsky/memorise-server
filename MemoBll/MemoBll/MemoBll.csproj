@@ -48,6 +48,7 @@
     <Compile Include="CustomerAccount.cs" />
     <Compile Include="CustomerCourse.cs" />
     <Compile Include="CustomerStatistic.cs" />
+    <Compile Include="Moderation.cs" />
     <Compile Include="QuizReview.cs" />
     <Compile Include="FilterS.cs" />
     <Compile Include="SingUp.cs" />
