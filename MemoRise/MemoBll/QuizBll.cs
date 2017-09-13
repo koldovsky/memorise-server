@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using MemoDAL;
 using MemoDAL.Entities;
 using MemoDAL.EF;
@@ -25,7 +24,6 @@ namespace MemoBll
             return false;
         }
 
-        // I don't know if this is method is correct?
         public List<AnswerDTO> GetAllAnswersInCard(int cardId)
         {
             List<AnswerDTO> answers = new List<AnswerDTO>();

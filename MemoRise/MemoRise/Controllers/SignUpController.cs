@@ -8,11 +8,14 @@ namespace MemoRise.Controllers
     public class SignUpController : ApiController
     {
         SignUpBll signUp = new SignUpBll();
-        public string CreateUser(string userSignUpData)
+
+        // TODO: return normal UserDTO
+        [HttpPost]
+        public UserDTO CreateUser(string userSignUpData)
         {
             UserLoginDTO signUpData = JsonConvert.DeserializeObject<UserLoginDTO>(userSignUpData);
             bool IsAccepted=signUp.CreateUser(signUpData.Login, signUpData.Password, signUpData.Email);
-            return IsAccepted.ToString();
+            return new UserDTO { Email = signUpData.Email };
         }
     }
 }

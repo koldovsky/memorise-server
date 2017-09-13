@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MemoDAL;
+﻿using System.Collections.Generic;
 using MemoDAL.Entities;
-using MemoDAL.EF;
 using MemoDTO;
 
 namespace MemoBll

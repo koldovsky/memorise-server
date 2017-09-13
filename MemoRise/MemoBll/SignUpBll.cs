@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using MemoDAL;
 using MemoDAL.Entities;
 using MemoDAL.EF;
-using MemoDTO;
 
 namespace MemoBll
 {
-     public class SignUpBll
+    public class SignUpBll
     {
         UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
         ConverterToDto converterToDto = new ConverterToDto();
