@@ -1,43 +1,32 @@
 ﻿using System.Web.Http;
 using Newtonsoft.Json;
 using MemoBll;
+using MemoDTO;
 using System;
+using System.Collections.Generic;
 
 namespace MemoRise.Controllers
 {
 
     public class CatalogController : ApiController
     {
+
         CatalogBll catalog = new CatalogBll();
-        public string GetCategories()
+        public List<CategoryDTO> GetCategories()
         {
-            try
-            {
-                var categories = JsonConvert.SerializeObject(catalog.GetAllCategories());
+                List<CategoryDTO> categories = catalog.GetAllCategories();
                 return categories;
-            }
-            catch(ArgumentNullException ex)
-            {
-                return ex.Message;
-            }
-            catch(NullReferenceException ex)
-            {
-                return ex.Message;
-            }
-            catch(Exception ex)
-            {
-                return ex.Message;
-            }
         }
+       
         
-        public string GetCourses()
+        public List<CourseDTO> GetCourses()
         {
-            var courses = JsonConvert.SerializeObject(catalog.GetAllCourses());
+            List<CourseDTO> courses = catalog.GetAllCourses();
             return courses;
         }
-        public string GetDecks()
+        public List<DeckDTO> GetDecks()
         {
-            var decks = JsonConvert.SerializeObject(catalog.GetAllDecks());
+            List<DeckDTO> decks = catalog.GetAllDecks();
             return decks;
         }
         public string GetCoursesByCategory(string categoryName)
