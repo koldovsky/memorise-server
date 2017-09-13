@@ -14,22 +14,39 @@ namespace MemoBll
         ConverterToDto converterToDto = new ConverterToDto();
 
 
-        public List<Deck> GetAllPaidDecks()
+        public List<DeckDTO> GetAllPaidDecks()
         {
-            return unitOfWork.Decks.GetCollectionByPredicate(x => x.Price > 0).ToList();
+            List<Deck> decks = unitOfWork.Decks.GetCollectionByPredicate(x => x.Price > 0).ToList();
+            if(decks.Count > 0)
+            {
+                List<DeckDTO> deckDTOs = converterToDto.ConvertToDeckListDTO(decks);
+                return deckDTOs;
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
         }
 
-        public List<Deck> GetAllFreeDecks(DateTime fromDate)
+        public List<DeckDTO> GetAllFreeDecks(DateTime fromDate)
         {
             throw new NotImplementedException();
         }
 
-        public decimal GetDeskPrice(int deckId)
+        public double GetDeskPrice(int deckId)
         {
-            return unitOfWork.Decks.Get(deckId).Price;
+            Deck deck = unitOfWork.Decks.GetOneElementOrDefault(x => x.Id == deckId);
+            if (deck != null)
+            {
+                return deck.Price;
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
         }
 
-        public List<Deck> GetAllNewDecks(DateTime fromDate)
+        public List<DeckDTO> GetAllNewDecks(DateTime fromDate)
         {
             throw new NotImplementedException();
         }
