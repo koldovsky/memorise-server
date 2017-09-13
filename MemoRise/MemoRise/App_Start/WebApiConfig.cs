@@ -16,8 +16,8 @@ namespace MemoRise
             config.MapHttpAttributeRoutes();
 
 
-            
-            config.EnableCors();
+            var cors = new EnableCorsAttribute("http://localhost:4200", "*", "*");
+            config.EnableCors(cors);
             //config.Routes.MapHttpRoute(
             //    name: "DefaultApi",
             //    routeTemplate: "api/{controller}/{id}",

@@ -93,7 +93,7 @@ namespace MemoBll
             {
                 foreach (Course course in category.Courses)
                 {
-                    courses.Add(GetCourseDTO(course));
+                    //courses.Add(GetCourseDTO(course));
                 }
             }
             return courses;

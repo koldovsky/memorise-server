@@ -1,25 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+﻿using System.Web.Http;
 using Newtonsoft.Json;
-using MemoDAL.Entities;
 using MemoBll;
-using System.Web.Http.Cors;
 
 namespace MemoRise.Controllers
 {
-    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+
     public class CatalogController : ApiController
     {
-
+        CatalogBll catalog = new CatalogBll();
         public string GetCategories()
         {
-            CatalogBll catalog = new CatalogBll();
             var categories = JsonConvert.SerializeObject(catalog.GetAllCategories());
             return categories;
         }
+        public string GetCourses()
+        {
+            var courses = JsonConvert.SerializeObject(catalog.GetAllCourses());
+            return courses;
+        }
+        public string GetDecks()
+        {
+            var decks = JsonConvert.SerializeObject(catalog.GetAllDecks());
+            return decks;
+        }
+        public string GetCoursesByCategory(string categoryName)
+        {
+            var decks = JsonConvert.SerializeObject(catalog.GetAllCourseByCategory(categoryName));
+            return decks;
+        }
+        public string GetDecksByCategory(string categoryName)
+        {
+            var decks = JsonConvert.SerializeObject(catalog.GetAllDecksByCategory(categoryName));
+            return decks;
+        }
+        public string GetAllDecksByCourse(string courseName)
+        {
+            var decks = JsonConvert.SerializeObject(catalog.GetAllDecksByCourse(courseName));
+            return decks;
+        }
+
     }
 }
