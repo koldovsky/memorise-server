@@ -1,63 +1,57 @@
 ﻿using System.Web.Http;
 using Newtonsoft.Json;
 using MemoBll;
-using System.Web.Script.Serialization;
+using MemoDTO;
+using System.Collections.Generic;
 
 namespace MemoRise.Controllers
 {
 
     public class CatalogController : ApiController
     {
+       
         CatalogBll catalog = new CatalogBll();
-        public string GetCategories()
+
+        [HttpGet]
+        public List<CategoryDTO> GetCategories()
         {
-            var categories = catalog.GetAllCategories();
-            var serializer = new JavaScriptSerializer();
-            string jsonResult = serializer.Serialize(categories);
-            return jsonResult;
-            //try
-            //{
-            //    var categories = JsonConvert.SerializeObject(catalog.GetAllCategories());
-            //    return categories;
-            //}
-            //catch(ArgumentNullException ex)
-            //{
-            //    return ex.Message;
-            //}
-            //catch(NullReferenceException ex)
-            //{
-            //    return ex.Message;
-            //}
-            //catch(Exception ex)
-            //{
-            //    return ex.Message;
-            //}
+                List<CategoryDTO> categories = catalog.GetAllCategories();
+                return categories;
         }
-        
-        public string GetCourses()
+
+        [HttpGet]
+        public List<CourseDTO> GetCourses()
         {
-            var courses = JsonConvert.SerializeObject(catalog.GetAllCourses());
+            List<CourseDTO> courses = catalog.GetAllCourses();
             return courses;
         }
-        public string GetDecks()
+
+        [HttpGet]
+        public List<DeckDTO> GetDecks()
         {
-            var decks = JsonConvert.SerializeObject(catalog.GetAllDecks());
+            List<DeckDTO> decks = catalog.GetAllDecks();
             return decks;
         }
-        public string GetCoursesByCategory(string categoryName)
+
+        [HttpGet]
+        public List<CourseDTO> GetCoursesByCategory(string categoryName)
         {
-            var decks = JsonConvert.SerializeObject(catalog.GetAllCourseByCategory(categoryName));
-            return decks;
+            return catalog.GetAllCourseByCategory(categoryName);
+             
         }
-        public string GetDecksByCategory(string categoryName)
+
+        [HttpGet]
+        public List<DeckDTO> GetDecksByCategory(string categoryName)
         {
-            var decks = JsonConvert.SerializeObject(catalog.GetAllDecksByCategory(categoryName));
-            return decks;
+            return catalog.GetAllDecksByCategory(categoryName);
+            
         }
-        public string GetAllDecksByCourse(string courseName)
+
+        [HttpGet]
+        public List<DeckDTO> GetAllDecksByCourse(string courseName)
         {
-            var decks = JsonConvert.SerializeObject(catalog.GetAllDecksByCourse(courseName));
-            return decks;
+            return catalog.GetAllDecksByCourse(courseName);
+            
         }
 
     }

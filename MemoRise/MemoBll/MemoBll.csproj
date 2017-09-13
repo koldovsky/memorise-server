@@ -52,7 +52,7 @@
     <Compile Include="CardEditor.cs" />
     <Compile Include="CatalogBll.cs" />
     <Compile Include="ConverterToDto.cs" />
-    <Compile Include="CourseDetails.cs" />
+    <Compile Include="CourseDetailsBll.cs" />
     <Compile Include="CustomerAccount.cs" />
     <Compile Include="CustomerCourse.cs" />
     <Compile Include="CustomerStatistic.cs" />

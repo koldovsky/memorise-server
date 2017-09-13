@@ -30,7 +30,7 @@ namespace MemoBll
 
         public List<CourseDTO> GetAllCourses()
         {
-            List<CourseDTO> categoryDtos = new List<MemoDTO.CourseDTO>();
+            List<CourseDTO> categoryDtos = new List<CourseDTO>();
             IEnumerable<Course> courses = unitOfWork.Course.GetAll();
             if (courses != null && courses.ToList().Count > 0)
             {
@@ -44,7 +44,7 @@ namespace MemoBll
 
         public List<DeckDTO> GetAllDecks()
         {
-            List<DeckDTO> deckDTOs = new List<MemoDTO.DeckDTO>();
+            List<DeckDTO> deckDTOs = new List<DeckDTO>();
             IEnumerable<Deck> decks = unitOfWork.Decks.GetAll();
             if (decks != null && decks.ToList().Count > 0)
             {
@@ -73,7 +73,7 @@ namespace MemoBll
         public List<DeckDTO> GetAllDecksByCategory(string categoryName)
         {
             List<DeckDTO> decks = new List<DeckDTO>();
-            Category category = unitOfWork.Categories.GetAll().FirstOrDefault(x => x.Name == categoryName);
+            Category category = unitOfWork.Categories.GetOneElementOrDefault(x => x.Name == categoryName);
             if (category != null)
             {
                 foreach (Deck deck in category.Decks)
@@ -87,7 +87,7 @@ namespace MemoBll
         public List<CourseDTO> GetAllCourseByCategory(string categoryName)
         {
             List<CourseDTO> courses = new List<CourseDTO>();
-            Category category = unitOfWork.Categories.GetAll().FirstOrDefault(x => x.Name == categoryName);
+            Category category = unitOfWork.Categories.GetOneElementOrDefault(x => x.Name == categoryName);
             if (category != null)
             {
                 foreach (Course course in category.Courses)
