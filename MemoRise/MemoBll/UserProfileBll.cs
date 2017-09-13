@@ -4,6 +4,7 @@ using MemoDAL;
 using MemoDAL.Entities;
 using MemoDAL.EF;
 using MemoDTO;
+using System;
 
 namespace MemoBll
 {
