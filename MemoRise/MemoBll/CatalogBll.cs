@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System;
 using MemoDAL;
 using MemoDAL.Entities;
 using MemoDAL.EF;
@@ -16,13 +17,14 @@ namespace MemoBll
         {
             List<CategoryDTO> categoryDtos = new List<CategoryDTO>();
             IEnumerable<Category> categories = unitOfWork.Categories.GetAll();
-            if(categories != null && categories.ToList().Count > 0)
+            if (categories != null && categories.ToList().Count > 0)
             {
                 foreach (Category category in categories)
                 {
                     categoryDtos.Add(converterToDto.ConvertToCategoryDTO(category));
                 }
             }
+            else throw new NullReferenceException();
             return categoryDtos;
         }
 
@@ -57,7 +59,7 @@ namespace MemoBll
         public List<DeckDTO> GetAllDecksByCourse(string courseName)
         {
             List<DeckDTO> decks = new List<DeckDTO>();
-            IEnumerable<DeckCourse> deckCourses = unitOfWork.DeckCourses.Find(x => x.Course.Name == courseName);
+            IEnumerable<DeckCourse> deckCourses = unitOfWork.DeckCourses.GetCollectionByPredicate(x => x.Course.Name == courseName);
             if (deckCourses != null && deckCourses.ToList().Count > 0)
             {
                 foreach (DeckCourse deckCourse in deckCourses)

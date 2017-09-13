@@ -19,7 +19,7 @@ namespace MemoBll
         public List<Role> GetRoles(int userId)
         {
             List<UserRole> userRoles = new List<UserRole>();
-            userRoles = unitOfWork.UserRoles.Find(x => x.User.Id == userId).ToList();
+            userRoles = unitOfWork.UserRoles.GetCollectionByPredicate(x => x.User.Id == userId).ToList();
 
             List<Role> roles = new List<Role>();
             userRoles.ForEach(x => roles.Add(x.Role));
@@ -46,7 +46,7 @@ namespace MemoBll
 
         public int GetDeckStatistics(int deckId)
         {
-            List<Statistic> deckStatistics = unitOfWork.Statistics.Find(x => x.Deck.Id == deckId).ToList();
+            List<Statistic> deckStatistics = unitOfWork.Statistics.GetCollectionByPredicate(x => x.Deck.Id == deckId).ToList();
 
             if (deckStatistics.Count > 0)
             {
@@ -66,7 +66,7 @@ namespace MemoBll
 
         public int GetCourseStatistics(int courseId)
         {
-            List<DeckCourse> deckCourses = unitOfWork.DeckCourses.Find(x => x.Course.Id == courseId).ToList();
+            List<DeckCourse> deckCourses = unitOfWork.DeckCourses.GetCollectionByPredicate(x => x.Course.Id == courseId).ToList();
 
             if (deckCourses.Count > 1)
             {
@@ -84,7 +84,7 @@ namespace MemoBll
 
         public int GetStatistics(int deckId, int userId)
         {
-            List<Statistic> statistics = unitOfWork.Statistics.Find(x => x.Deck.Id == deckId && x.User.Id == userId).ToList();
+            List<Statistic> statistics = unitOfWork.Statistics.GetCollectionByPredicate(x => x.Deck.Id == deckId && x.User.Id == userId).ToList();
             if (statistics.Count > 1)
             {
                 return statistics[0].SuccessPercent;
@@ -101,7 +101,7 @@ namespace MemoBll
         //Returns all users which have some role
         public List<User> GetAllUserOnRole(Role role)
         {
-            List<UserRole> userRoles = unitOfWork.UserRoles.Find(x => x.Role == role).ToList();
+            List<UserRole> userRoles = unitOfWork.UserRoles.GetCollectionByPredicate(x => x.Role == role).ToList();
             List<User> users = new List<User>();
             foreach (UserRole userRole in userRoles)
             {
@@ -117,7 +117,7 @@ namespace MemoBll
 
         public List<User> GetAllBlocedUser()
         {
-            return unitOfWork.Users.Find(x => x.IsBlocked == true).ToList();
+            return unitOfWork.Users.GetCollectionByPredicate(x => x.IsBlocked == true).ToList();
         }
 
         //admin
@@ -144,7 +144,7 @@ namespace MemoBll
         public List<Role> GetUserRoles(int userId)
         {
             List<UserRole> userRoles = new List<UserRole>();
-            userRoles = unitOfWork.UserRoles.Find(x => x.User.Id == userId).ToList();
+            userRoles = unitOfWork.UserRoles.GetCollectionByPredicate(x => x.User.Id == userId).ToList();
 
             List<Role> roles = new List<Role>();
             userRoles.ForEach(x => roles.Add(x.Role));
@@ -155,7 +155,7 @@ namespace MemoBll
         {
             if (user != null && role != null)
             {
-                if (unitOfWork.UserRoles.Find(x => x.Role == role && x.User == user).ToList().Count == 0)
+                if (unitOfWork.UserRoles.GetCollectionByPredicate(x => x.Role == role && x.User == user).ToList().Count == 0)
                 {
                     UserRole userRole = new UserRole();
                     userRole.Role = role;
@@ -170,7 +170,7 @@ namespace MemoBll
         {
             if (user != null && role != null)
             {
-                List<UserRole> userRoles = unitOfWork.UserRoles.Find(x => x.Role == role && x.User == user).ToList();
+                List<UserRole> userRoles = unitOfWork.UserRoles.GetCollectionByPredicate(x => x.Role == role && x.User == user).ToList();
                 if (userRoles.Count == 1)
                 {
                     userRoles[0].Role = role;
@@ -184,7 +184,7 @@ namespace MemoBll
         {
             if (user != null && role != null)
             {
-                List<UserRole> userRoles = unitOfWork.UserRoles.Find(x => x.Role == role && x.User == user).ToList();
+                List<UserRole> userRoles = unitOfWork.UserRoles.GetCollectionByPredicate(x => x.Role == role && x.User == user).ToList();
                 if (userRoles.Count == 1)
                 {
                     unitOfWork.UserRoles.Delete(userRoles[0]);

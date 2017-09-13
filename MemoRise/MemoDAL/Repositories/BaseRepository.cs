@@ -23,24 +23,25 @@ namespace MemoDAL.Repositories
         {
             return Context.Set<T>().Find(id);
         }
-        public IEnumerable<T> Find(Func<T, Boolean> predicate)
+        public IEnumerable<T> GetCollectionByPredicate(Func<T, Boolean> predicate)
         {
             return Context.Set<T>().Where(predicate).ToList();
+        }
+        public T GetOneElementOrDefault(Func<T, Boolean> predicate)
+        {
+            return Context.Set<T>().FirstOrDefault(predicate);
         }
         public void Create(T obj)
         {
             Context.Set<T>().Add(obj);
-           
         }
         public void Update(T obj)
         {
             Context.Entry(obj).State = EntityState.Modified;
-            
         }
         public void Delete(T obj)
         {
             Context.Set<T>().Remove(obj);
-            
         }
         public MemoContext MemoContext
         {

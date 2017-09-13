@@ -14,22 +14,22 @@ namespace MemoBll
 
         public int GetReportCountForReason(string reason)
         {
-            return unitOfWork.Reports.Find(x => x.Reason == reason).Count();
+            return unitOfWork.Reports.GetCollectionByPredicate(x => x.Reason == reason).Count();
         }
 
         public List<Report> GetAllReportsOnReason(string reason)
         {
-            return unitOfWork.Reports.Find(x => x.Reason == reason).ToList();
+            return unitOfWork.Reports.GetCollectionByPredicate(x => x.Reason == reason).ToList();
         }
 
         public List<Report> GetAllReportsOnDate(DateTime date)
         {
-            return unitOfWork.Reports.Find(x => x.Date == date).ToList();
+            return unitOfWork.Reports.GetCollectionByPredicate(x => x.Date == date).ToList();
         }
 
         public List<Report> GetAllReportsFromDate(DateTime date)
         {
-            return unitOfWork.Reports.Find(x => x.Date >= date).ToList();
+            return unitOfWork.Reports.GetCollectionByPredicate(x => x.Date >= date).ToList();
         }
 
         public Report GetReport(int reportId)
@@ -39,7 +39,7 @@ namespace MemoBll
 
         public int GetDeckStatistics(int deckId)
         {
-            List<Statistic> deckStatistics = unitOfWork.Statistics.Find(x => x.Deck.Id == deckId).ToList();
+            List<Statistic> deckStatistics = unitOfWork.Statistics.GetCollectionByPredicate(x => x.Deck.Id == deckId).ToList();
 
             if (deckStatistics.Count > 0)
             {
@@ -59,7 +59,7 @@ namespace MemoBll
 
         public int GetCourseStatistics(int courseId)
         {
-            List<DeckCourse> deckCourses = unitOfWork.DeckCourses.Find(x => x.Course.Id == courseId).ToList();
+            List<DeckCourse> deckCourses = unitOfWork.DeckCourses.GetCollectionByPredicate(x => x.Course.Id == courseId).ToList();
 
             if (deckCourses.Count > 1)
             {
@@ -77,7 +77,7 @@ namespace MemoBll
 
         public int GetStatistics(int deckId, int userId)
         {
-            List<Statistic> statistics = unitOfWork.Statistics.Find(x => x.Deck.Id == deckId && x.User.Id == userId).ToList();
+            List<Statistic> statistics = unitOfWork.Statistics.GetCollectionByPredicate(x => x.Deck.Id == deckId && x.User.Id == userId).ToList();
             if (statistics.Count > 1)
             {
                 return statistics[0].SuccessPercent;
@@ -93,7 +93,7 @@ namespace MemoBll
 
         public List<User> GetAllUsersByCourse(int courseId) 
         {
-            List<UserCourse> userCourses = unitOfWork.UserCourses.Find(x => x.Course.Id == courseId).ToList();
+            List<UserCourse> userCourses = unitOfWork.UserCourses.GetCollectionByPredicate(x => x.Course.Id == courseId).ToList();
             List<User> users = new List<User>();
             foreach (UserCourse userCourse in userCourses)
             {
@@ -106,7 +106,7 @@ namespace MemoBll
         //Maybe will be method that returns users whish evaluate or pass some deck
         public List<User> GetAllUsersByDeck(int deckId)
         {
-            List<Statistic> statistics = unitOfWork.Statistics.Find(x => x.Deck.Id == deckId).ToList();
+            List<Statistic> statistics = unitOfWork.Statistics.GetCollectionByPredicate(x => x.Deck.Id == deckId).ToList();
             List<User> users = new List<User>();
             foreach (Statistic item in statistics)
             {

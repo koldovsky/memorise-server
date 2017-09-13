@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace MemoRise.Models
+namespace MemoDTO
 {
-    public class UserLoginData
+    public class UserLoginDTO
     {
         public string Login { get; set; }
         public string Password { get; set; }

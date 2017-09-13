@@ -7,7 +7,7 @@ using MemoDTO;
 
 namespace MemoBll
 {
-    class Quiz
+    class QuizBll
     {
         UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
         ConverterToDto converterToDto = new ConverterToDto();

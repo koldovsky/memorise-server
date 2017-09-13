@@ -10,7 +10,7 @@ using MemoDTO;
 
 namespace MemoBll
 {
-     public class SignUp
+     public class SignUpBll
     {
         UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
         ConverterToDto converterToDto = new ConverterToDto();

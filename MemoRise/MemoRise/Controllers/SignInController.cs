@@ -1,16 +1,16 @@
 ﻿using System.Web.Http;
 using Newtonsoft.Json;
 using MemoBll;
-using MemoRise.Models;
+using MemoDTO;
 
 namespace MemoRise.Controllers
 {
     public class SignInController : ApiController
     {
-        SignIn signIn = new SignIn(); 
+        SignInBll signIn = new SignInBll(); 
         public string GetUser(string userLoginData)
         {
-            UserLoginData loginData = JsonConvert.DeserializeObject<UserLoginData>(userLoginData);
+            UserLoginDTO loginData = JsonConvert.DeserializeObject<UserLoginDTO>(userLoginData);
             var user = JsonConvert.SerializeObject(signIn.GetUser(loginData.Login, loginData.Password));
             return user;
         }

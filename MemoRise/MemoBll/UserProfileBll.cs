@@ -17,7 +17,7 @@ namespace MemoBll
         public List<MemoDTO.CourseDTO> GetCoursesByUser(string userEmail)
         {
             List<MemoDTO.CourseDTO> courses = new List<MemoDTO.CourseDTO>();
-            IEnumerable<UserCourse> userCourses = unitOfWork.UserCourses.Find(x => x.User.Email == userEmail);
+            IEnumerable<UserCourse> userCourses = unitOfWork.UserCourses.GetCollectionByPredicate(x => x.User.Email == userEmail);
             if (userCourses != null && userCourses.ToList().Count > 0)
             {
                 foreach (UserCourse userCourse in userCourses)
@@ -31,14 +31,14 @@ namespace MemoBll
         public List<MemoDTO.DeckDTO> GetDecksByUser(string login) 
         {
             List<MemoDTO.DeckDTO> decks = new List<MemoDTO.DeckDTO>();
-            IEnumerable<UserCourse> userCourses = unitOfWork.UserCourses.Find(x => x.User.Login == login);
+            IEnumerable<UserCourse> userCourses = unitOfWork.UserCourses.GetCollectionByPredicate(x => x.User.Login == login);
 
             if (userCourses != null && userCourses.ToList().Count > 0)
             {
                 List<DeckCourse> deckCourses = new List<DeckCourse>();
                 foreach (UserCourse userCourse in userCourses)
                 {
-                    deckCourses.AddRange(unitOfWork.DeckCourses.Find(x => x.Course.Id == userCourse.Course.Id));
+                    deckCourses.AddRange(unitOfWork.DeckCourses.GetCollectionByPredicate(x => x.Course.Id == userCourse.Course.Id));
                 }
 
                 if (deckCourses.Count > 0)

@@ -1,6 +1,7 @@
 ﻿using System.Web.Http;
 using Newtonsoft.Json;
 using MemoBll;
+using System;
 
 namespace MemoRise.Controllers
 {
@@ -10,9 +11,25 @@ namespace MemoRise.Controllers
         CatalogBll catalog = new CatalogBll();
         public string GetCategories()
         {
-            var categories = JsonConvert.SerializeObject(catalog.GetAllCategories());
-            return categories;
+            try
+            {
+                var categories = JsonConvert.SerializeObject(catalog.GetAllCategories());
+                return categories;
+            }
+            catch(ArgumentNullException ex)
+            {
+                return ex.Message;
+            }
+            catch(NullReferenceException ex)
+            {
+                return ex.Message;
+            }
+            catch(Exception ex)
+            {
+                return ex.Message;
+            }
         }
+        
         public string GetCourses()
         {
             var courses = JsonConvert.SerializeObject(catalog.GetAllCourses());
