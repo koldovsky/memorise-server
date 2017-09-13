@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MemoDAL;
 using MemoDAL.Entities;
 using MemoDAL.EF;
+using MemoDTO;
 
 namespace MemoBll
 {
@@ -14,9 +15,9 @@ namespace MemoBll
         UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
         ConverterToDto converterToDto = new ConverterToDto();
 
-        public List<MemoDTO.CourseDTO> GetCoursesByUser(string userEmail)
+        public List<CourseDTO> GetCoursesByUser(string userEmail)
         {
-            List<MemoDTO.CourseDTO> courses = new List<MemoDTO.CourseDTO>();
+            List<MemoDTO.CourseDTO> courses = new List<CourseDTO>();
             IEnumerable<UserCourse> userCourses = unitOfWork.UserCourses.GetCollectionByPredicate(x => x.User.Email == userEmail);
             if (userCourses != null && userCourses.ToList().Count > 0)
             {
@@ -28,9 +29,9 @@ namespace MemoBll
             return courses;
         }
 
-        public List<MemoDTO.DeckDTO> GetDecksByUser(string login) 
+        public List<DeckDTO> GetDecksByUser(string login) 
         {
-            List<MemoDTO.DeckDTO> decks = new List<MemoDTO.DeckDTO>();
+            List<DeckDTO> decks = new List<DeckDTO>();
             IEnumerable<UserCourse> userCourses = unitOfWork.UserCourses.GetCollectionByPredicate(x => x.User.Login == login);
 
             if (userCourses != null && userCourses.ToList().Count > 0)
@@ -51,6 +52,21 @@ namespace MemoBll
             }
             return decks;
         }
-        
+
+        public UserDTO GetUser(int userId)
+        {
+            User user = unitOfWork.Users.GetOneElementOrDefault(x => x.Id == userId);
+
+            UserDTO userDTO;
+            if (user != null)
+            {
+                userDTO = converterToDto.ConvertToUserDTO(user);
+                return userDTO;
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
+        }
     }
 }
