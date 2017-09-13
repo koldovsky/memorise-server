@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using MemoDAL;
 using MemoDAL.Entities;
 using MemoDAL.EF;
@@ -14,7 +13,7 @@ namespace MemoBll
 
         public bool CheckAnswer (AnswerDTO answer, int cardId)  
         {
-            Card card = unitOfWork.Cards.GetAll().FirstOrDefault(x => x.Id == cardId);
+            Card card = unitOfWork.Cards.GetOneElementOrDefault(x => x.Id == cardId);
             foreach (Answer answers in card.Answers)    
             {
                 if (converterToDto.ConvertToAnswerDTO(answers) == answer) 
@@ -25,11 +24,10 @@ namespace MemoBll
             return false;
         }
 
-        // I don't know if this is method is correct?
         public List<AnswerDTO> GetAllAnswersInCard(int cardId)
         {
             List<AnswerDTO> answers = new List<AnswerDTO>();
-            Card card = unitOfWork.Cards.GetAll().FirstOrDefault(x => x.Id == cardId);
+            Card card = unitOfWork.Cards.GetOneElementOrDefault(x => x.Id == cardId);
             foreach (Answer answer in card.Answers)
             {
                 answers.Add(converterToDto.ConvertToAnswerDTO(answer));
@@ -41,7 +39,7 @@ namespace MemoBll
          public List<CardDTO> GetCardsByDeck(string deckName)   
          {
              List<CardDTO> cards = new List<CardDTO>();
-             Deck deck = unitOfWork.Decks.GetAll().FirstOrDefault(x => x.Name == deckName);
+             Deck deck = unitOfWork.Decks.GetOneElementOrDefault(x => x.Name == deckName);
              foreach (Card card in deck.Cards)   
              {
                  cards.Add(converterToDto.ConvertToCardDTO(card));
