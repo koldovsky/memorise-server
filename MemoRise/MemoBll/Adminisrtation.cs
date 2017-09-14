@@ -163,57 +163,41 @@ namespace MemoBll
             unitOfWork.Save();
         }
 
-        //public List<Role> GetUserRoles(int userId)
-        //{
-        //    List<UserRole> userRoles = new List<UserRole>();
-        //    userRoles = unitOfWork.UserRoles.GetCollectionByPredicate(x => x.User.Id == userId).ToList();
+        public List<Role> GetUserRoles(int userId)
+        {
+            User currentUser = unitOfWork.Users.GetOneElementOrDefault(x => x.Id == user.Id);
+            List<Role> roles = currentUser.Roles.ToList();
+            
+            return roles;
+        }
 
-        //    List<Role> roles = new List<Role>();
-        //    userRoles.ForEach(x => roles.Add(x.Role));
-        //    return roles;
-        //}
+        public void SetUserRole(User user, Role role)
+        {
+            if (user != null && role != null)
+            {
+                User currentUser = unitOfWork.Users.GetOneElementOrDefault(x => x.Id == user.Id);
+                if (currentUser != null)
+                {
+                    currentUser.Roles.Add(role);
+                    unitOfWork.Users.Update(currentUser);
+                    unitOfWork.Save();
+                }
+            }
+        }
 
-        //public void SetUserRole(User user, Role role)
-        //{
-        //    if (user != null && role != null)
-        //    {
-        //        if (unitOfWork.UserRoles.GetCollectionByPredicate(x => x.Role == role && x.User == user).ToList().Count == 0)
-        //        {
-        //            UserRole userRole = new UserRole();
-        //            userRole.Role = role;
-        //            userRole.User = user;
-        //            unitOfWork.UserRoles.Create(userRole);
-        //            unitOfWork.Save();
-        //        }
-        //    }
-        //}
-
-        //public void UpdateUserRole(User user, Role role)
-        //{
-        //    if (user != null && role != null)
-        //    {
-        //        List<UserRole> userRoles = unitOfWork.UserRoles.GetCollectionByPredicate(x => x.Role == role && x.User == user).ToList();
-        //        if (userRoles.Count == 1)
-        //        {
-        //            userRoles[0].Role = role;
-        //            userRoles[0].User = user;
-        //            unitOfWork.Save();
-        //        }
-        //    }
-        //}
-
-        //public void DeleteUserRole(User user, Role role)
-        //{
-        //    if (user != null && role != null)
-        //    {
-        //        List<UserRole> userRoles = unitOfWork.UserRoles.GetCollectionByPredicate(x => x.Role == role && x.User == user).ToList();
-        //        if (userRoles.Count == 1)
-        //        {
-        //            unitOfWork.UserRoles.Delete(userRoles[0]);
-        //            unitOfWork.Save();
-        //        }
-        //    }
-        //}
+        public void RemoveRoleFromUser(User user, Role role)
+        {
+            if (user != null && role != null)
+            {
+                User currentUser=unitOfWork.Users.GetOneElementOrDefault(x => x.Id == user.Id);
+                if (currentUser!=null)
+                {
+                    currentUser.Roles.Remove(role);
+                    unitOfWork.Users.Update(currentUser);
+                    unitOfWork.Save();
+                }
+            }
+        }
 
         public void CreateAnswer(Answer answer)
         {

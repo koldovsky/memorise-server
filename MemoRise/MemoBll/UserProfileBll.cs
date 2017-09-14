@@ -27,10 +27,10 @@ namespace MemoBll
             return courses;
         }
 
-        //public List<DeckDTO> GetDecksByUser(string login) 
+        //public List<DeckDTO> GetDecksByUser(string login)
         //{
         //    List<DeckDTO> decks = new List<DeckDTO>();
-        //    IEnumerable<UserCourse> userCourses = unitOfWork.UserCourses.GetCollectionByPredicate(x => x.User.Login == login);
+        //    IEnumerable<Deck> userdecks = unitOfWork.Decks.GetCollectionByPredicate(x => x.U == login);
 
         //    if (userCourses != null && userCourses.ToList().Count > 0)
         //    {
