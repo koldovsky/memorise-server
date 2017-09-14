@@ -6,7 +6,7 @@ using MemoDAL.EF;
 
 namespace MemoBll
 {
-    public class FilterS
+    public class Filter
     {
         UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
 

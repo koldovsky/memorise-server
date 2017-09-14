@@ -58,7 +58,7 @@
     <Compile Include="CustomerStatistic.cs" />
     <Compile Include="Moderation.cs" />
     <Compile Include="QuizReview.cs" />
-    <Compile Include="FilterS.cs" />
+    <Compile Include="Filter.cs" />
     <Compile Include="SignUpBll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SignInBll.cs" />
