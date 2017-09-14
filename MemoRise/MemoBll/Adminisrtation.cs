@@ -4,27 +4,38 @@ using System.Linq;
 using MemoDAL;
 using MemoDAL.Entities;
 using MemoDAL.EF;
+using MemoDTO;
 
 namespace MemoBll
 {
     class Adminisrtation
     {
         UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
+        ConverterToDto converterToDto = new ConverterToDto();
 
         public List<Role> GetAllRoles()
         {
             return unitOfWork.Roles.GetAll().ToList();
         }
 
-        //public List<Role> GetRoles(int userId)
-        //{
-        //    List<UserRole> userRoles = new List<UserRole>();
-        //    userRoles = unitOfWork.UserRoles.GetCollectionByPredicate(x => x.User.Id == userId).ToList();
-
-        //    List<Role> roles = new List<Role>();
-        //    userRoles.ForEach(x => roles.Add(x.Role));
-        //    return roles;
-        //}
+        public List<RoleDTO> GetRoles(int userId)
+        {
+            List<RoleDTO> roles = new List<RoleDTO>();
+            User user;
+            user = unitOfWork.Users.GetOneElementOrDefault(x => x.Id == userId);
+            if(user != null)
+            {
+                foreach(Role role in user.Roles)
+                {
+                    roles.Add(converterToDto.ConvertToRoleDTO(role));
+                }
+                return roles;
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
+        }
 
         public void CreateRole(Role role)
         {
@@ -46,50 +57,62 @@ namespace MemoBll
 
         public int GetDeckStatistics(int deckId)
         {
-            List<Statistic> deckStatistics = unitOfWork.Statistics.GetCollectionByPredicate(x => x.Deck.Id == deckId).ToList();
+            List<Statistic> deckStatistics = unitOfWork.Statistics
+                .GetCollectionByPredicate(x => x.Deck.Id == deckId).ToList();
 
-            if (deckStatistics.Count > 0)
+            if (deckStatistics != null && deckStatistics.Count > 0)
             {
                 double totalDeckPercent = 0.0;
-                double result = 0.0;
+                double averageDeckPercent = 0.0;
 
                 foreach (Statistic statistic in deckStatistics)
                 {
                     totalDeckPercent += statistic.SuccessPercent;
                 }
-                result = Math.Round(totalDeckPercent / deckStatistics.Count);
+                averageDeckPercent = Math.Round(totalDeckPercent / deckStatistics.Count);
 
-                return Convert.ToInt32(result);
+                return Convert.ToInt32(averageDeckPercent);
             }
-            return 0;
+            else
+            {
+                throw new ArgumentNullException();
+            }
         }
 
-        //public int GetCourseStatistics(int courseId)
-        //{
-        //    List<DeckCourse> deckCourses = unitOfWork.DeckCourses.GetCollectionByPredicate(x => x.Course.Id == courseId).ToList();
+        public int GetCourseStatistics(int courseId)
+        {
+            List<StatisticDTO> statisticDTO = new List<StatisticDTO>();
+            Course course = unitOfWork.Course.Get(courseId);
 
-        //    if (deckCourses.Count > 1)
-        //    {
-        //        double totalCoursePercent = 0.0;
-        //        double result = 0.0;
-        //        foreach (DeckCourse deckCourse in deckCourses)
-        //        {
-        //            totalCoursePercent += GetDeckStatistics(deckCourse.Deck.Id);
-        //        }
-        //        result = Math.Round(totalCoursePercent / deckCourses.Count);
-        //        return Convert.ToInt32(result);
-        //    }
-        //    return 0;
-        //}
+            if (course != null)
+            {
+                double totalCoursePercent = 0.0;
+                double averageCoursePercent = 0.0;
+                foreach (Deck deck in course.Decks)
+                {
+                    totalCoursePercent += GetDeckStatistics(deck.Id);
+                }
+                averageCoursePercent = Math.Round(totalCoursePercent / course.Decks.Count);
+                return Convert.ToInt32(averageCoursePercent);
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
+        }
 
         public int GetStatistics(int deckId, int userId)
         {
-            List<Statistic> statistics = unitOfWork.Statistics.GetCollectionByPredicate(x => x.Deck.Id == deckId && x.User.Id == userId).ToList();
-            if (statistics.Count > 1)
+            List<Statistic> statistics = unitOfWork.Statistics
+                .GetCollectionByPredicate(x => x.Deck.Id == deckId && x.User.Id == userId).ToList();
+            if (statistics != null && statistics.Count > 1)
             {
                 return statistics[0].SuccessPercent;
             }
-            return 0;
+            else
+            {
+                throw new Exception();
+            }
         }
 
         public void DeleteStatistics(Statistic statistics)
@@ -98,17 +121,19 @@ namespace MemoBll
             unitOfWork.Save();
         }
 
-        //Returns all users which have some role
-        //public List<User> GetAllUserOnRole(Role role)
-        //{
-        //    List<UserRole> userRoles = unitOfWork.UserRoles.GetCollectionByPredicate(x => x.Role == role).ToList();
-        //    List<User> users = new List<User>();
-        //    foreach (UserRole userRole in userRoles)
-        //    {
-        //        users.Add(userRole.User);
-        //    }
-        //    return users;
-        //}
+        public List<UserDTO> GetAllUsersOnRole(string roleName)
+        {
+            Role currentRole = unitOfWork.Roles.GetOneElementOrDefault(x => x.Name == roleName);
+            if(currentRole != null)
+            {
+                return converterToDto.ConvertToUserListDTO(currentRole.Users.ToList());
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
+            
+        }
 
         public User GetUser(int userId)
         {
@@ -120,21 +145,18 @@ namespace MemoBll
             return unitOfWork.Users.GetCollectionByPredicate(x => x.IsBlocked == true).ToList();
         }
 
-        //admin
         public void BlockUser(int userId)
         {
             unitOfWork.Users.Get(userId).IsBlocked = true;
             unitOfWork.Save();
         }
 
-        //admin
         public void UnBlockUser(int userId)
         {
             unitOfWork.Users.Get(userId).IsBlocked = false;
             unitOfWork.Save();
         }
 
-        //admin
         public void DeleteUser(User user)
         {
             unitOfWork.Users.Delete(user);

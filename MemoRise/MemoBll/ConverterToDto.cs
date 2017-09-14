@@ -81,6 +81,16 @@ namespace MemoBll
             };
         }
 
+        public List<UserDTO> ConvertToUserListDTO(IEnumerable<User> users)
+        {
+            List<UserDTO> userDTOs = new List<UserDTO>();
+            foreach (User user in users)
+            {
+                userDTOs.Add(ConvertToUserDTO(user));
+            }
+            return userDTOs;
+        }
+
         public CardDTO ConvertToCardDTO(Card card)
         {
             return new CardDTO
