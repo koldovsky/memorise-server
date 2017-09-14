@@ -56,7 +56,15 @@ namespace MemoDAL.EF
                 new Deck{Name="Arrays",Price=0,Category=categories[0]},
                 new Deck{Name="Generics",Price=0,Category=categories[0]},
                 new Deck{Name="Threads",Price=0,Category=categories[0]},
-                new Deck{Name="LINQ",Price=0,Category=categories[0]}
+                new Deck{Name="LINQ",Price=0,Category=categories[0]},
+                new Deck{Name="Database First",Price=0,Category=categories[0]},
+                new Deck{Name="Model First",Price=0,Category=categories[0]},
+                new Deck{Name="Code First",Price=0,Category=categories[0]},
+                new Deck{Name="Web API",Price=0,Category=categories[0]},
+                new Deck{Name="IIS",Price=0,Category=categories[0]},
+                new Deck{Name="Rouring",Price=0,Category=categories[0]},
+                new Deck{Name="XAML",Price=0,Category=categories[0]},
+                new Deck{Name="Binding",Price=0,Category=categories[0]},
             };
             foreach (var deck in decks)
             {
@@ -65,16 +73,27 @@ namespace MemoDAL.EF
             //COURSE
             IList<Course> courses = new List<Course>()
             {
-                new Course{Name="C#",Description="C# course description",Price=0,Category=categories[0]},
+                new Course{Name="cSharp",Description="C# course description",Price=0,Category=categories[0]},
                 new Course{Name="ASP.MVC",Description="ASP.MVC course description",Price=0,Category=categories[0]},
                 new Course{Name="EntityFramework",Description="EntityFramework course description",Price=100,Category=categories[0]},
                 new Course{Name="WPF",Description="WPF course description",Price=0,Category=categories[0]}
             };
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
                 courses[0].Decks.Add(decks[i]);
             }
-            courses[2].Decks.Add(decks[3]);
+            for (int i = 4; i < 7; i++)
+            {
+                courses[1].Decks.Add(decks[i]);
+            }
+            for (int i = 7; i < 10; i++)
+            {
+                courses[2].Decks.Add(decks[i]);
+            }
+            for (int i = 10; i < 12; i++)
+            {
+                courses[3].Decks.Add(decks[i]);
+            }
             foreach (var course in courses)
             {
                 context.Courses.Add(course);
