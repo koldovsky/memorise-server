@@ -16,15 +16,15 @@ namespace MemoBll
             return unitOfWork.Roles.GetAll().ToList();
         }
 
-        public List<Role> GetRoles(int userId)
-        {
-            List<UserRole> userRoles = new List<UserRole>();
-            userRoles = unitOfWork.UserRoles.GetCollectionByPredicate(x => x.User.Id == userId).ToList();
+        //public List<Role> GetRoles(int userId)
+        //{
+        //    List<UserRole> userRoles = new List<UserRole>();
+        //    userRoles = unitOfWork.UserRoles.GetCollectionByPredicate(x => x.User.Id == userId).ToList();
 
-            List<Role> roles = new List<Role>();
-            userRoles.ForEach(x => roles.Add(x.Role));
-            return roles;
-        }
+        //    List<Role> roles = new List<Role>();
+        //    userRoles.ForEach(x => roles.Add(x.Role));
+        //    return roles;
+        //}
 
         public void CreateRole(Role role)
         {
@@ -64,23 +64,23 @@ namespace MemoBll
             return 0;
         }
 
-        public int GetCourseStatistics(int courseId)
-        {
-            List<DeckCourse> deckCourses = unitOfWork.DeckCourses.GetCollectionByPredicate(x => x.Course.Id == courseId).ToList();
+        //public int GetCourseStatistics(int courseId)
+        //{
+        //    List<DeckCourse> deckCourses = unitOfWork.DeckCourses.GetCollectionByPredicate(x => x.Course.Id == courseId).ToList();
 
-            if (deckCourses.Count > 1)
-            {
-                double totalCoursePercent = 0.0;
-                double result = 0.0;
-                foreach (DeckCourse deckCourse in deckCourses)
-                {
-                    totalCoursePercent += GetDeckStatistics(deckCourse.Deck.Id);
-                }
-                result = Math.Round(totalCoursePercent / deckCourses.Count);
-                return Convert.ToInt32(result);
-            }
-            return 0;
-        }
+        //    if (deckCourses.Count > 1)
+        //    {
+        //        double totalCoursePercent = 0.0;
+        //        double result = 0.0;
+        //        foreach (DeckCourse deckCourse in deckCourses)
+        //        {
+        //            totalCoursePercent += GetDeckStatistics(deckCourse.Deck.Id);
+        //        }
+        //        result = Math.Round(totalCoursePercent / deckCourses.Count);
+        //        return Convert.ToInt32(result);
+        //    }
+        //    return 0;
+        //}
 
         public int GetStatistics(int deckId, int userId)
         {
@@ -99,16 +99,16 @@ namespace MemoBll
         }
 
         //Returns all users which have some role
-        public List<User> GetAllUserOnRole(Role role)
-        {
-            List<UserRole> userRoles = unitOfWork.UserRoles.GetCollectionByPredicate(x => x.Role == role).ToList();
-            List<User> users = new List<User>();
-            foreach (UserRole userRole in userRoles)
-            {
-                users.Add(userRole.User);
-            }
-            return users;
-        }
+        //public List<User> GetAllUserOnRole(Role role)
+        //{
+        //    List<UserRole> userRoles = unitOfWork.UserRoles.GetCollectionByPredicate(x => x.Role == role).ToList();
+        //    List<User> users = new List<User>();
+        //    foreach (UserRole userRole in userRoles)
+        //    {
+        //        users.Add(userRole.User);
+        //    }
+        //    return users;
+        //}
 
         public User GetUser(int userId)
         {
@@ -141,57 +141,57 @@ namespace MemoBll
             unitOfWork.Save();
         }
 
-        public List<Role> GetUserRoles(int userId)
-        {
-            List<UserRole> userRoles = new List<UserRole>();
-            userRoles = unitOfWork.UserRoles.GetCollectionByPredicate(x => x.User.Id == userId).ToList();
+        //public List<Role> GetUserRoles(int userId)
+        //{
+        //    List<UserRole> userRoles = new List<UserRole>();
+        //    userRoles = unitOfWork.UserRoles.GetCollectionByPredicate(x => x.User.Id == userId).ToList();
 
-            List<Role> roles = new List<Role>();
-            userRoles.ForEach(x => roles.Add(x.Role));
-            return roles;
-        }
+        //    List<Role> roles = new List<Role>();
+        //    userRoles.ForEach(x => roles.Add(x.Role));
+        //    return roles;
+        //}
 
-        public void SetUserRole(User user, Role role)
-        {
-            if (user != null && role != null)
-            {
-                if (unitOfWork.UserRoles.GetCollectionByPredicate(x => x.Role == role && x.User == user).ToList().Count == 0)
-                {
-                    UserRole userRole = new UserRole();
-                    userRole.Role = role;
-                    userRole.User = user;
-                    unitOfWork.UserRoles.Create(userRole);
-                    unitOfWork.Save();
-                }
-            }
-        }
+        //public void SetUserRole(User user, Role role)
+        //{
+        //    if (user != null && role != null)
+        //    {
+        //        if (unitOfWork.UserRoles.GetCollectionByPredicate(x => x.Role == role && x.User == user).ToList().Count == 0)
+        //        {
+        //            UserRole userRole = new UserRole();
+        //            userRole.Role = role;
+        //            userRole.User = user;
+        //            unitOfWork.UserRoles.Create(userRole);
+        //            unitOfWork.Save();
+        //        }
+        //    }
+        //}
 
-        public void UpdateUserRole(User user, Role role)
-        {
-            if (user != null && role != null)
-            {
-                List<UserRole> userRoles = unitOfWork.UserRoles.GetCollectionByPredicate(x => x.Role == role && x.User == user).ToList();
-                if (userRoles.Count == 1)
-                {
-                    userRoles[0].Role = role;
-                    userRoles[0].User = user;
-                    unitOfWork.Save();
-                }
-            }
-        }
+        //public void UpdateUserRole(User user, Role role)
+        //{
+        //    if (user != null && role != null)
+        //    {
+        //        List<UserRole> userRoles = unitOfWork.UserRoles.GetCollectionByPredicate(x => x.Role == role && x.User == user).ToList();
+        //        if (userRoles.Count == 1)
+        //        {
+        //            userRoles[0].Role = role;
+        //            userRoles[0].User = user;
+        //            unitOfWork.Save();
+        //        }
+        //    }
+        //}
 
-        public void DeleteUserRole(User user, Role role)
-        {
-            if (user != null && role != null)
-            {
-                List<UserRole> userRoles = unitOfWork.UserRoles.GetCollectionByPredicate(x => x.Role == role && x.User == user).ToList();
-                if (userRoles.Count == 1)
-                {
-                    unitOfWork.UserRoles.Delete(userRoles[0]);
-                    unitOfWork.Save();
-                }
-            }
-        }
+        //public void DeleteUserRole(User user, Role role)
+        //{
+        //    if (user != null && role != null)
+        //    {
+        //        List<UserRole> userRoles = unitOfWork.UserRoles.GetCollectionByPredicate(x => x.Role == role && x.User == user).ToList();
+        //        if (userRoles.Count == 1)
+        //        {
+        //            unitOfWork.UserRoles.Delete(userRoles[0]);
+        //            unitOfWork.Save();
+        //        }
+        //    }
+        //}
 
         public void CreateAnswer(Answer answer)
         {

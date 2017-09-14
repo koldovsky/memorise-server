@@ -10,7 +10,6 @@ namespace MemoDAL.EF
            Database.SetInitializer<MemoContext>(new MemoInitializer());
         }
 
-        
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Card> Cards { get; set; }
         public DbSet<CardType> CardTypes { get; set; }
@@ -18,12 +17,11 @@ namespace MemoDAL.EF
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Deck> Decks { get; set; }
-        public DbSet<DeckCourse> DecksCourses { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<Role> Roles{ get; set; }
         public DbSet<Statistic> Statistics { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserCourse> UserCourses { get; set; }
-        public DbSet<UserRole> UserRoles { get; set; }
+        
     }
 }

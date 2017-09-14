@@ -15,11 +15,11 @@ namespace MemoRise.Controllers
             return userProfile.GetCoursesByUser(userEmail);
         }
 
-        [HttpGet]
-        public List<DeckDTO> GetDecksByUser(string userEmail)
-        {
-            return userProfile.GetDecksByUser(userEmail);
-        }
+        //[HttpGet]
+        //public List<DeckDTO> GetDecksByUser(string userEmail)
+        //{
+        //    return userProfile.GetDecksByUser(userEmail);
+        //}
 
         [HttpGet]
         public UserDTO GetUserById(int id)

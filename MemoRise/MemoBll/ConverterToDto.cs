@@ -6,15 +6,7 @@ namespace MemoBll
 {
     class ConverterToDto
     {
-        public DeckDTO ConvertToDeckDTO(DeckCourse deckCourse)
-        {
-            return new DeckDTO
-            {
-                Name = deckCourse.Deck.Name,
-                Price = deckCourse.Deck.Price
-            };
-        }
-
+       
         public DeckDTO ConvertToDeckDTO(Deck deck)
         {
             return new DeckDTO
@@ -119,15 +111,6 @@ namespace MemoBll
                 commentDTOs.Add(ConvertToCommentDTO(comment));
             }
             return commentDTOs;
-        }
-
-        public DeckCourseDTO ConvertToDeckCourseDTO(DeckCourse deckCourse)
-        {
-            return new DeckCourseDTO
-            {
-                Course = ConvertToCourseDTO(deckCourse.Course),
-                Deck = ConvertToDeckDTO(deckCourse.Deck)
-            };
         }
 
         public ReportDTO ConvertToReportDTO(Report report)

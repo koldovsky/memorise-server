@@ -55,16 +55,17 @@ namespace MemoBll
             }
             return deckDTOs;
         }
-
+               
         public List<DeckDTO> GetAllDecksByCourse(string courseName)
         {
             List<DeckDTO> decks = new List<DeckDTO>();
-            IEnumerable<DeckCourse> deckCourses = unitOfWork.DeckCourses.GetCollectionByPredicate(x => x.Course.Name == courseName);
-            if (deckCourses != null && deckCourses.ToList().Count > 0)
+            Course course = unitOfWork.Course.GetCourseWithDecks(x => x.Name == courseName);
+
+            if (course != null && course.Decks.Count>0)
             {
-                foreach (DeckCourse deckCourse in deckCourses)
+                foreach (Deck deck in course.Decks)
                 {
-                    decks.Add(converterToDto.ConvertToDeckDTO(deckCourse));
+                    decks.Add(converterToDto.ConvertToDeckDTO(deck));
                 }
             }
             return decks;

@@ -28,22 +28,15 @@ namespace MemoDAL.EF
                 new User{Login="user3",Password="3",Email="user3@gmail",IsBlocked=false},
                 new User{Login="user4",Password="4",Email="user4@gmail",IsBlocked=false}
             };
-            foreach(var user in users)
+            for (int i = 0; i < users.Count; i++)
+            {
+                users[i].Roles.Add(roles[i]);
+            }
+            foreach (var user in users)
             {
                 context.Users.Add(user);
             }
-            //USERROLE
-            IList<UserRole> userRoles = new List<UserRole>()
-            {
-                new UserRole{User=users[0],Role=roles[0]},
-                new UserRole{User=users[1],Role=roles[1]},
-                new UserRole{User=users[2],Role=roles[2]},
-                new UserRole{User=users[3],Role=roles[3]},
-            };
-            foreach (var userRole in userRoles)
-            {
-                context.UserRoles.Add(userRole);
-            }
+                      
             //CATEGORY
             IList<Category> categories = new List<Category>()
             {
@@ -57,20 +50,6 @@ namespace MemoDAL.EF
             {
                 context.Categories.Add(cat);
             }
-            //COURSE
-            IList<Course> courses = new List<Course>()
-            {
-                new Course{Name="C#",Description="C# course description",Price=0,Category=categories[0]},
-                new Course{Name="ASP.MVC",Description="ASP.MVC course description",Price=0,Category=categories[0]},
-                new Course{Name="EntityFramework",Description="EntityFramework course description",Price=100,Category=categories[0]},
-                new Course{Name="WPF",Description="WPF course description",Price=0,Category=categories[0]}
-            };
-            foreach (var course in courses)
-            {
-                context.Courses.Add(course);
-            }
-            //USERCOURSE
-            context.UserCourses.Add(new UserCourse { User = users[0], Course = courses[0], Rating = 4 });
             //DECK
             IList<Deck> decks = new List<Deck>()
             {
@@ -83,11 +62,25 @@ namespace MemoDAL.EF
             {
                 context.Decks.Add(deck);
             }
-            //DECKCOURSE
-            context.DecksCourses.Add(new DeckCourse { Deck = decks[0], Course = courses[0] });
-            context.DecksCourses.Add(new DeckCourse { Deck = decks[1], Course = courses[0] });
-            context.DecksCourses.Add(new DeckCourse { Deck = decks[2], Course = courses[0] });
-            context.DecksCourses.Add(new DeckCourse { Deck = decks[3], Course = courses[2] });
+            //COURSE
+            IList<Course> courses = new List<Course>()
+            {
+                new Course{Name="C#",Description="C# course description",Price=0,Category=categories[0]},
+                new Course{Name="ASP.MVC",Description="ASP.MVC course description",Price=0,Category=categories[0]},
+                new Course{Name="EntityFramework",Description="EntityFramework course description",Price=100,Category=categories[0]},
+                new Course{Name="WPF",Description="WPF course description",Price=0,Category=categories[0]}
+            };
+            for (int i = 0; i < 3; i++)
+            {
+                courses[0].Decks.Add(decks[i]);
+            }
+            courses[2].Decks.Add(decks[3]);
+            foreach (var course in courses)
+            {
+                context.Courses.Add(course);
+            }
+            //USERCOURSE
+            context.UserCourses.Add(new UserCourse { User = users[0], Course = courses[0], Rating = 4 });
             //CARDTYPE
             IList<CardType> cardTypes = new List<CardType>()
             {

@@ -27,29 +27,29 @@ namespace MemoBll
             return courses;
         }
 
-        public List<DeckDTO> GetDecksByUser(string login) 
-        {
-            List<DeckDTO> decks = new List<DeckDTO>();
-            IEnumerable<UserCourse> userCourses = unitOfWork.UserCourses.GetCollectionByPredicate(x => x.User.Login == login);
+        //public List<DeckDTO> GetDecksByUser(string login) 
+        //{
+        //    List<DeckDTO> decks = new List<DeckDTO>();
+        //    IEnumerable<UserCourse> userCourses = unitOfWork.UserCourses.GetCollectionByPredicate(x => x.User.Login == login);
 
-            if (userCourses != null && userCourses.ToList().Count > 0)
-            {
-                List<DeckCourse> deckCourses = new List<DeckCourse>();
-                foreach (UserCourse userCourse in userCourses)
-                {
-                    deckCourses.AddRange(unitOfWork.DeckCourses.GetCollectionByPredicate(x => x.Course.Id == userCourse.Course.Id));
-                }
+        //    if (userCourses != null && userCourses.ToList().Count > 0)
+        //    {
+        //        List<DeckCourse> deckCourses = new List<DeckCourse>();
+        //        foreach (UserCourse userCourse in userCourses)
+        //        {
+        //            deckCourses.AddRange(unitOfWork.DeckCourses.GetCollectionByPredicate(x => x.Course.Id == userCourse.Course.Id));
+        //        }
 
-                if (deckCourses.Count > 0)
-                {
-                    foreach (DeckCourse deckCourse in deckCourses)
-                    {
-                        decks.Add(converterToDto.ConvertToDeckDTO(deckCourse.Deck));
-                    }
-                }
-            }
-            return decks;
-        }
+        //        if (deckCourses.Count > 0)
+        //        {
+        //            foreach (DeckCourse deckCourse in deckCourses)
+        //            {
+        //                decks.Add(converterToDto.ConvertToDeckDTO(deckCourse.Deck));
+        //            }
+        //        }
+        //    }
+        //    return decks;
+        //}
 
         public UserDTO GetUser(int userId)
         {

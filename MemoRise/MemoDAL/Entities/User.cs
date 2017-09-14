@@ -8,6 +8,7 @@ namespace MemoDAL.Entities
         {
             Comments = new List<Comment>();
             Reports = new List<Report>();
+            Roles = new List<Role>();
         }
         public string Login { get; set; }
         public string Password { get; set; }
@@ -17,5 +18,6 @@ namespace MemoDAL.Entities
 
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Report> Reports { get; set; }
+        public virtual ICollection<Role> Roles { get; set; }
     }
 }

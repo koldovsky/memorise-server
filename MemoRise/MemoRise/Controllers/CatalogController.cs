@@ -9,14 +9,14 @@ namespace MemoRise.Controllers
 
     public class CatalogController : ApiController
     {
-       
+
         CatalogBll catalog = new CatalogBll();
 
         [HttpGet]
         public List<CategoryDTO> GetCategories()
         {
-                List<CategoryDTO> categories = catalog.GetAllCategories();
-                return categories;
+            List<CategoryDTO> categories = catalog.GetAllCategories();
+            return categories;
         }
 
         [HttpGet]
@@ -37,17 +37,19 @@ namespace MemoRise.Controllers
         public List<CourseDTO> GetCoursesByCategory(string categoryName)
         {
             return catalog.GetAllCourseByCategory(categoryName);
-             
+
         }
 
         [HttpGet]
         public List<DeckDTO> GetDecksByCategory(string categoryName)
         {
             return catalog.GetAllDecksByCategory(categoryName);
-            
+
         }
 
+
         [HttpGet]
+        [Route("Catalog/GetAllDecksByCourse/{courseName}")]
         public List<DeckDTO> GetAllDecksByCourse(string courseName)
         {
             return catalog.GetAllDecksByCourse(courseName);

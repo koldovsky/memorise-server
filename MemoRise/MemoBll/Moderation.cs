@@ -57,23 +57,23 @@ namespace MemoBll
             return 0;
         }
 
-        public int GetCourseStatistics(int courseId)
-        {
-            List<DeckCourse> deckCourses = unitOfWork.DeckCourses.GetCollectionByPredicate(x => x.Course.Id == courseId).ToList();
+        //public int GetCourseStatistics(int courseId)
+        //{
+        //    List<DeckCourse> deckCourses = unitOfWork.DeckCourses.GetCollectionByPredicate(x => x.Course.Id == courseId).ToList();
 
-            if (deckCourses.Count > 1)
-            {
-                double totalCoursePercent = 0.0;
-                double result = 0.0;
-                foreach (DeckCourse deckCourse in deckCourses)
-                {
-                    totalCoursePercent += GetDeckStatistics(deckCourse.Deck.Id);
-                }
-                result = Math.Round(totalCoursePercent / deckCourses.Count);
-                return Convert.ToInt32(result);
-            }
-            return 0;
-        }
+        //    if (deckCourses.Count > 1)
+        //    {
+        //        double totalCoursePercent = 0.0;
+        //        double result = 0.0;
+        //        foreach (DeckCourse deckCourse in deckCourses)
+        //        {
+        //            totalCoursePercent += GetDeckStatistics(deckCourse.Deck.Id);
+        //        }
+        //        result = Math.Round(totalCoursePercent / deckCourses.Count);
+        //        return Convert.ToInt32(result);
+        //    }
+        //    return 0;
+        //}
 
         public int GetStatistics(int deckId, int userId)
         {

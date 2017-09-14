@@ -7,6 +7,7 @@ namespace MemoDAL.Entities
         public Course()
         {
            Coments = new List<Comment>();
+            Decks = new List<Deck>();
         }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -15,5 +16,6 @@ namespace MemoDAL.Entities
 
         public virtual Category Category { get; set; }
         public virtual ICollection<Comment> Coments { get; set; }
+        public virtual ICollection<Deck> Decks { get; set; }
     }
 }

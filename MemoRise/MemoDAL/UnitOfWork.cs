@@ -16,14 +16,12 @@ namespace MemoDAL
             Categories = new CategoryRepository(dbContext);
             Comments = new CommentRepository(dbContext);
             Course = new CourseRepository(dbContext);
-            DeckCourses = new DeckCourseRepository(dbContext);
             Decks = new DeckRepository(dbContext);
             Reports = new ReportRepository(dbContext);
             Roles = new RoleRepository(dbContext);
             Statistics = new StatisticRepository(dbContext);
             UserCourses = new UserCourseRepository(dbContext);
             Users = new UserRepository(dbContext);
-            UserRoles = new UserRoleRepository(dbContext);
         }
 
         public AnswerRepository Answers { get; private set; }
@@ -32,14 +30,12 @@ namespace MemoDAL
         public CategoryRepository Categories { get; private set; }
         public CommentRepository Comments { get; private set; }
         public CourseRepository Course { get; private set; }
-        public DeckCourseRepository DeckCourses { get; private set; }
         public DeckRepository Decks { get; private set; }
         public ReportRepository Reports { get; private set; }
         public RoleRepository Roles { get; private set; }
         public StatisticRepository Statistics { get; private set; }
         public UserCourseRepository UserCourses { get; private set; }
         public UserRepository Users { get; private set; }
-        public UserRoleRepository UserRoles { get; private set; }
         private bool disposed = false;
 
         public void Save()
