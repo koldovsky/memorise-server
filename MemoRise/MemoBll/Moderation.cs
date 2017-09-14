@@ -4,6 +4,7 @@ using System.Linq;
 using MemoDAL;
 using MemoDAL.Entities;
 using MemoDAL.EF;
+using MemoDTO;
 
 namespace MemoBll
 {
@@ -11,6 +12,7 @@ namespace MemoBll
     {
 
         UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
+        ConverterToDto converterToDto = new ConverterToDto();
 
         public int GetReportCountForReason(string reason)
         {
@@ -57,27 +59,9 @@ namespace MemoBll
             return 0;
         }
 
-        //public int GetCourseStatistics(int courseId)
-        //{
-        //    List<DeckCourse> deckCourses = unitOfWork.DeckCourses.GetCollectionByPredicate(x => x.Course.Id == courseId).ToList();
-
-        //    if (deckCourses.Count > 1)
-        //    {
-        //        double totalCoursePercent = 0.0;
-        //        double result = 0.0;
-        //        foreach (DeckCourse deckCourse in deckCourses)
-        //        {
-        //            totalCoursePercent += GetDeckStatistics(deckCourse.Deck.Id);
-        //        }
-        //        result = Math.Round(totalCoursePercent / deckCourses.Count);
-        //        return Convert.ToInt32(result);
-        //    }
-        //    return 0;
-        //}
-
-        public int GetStatistics(int deckId, int userId)
+        public int GetStatistics(string deckName, int userId)   
         {
-            List<Statistic> statistics = unitOfWork.Statistics.GetCollectionByPredicate(x => x.Deck.Id == deckId && x.User.Id == userId).ToList();
+            List<Statistic> statistics = unitOfWork.Statistics.GetCollectionByPredicate(x => x.Deck.Name == deckName && x.User.Id == userId).ToList();
             if (statistics.Count > 1)
             {
                 return statistics[0].SuccessPercent;
@@ -91,26 +75,25 @@ namespace MemoBll
             unitOfWork.Save();
         }
 
-        public List<User> GetAllUsersByCourse(int courseId) 
+        public List<UserDTO> GetAllUsersByCourse(int courseId)
         {
             List<UserCourse> userCourses = unitOfWork.UserCourses.GetCollectionByPredicate(x => x.Course.Id == courseId).ToList();
-            List<User> users = new List<User>();
+            List<UserDTO> users = new List<UserDTO>();
             foreach (UserCourse userCourse in userCourses)
             {
-                users.Add(userCourse.User);
+                users.Add(converterToDto.ConvertToUserDTO(userCourse.User));
             }
             return users;
         }
 
-        //Returns all users which add some deck
-        //Maybe will be method that returns users whish evaluate or pass some deck
-        public List<User> GetAllUsersByDeck(int deckId)
+        
+        public List<UserDTO> GetAllUsersByDeck(string deckName)      
         {
-            List<Statistic> statistics = unitOfWork.Statistics.GetCollectionByPredicate(x => x.Deck.Id == deckId).ToList();
-            List<User> users = new List<User>();
+            List<Statistic> statistics = unitOfWork.Statistics.GetCollectionByPredicate(x => x.Deck.Name == deckName).ToList();
+            List<UserDTO> users = new List<UserDTO>();
             foreach (Statistic item in statistics)
             {
-                users.Add(item.User);
+                users.Add(converterToDto.ConvertToUserDTO(item.User));
             }
             return users;
         }
