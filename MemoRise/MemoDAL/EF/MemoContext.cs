@@ -3,11 +3,11 @@ using MemoDAL.Entities;
 
 namespace MemoDAL.EF
 {
-    public class MemoContext:DbContext
+    public class MemoContext: DbContext
     {
         public MemoContext() : base("MemoDB") {
 
-           Database.SetInitializer<MemoContext>(new MemoInitializer());
+           Database.SetInitializer(new MemoInitializer());
         }
 
         public DbSet<Answer> Answers { get; set; }
