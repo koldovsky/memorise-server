@@ -46,6 +46,7 @@
     <Compile Include="CategoryDTO.cs" />
     <Compile Include="CommentDTO.cs" />
     <Compile Include="CourseDTO.cs" />
+    <Compile Include="CourseWithDecksDTO.cs" />
     <Compile Include="DeckDTO.cs" />
     <Compile Include="DeckCourseDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

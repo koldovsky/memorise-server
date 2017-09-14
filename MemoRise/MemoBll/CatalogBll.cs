@@ -121,6 +121,21 @@ namespace MemoBll
             }
             return courses;
         }
+        public CourseWithDecksDTO GetCourseWithDecksDTO(string courseName)
+        {
+            
+            Course course = unitOfWork.Course.GetCourseWithDecks(x => x.Name == courseName);
+            CourseWithDecksDTO courseWithDeckDto;
+            if (course != null)
+            {
+                courseWithDeckDto=converterToDto.ConvertToCourseWithDecksDTO(course);
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
+            return courseWithDeckDto;
+        }
     }
     
 }

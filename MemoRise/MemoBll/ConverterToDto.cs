@@ -36,6 +36,17 @@ namespace MemoBll
             };
         }
 
+        public CourseWithDecksDTO ConvertToCourseWithDecksDTO(Course course)
+        {
+            return new CourseWithDecksDTO
+            {
+                Name = course.Name,
+                Price = course.Price,
+                Description = course.Description,
+                Decks = ConvertToDeckListDTO(course.Decks)
+            };
+        }
+
         public CategoryDTO ConvertToCategoryDTO(Category category)
         {
             return new CategoryDTO { Name = category.Name };

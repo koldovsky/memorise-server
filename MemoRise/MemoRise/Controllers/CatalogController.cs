@@ -56,5 +56,12 @@ namespace MemoRise.Controllers
             
         }
 
+        [HttpGet]
+        [Route("Catalog/GetCourse/{courseName}")]
+        public CourseWithDecksDTO GetCourse (string courseName)
+        {
+            return catalog.GetCourseWithDecksDTO(courseName);
+        }
+
     }
 }
