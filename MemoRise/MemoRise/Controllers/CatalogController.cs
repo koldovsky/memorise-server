@@ -1,5 +1,4 @@
 ﻿using System.Web.Http;
-using Newtonsoft.Json;
 using MemoBll;
 using MemoDTO;
 using System.Collections.Generic;
@@ -9,7 +8,6 @@ namespace MemoRise.Controllers
 
     public class CatalogController : ApiController
     {
-
         CatalogBll catalog = new CatalogBll();
 
         [HttpGet]
@@ -34,6 +32,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpGet]
+        [Route("Catalog/GetAllDecksByCourse/{categoryName}")]
         public List<CourseDTO> GetCoursesByCategory(string categoryName)
         {
             return catalog.GetAllCourseByCategory(categoryName);
@@ -41,6 +40,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpGet]
+        [Route("Catalog/GetAllDecksByCourse/{categoryName}")]
         public List<DeckDTO> GetDecksByCategory(string categoryName)
         {
             return catalog.GetAllDecksByCategory(categoryName);
