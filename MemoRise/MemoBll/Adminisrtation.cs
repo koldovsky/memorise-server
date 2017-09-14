@@ -165,9 +165,8 @@ namespace MemoBll
 
         public List<Role> GetUserRoles(int userId)
         {
-            User currentUser = unitOfWork.Users.GetOneElementOrDefault(x => x.Id == user.Id);
+            User currentUser = unitOfWork.Users.GetOneElementOrDefault(x => x.Id == userId);
             List<Role> roles = currentUser.Roles.ToList();
-            
             return roles;
         }
 
