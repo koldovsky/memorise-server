@@ -32,7 +32,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpGet]
-        [Route("Catalog/GetAllDecksByCourse/{categoryName}")]
+        [Route("Catalog/GetCoursesByCategory/{categoryName}")]
         public List<CourseDTO> GetCoursesByCategory(string categoryName)
         {
             return catalog.GetAllCourseByCategory(categoryName);
@@ -40,7 +40,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpGet]
-        [Route("Catalog/GetAllDecksByCourse/{categoryName}")]
+        [Route("Catalog/GetDecksByCategory/{categoryName}")]
         public List<DeckDTO> GetDecksByCategory(string categoryName)
         {
             return catalog.GetAllDecksByCategory(categoryName);
