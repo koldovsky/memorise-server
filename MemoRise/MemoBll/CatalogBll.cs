@@ -24,7 +24,10 @@ namespace MemoBll
                     categoryDtos.Add(converterToDto.ConvertToCategoryDTO(category));
                 }
             }
-            else throw new NullReferenceException();
+            else
+            {
+                throw new ArgumentNullException();
+            }
             return categoryDtos;
         }
 
@@ -38,6 +41,10 @@ namespace MemoBll
                 {
                     categoryDtos.Add(converterToDto.ConvertToCourseDTO(course));
                 }
+            }
+            else
+            {
+                throw new ArgumentNullException();
             }
             return categoryDtos;
         }
@@ -53,6 +60,10 @@ namespace MemoBll
                     deckDTOs.Add(converterToDto.ConvertToDeckDTO(deck));
                 }
             }
+            else
+            {
+                throw new ArgumentNullException();
+            }
             return deckDTOs;
         }
 
@@ -66,6 +77,10 @@ namespace MemoBll
                 {
                     decks.Add(converterToDto.ConvertToDeckDTO(deckCourse));
                 }
+            }
+            else
+            {
+                throw new ArgumentNullException();
             }
             return decks;
         }
@@ -81,6 +96,10 @@ namespace MemoBll
                     decks.Add(converterToDto.ConvertToDeckDTO(deck));
                 }
             }
+            else
+            {
+                throw new ArgumentNullException();
+            }
             return decks;
         }
 
@@ -94,6 +113,10 @@ namespace MemoBll
                 {
                     courses.Add(converterToDto.ConvertToCourseDTO(course));
                 }
+            }
+            else
+            {
+                throw new ArgumentNullException();
             }
             return courses;
         }

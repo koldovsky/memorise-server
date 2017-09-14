@@ -4,27 +4,32 @@ using System.Linq;
 using MemoDAL;
 using MemoDAL.Entities;
 using MemoDAL.EF;
+using MemoDTO;
 
 namespace MemoBll
 {
     class Adminisrtation
     {
         UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
+        ConverterToDto converterToDto = new ConverterToDto();
 
-        public List<Role> GetAllRoles()
+        public List<RoleDTO> GetAllRoles()
         {
-            return unitOfWork.Roles.GetAll().ToList();
-        }
-
-        public List<Role> GetRoles(int userId)
-        {
-            List<UserRole> userRoles = new List<UserRole>();
-            userRoles = unitOfWork.UserRoles.GetCollectionByPredicate(x => x.User.Id == userId).ToList();
-
-            List<Role> roles = new List<Role>();
-            userRoles.ForEach(x => roles.Add(x.Role));
-            return roles;
-        }
+            List<RoleDTO> rolesDto = new List<RoleDTO>();
+            IEnumerable<Role> roles = unitOfWork.Roles.GetAll();
+            if (roles != null && roles.ToList().Count > 0)
+            {
+                foreach (Role role in roles)
+                {
+                    rolesDto.Add(converterToDto.ConvertToRoleDTO(role));
+                }
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }            
+            return rolesDto;
+        }        
 
         public void CreateRole(Role role)
         {
@@ -115,7 +120,7 @@ namespace MemoBll
             return unitOfWork.Users.Get(userId);
         }
 
-        public List<User> GetAllBlocedUser()
+        public List<User> GetAllBlockedUsers()
         {
             return unitOfWork.Users.GetCollectionByPredicate(x => x.IsBlocked == true).ToList();
         }
@@ -210,7 +215,7 @@ namespace MemoBll
 
         public List<Answer> GetAllCorrectAnswersInCard(int cardId)
         {
-            return unitOfWork.Answers.GetAll().Where(x => x.Card.Id == cardId && x.IsCorrect).ToList();
+            return unitOfWork.Answers.GetCollectionByPredicate(x => x.Card.Id == cardId && x.IsCorrect).ToList();
         }
 
         public void AddCategory(Category category)
@@ -218,13 +223,13 @@ namespace MemoBll
             unitOfWork.Categories.Create(category);
         }
 
-        public void UpdateCategory(Category category) /*to return bool is better idea*/
-        {                                               /*to give only id and then delete by id*/
+        public void UpdateCategory(Category category) 
+        {                                               
             unitOfWork.Categories.Update(category);
         }
 
-        public void RemoveCategory(Category category) /*to return bool is better idea*/
-        {                                               /*to give only id and then delete by id*/
+        public void RemoveCategory(Category category) 
+        {                                               
             unitOfWork.Categories.Delete(category);
         }
 

@@ -10,7 +10,7 @@ namespace MemoBll
     {
         UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
 
-        public List<Comment> GetAllCommentsAboutCard(int cardId)
+        public List<Comment> GetAllCommentsInCard(int cardId)
         {
             return unitOfWork.Cards.Get(cardId).Comments.ToList();
         }

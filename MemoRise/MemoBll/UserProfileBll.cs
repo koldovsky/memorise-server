@@ -15,7 +15,7 @@ namespace MemoBll
 
         public List<CourseDTO> GetCoursesByUser(string userEmail)
         {
-            List<MemoDTO.CourseDTO> courses = new List<CourseDTO>();
+            List<CourseDTO> courses = new List<CourseDTO>();
             IEnumerable<UserCourse> userCourses = unitOfWork.UserCourses.GetCollectionByPredicate(x => x.User.Email == userEmail);
             if (userCourses != null && userCourses.ToList().Count > 0)
             {
@@ -23,6 +23,10 @@ namespace MemoBll
                 {
                     courses.Add(converterToDto.ConvertToCourseDTO(userCourse.Course));
                 }
+            }
+            else
+            {
+                throw new ArgumentNullException();
             }
             return courses;
         }
@@ -48,6 +52,10 @@ namespace MemoBll
                     }
                 }
             }
+            else
+            {
+                throw new ArgumentNullException();
+            }
             return decks;
         }
 
@@ -55,7 +63,7 @@ namespace MemoBll
         {
             User user = unitOfWork.Users.GetOneElementOrDefault(x => x.Id == userId);
 
-            UserDTO userDTO;
+            UserDTO userDTO = new UserDTO();
             if (user != null)
             {
                 userDTO = converterToDto.ConvertToUserDTO(user);

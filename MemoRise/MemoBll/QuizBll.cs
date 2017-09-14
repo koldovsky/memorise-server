@@ -16,9 +16,9 @@ namespace MemoBll
             Card card = unitOfWork.Cards.GetOneElementOrDefault(x => x.Id == cardId);
             foreach (Answer answers in card.Answers)    
             {
-                if (converterToDto.ConvertToAnswerDTO(answers) == answer) 
+                if (converterToDto.ConvertToAnswerDTO(answers).Text == answer.Text) 
                 {
-                    return answer.IsCorrect;
+                    return true;
                 }
             }
             return false;
@@ -35,8 +35,7 @@ namespace MemoBll
             return answers;
         }
         
-
-         public List<CardDTO> GetCardsByDeck(string deckName)   
+        public List<CardDTO> GetCardsByDeck(string deckName)   
          {
              List<CardDTO> cards = new List<CardDTO>();
              Deck deck = unitOfWork.Decks.GetOneElementOrDefault(x => x.Name == deckName);

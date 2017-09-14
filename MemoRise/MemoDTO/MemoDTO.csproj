@@ -55,7 +55,7 @@
     <Compile Include="UserDTO.cs" />
     <Compile Include="UserCourseDTO.cs" />
     <Compile Include="UserLoginDTO.cs" />
-    <Compile Include="UserRole.cs" />
+    <Compile Include="UserRoleDTO.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
