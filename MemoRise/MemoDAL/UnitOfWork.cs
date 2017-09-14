@@ -4,12 +4,12 @@ using MemoDAL.EF;
 
 namespace MemoDAL
 {
-    public class UnitOfWork:IDisposable
+    public class UnitOfWork: IDisposable
     {
         private MemoContext dbContext;
         public UnitOfWork(MemoContext context)
         {
-           this.dbContext=new MemoContext();
+            this.dbContext=new MemoContext();
             Answers = new AnswerRepository(dbContext);
             Cards = new CardRepository(dbContext);
             CardTypes = new CardTypeRepository(dbContext);
