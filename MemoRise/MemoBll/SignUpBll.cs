@@ -22,7 +22,7 @@ namespace MemoBll
 
         public bool IsUserLoginExists(string login)
         {
-            User user = unitOfWork.Users.GetAll().FirstOrDefault(x => x.Login == login);
+            User user = unitOfWork.Users.GetOneElementOrDefault(x => x.Login == login);
             if (user != null)
             {
                 return true;
@@ -44,7 +44,6 @@ namespace MemoBll
                     };
                     unitOfWork.Users.Create(user);
                     unitOfWork.Save();
-                    unitOfWork.Dispose();
                     return true;
                 }
             }

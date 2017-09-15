@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System;
 using MemoDAL;
 using MemoDAL.Entities;
 using MemoDAL.EF;
@@ -21,9 +22,10 @@ namespace MemoBll
                 userDTO = converterToDto.ConvertToUserDTO(user);
                 return userDTO;
             }
-            userDTO = new UserDTO();
-            userDTO.Login = string.Empty;
-            return userDTO;
+            else
+            {
+                throw new ArgumentNullException();
+            }
         }
     }
 }
