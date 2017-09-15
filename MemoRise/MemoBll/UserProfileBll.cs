@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MemoDAL;
 using MemoDAL.Entities;
 using MemoDAL.EF;
 using MemoDTO;
-using System;
 
 namespace MemoBll
 {
@@ -15,19 +15,22 @@ namespace MemoBll
 
         public List<CourseDTO> GetCoursesByUser(string userEmail)
         {
-            List<MemoDTO.CourseDTO> courses = new List<CourseDTO>();
+            List<CourseDTO> courses = new List<CourseDTO>();
             IEnumerable<UserCourse> userCourses = unitOfWork.UserCourses.GetCollectionByPredicate(x => x.User.Email == userEmail);
-            if (userCourses != null && userCourses.ToList().Count > 0)
+            if (userCourses.ToList().Count > 0)
             {
                 foreach (UserCourse userCourse in userCourses)
                 {
                     courses.Add(converterToDto.ConvertToCourseDTO(userCourse.Course));
                 }
+                return courses;
             }
-            return courses;
+            else
+            {
+                throw new ArgumentNullException();
+            }
         }
 
-       
         public UserDTO GetUser(int userId)
         {
             User user = unitOfWork.Users.GetOneElementOrDefault(x => x.Id == userId);
