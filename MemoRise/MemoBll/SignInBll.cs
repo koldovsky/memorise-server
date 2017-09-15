@@ -5,7 +5,6 @@ using MemoDAL.Entities;
 using MemoDAL.EF;
 using MemoDTO;
 
-
 namespace MemoBll
 {
     public class SignInBll
