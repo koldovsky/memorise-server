@@ -9,7 +9,7 @@ namespace MemoDAL
         private MemoContext dbContext;
         public UnitOfWork(MemoContext context)
         {
-            this.dbContext=new MemoContext();
+            this.dbContext=context;
             Answers = new AnswerRepository(dbContext);
             Cards = new CardRepository(dbContext);
             CardTypes = new CardTypeRepository(dbContext);
