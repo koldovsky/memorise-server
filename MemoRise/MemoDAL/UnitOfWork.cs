@@ -40,10 +40,11 @@ namespace MemoDAL
 
         public void Save()
         {
+            if (this.disposed) throw new ObjectDisposedException("UnitOfWork");
             dbContext.SaveChanges();
         }
 
-        public virtual void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (!this.disposed)
             {
