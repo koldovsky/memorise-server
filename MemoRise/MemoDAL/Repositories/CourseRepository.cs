@@ -20,7 +20,7 @@ namespace MemoDAL.Repositories
 
         public Course GetCourseWithDecks(Func<Course, Boolean> predicate)
         {
-            return MemoContext.Set<Course>().Include("Decks").FirstOrDefault(predicate);
+            return MemoContext.Set<Course>().FirstOrDefault(predicate);
         }
 
     }
