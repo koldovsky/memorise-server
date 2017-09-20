@@ -20,6 +20,7 @@ namespace MemoDAL.EF
             {
                 context.Roles.Add(role);
             }
+
             //USER
             IList<User> users = new List<User>()
             {
@@ -50,6 +51,7 @@ namespace MemoDAL.EF
             {
                 context.Categories.Add(cat);
             }
+
             //DECK
             IList<Deck> decks = new List<Deck>()
             {
@@ -70,6 +72,7 @@ namespace MemoDAL.EF
             {
                 context.Decks.Add(deck);
             }
+
             //COURSE
             IList<Course> courses = new List<Course>()
             {
@@ -98,8 +101,11 @@ namespace MemoDAL.EF
             {
                 context.Courses.Add(course);
             }
+
             //USERCOURSE
-            context.UserCourses.Add(new UserCourse { User = users[0], Course = courses[0], Rating = 4 });
+            context.UserCourses.Add(
+                new UserCourse { User = users[0], Course = courses[0], Rating = 4 });
+            
             //CARDTYPE
             IList<CardType> cardTypes = new List<CardType>()
             {
@@ -124,6 +130,7 @@ namespace MemoDAL.EF
             {
                 context.Cards.Add(card);
             }
+
             //ANSWER
             IList<Answer> answers = new List<Answer>()
             {

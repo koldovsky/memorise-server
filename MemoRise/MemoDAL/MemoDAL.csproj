@@ -57,9 +57,10 @@
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\Course.cs" />
     <Compile Include="Entities\Deck.cs" />
+    <Compile Include="Entities\IUnitOfWork.cs" />
     <Compile Include="Entities\Report.cs" />
     <Compile Include="Entities\Role.cs" />
-    <Compile Include="Entities\Statistic.cs" />
+    <Compile Include="Entities\Statistics.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\UserCourse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,10 +72,22 @@
     <Compile Include="Repositories\CommentRepository.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
     <Compile Include="Repositories\DeckRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IAnswerRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ICategoryRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ICardTypeRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ICardRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ICommentRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ICourseRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IDeckRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IReportRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IRoleRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IStatisticsRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IUserCourseRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\ReportRepository.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
-    <Compile Include="Repositories\StatisticRepository.cs" />
+    <Compile Include="Repositories\StatisticsRepository.cs" />
     <Compile Include="Repositories\UserCourseRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
@@ -85,5 +98,6 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -145,7 +145,7 @@ namespace MemoBll
             };
         }
 
-        public StatisticDTO ConvertToStatisticDTO(Statistic statistic)
+        public StatisticDTO ConvertToStatisticDTO(Statistics statistic)
         {
             return new StatisticDTO
             {

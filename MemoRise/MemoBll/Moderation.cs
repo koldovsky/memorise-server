@@ -41,14 +41,14 @@ namespace MemoBll
 
         public int GetDeckStatistics(int deckId)
         {
-            List<Statistic> deckStatistics = unitOfWork.Statistics.GetCollectionByPredicate(x => x.Deck.Id == deckId).ToList();
+            List<Statistics> deckStatistics = unitOfWork.Statistics.GetCollectionByPredicate(x => x.Deck.Id == deckId).ToList();
 
             if (deckStatistics.Count > 0)
             {
                 double totalDeckPercent = 0.0;
                 double result = 0.0;
 
-                foreach (Statistic statistic in deckStatistics)
+                foreach (Statistics statistic in deckStatistics)
                 {
                     totalDeckPercent += statistic.SuccessPercent;
                 }
@@ -61,7 +61,7 @@ namespace MemoBll
 
         public int GetStatistics(string deckName, int userId)   
         {
-            List<Statistic> statistics = unitOfWork.Statistics.GetCollectionByPredicate(x => x.Deck.Name == deckName && x.User.Id == userId).ToList();
+            List<Statistics> statistics = unitOfWork.Statistics.GetCollectionByPredicate(x => x.Deck.Name == deckName && x.User.Id == userId).ToList();
             if (statistics.Count > 1)
             {
                 return statistics[0].SuccessPercent;
@@ -69,7 +69,7 @@ namespace MemoBll
             return 0;
         }
 
-        public void DeleteStatistics(Statistic statistics)
+        public void DeleteStatistics(Statistics statistics)
         {
             unitOfWork.Statistics.Delete(statistics);
             unitOfWork.Save();
@@ -89,9 +89,9 @@ namespace MemoBll
         
         public List<UserDTO> GetAllUsersByDeck(string deckName)      
         {
-            List<Statistic> statistics = unitOfWork.Statistics.GetCollectionByPredicate(x => x.Deck.Name == deckName).ToList();
+            List<Statistics> statistics = unitOfWork.Statistics.GetCollectionByPredicate(x => x.Deck.Name == deckName).ToList();
             List<UserDTO> users = new List<UserDTO>();
-            foreach (Statistic item in statistics)
+            foreach (Statistics item in statistics)
             {
                 users.Add(converterToDto.ConvertToUserDTO(item.User));
             }

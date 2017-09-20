@@ -121,6 +121,7 @@ namespace MemoBll
             }
             return courses;
         }
+
         public CourseWithDecksDTO GetCourseWithDecksDTO(string courseName)
         {
             
@@ -137,5 +138,4 @@ namespace MemoBll
             return courseWithDeckDto;
         }
     }
-    
 }

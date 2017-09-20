@@ -1,7 +1,6 @@
 ﻿namespace MemoDAL.Entities
 {
-
-    public class Statistic: BaseEntity
+    public class Statistics: BaseEntity
 
     {
         public int SuccessPercent { get; set; }

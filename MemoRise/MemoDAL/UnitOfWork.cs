@@ -19,7 +19,7 @@ namespace MemoDAL
             Decks = new DeckRepository(dbContext);
             Reports = new ReportRepository(dbContext);
             Roles = new RoleRepository(dbContext);
-            Statistics = new StatisticRepository(dbContext);
+            Statistics = new StatisticsRepository(dbContext);
             UserCourses = new UserCourseRepository(dbContext);
             Users = new UserRepository(dbContext);
         }
@@ -33,7 +33,7 @@ namespace MemoDAL
         public DeckRepository Decks { get; private set; }
         public ReportRepository Reports { get; private set; }
         public RoleRepository Roles { get; private set; }
-        public StatisticRepository Statistics { get; private set; }
+        public StatisticsRepository Statistics { get; private set; }
         public UserCourseRepository UserCourses { get; private set; }
         public UserRepository Users { get; private set; }
         private bool disposed = false;

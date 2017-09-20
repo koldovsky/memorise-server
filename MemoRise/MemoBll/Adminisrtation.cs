@@ -57,7 +57,7 @@ namespace MemoBll
 
         public int GetDeckStatistics(int deckId)
         {
-            List<Statistic> deckStatistics = unitOfWork.Statistics
+            List<Statistics> deckStatistics = unitOfWork.Statistics
                 .GetCollectionByPredicate(x => x.Deck.Id == deckId).ToList();
 
             if (deckStatistics != null && deckStatistics.Count > 0)
@@ -65,7 +65,7 @@ namespace MemoBll
                 double totalDeckPercent = 0.0;
                 double averageDeckPercent = 0.0;
 
-                foreach (Statistic statistic in deckStatistics)
+                foreach (Statistics statistic in deckStatistics)
                 {
                     totalDeckPercent += statistic.SuccessPercent;
                 }
@@ -103,7 +103,7 @@ namespace MemoBll
 
         public int GetStatistics(int deckId, int userId)
         {
-            List<Statistic> statistics = unitOfWork.Statistics
+            List<Statistics> statistics = unitOfWork.Statistics
                 .GetCollectionByPredicate(x => x.Deck.Id == deckId && x.User.Id == userId).ToList();
             if (statistics != null && statistics.Count > 1)
             {
@@ -115,7 +115,7 @@ namespace MemoBll
             }
         }
 
-        public void DeleteStatistics(Statistic statistics)
+        public void DeleteStatistics(Statistics statistics)
         {
             unitOfWork.Statistics.Delete(statistics);
             unitOfWork.Save();
