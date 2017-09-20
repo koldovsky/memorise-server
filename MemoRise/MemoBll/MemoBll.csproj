@@ -56,6 +56,7 @@
     <Compile Include="CustomerAccount.cs" />
     <Compile Include="CustomerCourse.cs" />
     <Compile Include="CustomerStatistic.cs" />
+    <Compile Include="DeckDetailsBll.cs" />
     <Compile Include="Moderation.cs" />
     <Compile Include="QuizReview.cs" />
     <Compile Include="Filter.cs" />

@@ -49,6 +49,7 @@
     <Compile Include="CourseWithDecksDTO.cs" />
     <Compile Include="DeckDTO.cs" />
     <Compile Include="DeckCourseDTO.cs" />
+    <Compile Include="DeckWithDetailsDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportDTO.cs" />
     <Compile Include="RoleDTO.cs" />

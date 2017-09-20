@@ -6,7 +6,17 @@ namespace MemoBll
 {
     class ConverterToDto
     {
-       
+
+        public DeckWithDetailsDTO ConvertToDeckWithDetailsDTO(Deck deck)
+        {
+            return new DeckWithDetailsDTO
+            {
+                Name = deck.Name,
+                Price = deck.Price,
+                CardsNumber = deck.Cards.Count
+            };
+        }
+
         public DeckDTO ConvertToDeckDTO(Deck deck)
         {
             return new DeckDTO
