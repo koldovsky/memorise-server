@@ -6,7 +6,7 @@ using MemoDAL.EF;
 
 namespace MemoBll
 {
-    class QuizReview
+    public class QuizReview
     {
         UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
 

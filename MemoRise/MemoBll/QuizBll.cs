@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MemoDAL;
 using MemoDAL.Entities;
 using MemoDAL.EF;
@@ -6,7 +7,7 @@ using MemoDTO;
 
 namespace MemoBll
 {
-    class QuizBll
+    public class QuizBll
     {
         UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
         ConverterToDto converterToDto = new ConverterToDto();
@@ -36,14 +37,18 @@ namespace MemoBll
         }
         
         public List<CardDTO> GetCardsByDeck(string deckName)   
-         {
-             List<CardDTO> cards = new List<CardDTO>();
-             Deck deck = unitOfWork.Decks.GetOneElementOrDefault(x => x.Name == deckName);
-             foreach (Card card in deck.Cards)   
-             {
-                 cards.Add(converterToDto.ConvertToCardDTO(card));
-             }
-             return cards;
-         }
+        {
+            List<CardDTO> cards = new List<CardDTO>();
+            Deck deck = unitOfWork.Decks.GetOneElementOrDefault(x => x.Name == deckName);
+            if(deck == null)
+            {
+                throw new ArgumentNullException();
+            }
+            foreach (Card card in deck.Cards)   
+            {
+                cards.Add(converterToDto.ConvertToCardDTO(card));
+            }
+            return cards;
+        }
     }
 }
