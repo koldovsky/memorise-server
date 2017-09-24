@@ -8,34 +8,34 @@ namespace MemoDAL.EF
     {
         protected override void Seed(MemoContext context)
         {
-            //ROLE
-            IList<Role> roles = new List<Role>()
-            {
-                new Role {Name="Admin"},
-                new Role {Name="Moderator"},
-                new Role {Name="Guest"},
-                new Role {Name="Customer"}
-            };
-            foreach (var role in roles)
-            {
-                context.Roles.Add(role);
-            }
-            //USER
-            IList<User> users = new List<User>()
-            {
-                new User{Login="user1",Password="1",Email="user1@gmail",IsBlocked=false},
-                new User{Login="user2",Password="2",Email="user2@gmail",IsBlocked=false},
-                new User{Login="user3",Password="3",Email="user3@gmail",IsBlocked=false},
-                new User{Login="user4",Password="4",Email="user4@gmail",IsBlocked=false}
-            };
-            for (int i = 0; i < users.Count; i++)
-            {
-                users[i].Roles.Add(roles[i]);
-            }
-            foreach (var user in users)
-            {
-                context.Users.Add(user);
-            }
+            ////ROLE
+            //IList<Role> roles = new List<Role>()
+            //{
+            //    new Role {Name="Admin"},
+            //    new Role {Name="Moderator"},
+            //    new Role {Name="Guest"},
+            //    new Role {Name="Customer"}
+            //};
+            //foreach (var role in roles)
+            //{
+            //    context.Roles.Add(role);
+            //}
+            ////USER
+            //IList<User> users = new List<User>()
+            //{
+            //    new User{Login="user1",Password="1",Email="user1@gmail",IsBlocked=false},
+            //    new User{Login="user2",Password="2",Email="user2@gmail",IsBlocked=false},
+            //    new User{Login="user3",Password="3",Email="user3@gmail",IsBlocked=false},
+            //    new User{Login="user4",Password="4",Email="user4@gmail",IsBlocked=false}
+            //};
+            //for (int i = 0; i < users.Count; i++)
+            //{
+            //    users[i].Roles.Add(roles[i]);
+            //}
+            //foreach (var user in users)
+            //{
+            //    context.Users.Add(user);
+            //}
                       
             //CATEGORY
             IList<Category> categories = new List<Category>()
@@ -98,8 +98,8 @@ namespace MemoDAL.EF
             {
                 context.Courses.Add(course);
             }
-            //USERCOURSE
-            context.UserCourses.Add(new UserCourse { User = users[0], Course = courses[0], Rating = 4 });
+            ////USERCOURSE
+            //context.UserCourses.Add(new UserCourse { User = users[0], Course = courses[0], Rating = 4 });
             //CARDTYPE
             IList<CardType> cardTypes = new List<CardType>()
             {

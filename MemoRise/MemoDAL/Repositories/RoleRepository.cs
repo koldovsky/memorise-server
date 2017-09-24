@@ -1,13 +1,14 @@
 ﻿using MemoDAL.Entities;
 using MemoDAL.EF;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace MemoDAL.Repositories
 {
-    public class RoleRepository: BaseRepository<Role>
+    public class RoleRepository: RoleManager<Role>
     {
-        public RoleRepository(MemoContext context):base(context)
-        {
-
-        }
+        public RoleRepository(RoleStore<Role> store)
+                    : base(store)
+        { }
     }
 }

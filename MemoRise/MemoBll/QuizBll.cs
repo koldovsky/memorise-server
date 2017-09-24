@@ -38,11 +38,11 @@ namespace MemoBll
         public List<CardDTO> GetCardsByDeck(string deckName)   
          {
              List<CardDTO> cards = new List<CardDTO>();
-             Deck deck = unitOfWork.Decks.GetOneElementOrDefault(x => x.Name == deckName);
-             foreach (Card card in deck.Cards)   
-             {
-                 cards.Add(converterToDto.ConvertToCardDTO(card));
-             }
+             //Deck deck = unitOfWork.Decks.GetOneElementOrDefault(x => x.Name == deckName);
+             //foreach (Card card in deck.Cards)   
+             //{
+             //    cards.Add(converterToDto.ConvertToCardDTO(card));
+             //}
              return cards;
          }
     }

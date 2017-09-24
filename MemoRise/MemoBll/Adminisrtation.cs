@@ -13,47 +13,47 @@ namespace MemoBll
         UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
         ConverterToDto converterToDto = new ConverterToDto();
 
-        public List<Role> GetAllRoles()
-        {
-            return unitOfWork.Roles.GetAll().ToList();
-        }
+        //public List<Role> GetAllRoles()
+        //{
+        //    return unitOfWork.Roles.GetAll().ToList();
+        //}
 
-        public List<RoleDTO> GetRoles(int userId)
-        {
-            List<RoleDTO> roles = new List<RoleDTO>();
-            User user;
-            user = unitOfWork.Users.GetOneElementOrDefault(x => x.Id == userId);
-            if(user != null)
-            {
-                foreach(Role role in user.Roles)
-                {
-                    roles.Add(converterToDto.ConvertToRoleDTO(role));
-                }
-                return roles;
-            }
-            else
-            {
-                throw new ArgumentNullException();
-            }
-        }
+        //public List<RoleDTO> GetRoles(int userId)
+        //{
+        //    List<RoleDTO> roles = new List<RoleDTO>();
+        //    User user;
+        //    user = unitOfWork.Users.GetOneElementOrDefault(x => x.Id == userId);
+        //    if(user != null)
+        //    {
+        //        foreach(Role role in user.Roles)
+        //        {
+        //            roles.Add(converterToDto.ConvertToRoleDTO(role));
+        //        }
+        //        return roles;
+        //    }
+        //    else
+        //    {
+        //        throw new ArgumentNullException();
+        //    }
+        //}
 
-        public void CreateRole(Role role)
-        {
-            unitOfWork.Roles.Create(role);
-            unitOfWork.Save();
-        }
+        //public void CreateRole(Role role)
+        //{
+        //    unitOfWork.Roles.Create(role);
+        //    unitOfWork.Save();
+        //}
 
-        public void UpdateRole(Role role)
-        {
-            unitOfWork.Roles.Update(role);
-            unitOfWork.Save();
-        }
+        //public void UpdateRole(Role role)
+        //{
+        //    unitOfWork.Roles.Update(role);
+        //    unitOfWork.Save();
+        //}
 
-        public void DeleteRole(Role role)
-        {
-            unitOfWork.Roles.Delete(role);
-            unitOfWork.Save();
-        }
+        //public void DeleteRole(Role role)
+        //{
+        //    unitOfWork.Roles.Delete(role);
+        //    unitOfWork.Save();
+        //}
 
         public int GetDeckStatistics(int deckId)
         {
@@ -101,19 +101,19 @@ namespace MemoBll
             }
         }
 
-        public int GetStatistics(int deckId, int userId)
-        {
-            List<Statistic> statistics = unitOfWork.Statistics
-                .GetCollectionByPredicate(x => x.Deck.Id == deckId && x.User.Id == userId).ToList();
-            if (statistics != null && statistics.Count > 1)
-            {
-                return statistics[0].SuccessPercent;
-            }
-            else
-            {
-                throw new Exception();
-            }
-        }
+        //public int GetStatistics(int deckId, int userId)
+        //{
+        //    List<Statistic> statistics = unitOfWork.Statistics
+        //        .GetCollectionByPredicate(x => x.Deck.Id == deckId && x.User.Id == userId).ToList();
+        //    if (statistics != null && statistics.Count > 1)
+        //    {
+        //        return statistics[0].SuccessPercent;
+        //    }
+        //    else
+        //    {
+        //        throw new Exception();
+        //    }
+        //}
 
         public void DeleteStatistics(Statistic statistics)
         {
@@ -121,82 +121,82 @@ namespace MemoBll
             unitOfWork.Save();
         }
 
-        public List<UserDTO> GetAllUsersOnRole(string roleName)
-        {
-            Role currentRole = unitOfWork.Roles.GetOneElementOrDefault(x => x.Name == roleName);
-            if(currentRole != null)
-            {
-                return converterToDto.ConvertToUserListDTO(currentRole.Users.ToList());
-            }
-            else
-            {
-                throw new ArgumentNullException();
-            }
+        //public List<UserDTO> GetAllUsersOnRole(string roleName)
+        //{
+        //    Role currentRole = unitOfWork.Roles.GetOneElementOrDefault(x => x.Name == roleName);
+        //    if(currentRole != null)
+        //    {
+        //        return converterToDto.ConvertToUserListDTO(currentRole.Users.ToList());
+        //    }
+        //    else
+        //    {
+        //        throw new ArgumentNullException();
+        //    }
             
-        }
+        //}
 
-        public User GetUser(int userId)
-        {
-            return unitOfWork.Users.Get(userId);
-        }
+        //public User GetUser(int userId)
+        //{
+        //    return unitOfWork.Users.Get(userId);
+        //}
 
-        public List<User> GetAllBlocedUser()
-        {
-            return unitOfWork.Users.GetCollectionByPredicate(x => x.IsBlocked == true).ToList();
-        }
+        //public List<User> GetAllBlocedUser()
+        //{
+        //    return unitOfWork.Users.GetCollectionByPredicate(x => x.IsBlocked == true).ToList();
+        //}
 
-        public void BlockUser(int userId)
-        {
-            unitOfWork.Users.Get(userId).IsBlocked = true;
-            unitOfWork.Save();
-        }
+        //public void BlockUser(int userId)
+        //{
+        //    unitOfWork.Users.Get(userId).IsBlocked = true;
+        //    unitOfWork.Save();
+        //}
 
-        public void UnBlockUser(int userId)
-        {
-            unitOfWork.Users.Get(userId).IsBlocked = false;
-            unitOfWork.Save();
-        }
+        //public void UnBlockUser(int userId)
+        //{
+        //    unitOfWork.Users.Get(userId).IsBlocked = false;
+        //    unitOfWork.Save();
+        //}
 
-        public void DeleteUser(User user)
-        {
-            unitOfWork.Users.Delete(user);
-            unitOfWork.Save();
-        }
+        //public void DeleteUser(User user)
+        //{
+        //    unitOfWork.Users.Delete(user);
+        //    unitOfWork.Save();
+        //}
 
-        public List<Role> GetUserRoles(int userId)
-        {
-            User currentUser = unitOfWork.Users.GetOneElementOrDefault(x => x.Id == userId);
-            List<Role> roles = currentUser.Roles.ToList();
-            return roles;
-        }
+        //public List<Role> GetUserRoles(int userId)
+        //{
+        //    User currentUser = unitOfWork.Users.GetOneElementOrDefault(x => x.Id == userId);
+        //    List<Role> roles = currentUser.Roles.ToList();
+        //    return roles;
+        //}
 
-        public void SetUserRole(User user, Role role)
-        {
-            if (user != null && role != null)
-            {
-                User currentUser = unitOfWork.Users.GetOneElementOrDefault(x => x.Id == user.Id);
-                if (currentUser != null)
-                {
-                    currentUser.Roles.Add(role);
-                    unitOfWork.Users.Update(currentUser);
-                    unitOfWork.Save();
-                }
-            }
-        }
+        //public void SetUserRole(User user, Role role)
+        //{
+        //    if (user != null && role != null)
+        //    {
+        //        User currentUser = unitOfWork.Users.GetOneElementOrDefault(x => x.Id == user.Id);
+        //        if (currentUser != null)
+        //        {
+        //            currentUser.Roles.Add(role);
+        //            unitOfWork.Users.Update(currentUser);
+        //            unitOfWork.Save();
+        //        }
+        //    }
+        //}
 
-        public void RemoveRoleFromUser(User user, Role role)
-        {
-            if (user != null && role != null)
-            {
-                User currentUser=unitOfWork.Users.GetOneElementOrDefault(x => x.Id == user.Id);
-                if (currentUser!=null)
-                {
-                    currentUser.Roles.Remove(role);
-                    unitOfWork.Users.Update(currentUser);
-                    unitOfWork.Save();
-                }
-            }
-        }
+        //public void RemoveRoleFromUser(User user, Role role)
+        //{
+        //    if (user != null && role != null)
+        //    {
+        //        User currentUser=unitOfWork.Users.GetOneElementOrDefault(x => x.Id == user.Id);
+        //        if (currentUser!=null)
+        //        {
+        //            currentUser.Roles.Remove(role);
+        //            unitOfWork.Users.Update(currentUser);
+        //            unitOfWork.Save();
+        //        }
+        //    }
+        //}
 
         public void CreateAnswer(Answer answer)
         {
