@@ -17,7 +17,7 @@ namespace Memorise.Tests
         public void GetAllCategoriesTest()
         {
             // Arrange
-            var expected = new List<Report>();
+            var expected = new List<Category>();
             Mock<IUnitOfWork> unitOfWork = new Mock<IUnitOfWork>();
             unitOfWork.Setup(uow => uow.Categories.GetAll()).Returns(expected);
 

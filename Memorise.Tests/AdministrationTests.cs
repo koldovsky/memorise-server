@@ -10,11 +10,10 @@ using MemoBll;
 namespace Memorise.Tests
 {
 	[TestFixture]
-	[TestFixtureSource("GetMockedSut")]
 	class AdministrationTests
 	{
 		[Test]
-		void GetAllRolesTest()
+		public void GetAllRolesTest()
 		{
 
 		}

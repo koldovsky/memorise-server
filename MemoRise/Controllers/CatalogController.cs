@@ -82,7 +82,7 @@ namespace MemoRise.Controllers
         {
             try
             {
-                List<CourseDTO> courses = catalog.GetAllCourseByCategory(categoryName);
+                List<CourseDTO> courses = catalog.GetAllCoursesByCategory(categoryName);
                 return Request.CreateResponse(HttpStatusCode.OK, courses);
             }
             catch (ArgumentNullException ex)

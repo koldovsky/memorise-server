@@ -51,7 +51,7 @@
     <Compile Include="Administration.cs" />
     <Compile Include="CardEditor.cs" />
     <Compile Include="CatalogBll.cs" />
-    <Compile Include="ConverterToDto.cs" />
+    <Compile Include="ConverterToDTO.cs" />
     <Compile Include="CourseDetailsBll.cs" />
     <Compile Include="CustomerAccount.cs" />
     <Compile Include="CustomerCourse.cs" />

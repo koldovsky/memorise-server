@@ -8,7 +8,7 @@ namespace MemoBll
     public class SignUpBll
     {
         UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
-        ConverterToDto converterToDto = new ConverterToDto();
+        ConverterToDTO converterToDto = new ConverterToDTO();
 
         public bool IsUserEmailExists(string email)
         {
