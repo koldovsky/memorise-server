@@ -3,6 +3,7 @@ using MemoDAL;
 using MemoDAL.Entities;
 using MemoDAL.EF;
 using MemoDTO;
+using System.Linq;
 
 namespace MemoBll
 {
@@ -27,7 +28,8 @@ namespace MemoBll
         {
             bool result = false;
             Card card = unitOfWork.Cards
-                .GetOneElementOrDefault(x => x.Id == cardId);
+                .GetAll().FirstOrDefault(x => x.Id == cardId);
+
             foreach (Answer answers in card.Answers)    
             {
                 if (converterToDto.ConvertToAnswerDTO(answers).Text == answer.Text) 
@@ -44,7 +46,7 @@ namespace MemoBll
         {
             List<AnswerDTO> answers = new List<AnswerDTO>();
             Card card = unitOfWork.Cards
-                .GetOneElementOrDefault(x => x.Id == cardId);
+                .GetAll().FirstOrDefault(x => x.Id == cardId);
             foreach (Answer answer in card.Answers)
             {
                 answers.Add(converterToDto.ConvertToAnswerDTO(answer));
@@ -57,7 +59,7 @@ namespace MemoBll
          {
              List<CardDTO> cards = new List<CardDTO>();
              Deck deck = unitOfWork.Decks
-                .GetOneElementOrDefault(x => x.Name == deckName);
+                .GetAll().FirstOrDefault(x => x.Name == deckName);
              foreach (Card card in deck.Cards)   
              {
                  cards.Add(converterToDto.ConvertToCardDTO(card));

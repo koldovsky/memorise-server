@@ -28,25 +28,25 @@ namespace MemoBll
         public int GetReportCountForReason(string reason)
         {
             return unitOfWork.Reports
-                .GetCollectionByPredicate(x => x.Reason == reason).Count();
+                .GetAll().Where(x => x.Reason == reason).Count();
         }
 
         public List<Report> GetAllReportsOnReason(string reason)
         {
             return unitOfWork.Reports
-                .GetCollectionByPredicate(x => x.Reason == reason).ToList();
+                .GetAll().Where(x => x.Reason == reason).ToList();
         }
 
         public List<Report> GetAllReportsOnDate(DateTime date)
         {
             return unitOfWork.Reports
-                .GetCollectionByPredicate(x => x.Date == date).ToList();
+                .GetAll().Where(x => x.Date == date).ToList();
         }
 
         public List<Report> GetAllReportsFromDate(DateTime date)
         {
             return unitOfWork.Reports
-                .GetCollectionByPredicate(x => x.Date >= date).ToList();
+                .GetAll().Where(x => x.Date >= date).ToList();
         }
 
         public Report GetReport(int reportId)
@@ -58,7 +58,7 @@ namespace MemoBll
         {
             int result = 0;
             List<Statistics> deckStatistics = unitOfWork.Statistics
-                .GetCollectionByPredicate(x => x.Deck.Id == deckId).ToList();
+                .GetAll().Where(x => x.Deck.Id == deckId).ToList();
 
             if (deckStatistics.Count > 0)
             {
@@ -77,9 +77,8 @@ namespace MemoBll
         public int GetStatistics(string deckName, int userId)
         {
             List<Statistics> statistics = unitOfWork.Statistics
-                .GetCollectionByPredicate(x =>
-                x.Deck.Name == deckName && x.User.Id == userId)
-                .ToList();
+                .GetAll().Where(x =>
+                x.Deck.Name == deckName && x.User.Id == userId).ToList();
 
             return statistics.Count > 1 ? statistics[0].SuccessPercent : 0;
         }
@@ -93,8 +92,7 @@ namespace MemoBll
         public List<UserDTO> GetAllUsersByCourse(int courseId)
         {
             List<UserCourse> userCourses = unitOfWork.UserCourses
-                .GetCollectionByPredicate(x => x.Course.Id == courseId)
-                .ToList();
+                .GetAll().Where(x => x.Course.Id == courseId).ToList();
             List<UserDTO> users = new List<UserDTO>();
             foreach (UserCourse userCourse in userCourses)
             {
@@ -107,8 +105,7 @@ namespace MemoBll
         public List<UserDTO> GetAllUsersByDeck(string deckName)
         {
             List<Statistics> statistics = unitOfWork.Statistics
-                .GetCollectionByPredicate(x => x.Deck.Name == deckName)
-                .ToList();
+                .GetAll().Where(x => x.Deck.Name == deckName).ToList();
             List<UserDTO> users = new List<UserDTO>();
             foreach (Statistics item in statistics)
             {

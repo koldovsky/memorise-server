@@ -8,7 +8,6 @@ using NUnit.Framework;
 namespace Memorise.Tests
 {
     [TestFixture]
-    //[TestFixtureSource("GetMockedSut")]
     class FilterTests
     {
         [Test]

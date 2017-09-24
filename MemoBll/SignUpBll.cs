@@ -12,13 +12,13 @@ namespace MemoBll
 
         public bool IsUserEmailExists(string email)
         {
-            User user = unitOfWork.Users.GetOneElementOrDefault(x => x.Email == email);
+            User user = unitOfWork.Users.GetAll().FirstOrDefault(x => x.Email == email);
             return user != null;
         }
 
         public bool IsUserLoginExists(string login)
         {
-            User user = unitOfWork.Users.GetOneElementOrDefault(x => x.Login == login);
+            User user = unitOfWork.Users.GetAll().FirstOrDefault(x => x.Login == login);
             if (user != null)
             {
                 return true;

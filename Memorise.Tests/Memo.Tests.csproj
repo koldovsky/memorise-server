@@ -55,8 +55,11 @@
     <Compile Include="AdministrationTests.cs" />
     <Compile Include="CatalogBllTests.cs" />
     <Compile Include="FilterTests.cs" />
+    <Compile Include="ModerationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TempTest.cs" />
+    <Compile Include="QuizBllTests.cs" />
+    <Compile Include="QuizReviewTests.cs" />
+    <Compile Include="UserProfileBllTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

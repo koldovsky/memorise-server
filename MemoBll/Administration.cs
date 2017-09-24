@@ -36,7 +36,7 @@ namespace MemoBll
         {
             List<RoleDTO> roles = new List<RoleDTO>();
             User user;
-            user = unitOfWork.Users.GetOneElementOrDefault(x => x.Id == userId);
+            user = unitOfWork.Users.Get(userId); //.GetAll().First(x => x.Id == userId);
             if (user != null)
             {
                 foreach (Role role in user.Roles)
@@ -77,7 +77,7 @@ namespace MemoBll
         public int GetDeckStatistics(int deckId)
         {
             List<Statistics> deckStatistics = unitOfWork.Statistics
-                .GetCollectionByPredicate(x => x.Deck.Id == deckId).ToList();
+                .GetAll().Where(x => x.Deck.Id == deckId).ToList();
 
             if (deckStatistics != null && deckStatistics.Count > 0)
             {
@@ -123,7 +123,7 @@ namespace MemoBll
         public int GetStatistics(int deckId, int userId)
         {
             List<Statistics> statistics = unitOfWork.Statistics
-                .GetCollectionByPredicate(x => 
+                .GetAll().Where(x => 
                 x.Deck.Id == deckId && x.User.Id == userId).ToList();
             if (statistics != null && statistics.Count > 1)
             {
@@ -148,7 +148,7 @@ namespace MemoBll
         public List<UserDTO> GetAllUsersOnRole(string roleName)
         {
             Role currentRole = unitOfWork.Roles
-                .GetOneElementOrDefault(x => x.Name == roleName);
+                .GetAll().FirstOrDefault(x => x.Name == roleName);
 
             return currentRole != null
                 ? converterToDto.ConvertToUserListDTO(currentRole.Users.ToList())
@@ -163,7 +163,7 @@ namespace MemoBll
         public List<User> GetAllBlocedUser()
         {
             return unitOfWork.Users
-                .GetCollectionByPredicate(x => x.IsBlocked == true).ToList();
+                .GetAll().Where(x => x.IsBlocked == true).ToList();
         }
 
         public void BlockUser(int userId)
@@ -187,7 +187,7 @@ namespace MemoBll
         public List<Role> GetUserRoles(int userId)
         {
             User currentUser = unitOfWork.Users
-                .GetOneElementOrDefault(x => x.Id == userId);
+                .GetAll().First(x => x.Id == userId);
             List<Role> roles = currentUser.Roles.ToList();
 
             return roles;
@@ -198,7 +198,7 @@ namespace MemoBll
             if (user != null && role != null)
             {
                 User currentUser = unitOfWork.Users
-                    .GetOneElementOrDefault(x => x.Id == user.Id);
+                    .GetAll().First(x => x.Id == user.Id);
                 if (currentUser != null)
                 {
                     currentUser.Roles.Add(role);
@@ -213,7 +213,7 @@ namespace MemoBll
             if (user != null && role != null)
             {
                 User currentUser = unitOfWork.Users
-                    .GetOneElementOrDefault(x => x.Id == user.Id);
+                    .GetAll().First(x => x.Id == user.Id);
                 if (currentUser != null)
                 {
                     currentUser.Roles.Remove(role);

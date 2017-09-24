@@ -29,7 +29,7 @@ namespace MemoBll
         {
             List<CourseDTO> courses = new List<CourseDTO>();
             IEnumerable<UserCourse> userCourses = unitOfWork.UserCourses
-                .GetCollectionByPredicate(x => x.User.Email == userEmail);
+                .GetAll().Where(x => x.User.Email == userEmail);
             if (userCourses.ToList().Count > 0)
             {
                 foreach (UserCourse userCourse in userCourses)
@@ -47,7 +47,7 @@ namespace MemoBll
 
         public UserDTO GetUser(int userId)
         {
-            User user = unitOfWork.Users.GetOneElementOrDefault(x => x.Id == userId);
+            User user = unitOfWork.Users.GetAll().FirstOrDefault(x => x.Id == userId);
             
             return user != null
                 ? converterToDto.ConvertToUserDTO(user)

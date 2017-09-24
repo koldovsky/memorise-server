@@ -107,7 +107,7 @@ namespace MemoBll
         {
             List<DeckDTO> decks = new List<DeckDTO>();
             Category category = unitOfWork.Categories
-                .GetOneElementOrDefault(x => x.Name == categoryName);
+                .GetAll().First(x => x.Name == categoryName);
             if (category != null)
             {
                 foreach (Deck deck in category.Decks)
@@ -127,7 +127,7 @@ namespace MemoBll
         {
             List<CourseDTO> courses = new List<CourseDTO>();
             Category category = unitOfWork.Categories
-                .GetOneElementOrDefault(x => x.Name == categoryName);
+                .GetAll().First(x => x.Name == categoryName);
             if (category != null)
             {
                 foreach (Course course in category.Courses)

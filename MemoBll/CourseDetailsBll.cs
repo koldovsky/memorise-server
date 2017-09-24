@@ -28,7 +28,7 @@ namespace MemoBll
         public List<DeckDTO> GetAllPaidDecks()
         {
             List<Deck> decks = unitOfWork.Decks
-                .GetCollectionByPredicate(x => x.Price > 0).ToList();
+                .GetAll().Where(x => x.Price > 0).ToList();
             return decks.Count > 0
                 ? converterToDto.ConvertToDeckListDTO(decks)
                 : throw new ArgumentNullException();
@@ -42,7 +42,7 @@ namespace MemoBll
         public double GetDeckPrice(int deckId)
         {
             Deck deck = unitOfWork.Decks
-                .GetOneElementOrDefault(x => x.Id == deckId);
+                .GetAll().First(x => x.Id == deckId);
             if (deck != null)
             {
                 return deck.Price;
@@ -62,7 +62,7 @@ namespace MemoBll
         {
             CourseDTO courseDTO = new CourseDTO();
             Course course = unitOfWork.Courses
-                .GetOneElementOrDefault(x => x.Name == name);
+                .GetAll().First(x => x.Name == name);
             courseDTO = course != null
                 ? converterToDto.ConvertToCourseDTO(course)
                 : throw new ArgumentNullException();
@@ -74,7 +74,7 @@ namespace MemoBll
         {
             CourseDTO courseDTO = new CourseDTO();
             Course course = unitOfWork.Courses
-                .GetOneElementOrDefault(x => x.Id == id);
+                .GetAll().First(x => x.Id == id);
             courseDTO = course != null
                 ? converterToDto.ConvertToCourseDTO(course)
                 : throw new ArgumentNullException();

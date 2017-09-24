@@ -27,7 +27,7 @@ namespace MemoBll
         public UserDTO GetUser(string login, string password)
         {
             User user = unitOfWork.Users
-                .GetOneElementOrDefault(x => 
+                .GetAll().FirstOrDefault(x => 
                 x.Login == login && x.Password == password);
 
             return user != null 
