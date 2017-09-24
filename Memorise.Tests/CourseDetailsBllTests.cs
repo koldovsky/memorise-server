@@ -1,4 +1,5 @@
-﻿using MemoDAL;
+﻿using MemoBll;
+using MemoDAL;
 using MemoDAL.Entities;
 using Moq;
 using NUnit.Framework;
@@ -11,17 +12,8 @@ using System.Threading.Tasks;
 namespace Memorise.Tests
 {
     [TestFixture]
-    class ModerationTests
+    class CourseDetailsBllTests
     {
-        [Test]
-        public void GetAllCategoriesTest()
-        {
-            // Arrange
-            
 
-            // Act
-
-            // Assert
-        }
     }
 }

@@ -8,7 +8,7 @@ using MemoDTO;
 
 namespace MemoBll
 {
-    class CourseDetailsBll
+    public class CourseDetailsBll
     {
         IUnitOfWork unitOfWork;
         IConverterToDTO converterToDto;
@@ -42,7 +42,7 @@ namespace MemoBll
         public double GetDeckPrice(int deckId)
         {
             Deck deck = unitOfWork.Decks
-                .GetAll().First(x => x.Id == deckId);
+                .GetAll().FirstOrDefault(x => x.Id == deckId);
             if (deck != null)
             {
                 return deck.Price;
@@ -62,7 +62,7 @@ namespace MemoBll
         {
             CourseDTO courseDTO = new CourseDTO();
             Course course = unitOfWork.Courses
-                .GetAll().First(x => x.Name == name);
+                .GetAll().FirstOrDefault(x => x.Name == name);
             courseDTO = course != null
                 ? converterToDto.ConvertToCourseDTO(course)
                 : throw new ArgumentNullException();
@@ -74,7 +74,7 @@ namespace MemoBll
         {
             CourseDTO courseDTO = new CourseDTO();
             Course course = unitOfWork.Courses
-                .GetAll().First(x => x.Id == id);
+                .GetAll().FirstOrDefault(x => x.Id == id);
             courseDTO = course != null
                 ? converterToDto.ConvertToCourseDTO(course)
                 : throw new ArgumentNullException();

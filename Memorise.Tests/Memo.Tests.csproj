@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="AdministrationTests.cs" />
     <Compile Include="CatalogBllTests.cs" />
+    <Compile Include="CourseDetailsBllTests.cs" />
     <Compile Include="FilterTests.cs" />
     <Compile Include="ModerationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,6 +73,10 @@
     <ProjectReference Include="..\MemoDAL\MemoDAL.csproj">
       <Project>{4d151ebe-00e1-4048-b5a8-9581b928851b}</Project>
       <Name>MemoDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MemoDTO\MemoDTO.csproj">
+      <Project>{658E019F-215B-491B-BBDC-B96CC76F0EBD}</Project>
+      <Name>MemoDTO</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
