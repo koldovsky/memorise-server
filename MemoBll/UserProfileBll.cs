@@ -16,7 +16,7 @@ namespace MemoBll
         public UserProfileBll()
         {
             this.unitOfWork = new UnitOfWork(new MemoContext());
-            this.converterToDto = new ConverterToDto();
+            this.converterToDto = new ConverterToDTO();
         }
 
         public UserProfileBll(IUnitOfWork unitOfWork, IConverterToDTO converterToDto)

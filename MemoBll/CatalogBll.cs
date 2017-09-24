@@ -11,15 +11,15 @@ namespace MemoBll
     public class CatalogBll
     {
         IUnitOfWork unitOfWork;
-        ConverterToDto converterToDto;
+        IConverterToDTO converterToDto;
 
         public CatalogBll()
         {
             unitOfWork = new UnitOfWork(new MemoContext());
-            converterToDto = new ConverterToDto();
+            converterToDto = new ConverterToDTO();
         }
 
-        public CatalogBll(IUnitOfWork uow, ConverterToDto converter)
+        public CatalogBll(IUnitOfWork uow, IConverterToDTO converter)
         {
             unitOfWork = uow;
             converterToDto = converter;
@@ -86,7 +86,9 @@ namespace MemoBll
         {
             List<DeckDTO> decks = new List<DeckDTO>();
             Course course = unitOfWork.Courses
-                .GetCourseWithDecks(x => x.Name == courseName);
+				.GetAll()
+                .Where(x => x.Name == courseName)
+				.First();
 
             if (course != null && course.Decks.Count > 0)
             {
@@ -107,7 +109,8 @@ namespace MemoBll
         {
             List<DeckDTO> decks = new List<DeckDTO>();
             Category category = unitOfWork.Categories
-                .GetAll().First(x => x.Name == categoryName);
+                .GetAll()
+				.First(x => x.Name == categoryName);
             if (category != null)
             {
                 foreach (Deck deck in category.Decks)
@@ -123,11 +126,12 @@ namespace MemoBll
             return decks;
         }
 
-        public List<CourseDTO> GetAllCourseByCategory(string categoryName)
+        public List<CourseDTO> GetAllCoursesByCategory(string categoryName)
         {
             List<CourseDTO> courses = new List<CourseDTO>();
             Category category = unitOfWork.Categories
-                .GetAll().First(x => x.Name == categoryName);
+                .GetAll()
+				.First(x => x.Name == categoryName);
             if (category != null)
             {
                 foreach (Course course in category.Courses)
@@ -146,9 +150,12 @@ namespace MemoBll
         public CourseWithDecksDTO GetCourseWithDecksDTO(string courseName)
         {
             Course course = unitOfWork.Courses
-                .GetCourseWithDecks(x => x.Name == courseName);
-            CourseWithDecksDTO courseWithDeckDto;
-            courseWithDeckDto = course != null
+				.GetAll()
+                .Where(x => x.Name == courseName)
+				.First();
+
+            CourseWithDecksDTO courseWithDeckDto = 
+				course != null
                 ? converterToDto.ConvertToCourseWithDecksDTO(course)
                 : throw new ArgumentNullException();
 

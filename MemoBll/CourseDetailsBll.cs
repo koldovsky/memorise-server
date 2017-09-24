@@ -16,7 +16,7 @@ namespace MemoBll
         public CourseDetailsBll()
         {
             this.unitOfWork = new UnitOfWork(new MemoContext());
-            this.converterToDto = new ConverterToDto();
+            this.converterToDto = new ConverterToDTO();
         }
 
         public CourseDetailsBll(IUnitOfWork unitOfWork, IConverterToDTO converterToDto)

@@ -16,7 +16,7 @@ namespace MemoBll
         public Moderation()
         {
             this.unitOfWork = new UnitOfWork(new MemoContext());
-            this.converterToDto = new ConverterToDto();
+            this.converterToDto = new ConverterToDTO();
         }
 
         public Moderation(IUnitOfWork unitOfWork, IConverterToDTO converterToDto)

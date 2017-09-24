@@ -4,7 +4,7 @@ using MemoDTO;
 
 namespace MemoBll
 {
-    public class ConverterToDto : IConverterToDTO
+    public class ConverterToDTO : IConverterToDTO
     {
         public DeckDTO ConvertToDeckDTO(Deck deck)
         {

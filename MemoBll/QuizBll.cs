@@ -15,7 +15,7 @@ namespace MemoBll
         public QuizBll()
         {
             this.unitOfWork = new UnitOfWork(new MemoContext());
-            this.converterToDto = new ConverterToDto();
+            this.converterToDto = new ConverterToDTO();
         }
 
         public QuizBll(IUnitOfWork unitOfWork, IConverterToDTO converterToDto)
