@@ -52,18 +52,26 @@
     <Compile Include="CardEditor.cs" />
     <Compile Include="CatalogBll.cs" />
     <Compile Include="ConverterToDTO.cs" />
+    <Compile Include="CourseDetails.cs" />
     <Compile Include="CourseDetailsBll.cs" />
     <Compile Include="CustomerAccount.cs" />
     <Compile Include="CustomerCourse.cs" />
     <Compile Include="CustomerStatistic.cs" />
-    <Compile Include="IConverterToDTO.cs" />
+    <Compile Include="Interfaces\IConverterToDTO.cs" />
+    <Compile Include="Interfaces\ICourseDetails.cs" />
+    <Compile Include="Interfaces\IModeration.cs" />
+    <Compile Include="Interfaces\IQuiz.cs" />
+    <Compile Include="Interfaces\IUserProfile.cs" />
     <Compile Include="Moderation.cs" />
+    <Compile Include="ModerationBll.cs" />
+    <Compile Include="Quiz.cs" />
     <Compile Include="QuizReview.cs" />
     <Compile Include="Filter.cs" />
     <Compile Include="SignUpBll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SignInBll.cs" />
     <Compile Include="QuizBll.cs" />
+    <Compile Include="UserProfile.cs" />
     <Compile Include="UserProfileBll.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

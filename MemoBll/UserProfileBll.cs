@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MemoBll.Interfaces;
 using MemoDAL;
 using MemoDAL.Entities;
 using MemoDAL.EF;
@@ -10,44 +11,31 @@ namespace MemoBll
 {
     public class UserProfileBll
     {
-        IUnitOfWork unitOfWork;
+        IUserProfile userProfile;
         IConverterToDTO converterToDto;
 
         public UserProfileBll()
         {
-            this.unitOfWork = new UnitOfWork(new MemoContext());
+            this.userProfile = new UserProfile(new UnitOfWork(new MemoContext()));
             this.converterToDto = new ConverterToDTO();
         }
 
-        public UserProfileBll(IUnitOfWork unitOfWork, IConverterToDTO converterToDto)
+        public UserProfileBll(IUserProfile userProfile, IConverterToDTO converterToDto)
         {
-            this.unitOfWork = unitOfWork;
+            this.userProfile = userProfile;
             this.converterToDto = converterToDto;
         }
 
         public List<CourseDTO> GetCoursesByUser(string userEmail)
         {
-            List<CourseDTO> courses = new List<CourseDTO>();
-            IEnumerable<UserCourse> userCourses = unitOfWork.UserCourses
-                .GetAll().Where(x => x.User.Email == userEmail);
-            if (userCourses.ToList().Count > 0)
-            {
-                foreach (UserCourse userCourse in userCourses)
-                {
-                    courses.Add(converterToDto.ConvertToCourseDTO(userCourse.Course));
-                }
-            }
-            else
-            {
-                throw new ArgumentNullException();
-            }
-
-            return courses;
+            List<Course> courses = userProfile.GetCoursesByUser(userEmail).ToList();
+           
+            return converterToDto.ConvertToCourseListDTO(courses);
         }
 
         public UserDTO GetUser(int userId)
         {
-            User user = unitOfWork.Users.GetAll().FirstOrDefault(x => x.Id == userId);
+            User user = userProfile.GetUser(userId);
             
             return user != null
                 ? converterToDto.ConvertToUserDTO(user)
