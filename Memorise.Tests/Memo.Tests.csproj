@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="AdministrationTests.cs" />
     <Compile Include="CatalogBllTests.cs" />
+    <Compile Include="CourseDetailsBllTests.cs" />
     <Compile Include="FilterTests.cs" />
     <Compile Include="ModerationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

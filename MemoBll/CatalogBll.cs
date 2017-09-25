@@ -87,8 +87,7 @@ namespace MemoBll
             List<DeckDTO> decks = new List<DeckDTO>();
             Course course = unitOfWork.Courses
 				.GetAll()
-                .Where(x => x.Name == courseName)
-				.First();
+                .First(x => x.Name == courseName);
 
             if (course != null && course.Decks.Count > 0)
             {
@@ -151,8 +150,7 @@ namespace MemoBll
         {
             Course course = unitOfWork.Courses
 				.GetAll()
-                .Where(x => x.Name == courseName)
-				.First();
+                .First(x => x.Name == courseName);
 
             CourseWithDecksDTO courseWithDeckDto = 
 				course != null

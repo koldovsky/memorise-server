@@ -10,16 +10,26 @@ namespace Memorise.Tests
     [TestFixture]
     class FilterTests
     {
+        Mock<IUnitOfWork> unitOfWork;
+        List<Category> categories = new List<Category>();
+        List<Course> courses = new List<Course>();
+
+        public FilterTests()
+        {
+            unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
+            categories.Add(new Category { Id = 1, Name = "Category1" });
+            categories.Add(new Category { Id = 2, Name = "Category2" });
+            categories.Add(new Category { Id = 3, Name = "Category3" });
+            courses.Add(new Course { Id = 1, Name = "Course1" });
+            courses.Add(new Course { Id = 2, Name = "Course2" });
+            courses.Add(new Course { Id = 3, Name = "Course3" });
+        }
+
         [Test]
         public void GetAllCategoriesTest()
         {
             // Arrange
-            var expected = new List<Category>();
-            for (int i = 0; i < 3; i++)
-            {
-                expected.Add(new Category { Id = i, Name = $"Category{i}" });
-            }
-            Mock<IUnitOfWork> unitOfWork = new Mock<IUnitOfWork>();
+            var expected = categories;
             unitOfWork.Setup(uow => uow.Categories.GetAll()).Returns(expected);
             var filter = new Filter(unitOfWork.Object);
 
@@ -28,19 +38,14 @@ namespace Memorise.Tests
 
             // Assert
             Assert.AreEqual(expected, actual);
-            unitOfWork.Verify();
+            unitOfWork.Verify(uow => uow.Categories.GetAll(), Times.Exactly(1));
         }
 
         [Test]
         public void GetAllCoursesTest()
         {
             // Arrange
-            var expected = new List<Course>();
-            for (int i = 0; i < 3; i++)
-            {
-                expected.Add(new Course { Id = i, Name = $"Course{i}" });
-            }
-            Mock<IUnitOfWork> unitOfWork = new Mock<IUnitOfWork>();
+            var expected = courses;            
             unitOfWork.Setup(uow => uow.Courses.GetAll()).Returns(expected);
             var filter = new Filter(unitOfWork.Object);
 
@@ -49,17 +54,15 @@ namespace Memorise.Tests
 
             // Assert
             Assert.AreEqual(expected, actual);
-            unitOfWork.Verify();
+            unitOfWork.Verify(uow => uow.Courses.GetAll(), Times.Exactly(1));
         }
 
         [Test]
         public void GetCategoryTest()
         {
             // Arrange
-            int id = 1;
-            var expected = new Category { Id = id, Name = $"Category1" };
-            
-            Mock<IUnitOfWork> unitOfWork = new Mock<IUnitOfWork>();
+            var expected = categories[0];
+            int id = expected.Id;            
             unitOfWork.Setup(uow => uow.Categories.Get(id)).Returns(expected);
             var filter = new Filter(unitOfWork.Object);
 
@@ -68,7 +71,7 @@ namespace Memorise.Tests
 
             // Assert
             Assert.AreEqual(expected, actual);
-            unitOfWork.Verify();
+            unitOfWork.Verify(uow => uow.Courses.GetAll(), Times.Exactly(1));
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using MemoDAL;
 using MemoDAL.Entities;
 using MemoDAL.EF;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MemoBll
 {
@@ -10,6 +11,7 @@ namespace MemoBll
     {
         IUnitOfWork unitOfWork;
 
+        [ExcludeFromCodeCoverage]
         public Filter()
         {
             unitOfWork = new UnitOfWork(new MemoContext());
