@@ -1,16 +1,14 @@
-﻿using MemoDAL.Entities;
+﻿using MemoBll.Interfaces;
+using MemoDAL;
+using MemoDAL.EF;
+using MemoDAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MemoBll.Interfaces;
-using MemoDAL;
-using MemoDAL.EF;
 
-namespace MemoBll
+namespace MemoBll.Logic
 {
-    public class Moderation : IModeration
+	public class Moderation : IModeration
     {
         IUnitOfWork unitOfWork;
 

@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using MemoBll;
+﻿using MemoBll;
 using MemoDAL;
 using MemoDAL.Entities;
 using Moq;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace Memorise.Tests
 {
-    [TestFixture]
+	[TestFixture]
     class FilterTests
     {
         Mock<IUnitOfWork> unitOfWork;

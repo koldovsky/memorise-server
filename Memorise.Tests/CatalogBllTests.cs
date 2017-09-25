@@ -1,6 +1,5 @@
-﻿using MemoBll;
-using MemoBll.Interfaces;
-using MemoDAL;
+﻿using MemoBll.Interfaces;
+using MemoBll.Managers;
 using MemoDAL.Entities;
 using MemoDTO;
 using Moq;

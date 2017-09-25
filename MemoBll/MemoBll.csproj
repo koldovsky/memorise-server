@@ -48,6 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logic\CourseDetails.cs" />
+    <Compile Include="Interfaces\ICourseDetails.cs" />
+    <Compile Include="Interfaces\IModeration.cs" />
+    <Compile Include="Interfaces\IQuiz.cs" />
+    <Compile Include="Interfaces\IUserProfile.cs" />
     <Compile Include="Logic\Catalog.cs" />
     <Compile Include="Interfaces\ICatalog.cs" />
     <Compile Include="Logic\Administration.cs" />
@@ -61,14 +66,17 @@
     <Compile Include="CustomerStatistic.cs" />
     <Compile Include="Interfaces\IConverterToDTO.cs" />
     <Compile Include="Interfaces\IAdministration.cs" />
-    <Compile Include="Moderation.cs" />
+    <Compile Include="Logic\Moderation.cs" />
+    <Compile Include="Managers\ModerationBll.cs" />
+    <Compile Include="Logic\Quiz.cs" />
     <Compile Include="QuizReview.cs" />
     <Compile Include="Filter.cs" />
     <Compile Include="SignUpBll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SignInBll.cs" />
-    <Compile Include="QuizBll.cs" />
-    <Compile Include="UserProfileBll.cs" />
+    <Compile Include="Managers\QuizBll.cs" />
+    <Compile Include="Logic\UserProfile.cs" />
+    <Compile Include="Managers\UserProfileBll.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

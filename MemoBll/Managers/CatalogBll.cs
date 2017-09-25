@@ -4,7 +4,7 @@ using MemoDTO;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MemoBll
+namespace MemoBll.Managers
 {
 	public class CatalogBll
     {

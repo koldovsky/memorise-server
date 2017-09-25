@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using MemoBll.Interfaces;
+﻿using MemoBll.Interfaces;
 using MemoDAL;
 using MemoDAL.EF;
 using MemoDAL.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace MemoBll
+namespace MemoBll.Logic
 {
-    public class Quiz : IQuiz
+	public class Quiz : IQuiz
     {
         IUnitOfWork unitOfWork;
 
