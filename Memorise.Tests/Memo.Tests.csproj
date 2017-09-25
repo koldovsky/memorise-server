@@ -52,15 +52,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdministrationBllTests.cs" />
-    <Compile Include="CatalogBllTests.cs" />
-    <Compile Include="CourseDetailsBllTests.cs" />
+    <Compile Include="BLL\LogicTests\AdministrationTests.cs" />
+    <Compile Include="BLL\ManagersTests\AdministrationBllTests.cs" />
+    <Compile Include="BLL\ManagersTests\CatalogBllTests.cs" />
+    <Compile Include="BLL\ManagersTests\CourseDetailsBllTests.cs" />
     <Compile Include="FilterTests.cs" />
     <Compile Include="ModerationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QuizBllTests.cs" />
+    <Compile Include="BLL\ManagersTests\QuizBllTests.cs" />
     <Compile Include="QuizReviewTests.cs" />
-    <Compile Include="UserProfileBllTests.cs" />
+    <Compile Include="BLL\ManagersTests\UserProfileBllTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -82,6 +83,7 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

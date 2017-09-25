@@ -106,7 +106,7 @@ namespace MemoBll.Managers
 		{
 			List<Statistics> statistics =
 				administration.GetStatistics(deckId, userId).ToList();
-			if (statistics != null && statistics.Count > 1)
+			if (statistics != null && statistics.Count >= 1)
 			{
 				return statistics[0].SuccessPercent;
 			}

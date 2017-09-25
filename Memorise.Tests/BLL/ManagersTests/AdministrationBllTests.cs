@@ -146,7 +146,6 @@ namespace Memorise.Tests
 				.Returns(new CourseWithDecksDTO());
 
 			#endregion
-
 		}
 
 		[Test]
@@ -189,6 +188,8 @@ namespace Memorise.Tests
 				Times.Once());
 		}
 
+		// TODO: There is a mistake in the manager, where Count of
+		// decks list is invoked.
 		[Test]
 		public void GetStatisticsTest()
 		{
