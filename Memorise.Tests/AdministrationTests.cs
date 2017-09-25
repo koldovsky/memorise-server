@@ -18,9 +18,9 @@ namespace Memorise.Tests
 
 		}
 
-		private Administration GetMockedSut()
+		private AdministrationBll GetMockedSut()
 		{
-			return new Administration();
+			return new AdministrationBll();
 		}
 	}
 }

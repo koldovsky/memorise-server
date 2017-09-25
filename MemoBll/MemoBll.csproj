@@ -48,15 +48,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Administration.cs" />
-    <Compile Include="CardEditor.cs" />
-    <Compile Include="CatalogBll.cs" />
-    <Compile Include="ConverterToDTO.cs" />
-    <Compile Include="CourseDetailsBll.cs" />
+    <Compile Include="Logic\Catalog.cs" />
+    <Compile Include="Interfaces\ICatalog.cs" />
+    <Compile Include="Logic\Administration.cs" />
+    <Compile Include="Managers\AdministrationBll.cs" />
+    <Compile Include="Logic\CardEditor.cs" />
+    <Compile Include="Managers\CatalogBll.cs" />
+    <Compile Include="Logic\ConverterToDTO.cs" />
+    <Compile Include="Managers\CourseDetailsBll.cs" />
     <Compile Include="CustomerAccount.cs" />
-    <Compile Include="CustomerCourse.cs" />
+    <Compile Include="Logic\CustomerCourse.cs" />
     <Compile Include="CustomerStatistic.cs" />
-    <Compile Include="IConverterToDTO.cs" />
+    <Compile Include="Interfaces\IConverterToDTO.cs" />
+    <Compile Include="Interfaces\IAdministration.cs" />
     <Compile Include="Moderation.cs" />
     <Compile Include="QuizReview.cs" />
     <Compile Include="Filter.cs" />

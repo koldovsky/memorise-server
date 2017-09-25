@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using MemoBll.Interfaces;
+using MemoBll.Logic;
 using MemoDAL;
-using MemoDAL.Entities;
 using MemoDAL.EF;
+using MemoDAL.Entities;
 using MemoDTO;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MemoBll
 {
-    class QuizBll
+	class QuizBll
     {
         IUnitOfWork unitOfWork;
         IConverterToDTO converterToDto;

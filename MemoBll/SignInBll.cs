@@ -1,13 +1,15 @@
-﻿using System.Linq;
-using System;
+﻿using MemoBll.Interfaces;
+using MemoBll.Logic;
 using MemoDAL;
-using MemoDAL.Entities;
 using MemoDAL.EF;
+using MemoDAL.Entities;
 using MemoDTO;
+using System;
+using System.Linq;
 
 namespace MemoBll
 {
-    public class SignInBll
+	public class SignInBll
     {
         IUnitOfWork unitOfWork;
         IConverterToDTO converterToDto;

@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using MemoBll.Interfaces;
 using MemoDAL.Entities;
 using MemoDTO;
+using System.Collections.Generic;
 
-namespace MemoBll
+namespace MemoBll.Logic
 {
-    public class ConverterToDTO : IConverterToDTO
+	public class ConverterToDTO : IConverterToDTO
     {
         public DeckDTO ConvertToDeckDTO(Deck deck)
         {
