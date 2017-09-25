@@ -53,6 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\LogicTests\AdministrationTests.cs" />
+    <Compile Include="BLL\LogicTests\CardEditorTest.cs" />
+    <Compile Include="BLL\LogicTests\CatalogTests.cs" />
+    <Compile Include="BLL\LogicTests\ConverterToDTOTests.cs" />
     <Compile Include="BLL\ManagersTests\AdministrationBllTests.cs" />
     <Compile Include="BLL\ManagersTests\CatalogBllTests.cs" />
     <Compile Include="BLL\ManagersTests\CourseDetailsBllTests.cs" />
