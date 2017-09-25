@@ -37,6 +37,17 @@ namespace MemoBll.Logic
             };
         }
 
+        public List<CourseDTO> ConvertToCourseListDTO(IEnumerable<Course> courses)
+        {
+            List<CourseDTO> courseDTOs = new List<CourseDTO>();
+            foreach (var course in courses)
+            {
+                courseDTOs.Add(ConvertToCourseDTO(course));
+            }
+
+            return courseDTOs;
+        }
+        
         public CourseWithDecksDTO ConvertToCourseWithDecksDTO(Course course)
         {
             return new CourseWithDecksDTO
@@ -115,6 +126,17 @@ namespace MemoBll.Logic
                 Answers = ConvertToAnswerListDTO(card.Answers),
                 Comments = ConvertToCommentListDTO(card.Comments)
             };
+        }
+
+        public List<CardDTO> ConvertToCardListDTO(IEnumerable<Card> cards)
+        {
+            List<CardDTO> cardDTOs = new List<CardDTO>();
+            foreach (var card in cards)
+            {
+                cardDTOs.Add(ConvertToCardDTO(card));
+            }
+
+            return cardDTOs;
         }
 
         public CommentDTO ConvertToCommentDTO(Comment comment)

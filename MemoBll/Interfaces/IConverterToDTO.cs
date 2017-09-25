@@ -1,28 +1,28 @@
-﻿using MemoDAL.Entities;
+﻿using System.Collections.Generic;
 using MemoDTO;
-using System.Collections.Generic;
+using MemoDAL.Entities;
 
-namespace MemoBll.Interfaces
+namespace MemoBll
 {
-	public interface IConverterToDTO
+    public interface IConverterToDTO
     {
-		AnswerDTO ConvertToAnswerDTO(Answer answer);
-		CardDTO ConvertToCardDTO(Card card);
-		CardTypeDTO ConvertToCardTypeDTO(CardType cardtype);
-		CategoryDTO ConvertToCategoryDTO(Category category);
-		CommentDTO ConvertToCommentDTO(Comment comment);
-		CourseDTO ConvertToCourseDTO(Course course);
-		CourseWithDecksDTO ConvertToCourseWithDecksDTO(Course course);
-		DeckDTO ConvertToDeckDTO(Deck deck);
-		ReportDTO ConvertToReportDTO(Report report);
-		RoleDTO ConvertToRoleDTO(Role role);
-		StatisticDTO ConvertToStatisticDTO(Statistics statistic);
-		UserDTO ConvertToUserDTO(User user);
-		UserCourseDTO ConvertToUserCourseDTO(UserCourse userCourse);
-
+        DeckDTO ConvertToDeckDTO(Deck deck);
+        List<DeckDTO> ConvertToDeckListDTO(IEnumerable<Deck> decks);
+        CourseDTO ConvertToCourseDTO(Course course);
+        List<CourseDTO> ConvertToCourseListDTO(IEnumerable<Course> courses);
+        CourseWithDecksDTO ConvertToCourseWithDecksDTO(Course course);
+        CategoryDTO ConvertToCategoryDTO(Category category);
+        CardTypeDTO ConvertToCardTypeDTO(CardType cardtype);
+        AnswerDTO ConvertToAnswerDTO(Answer answer);
         List<AnswerDTO> ConvertToAnswerListDTO(IEnumerable<Answer> answers);
+        RoleDTO ConvertToRoleDTO(Role role);
+        UserDTO ConvertToUserDTO(User user);
+        List<UserDTO> ConvertToUserListDTO(IEnumerable<User> users);
+        CardDTO ConvertToCardDTO(Card card);
+        List<CardDTO> ConvertToCardListDTO(IEnumerable<Card> cards);
+        CommentDTO ConvertToCommentDTO(Comment comment);
         List<CommentDTO> ConvertToCommentListDTO(IEnumerable<Comment> comments);
-		List<DeckDTO> ConvertToDeckListDTO(IEnumerable<Deck> decks);
-		List<UserDTO> ConvertToUserListDTO(IEnumerable<User> users);
-    }
+        ReportDTO ConvertToReportDTO(Report report);
+        StatisticDTO ConvertToStatisticDTO(Statistics statistic);
+        UserCourseDTO ConvertToUserCourseDTO(UserCourse userCourse);}
 }

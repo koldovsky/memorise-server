@@ -1,54 +1,50 @@
-﻿using MemoBll.Interfaces;
-using MemoBll.Logic;
-using MemoDAL;
-using MemoDAL.EF;
-using MemoDAL.Entities;
-using MemoDTO;
+﻿using MemoDAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using MemoBll.Interfaces;
+using MemoDAL;
+using MemoDAL.EF;
 
 namespace MemoBll
 {
-	class Moderation
+    public class Moderation : IModeration
     {
         IUnitOfWork unitOfWork;
-        IConverterToDTO converterToDto;
 
         public Moderation()
         {
             this.unitOfWork = new UnitOfWork(new MemoContext());
-            this.converterToDto = new ConverterToDTO();
         }
 
-        public Moderation(IUnitOfWork unitOfWork, IConverterToDTO converterToDto)
+        public Moderation(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
-            this.converterToDto = converterToDto;
         }
 
         public int GetReportCountForReason(string reason)
         {
-            return unitOfWork.Reports
-                .GetAll().Where(x => x.Reason == reason).Count();
+            return unitOfWork.Reports.GetAll().Count(x => x.Reason == reason);
         }
 
-        public List<Report> GetAllReportsOnReason(string reason)
+        public IEnumerable<Report> GetAllReportsOnReason(string reason)
         {
             return unitOfWork.Reports
-                .GetAll().Where(x => x.Reason == reason).ToList();
+                .GetAll().Where(x => x.Reason == reason);
         }
 
-        public List<Report> GetAllReportsOnDate(DateTime date)
+        public IEnumerable<Report> GetAllReportsOnDate(DateTime date)
         {
             return unitOfWork.Reports
-                .GetAll().Where(x => x.Date == date).ToList();
+                .GetAll().Where(x => x.Date == date);
         }
 
-        public List<Report> GetAllReportsFromDate(DateTime date)
+        public IEnumerable<Report> GetAllReportsFromDate(DateTime date)
         {
             return unitOfWork.Reports
-                .GetAll().Where(x => x.Date >= date).ToList();
+                .GetAll().Where(x => x.Date >= date);
         }
 
         public Report GetReport(int reportId)
@@ -56,33 +52,17 @@ namespace MemoBll
             return unitOfWork.Reports.Get(reportId);
         }
 
-        public int GetDeckStatistics(int deckId)
+        public IEnumerable<Statistics> GetDeckStatistics(int deckId)
         {
-            int result = 0;
-            List<Statistics> deckStatistics = unitOfWork.Statistics
-                .GetAll().Where(x => x.Deck.Id == deckId).ToList();
-
-            if (deckStatistics.Count > 0)
-            {
-                double totalDeckPercent = 0.0;
-                foreach (Statistics statistic in deckStatistics)
-                {
-                    totalDeckPercent += statistic.SuccessPercent;
-                }
-                result = Convert.ToInt32(
-                    Math.Round(totalDeckPercent / deckStatistics.Count));
-            }
-
-            return result;
+            return unitOfWork.Statistics
+                .GetAll().Where(x => x.Deck.Id == deckId);
         }
 
-        public int GetStatistics(string deckName, int userId)
+        public Statistics GetStatistics(string deckName, int userId)
         {
-            List<Statistics> statistics = unitOfWork.Statistics
-                .GetAll().Where(x =>
-                x.Deck.Name == deckName && x.User.Id == userId).ToList();
-
-            return statistics.Count > 1 ? statistics[0].SuccessPercent : 0;
+            return unitOfWork.Statistics
+                .GetAll()
+                .FirstOrDefault(x => x.Deck.Name == deckName && x.User.Id == userId);
         }
 
         public void DeleteStatistics(Statistics statistics)
@@ -91,27 +71,27 @@ namespace MemoBll
             unitOfWork.Save();
         }
 
-        public List<UserDTO> GetAllUsersByCourse(int courseId)
+        public IEnumerable<User> GetAllUsersByCourse(int courseId)
         {
-            List<UserCourse> userCourses = unitOfWork.UserCourses
-                .GetAll().Where(x => x.Course.Id == courseId).ToList();
-            List<UserDTO> users = new List<UserDTO>();
+            IEnumerable<UserCourse> userCourses = unitOfWork.UserCourses
+                .GetAll().Where(x => x.Course.Id == courseId);
+            List<User> users = new List<User>();
             foreach (UserCourse userCourse in userCourses)
             {
-                users.Add(converterToDto.ConvertToUserDTO(userCourse.User));
+                users.Add(userCourse.User);
             }
 
             return users;
         }
 
-        public List<UserDTO> GetAllUsersByDeck(string deckName)
+        public IEnumerable<User> GetAllUsersByDeck(string deckName)
         {
-            List<Statistics> statistics = unitOfWork.Statistics
-                .GetAll().Where(x => x.Deck.Name == deckName).ToList();
-            List<UserDTO> users = new List<UserDTO>();
-            foreach (Statistics item in statistics)
+            IEnumerable<Statistics> statistics = unitOfWork.Statistics
+                .GetAll().Where(x => x.Deck.Name == deckName);
+            List<User> users = new List<User>();
+            foreach (var item in statistics)
             {
-                users.Add(converterToDto.ConvertToUserDTO(item.User));
+                users.Add(item.User);
             }
 
             return users;
