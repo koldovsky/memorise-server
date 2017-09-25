@@ -10,8 +10,7 @@ namespace MemoBll
     public class Filter
     {
         IUnitOfWork unitOfWork;
-
-        [ExcludeFromCodeCoverage]
+		
         public Filter()
         {
             unitOfWork = new UnitOfWork(new MemoContext());

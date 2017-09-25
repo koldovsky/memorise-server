@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using MemoDAL.Entities;
+﻿using MemoDAL.Entities;
+using System.Collections.Generic;
 
 namespace MemoBll.Interfaces
 {
-    public interface IUserProfile
+	public interface IUserProfile
     {
         IEnumerable<Course> GetCoursesByUser(string userEmail);
         User GetUser(int userId);

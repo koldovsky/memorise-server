@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MemoBll.Managers;
 using NUnit.Framework;
-using Moq;
-using MemoBll;
 
 namespace Memorise.Tests
 {
@@ -18,9 +12,9 @@ namespace Memorise.Tests
 
 		}
 
-		private Administration GetMockedSut()
+		private AdministrationBll GetMockedSut()
 		{
-			return new Administration();
+			return new AdministrationBll();
 		}
 	}
 }

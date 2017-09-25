@@ -1,13 +1,10 @@
-﻿using System;
+﻿using MemoDAL.Entities;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MemoDAL.Entities;
 
 namespace MemoBll.Interfaces
 {
-    public interface IModeration
+	public interface IModeration
     {
         int GetReportCountForReason(string reason);
         IEnumerable<Report> GetAllReportsOnReason(string reason);

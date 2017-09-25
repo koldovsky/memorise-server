@@ -1,15 +1,14 @@
-﻿using System;
+﻿using MemoBll.Interfaces;
+using MemoBll.Logic;
+using MemoDAL.Entities;
+using MemoDTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using MemoBll.Interfaces;
-using MemoDAL;
-using MemoDAL.Entities;
-using MemoDAL.EF;
-using MemoDTO;
 
-namespace MemoBll
+namespace MemoBll.Managers
 {
-    public class ModerationBll
+	public class ModerationBll
     {
         IModeration moderation;
         IConverterToDTO converterToDto;

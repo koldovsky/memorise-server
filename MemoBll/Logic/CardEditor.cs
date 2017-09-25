@@ -1,10 +1,10 @@
 ﻿using MemoDAL;
-using MemoDAL.Entities;
 using MemoDAL.EF;
+using MemoDAL.Entities;
 
-namespace MemoBll
+namespace MemoBll.Logic
 {
-    class CardEditor
+	class CardEditor
     {
         IUnitOfWork unitOfWork;
 

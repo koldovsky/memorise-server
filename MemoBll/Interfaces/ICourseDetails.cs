@@ -1,10 +1,10 @@
-﻿using System;
+﻿using MemoDAL.Entities;
+using System;
 using System.Collections.Generic;
-using MemoDAL.Entities;
 
 namespace MemoBll.Interfaces
 {
-    public interface ICourseDetails
+	public interface ICourseDetails
     {
         IEnumerable<Deck> GetAllPaidDecks();
         IEnumerable<Deck> GetAllFreeDecks(DateTime fromDate);
