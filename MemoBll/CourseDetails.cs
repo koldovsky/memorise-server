@@ -8,7 +8,7 @@ using MemoBll.Interfaces;
 
 namespace MemoBll
 {
-    class CourseDetails : ICourseDetails
+    public class CourseDetails : ICourseDetails
     {
         IUnitOfWork unitOfWork;
 
