@@ -4,7 +4,7 @@ using MemoDAL.Entities;
 
 namespace MemoBll.Logic
 {
-	class CardEditor
+	public class CardEditor
     {
         IUnitOfWork unitOfWork;
 
