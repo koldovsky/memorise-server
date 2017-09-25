@@ -59,18 +59,12 @@
     <Compile Include="BLL\ManagersTests\AdministrationBllTests.cs" />
     <Compile Include="BLL\ManagersTests\CatalogBllTests.cs" />
     <Compile Include="BLL\ManagersTests\CourseDetailsBllTests.cs" />
-    <Compile Include="FilterTests.cs" />
-    <Compile Include="ModerationTests.cs" />
-    <Compile Include="AdministrationTests.cs" />
-    <Compile Include="CatalogBllTests.cs" />
-    <Compile Include="ManagerTests\CourseDetailsBllTests.cs" />
-    <Compile Include="LogicTests\CourseDetailsLogicTests.cs" />
-    <Compile Include="LogicTests\FilterLogicTests.cs" />
-    <Compile Include="LogicTests\ModerationLogicTests.cs" />
+    <Compile Include="BLL\LogicTests\CourseDetailsLogicTests.cs" />
+    <Compile Include="BLL\LogicTests\FilterLogicTests.cs" />
+    <Compile Include="BLL\LogicTests\ModerationLogicTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BLL\ManagersTests\QuizBllTests.cs" />
-    <Compile Include="ManagerTests\QuizBllTests.cs" />
-    <Compile Include="LogicTests\QuizLogicTests.cs" />
+    <Compile Include="BLL\LogicTests\QuizLogicTests.cs" />
     <Compile Include="QuizReviewTests.cs" />
     <Compile Include="BLL\ManagersTests\UserProfileBllTests.cs" />
   </ItemGroup>
