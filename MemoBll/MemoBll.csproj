@@ -70,7 +70,7 @@
     <Compile Include="Managers\ModerationBll.cs" />
     <Compile Include="Logic\Quiz.cs" />
     <Compile Include="QuizReview.cs" />
-    <Compile Include="Filter.cs" />
+    <Compile Include="Logic\Filter.cs" />
     <Compile Include="SignUpBll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SignInBll.cs" />

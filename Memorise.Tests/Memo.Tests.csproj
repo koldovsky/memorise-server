@@ -54,12 +54,13 @@
   <ItemGroup>
     <Compile Include="AdministrationTests.cs" />
     <Compile Include="CatalogBllTests.cs" />
-    <Compile Include="CourseDetailsBllTests.cs" />
-    <Compile Include="CourseDetailsLogicTests.cs" />
-    <Compile Include="FilterTests.cs" />
-    <Compile Include="ModerationTests.cs" />
+    <Compile Include="ManagerTests\CourseDetailsBllTests.cs" />
+    <Compile Include="LogicTests\CourseDetailsLogicTests.cs" />
+    <Compile Include="LogicTests\FilterLogicTests.cs" />
+    <Compile Include="LogicTests\ModerationLogicTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QuizBllTests.cs" />
+    <Compile Include="ManagerTests\QuizBllTests.cs" />
+    <Compile Include="LogicTests\QuizLogicTests.cs" />
     <Compile Include="QuizReviewTests.cs" />
     <Compile Include="UserProfileBllTests.cs" />
   </ItemGroup>

@@ -1,20 +1,20 @@
-﻿using MemoBll;
-using MemoDAL;
+﻿using MemoDAL;
 using MemoDAL.Entities;
 using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
+using MemoBll.Logic;
 
 namespace Memorise.Tests
 {
 	[TestFixture]
-    class FilterTests
+    class FilterLogicTests
     {
         Mock<IUnitOfWork> unitOfWork;
         List<Category> categories = new List<Category>();
         List<Course> courses = new List<Course>();
 
-        public FilterTests()
+        public FilterLogicTests()
         {
             unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
             categories.Add(new Category { Id = 1, Name = "Category1" });
@@ -38,7 +38,7 @@ namespace Memorise.Tests
 
             // Assert
             Assert.AreEqual(expected, actual);
-            unitOfWork.Verify(uow => uow.Categories.GetAll(), Times.Exactly(1));
+            unitOfWork.Verify(uow => uow.Categories.GetAll(), Times.Once);
         }
 
         [Test]
@@ -54,7 +54,7 @@ namespace Memorise.Tests
 
             // Assert
             Assert.AreEqual(expected, actual);
-            unitOfWork.Verify(uow => uow.Courses.GetAll(), Times.Exactly(1));
+            unitOfWork.Verify(uow => uow.Courses.GetAll(), Times.Once);
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace Memorise.Tests
 
             // Assert
             Assert.AreEqual(expected, actual);
-            unitOfWork.Verify(uow => uow.Courses.GetAll(), Times.Exactly(1));
+            unitOfWork.Verify(uow => uow.Courses.GetAll(), Times.Once);
         }
     }
 }

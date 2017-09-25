@@ -34,8 +34,7 @@ namespace MemoBll
 
         public double GetDeckPrice(int deckId)
         {
-            Deck deck = unitOfWork.Decks
-                .GetAll().FirstOrDefault(x => x.Id == deckId);
+            Deck deck = unitOfWork.Decks.Get(deckId);
             return deck?.Price ?? throw new ArgumentNullException();
         }
 

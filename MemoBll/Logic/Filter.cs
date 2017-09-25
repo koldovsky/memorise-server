@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using MemoDAL;
-using MemoDAL.Entities;
 using MemoDAL.EF;
-using System.Diagnostics.CodeAnalysis;
+using MemoDAL.Entities;
 
-namespace MemoBll
+namespace MemoBll.Logic
 {
     public class Filter
     {
