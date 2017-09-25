@@ -30,7 +30,7 @@ namespace MemoRise.Identity
             var expires = data.Properties.ExpiresUtc;
 
             return new JwtSecurityTokenHandler().WriteToken(
-                   new JwtSecurityToken(_issuer, null, data.Identity.Claims,
+                   new JwtSecurityToken(_issuer, "Any", data.Identity.Claims,
                    issued.Value.UtcDateTime, expires.Value.UtcDateTime,
                    signingKey));
         }

@@ -30,7 +30,7 @@ namespace MemoRise.Controllers
 
                 if (result)
                 {
-                    return Ok();
+                    return Ok(new UserDTO { Login=user.UserName });
                 }
                 else
                 {
@@ -73,7 +73,7 @@ namespace MemoRise.Controllers
             if (result.Succeeded)
             {
                 result = unitOfWork.Users.AddToRole(user.Id, "Customer");
-                return Ok();
+                return Ok(new UserDTO { Login = user.UserName });
             }
             else
             {

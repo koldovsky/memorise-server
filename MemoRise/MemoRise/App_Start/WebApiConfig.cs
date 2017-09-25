@@ -1,5 +1,4 @@
-﻿using MemoRise.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -19,8 +18,7 @@ namespace MemoRise
 
             var cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(cors);
-            config.MessageHandlers.Add(new PreflightRequestsHandler());
-
+           
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "{controller}/{action}/{id}",
