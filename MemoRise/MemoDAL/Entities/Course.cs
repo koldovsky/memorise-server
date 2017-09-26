@@ -14,6 +14,8 @@ namespace MemoDAL.Entities
         public int Price { get; set; }
         public string Photo { get; set; }
 
+        public string Link { get; set; }
+
         public virtual Category Category { get; set; }
         public virtual ICollection<Comment> Coments { get; set; }
         public virtual ICollection<Deck> Decks { get; set; }

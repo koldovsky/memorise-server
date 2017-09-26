@@ -62,7 +62,7 @@ namespace MemoDAL.EF
                 new Deck{Name="Code First",Price=0,Category=categories[0]},
                 new Deck{Name="Web API",Price=0,Category=categories[0]},
                 new Deck{Name="IIS",Price=0,Category=categories[0]},
-                new Deck{Name="Rouring",Price=0,Category=categories[0]},
+                new Deck{Name="Routing",Price=0,Category=categories[0]},
                 new Deck{Name="XAML",Price=0,Category=categories[0]},
                 new Deck{Name="Binding",Price=0,Category=categories[0]},
             };
@@ -74,7 +74,7 @@ namespace MemoDAL.EF
             IList<Course> courses = new List<Course>()
             {
                 new Course{Name="cSharp",Description="C# course description",Price=0,Category=categories[0]},
-                new Course{Name="ASP.MVC",Description="ASP.MVC course description",Price=0,Category=categories[0]},
+                new Course{Name="ASP.MVC", Link="ASP MVC", Description="ASP.MVC course description",Price=0,Category=categories[0]},
                 new Course{Name="EntityFramework",Description="EntityFramework course description",Price=100,Category=categories[0]},
                 new Course{Name="WPF",Description="WPF course description",Price=0,Category=categories[0]}
             };
