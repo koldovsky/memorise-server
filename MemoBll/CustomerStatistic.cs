@@ -1,0 +1,7 @@
+﻿namespace MemoBll
+{
+    class CustomerStatistic
+    {
+
+    }
+}
