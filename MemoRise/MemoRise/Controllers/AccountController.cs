@@ -12,35 +12,35 @@ namespace MemoRise.Controllers
     {
         UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
 
-        [HttpPost]
-        public async Task<IHttpActionResult> SignIn(
-            [FromBody] UserLoginDTO registeredUser)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[HttpPost]
+        //public async Task<IHttpActionResult> SignIn(
+        //    [FromBody] UserLoginDTO registeredUser)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            var user = await unitOfWork.Users.FindByNameAsync(
-                      registeredUser.Login);
-            if (user != null)
-            {
-                var result = await unitOfWork.Users.CheckPasswordAsync(user,
-                             registeredUser.Password);
+        //    var user = await unitOfWork.Users.FindByNameAsync(
+        //              registeredUser.Login);
+        //    if (user != null)
+        //    {
+        //        var result = await unitOfWork.Users.CheckPasswordAsync(user,
+        //                     registeredUser.Password);
 
-                if (result)
-                {
-                    return Ok(new UserDTO { Login=user.UserName });
-                }
-                else
-                {
-                    return BadRequest("The user name or password is incorrect");
-                }
-            }
+        //        if (result)
+        //        {
+        //            return Ok(new UserDTO { Login=user.UserName });
+        //        }
+        //        else
+        //        {
+        //            return BadRequest("The user name or password is incorrect");
+        //        }
+        //    }
            
-            return BadRequest("User with such name not found");
+        //    return BadRequest("User with such name not found");
          
-        }
+        //}
         [HttpPost]
         public async Task<IHttpActionResult> SignUp(
             [FromBody] UserLoginDTO newUser)

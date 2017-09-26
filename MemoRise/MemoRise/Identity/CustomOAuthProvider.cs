@@ -11,7 +11,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
-
+using Microsoft.Owin.Security.DataHandler.Encoder;
+using System;
+using System.Text;
 
 namespace MemoRise.Identity
 {
@@ -26,7 +28,7 @@ namespace MemoRise.Identity
             var user = context.OwinContext.Get<MemoContext>().Users
                        .FirstOrDefault(u => u.UserName == context.UserName);
             if (!context.OwinContext.Get<UserRepository>()
-                .CheckPassword(user, context.Password))
+                .CheckPassword(user,Encoding.UTF8.GetString(Convert.FromBase64String(context.Password))))
             {
                 context.SetError("invalid_grant", 
                                 "The user name or password is incorrect");

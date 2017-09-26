@@ -12,7 +12,7 @@ namespace MemoRise.Controllers
         CatalogBll catalog = new CatalogBll();
 
         [HttpGet]
-        //[Authorize(Roles = "Customer")]
+        [Authorize(Roles = "Customer")]
         public IHttpActionResult GetCategories()
         {
             try
@@ -32,6 +32,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult GetCourses()
         {
             try

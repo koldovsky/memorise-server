@@ -47,7 +47,7 @@ namespace MemoRise
             app.UseOAuthAuthorizationServer(new OAuthAuthorizationServerOptions
             {
                 AllowInsecureHttp = true,
-                TokenEndpointPath = new PathString("/oauth2/token"),
+                TokenEndpointPath = new PathString("/memo/login"),///oauth2/token
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
                 Provider = new CustomOAuthProvider(),
                 AccessTokenFormat = new CustomJwtFormat(issuer)
