@@ -26,15 +26,15 @@ namespace MemoBll
             this.converterToDto = converterToDto;
         }
 
-        public UserDTO GetUser(string login, string password)
-        {
-            User user = unitOfWork.Users
-                .GetAll().FirstOrDefault(x => 
-                x.Login == login && x.Password == password);
+        //public UserDTO GetUser(string login, string password)
+        //{
+        //    User user = unitOfWork.Users
+        //        .GetAll().FirstOrDefault(x => 
+        //        x.Login == login && x.Password == password);
 
-            return user != null 
-                ? converterToDto.ConvertToUserDTO(user) 
-                : throw new ArgumentNullException();
-        }
+        //    return user != null 
+        //        ? converterToDto.ConvertToUserDTO(user) 
+        //        : throw new ArgumentNullException();
+        //}
     }
 }

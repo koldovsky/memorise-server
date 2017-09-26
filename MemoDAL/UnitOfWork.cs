@@ -2,6 +2,9 @@
 using MemoDAL.Repositories;
 using MemoDAL.EF;
 using MemoDAL.Repositories.Interfaces;
+using MemoDAL.Entities;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity;
 
 namespace MemoDAL
 {
@@ -18,10 +21,10 @@ namespace MemoDAL
 			this.courses = new CourseRepository(dbContext);
 			this.decks = new DeckRepository(dbContext);
 			this.reports = new ReportRepository(dbContext);
-			this.roles = new RoleRepository(dbContext);
+			this.roles = new RoleRepository(new RoleStore<Role>(dbContext));
 			this.statistics = new StatisticsRepository(dbContext);
 			this.userCourses = new UserCourseRepository(dbContext);
-			this.users = new UserRepository(dbContext);
+			this.users = new UserRepository(new UserStore<User>(dbContext));
 		}
 
 		#region Fields
@@ -35,10 +38,10 @@ namespace MemoDAL
 		private ICourseRepository courses;
 		private IDeckRepository decks;
 		private IReportRepository reports;
-		private IRoleRepository roles;
+		private RoleManager<Role> roles;
 		private IStatisticsRepository statistics;
 		private IUserCourseRepository userCourses;
-		private IUserRepository users;
+		private UserManager<User> users;
 		private bool disposed = false;
 
 		#endregion
@@ -85,7 +88,7 @@ namespace MemoDAL
 			get { return reports; }
 		}
 
-		public IRoleRepository Roles
+		public RoleManager<Role> Roles
 		{
 			get { return roles; }
 		}
@@ -100,7 +103,7 @@ namespace MemoDAL
 			get { return userCourses; }
 		}
 
-		public IUserRepository Users
+		public UserManager<User> Users
 		{
 			get { return users; }
 		}

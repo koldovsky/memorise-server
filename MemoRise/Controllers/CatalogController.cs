@@ -3,6 +3,8 @@ using MemoBll;
 using MemoDTO;
 using System.Collections.Generic;
 using System;
+using MemoBll.Managers;
+using System.Linq;
 
 namespace MemoRise.Controllers
 {
@@ -17,7 +19,7 @@ namespace MemoRise.Controllers
         {
             try
             {
-                List<CategoryDTO> categories = catalog.GetAllCategories();
+                List<CategoryDTO> categories = catalog.GetAllCategories().ToList();
                 return  Ok(categories);
             }
             catch (ArgumentNullException ex)
@@ -37,7 +39,7 @@ namespace MemoRise.Controllers
         {
             try
             {
-                List<CourseDTO> courses = catalog.GetAllCourses();
+                List<CourseDTO> courses = catalog.GetAllCourses().ToList();
                 return Ok(courses); 
             }
             catch (ArgumentNullException ex)
@@ -56,7 +58,7 @@ namespace MemoRise.Controllers
         {
             try
             {
-                List<DeckDTO> decks = catalog.GetAllDecks();
+                List<DeckDTO> decks = catalog.GetAllDecks().ToList();
                 return Ok(decks);  
             }
             catch (ArgumentNullException ex)
@@ -77,7 +79,7 @@ namespace MemoRise.Controllers
             try
             {
                 List<CourseDTO> courses = catalog.
-                                          GetAllCourseByCategory(categoryName);
+                                          GetAllCoursesByCategory(categoryName).ToList();
                 return Ok(courses);
             }
             catch (ArgumentNullException ex)
@@ -99,7 +101,7 @@ namespace MemoRise.Controllers
             try
             {
                 List<DeckDTO> decks = catalog
-                                     .GetAllDecksByCategory(categoryName);
+                                     .GetAllDecksByCategory(categoryName).ToList();
                 return Ok(decks);
             }
             catch (ArgumentNullException ex)
@@ -122,7 +124,7 @@ namespace MemoRise.Controllers
         {
             try
             {
-                List<DeckDTO> decks = catalog.GetAllDecksByCourse(courseName);
+                List<DeckDTO> decks = catalog.GetAllDecksByCourse(courseName).ToList();
                 return Ok(decks);
             }
             catch (ArgumentNullException ex)
