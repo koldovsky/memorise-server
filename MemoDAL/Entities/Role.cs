@@ -1,15 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 
 namespace MemoDAL.Entities
 {
-    public class Role:BaseEntity
+    public class Role: IdentityRole
     {
-        public Role()
-        {
-            Users = new List<User>();
-        }
-        public string Name { get; set; }
-
-        public virtual ICollection<User> Users { get; set; }
+        
     }
 }

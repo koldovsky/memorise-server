@@ -10,12 +10,12 @@ namespace MemoRise.Controllers
     {
         UserProfileBll userProfile = new UserProfileBll();
 
-        [HttpGet]
-        [Route("UserProfile/GetCoursesByUser/{userEmaile}")]
-        public List<CourseDTO> GetCoursesByUser(string userEmail)
-        {
-            return userProfile.GetCoursesByUser(userEmail);
-        }
+        //[HttpGet]
+        //[Route("UserProfile/GetCoursesByUser/{userEmaile}")]
+        //public List<CourseDTO> GetCoursesByUser(string userEmail)
+        //{
+        //    return userProfile.GetCoursesByUser(userEmail);
+        //}
 
         //[HttpGet]
         //[Route("UserProfile/GetCoursesByUser/{userEmaile}")]
@@ -24,10 +24,10 @@ namespace MemoRise.Controllers
         //    return userProfile.GetDecksByUser(userEmail);
         //}
 
-        [HttpGet]
-        public UserDTO GetUserById(int id)
-        {
-            return userProfile.GetUser(id);
-        }
+        //[HttpGet]
+        //public UserDTO GetUserById(int id)
+        //{
+        //    return userProfile.GetUser(id);
+        //}
     }
 }

@@ -17,7 +17,7 @@ namespace MemoBll.Managers
 
         public UserProfileBll()
         {
-            this.userProfile = new UserProfile(new UnitOfWork(new MemoContext()));
+            //this.userProfile = new UserProfile(new UnitOfWork(new MemoContext()));
             this.converterToDto = new ConverterToDTO();
         }
 
@@ -34,13 +34,13 @@ namespace MemoBll.Managers
             return converterToDto.ConvertToCourseListDTO(courses);
         }
 
-        public UserDTO GetUser(int userId)
-        {
-            User user = userProfile.GetUser(userId);
+        //public UserDTO GetUser(int userId)
+        //{
+        //    User user = userProfile.GetUser(userId);
             
-            return user != null
-                ? converterToDto.ConvertToUserDTO(user)
-                : throw new ArgumentNullException();
-        }
+        //    return user != null
+        //        ? converterToDto.ConvertToUserDTO(user)
+        //        : throw new ArgumentNullException();
+        //}
     }
 }

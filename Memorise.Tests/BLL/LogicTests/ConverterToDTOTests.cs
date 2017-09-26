@@ -25,14 +25,14 @@ namespace Memorise.Tests.BLL.LogicTests
 				categories.Add(new Category { Id = i, Name = $"Category{i}" });
 				courses.Add(new Course { Id = i, Name = $"Course{i}" });
 				decks.Add(new Deck { Id = i, Name = $"Decks{i}" });
-				roles.Add(new Role { Id = i, Name = $"Role{i}" });
+				//roles.Add(new Role { Id = i, Name = $"Role{i}" });
 				statistics.Add(new Statistics { Id = i, SuccessPercent = i });
-				users.Add(new User
-				{
-					Id = i,
-					Login = $"User{i}",
-					IsBlocked = i % 2 == 0 ? false : true
-				});
+				//users.Add(new User
+				//{
+				//	Id = i,
+				//	Login = $"User{i}",
+				//	IsBlocked = i % 2 == 0 ? false : true
+				//});
 				answers.Add(new Answer
 				{
 					Id = i,

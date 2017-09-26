@@ -1,12 +1,17 @@
-﻿using MemoDAL.Entities;
-using MemoDAL.EF;
-using MemoDAL.Repositories.Interfaces;
+﻿using MemoDAL.EF;
+using MemoDAL.Entities;
+using Microsoft.AspNet.Identity;
 
 
 namespace MemoDAL.Repositories
 {
-    public class UserRepository: BaseRepository<User>, IUserRepository
+    public class UserRepository : UserManager<User>
     {
-        public UserRepository(MemoContext context) : base(context) { }
+        public UserRepository(IUserStore<User> store)
+                : base(store)
+        {
+        }
+
     }
+
 }

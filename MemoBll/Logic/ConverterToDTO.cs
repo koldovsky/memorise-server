@@ -100,21 +100,21 @@ namespace MemoBll.Logic
             return answerDTOs;
         }
 
-        public RoleDTO ConvertToRoleDTO(Role role)
-        {
-            return new RoleDTO { Name = role.Name };
-        }
+        //public RoleDTO ConvertToRoleDTO(Role role)
+        //{
+        //    return new RoleDTO { Name = role.Name };
+        //}
 
-        public UserDTO ConvertToUserDTO(User user)
-        {
-            return new UserDTO
-            {
-                Email = user.Email,
-                IsBlocked = user.IsBlocked,
-                Login = user.Login,
-                Photo = user.Photo
-            };
-        }
+        //public UserDTO ConvertToUserDTO(User user)
+        //{
+        //    return new UserDTO
+        //    {
+        //        Email = user.Email,
+        //        IsBlocked = user.IsBlocked,
+        //        Login = user.Login,
+        //        Photo = user.Photo
+        //    };
+        //}
 
         public List<UserDTO> ConvertToUserListDTO(IEnumerable<User> users)
         {
@@ -200,6 +200,16 @@ namespace MemoBll.Logic
                 Course = ConvertToCourseDTO(userCourse.Course),
                 User = ConvertToUserDTO(userCourse.User)
             };
+        }
+
+        public RoleDTO ConvertToRoleDTO(Role role)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public UserDTO ConvertToUserDTO(User user)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
