@@ -1,10 +1,13 @@
 ﻿using System;
 using MemoDAL.Repositories;
 using MemoDAL.EF;
+using Microsoft.AspNet.Identity.EntityFramework;
+using MemoDAL.Entities;
+using System.Threading.Tasks;
 
 namespace MemoDAL
 {
-    public class UnitOfWork: IDisposable
+    public class UnitOfWork: IUnitOfWork
     {
         private MemoContext dbContext;
         public UnitOfWork(MemoContext context)
@@ -18,10 +21,11 @@ namespace MemoDAL
             Course = new CourseRepository(dbContext);
             Decks = new DeckRepository(dbContext);
             Reports = new ReportRepository(dbContext);
-            Roles = new RoleRepository(dbContext);
+            Roles = new RoleRepository(new RoleStore<Role>(dbContext));
             Statistics = new StatisticRepository(dbContext);
             UserCourses = new UserCourseRepository(dbContext);
-            Users = new UserRepository(dbContext);
+            Users = new UserRepository(new UserStore<User>(dbContext));
+            UserProfiles = new UserProfileRepository(dbContext);
         }
 
         public AnswerRepository Answers { get; private set; }
@@ -36,7 +40,14 @@ namespace MemoDAL
         public StatisticRepository Statistics { get; private set; }
         public UserCourseRepository UserCourses { get; private set; }
         public UserRepository Users { get; private set; }
+        public UserProfileRepository UserProfiles { get; private set; }
         private bool disposed = false;
+
+        public async Task SaveAsync()
+        {
+            if (this.disposed) throw new ObjectDisposedException("UnitOfWork");
+            await dbContext.SaveChangesAsync();
+        }
 
         public void Save()
         {

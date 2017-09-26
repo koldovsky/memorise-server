@@ -8,18 +8,18 @@ using System.Net.Http;
 
 namespace MemoRise.Controllers
 {
-    public class QuizController : ApiController
+    public class DeckDetailsController : ApiController
     {
-        QuizBll quiz = new QuizBll();
+        DeckDetailsBll deckDetails = new DeckDetailsBll();
 
         [HttpGet]
-        [Route("Quiz/GetCardsByDeck/{deckName}")]
-        public HttpResponseMessage GetCardsByDeck(string deckName)
+        [Route("DeckDetails/GetDeckWithDetails/{deckName}")]
+        public HttpResponseMessage GetDeckWithDetails(string deckName)
         {
             try
             {
-                List<CardDTO> cards = quiz.GetCardsByDeck(deckName);
-                return Request.CreateResponse(HttpStatusCode.OK, cards);
+                DeckWithDetailsDTO deckWithDetailsDTO = deckDetails.GetDeckWithDetails(deckName);
+                return Request.CreateResponse(HttpStatusCode.OK, deckWithDetailsDTO);
             }
             catch (ArgumentNullException ex)
             {
