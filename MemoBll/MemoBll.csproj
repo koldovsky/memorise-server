@@ -67,6 +67,7 @@
     <Compile Include="Interfaces\IConverterToDTO.cs" />
     <Compile Include="Interfaces\IAdministration.cs" />
     <Compile Include="Logic\Moderation.cs" />
+    <Compile Include="Managers\DeckDetailsBll.cs" />
     <Compile Include="Managers\ModerationBll.cs" />
     <Compile Include="Logic\Quiz.cs" />
     <Compile Include="QuizReview.cs" />

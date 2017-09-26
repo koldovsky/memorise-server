@@ -49,5 +49,9 @@ namespace MemoBll.Managers
                 ? converterToDto.ConvertToCardListDTO(cards)
                 : throw new ArgumentNullException();
          }
+        public bool IsAnswerCorrect(int cardId, string answerText)
+        {
+            return quiz.IsAnswerCorrect(cardId, answerText);
+        }
     }
 }
