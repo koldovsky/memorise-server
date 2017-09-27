@@ -9,6 +9,7 @@ namespace MemoDTO
     public class DeckWithDetailsDTO
     {
         public string Name { get; set; }
+        public string Linking { get; set; }
         public int Price { get; set; }
         public int CardsNumber { get; set; }
     }

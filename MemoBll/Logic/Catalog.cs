@@ -36,11 +36,11 @@ namespace MemoBll.Logic
 			return unitOfWork.Decks.GetAll();
 		}
 
-		public IEnumerable<Deck> GetAllDecksByCourse(string courseName)
+		public IEnumerable<Deck> GetAllDecksByCourse(string courseLinking)
 		{
 			return unitOfWork.Courses
 				.GetAll()
-				.First(x => x.Name == courseName)
+				.First(x => x.Linking == courseLinking)
 				.Decks;
 		}
 
@@ -60,11 +60,11 @@ namespace MemoBll.Logic
 			.Courses;
 		}
 
-		public Course GetCourse(string courseName)
+		public Course GetCourse(string courseLinking)
 		{
 			return unitOfWork.Courses
 				.GetAll()
-				.First(x => x.Name == courseName);
+				.First(x => x.Linking == courseLinking);
 		}
 	}
 }
