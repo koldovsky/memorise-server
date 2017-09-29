@@ -84,6 +84,7 @@ namespace MemoBll.Logic
         {
             return new AnswerDTO
             {
+                Id = answer.Id,
                 IsCorrect = answer.IsCorrect,
                 Text = answer.Text
             };
