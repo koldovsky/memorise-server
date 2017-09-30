@@ -1,4 +1,4 @@
-﻿namespace Memorise.Tests
+﻿namespace Memorise.Tests.BLL.ManagersTests
 {
 	class QuizBllTests
     {

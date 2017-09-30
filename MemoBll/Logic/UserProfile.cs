@@ -3,7 +3,6 @@ using MemoDAL;
 using MemoDAL.EF;
 using MemoDAL.Entities;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace MemoBll.Logic
 {

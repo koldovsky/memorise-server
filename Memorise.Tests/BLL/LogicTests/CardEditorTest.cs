@@ -10,7 +10,7 @@ namespace Memorise.Tests.BLL.LogicTests
 	[TestFixture]
 	public class CardEditorTest
 	{
-		public static IList<Card> cards = new List<Card>();
+		private static readonly IList<Card> Cards = new List<Card>();
 
 		public CardEditorTest()
 		{
@@ -18,7 +18,7 @@ namespace Memorise.Tests.BLL.LogicTests
 
 			for (int i = 0; i < 3; i++)
 			{
-				cards.Add(new Card { Id = i });
+				Cards.Add(new Card { Id = i });
 			}
 
 			#endregion
@@ -34,7 +34,7 @@ namespace Memorise.Tests.BLL.LogicTests
 
 			var sut = new CardEditor(unitOfWork.Object);
 
-			var card = cards[0];
+			var card = Cards[0];
 			sut.CreateCard(card);
 			
 			unitOfWork.Verify(
@@ -51,7 +51,7 @@ namespace Memorise.Tests.BLL.LogicTests
 
 			var sut = new CardEditor(unitOfWork.Object);
 
-			var card = cards[0];
+			var card = Cards[0];
 			sut.UpdateCard(card);
 
 			unitOfWork.Verify(
@@ -68,7 +68,7 @@ namespace Memorise.Tests.BLL.LogicTests
 
 			var sut = new CardEditor(unitOfWork.Object);
 
-			var card = cards[0];
+			var card = Cards[0];
 			sut.RemoveCard(card);
 
 			unitOfWork.Verify(

@@ -1,10 +1,9 @@
-﻿using System;
+﻿using MemoDAL.Entities;
 using System.Collections.Generic;
-using MemoDAL.Entities;
 
 namespace MemoDAL.Repositories
 {
-    public interface IRepository<T> where T : BaseEntity
+	public interface IRepository<T> where T : BaseEntity
     {
         IEnumerable<T> GetAll();
         T Get(int id);

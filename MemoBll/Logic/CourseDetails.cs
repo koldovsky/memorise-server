@@ -1,12 +1,12 @@
-﻿using MemoDAL;
-using MemoDAL.EF;
-using MemoDAL.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using MemoBll.Interfaces;
+using MemoDAL;
+using MemoDAL.EF;
+using MemoDAL.Entities;
 
-namespace MemoBll
+namespace MemoBll.Logic
 {
     public class CourseDetails : ICourseDetails
     {

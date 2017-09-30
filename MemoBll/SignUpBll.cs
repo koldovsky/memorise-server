@@ -1,8 +1,6 @@
 ﻿using MemoBll.Logic;
 using MemoDAL;
 using MemoDAL.EF;
-using MemoDAL.Entities;
-using System.Linq;
 
 namespace MemoBll
 {

@@ -1,10 +1,7 @@
 ﻿using MemoBll.Interfaces;
 using MemoBll.Logic;
-using MemoDAL;
-using MemoDAL.EF;
 using MemoDAL.Entities;
 using MemoDTO;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 

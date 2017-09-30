@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Data.Entity;
+﻿using MemoDAL.EF;
 using MemoDAL.Entities;
-using MemoDAL.EF;
-using System;
 using MemoDAL.Repositories.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 
 namespace MemoDAL.Repositories
 {
-    public class CourseRepository : BaseRepository<Course>, ICourseRepository
+	public class CourseRepository : BaseRepository<Course>, ICourseRepository
     {
         public CourseRepository(MemoContext context) : base(context)
         {

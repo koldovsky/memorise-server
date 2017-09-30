@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using MemoDAL;
-using MemoDAL.Entities;
-using MemoDAL.EF;
-using MemoDTO;
 using MemoBll.Logic;
+using MemoDAL;
+using MemoDAL.EF;
+using MemoDAL.Entities;
+using MemoDTO;
 
-namespace MemoBll
+namespace MemoBll.Managers
 {
-    public class DeckDetailsBll
+	public class DeckDetailsBll
     {
         UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
         ConverterToDTO converterToDto = new ConverterToDTO();
