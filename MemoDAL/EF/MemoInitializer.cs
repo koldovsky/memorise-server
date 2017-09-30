@@ -4,7 +4,7 @@ using MemoDAL.Entities;
 
 namespace MemoDAL.EF
 {
-    public class MemoInitializer: CreateDatabaseIfNotExists<MemoContext>
+    public class MemoInitializer: DropCreateDatabaseIfModelChanges<MemoContext>
     {
         protected override void Seed(MemoContext context)
         {
