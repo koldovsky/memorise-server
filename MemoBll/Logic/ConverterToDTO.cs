@@ -84,6 +84,7 @@ namespace MemoBll.Logic
         {
             return new AnswerDTO
             {
+                Id = answer.Id,
                 IsCorrect = answer.IsCorrect,
                 Text = answer.Text
             };
@@ -131,6 +132,7 @@ namespace MemoBll.Logic
         {
             return new CardDTO
             {
+                Id = card.Id,
                 Question = card.Question,
                 CardType = ConvertToCardTypeDTO(card.CardType),
                 Deck = ConvertToDeckDTO(card.Deck),
