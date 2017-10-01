@@ -40,11 +40,11 @@ namespace MemoDAL.EF
             //CATEGORY
             IList<Category> categories = new List<Category>()
             {
-                new Category{Name=".Net"},
-                new Category{Name="Java"},
-                new Category{Name="JavaScript"},
-                new Category{Name="Python"},
-                new Category{Name="Ruby"}
+                new Category{Name=".Net", Linking="_Net"},
+                new Category{Name="Java", Linking="Java"},
+                new Category{Name="JavaScript", Linking="JavaScript"},
+                new Category{Name="Python", Linking="Python"},
+                new Category{Name="Ruby", Linking="Ruby"}
             };
             foreach (var cat in categories)
             {
@@ -66,6 +66,7 @@ namespace MemoDAL.EF
                 new Deck{Name="Routing",Linking="Routing",Price=0,Category=categories[0]},
                 new Deck{Name="XAML",Linking="XAML",Price=0,Category=categories[0]},
                 new Deck{Name="Binding",Linking="Binding",Price=0,Category=categories[0]},
+                new Deck{Name="CSS", Linking="CSS", Price=0, Category=categories[2]}
             };
             foreach (var deck in decks)
             {
@@ -78,7 +79,8 @@ namespace MemoDAL.EF
                 new Course{Name="C#", Linking="cSharp", Description="C# course description",Price=0,Category=categories[0]},
                 new Course{Name="ASP.MVC", Linking="ASP_MVC", Description="ASP.MVC course description",Price=0,Category=categories[0]},
                 new Course{Name="EntityFramework",Linking="EF", Description="EntityFramework course description",Price=100,Category=categories[0]},
-                new Course{Name="WPF", Linking="WPF", Description="WPF course description",Price=0,Category=categories[0]}
+                new Course{Name="WPF", Linking="WPF", Description="WPF course description",Price=0,Category=categories[0]},
+                new Course{Name="JQUERY", Linking="JQ", Description="JQUERY course description", Price=0, Category=categories[2]}
             };
             for (int i = 0; i < 4; i++)
             {
@@ -95,6 +97,10 @@ namespace MemoDAL.EF
             for (int i = 10; i < 12; i++)
             {
                 courses[3].Decks.Add(decks[i]);
+            }
+            for (int i = 12; i <= 12; i++)
+            {
+                courses[4].Decks.Add(decks[i]);
             }
             foreach (var course in courses)
             {

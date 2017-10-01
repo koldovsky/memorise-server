@@ -40,31 +40,31 @@ namespace MemoBll.Logic
 		{
 			return unitOfWork.Courses
 				.GetAll()
-				.First(x => x.Linking == courseLinking)
+				.FirstOrDefault(x => x.Linking == courseLinking)
 				.Decks;
 		}
 
 		public IEnumerable<Deck> GetAllDecksByCategory(string categoryName)
 		{
-			return unitOfWork.Categories
-				.GetAll()
-				.First(x => x.Name == categoryName)
-				.Decks;
+            var category = unitOfWork.Categories
+                        .GetAll()
+                        .FirstOrDefault(x => x.Linking == categoryName);
+            return category?.Decks;	
 		}
 
-		public IEnumerable<Course> GetAllCoursesByCategory(string categoryName)
-		{
-			return unitOfWork.Categories
-			.GetAll()
-			.First(x => x.Name == categoryName)
-			.Courses;
-		}
+        public IEnumerable<Course> GetAllCoursesByCategory(string categoryName)
+        {
+            var category = unitOfWork.Categories
+            .GetAll()
+            .FirstOrDefault(x => x.Linking == categoryName);
+            return category?.Courses;
+        }
 
-		public Course GetCourse(string courseLinking)
+        public Course GetCourse(string courseLinking)
 		{
 			return unitOfWork.Courses
 				.GetAll()
-				.First(x => x.Linking == courseLinking);
+				.FirstOrDefault(x => x.Linking == courseLinking);
 		}
 	}
 }

@@ -13,8 +13,9 @@ namespace Memorise.Tests
     {
         Mock<IUnitOfWork> unitOfWork;
         List<Report> reports = new List<Report>();
+        List<Deck> decks = new List<Deck>();
         //List<User> users = new List<User>();
-        //List<Statistics> statistics = new List<Statistics>();
+        List<Statistics> statistics = new List<Statistics>();
         Moderation moderation;
 
         public ModerationLogicTests()
