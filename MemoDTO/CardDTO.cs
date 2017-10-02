@@ -9,6 +9,7 @@ namespace MemoDTO
             Comments = new List<CommentDTO>();
             Answers = new List<AnswerDTO>();
         }
+        public int Id { get; set; }
         public string Question { get; set; }
 
         public virtual CardTypeDTO CardType { get; set; }

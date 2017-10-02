@@ -1,12 +1,10 @@
-﻿using System;
+﻿using MemoDAL.EF;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using MemoDAL.EF;
 
 namespace MemoDAL.Repositories
 {
-    public abstract class BaseRepository<T>:
+	public abstract class BaseRepository<T>:
         IRepository<T> where T:Entities.BaseEntity
     {
         private DbContext Context;

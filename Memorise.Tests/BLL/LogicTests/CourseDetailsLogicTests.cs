@@ -1,66 +1,68 @@
 ﻿using System;
 using System.Collections.Generic;
+using MemoBll;
+using MemoBll.Logic;
 using MemoDAL;
-using NUnit.Framework;
 using MemoDAL.Entities;
 using Moq;
-using MemoBll;
+using NUnit.Framework;
 
-namespace Memorise.Tests
+namespace Memorise.Tests.BLL.LogicTests
 {
     [TestFixture]
     class CourseDetailsLogicTests
     {
-        private Mock<IUnitOfWork> unitOfWork;
-        private CourseDetails courseDetails;
-        private List<Deck> freeDecks = new List<Deck>();
-        private List<Deck> paidDecks = new List<Deck>();
-        private List<Deck> allDecks = new List<Deck>();
-        private List<Course> courses = new List<Course>();
+        private readonly Mock<IUnitOfWork> _unitOfWork;
+        private CourseDetails _courseDetails;
+        private readonly List<Deck> _freeDecks = new List<Deck>();
+        private readonly List<Deck> _paidDecks = new List<Deck>();
+        private readonly List<Deck> _allDecks = new List<Deck>();
+        private readonly List<Course> _courses = new List<Course>();
 
         public CourseDetailsLogicTests()
         {
-            unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
+            _unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
 
-            freeDecks.Add(new Deck { Id = 1, Name = "Deck1", Price = 0 });
-            freeDecks.Add(new Deck { Id = 2, Name = "Deck2", Price = 0 });
+            _freeDecks.Add(new Deck { Id = 1, Name = "Deck1", Price = 0 });
+            _freeDecks.Add(new Deck { Id = 2, Name = "Deck2", Price = 0 });
 
-            paidDecks.Add(new Deck { Id = 3, Name = "Deck3", Price = 1 });
-            paidDecks.Add(new Deck { Id = 4, Name = "Deck4", Price = 2 });
+            _paidDecks.Add(new Deck { Id = 3, Name = "Deck3", Price = 1 });
+            _paidDecks.Add(new Deck { Id = 4, Name = "Deck4", Price = 2 });
 
-            allDecks.AddRange(freeDecks);
-            allDecks.AddRange(paidDecks);
+            _allDecks.AddRange(_freeDecks);
+            _allDecks.AddRange(_paidDecks);
 
-            courses.Add(new Course { Id = 1, Name = "Course1", Decks = freeDecks });
-            courses.Add(new Course { Id = 2, Name = "Course2", Decks = freeDecks });
+            _courses.Add(new Course { Id = 1, Name = "Course1", Decks = _freeDecks });
+            _courses.Add(new Course { Id = 2, Name = "Course2", Decks = _freeDecks });
         }
         
+        [Test]
         public void GetAllPaidDecksTest()
         {
             // Arrange
-            var expected = paidDecks;
-            unitOfWork.Setup(uow => uow.Decks.GetAll()).Returns(allDecks);
-            courseDetails = new CourseDetails(unitOfWork.Object);
+            var expected = _paidDecks;
+            _unitOfWork.Setup(uow => uow.Decks.GetAll()).Returns(_allDecks);
+            _courseDetails = new CourseDetails(_unitOfWork.Object);
 
             // Act
-            var actual = courseDetails.GetAllPaidDecks();
+            var actual = _courseDetails.GetAllPaidDecks();
 
             // Assert
             Assert.AreEqual(expected, actual);
-            unitOfWork.Verify(uow => uow.Decks.GetAll(), Times.Once);
+            _unitOfWork.Verify(uow => uow.Decks.GetAll(), Times.Once);
         }
 
         [Test]
         public void GetAllFreeDecksTest()
         {
             // Arrange
-            courseDetails = new CourseDetails(unitOfWork.Object);
+            _courseDetails = new CourseDetails(_unitOfWork.Object);
 
             // Act
 
             // Assert
             Assert.Throws<NotImplementedException>(
-                () => courseDetails.GetAllFreeDecks(DateTime.Now));
+                () => _courseDetails.GetAllFreeDecks(DateTime.Now));
         }
 
         [TestCase(1)]
@@ -68,17 +70,17 @@ namespace Memorise.Tests
         public void GetDeckPriceTest(int deckId)
         {
             // Arrange
-            var expected = allDecks[deckId].Price;
-            unitOfWork.Setup(uow => uow.Decks.Get(deckId))
-                .Returns(allDecks[deckId]);
-            courseDetails = new CourseDetails(unitOfWork.Object);
+            var expected = _allDecks[deckId].Price;
+            _unitOfWork.Setup(uow => uow.Decks.Get(deckId))
+                .Returns(_allDecks[deckId]);
+            _courseDetails = new CourseDetails(_unitOfWork.Object);
 
             // Act
-            var actual = courseDetails.GetDeckPrice(deckId);
+            var actual = _courseDetails.GetDeckPrice(deckId);
 
             // Assert
             Assert.AreEqual(expected, actual);
-            unitOfWork.Verify(uow => uow.Decks.Get(deckId), Times.Once);
+            _unitOfWork.Verify(uow => uow.Decks.Get(deckId), Times.Once);
         }
 
         [Test]
@@ -87,59 +89,59 @@ namespace Memorise.Tests
             // Arrange
             int deckId = 0;
             Deck deck = null;
-            unitOfWork.Setup(uow => uow.Decks.Get(deckId)).Returns(deck);
-            courseDetails = new CourseDetails(unitOfWork.Object);
+            _unitOfWork.Setup(uow => uow.Decks.Get(deckId)).Returns(deck);
+            _courseDetails = new CourseDetails(_unitOfWork.Object);
 
             // Act
             // Assert
             Assert.Throws<ArgumentNullException>(
-                () => courseDetails.GetDeckPrice(deckId));
+                () => _courseDetails.GetDeckPrice(deckId));
         }
 
         [Test]
         public void GetAllNewDecksTest()
         {
             // Arrange
-            courseDetails = new CourseDetails(unitOfWork.Object);
+            _courseDetails = new CourseDetails(_unitOfWork.Object);
 
             // Act
 
             // Assert
             Assert.Throws<NotImplementedException>(
-                () => courseDetails.GetAllNewDecks(DateTime.Now));
+                () => _courseDetails.GetAllNewDecks(DateTime.Now));
         }
 
         [Test]
         public void GetCourseByNameTest()
         {
             // Arrange
-            var expected = courses[0];
-            unitOfWork.Setup(uow => uow.Courses.GetAll()).Returns(courses);
-            courseDetails = new CourseDetails(unitOfWork.Object);
+            var expected = _courses[0];
+            _unitOfWork.Setup(uow => uow.Courses.GetAll()).Returns(_courses);
+            _courseDetails = new CourseDetails(_unitOfWork.Object);
 
             // Act
-            var actual = courseDetails.GetCourseByName(courses[0].Name);
+            var actual = _courseDetails.GetCourseByName(_courses[0].Name);
 
             // Assert
             Assert.AreEqual(expected, actual);
-            unitOfWork.Verify(uow => uow.Courses.GetAll(), Times.Once);
+            _unitOfWork.Verify(uow => uow.Courses.GetAll(), Times.Once);
         }
 
         [Test]
         public void GetCourseByIdTest()
         {
             // Arrange
-            int id = courses[0].Id;
-            var expected = courses[0];
-            unitOfWork.Setup(uow => uow.Courses.Get(id)).Returns(courses[0]);
-            courseDetails = new CourseDetails(unitOfWork.Object);
+            int id = _courses[0].Id;
+            var expected = _courses[0];
+            _unitOfWork.Setup(uow => uow.Courses.Get(id)).Returns(_courses[0]);
+            _courseDetails = new CourseDetails(_unitOfWork.Object);
 
             // Act
-            var actual = courseDetails.GetCourseById(id);
+            var actual = _courseDetails.GetCourseById(id);
 
             // Assert
             Assert.AreEqual(expected, actual);
-            unitOfWork.Verify(uow => uow.Courses.Get(id), Times.Once);
+            _unitOfWork.Verify(uow => uow.Courses.Get(id), Times.Once);
         }
     }
 }

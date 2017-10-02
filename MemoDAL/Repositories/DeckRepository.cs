@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Data.Entity;
+﻿using MemoDAL.EF;
 using MemoDAL.Entities;
-using MemoDAL.EF;
 using MemoDAL.Repositories.Interfaces;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 
 namespace MemoDAL.Repositories
 {
-    public class DeckRepository : BaseRepository<Deck>, IDeckRepository
+	public class DeckRepository : BaseRepository<Deck>, IDeckRepository
     {
         public DeckRepository(MemoContext context) : base(context) { }
         

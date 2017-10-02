@@ -3,20 +3,16 @@ using MemoDAL;
 using MemoDAL.Entities;
 using Moq;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Memorise.Tests.BLL.LogicTests
 {
 	[TestFixture]
 	public class CatalogTests
 	{
-		public static IList<Category> categories = new List<Category>();
-		public static IList<Course> courses = new List<Course>();
-		public static IList<Deck> decks = new List<Deck>();
+		private static readonly IList<Category> Categories = new List<Category>();
+		private static readonly IList<Course> Courses = new List<Course>();
+		private static readonly IList<Deck> Decks = new List<Deck>();
 
 		public CatalogTests()
 		{
@@ -24,25 +20,25 @@ namespace Memorise.Tests.BLL.LogicTests
 
 			for (int i = 0; i < 3; i++)
 			{
-				categories.Add(new Category { Id = i, Name = $"Category{i}" });
-				courses.Add(new Course { Id = i, Name = $"Course{i}" });
-				decks.Add(new Deck { Id = i, Name = $"Decks{i}" });
+				Categories.Add(new Category { Id = i, Name = $"Category{i}" });
+				Courses.Add(new Course { Id = i, Name = $"Course{i}" });
+				Decks.Add(new Deck { Id = i, Name = $"Decks{i}" });
 			}
 
-			courses[0].Decks.Add(decks[0]);
-			courses[1].Decks.Add(decks[2]);
-			courses[2].Decks.Add(decks[0]);
-			courses[0].Decks.Add(decks[1]);
+			Courses[0].Decks.Add(Decks[0]);
+			Courses[1].Decks.Add(Decks[2]);
+			Courses[2].Decks.Add(Decks[0]);
+			Courses[0].Decks.Add(Decks[1]);
 
-			categories[1].Decks.Add(decks[0]);
-			categories[1].Decks.Add(decks[2]);
-			categories[0].Decks.Add(decks[0]);
-			categories[2].Decks.Add(decks[1]);
+			Categories[1].Decks.Add(Decks[0]);
+			Categories[1].Decks.Add(Decks[2]);
+			Categories[0].Decks.Add(Decks[0]);
+			Categories[2].Decks.Add(Decks[1]);
 
-			categories[1].Courses.Add(courses[0]);
-			categories[1].Courses.Add(courses[2]);
-			categories[0].Courses.Add(courses[0]);
-			categories[2].Courses.Add(courses[1]);
+			Categories[1].Courses.Add(Courses[0]);
+			Categories[1].Courses.Add(Courses[2]);
+			Categories[0].Courses.Add(Courses[0]);
+			Categories[2].Courses.Add(Courses[1]);
 
 			#endregion
 		}
@@ -54,11 +50,11 @@ namespace Memorise.Tests.BLL.LogicTests
 				= new Mock<IUnitOfWork>(MockBehavior.Strict);
 			unitOfWork
 				.Setup(uow => uow.Categories.GetAll())
-				.Returns(categories);
+				.Returns(Categories);
 			var sut = new Catalog(unitOfWork.Object);
 
 			var actual = sut.GetAllCategories();
-			var expected = categories;
+			var expected = Categories;
 
 			Assert.AreEqual(expected, actual);
 			unitOfWork.Verify(
@@ -72,11 +68,11 @@ namespace Memorise.Tests.BLL.LogicTests
 				= new Mock<IUnitOfWork>(MockBehavior.Strict);
 			unitOfWork
 				.Setup(uow => uow.Courses.GetAll())
-				.Returns(courses);
+				.Returns(Courses);
 			var sut = new Catalog(unitOfWork.Object);
 
 			var actual = sut.GetAllCourses();
-			var expected = courses;
+			var expected = Courses;
 
 			Assert.AreEqual(expected, actual);
 			unitOfWork.Verify(
@@ -90,11 +86,11 @@ namespace Memorise.Tests.BLL.LogicTests
 				= new Mock<IUnitOfWork>(MockBehavior.Strict);
 			unitOfWork
 				.Setup(uow => uow.Decks.GetAll())
-				.Returns(decks);
+				.Returns(Decks);
 			var sut = new Catalog(unitOfWork.Object);
 
 			var actual = sut.GetAllDecks();
-			var expected = decks;
+			var expected = Decks;
 
 			Assert.AreEqual(expected, actual);
 			unitOfWork.Verify(
@@ -108,12 +104,12 @@ namespace Memorise.Tests.BLL.LogicTests
 				= new Mock<IUnitOfWork>(MockBehavior.Strict);
 			unitOfWork
 				.Setup(uow => uow.Courses.GetAll())
-				.Returns(courses);
+				.Returns(Courses);
 			var sut = new Catalog(unitOfWork.Object);
 
-			var course = courses[0];
+			var course = Courses[0];
 
-			var actual = sut.GetAllDecksByCourse(course.Name);
+			var actual = sut.GetAllDecksByCourse(course.Linking);
 			var expected = course.Decks;
 
 			Assert.AreEqual(expected, actual);
@@ -128,12 +124,12 @@ namespace Memorise.Tests.BLL.LogicTests
 				= new Mock<IUnitOfWork>(MockBehavior.Strict);
 			unitOfWork
 				.Setup(uow => uow.Categories.GetAll())
-				.Returns(categories);
+				.Returns(Categories);
 			var sut = new Catalog(unitOfWork.Object);
 
-			var category = categories[0];
+			var category = Categories[0];
 
-			var actual = sut.GetAllDecksByCategory(category.Name);
+			var actual = sut.GetAllDecksByCategory(category.Linking);
 			var expected = category.Decks;
 
 			Assert.AreEqual(expected, actual);
@@ -148,12 +144,12 @@ namespace Memorise.Tests.BLL.LogicTests
 				= new Mock<IUnitOfWork>(MockBehavior.Strict);
 			unitOfWork
 				.Setup(uow => uow.Categories.GetAll())
-				.Returns(categories);
+				.Returns(Categories);
 			var sut = new Catalog(unitOfWork.Object);
 
-			var category = categories[0];
+			var category = Categories[0];
 
-			var actual = sut.GetAllCoursesByCategory(category.Name);
+			var actual = sut.GetAllCoursesByCategory(category.Linking);
 			var expected = category.Courses;
 
 			Assert.AreEqual(expected, actual);
@@ -168,12 +164,12 @@ namespace Memorise.Tests.BLL.LogicTests
 				= new Mock<IUnitOfWork>(MockBehavior.Strict);
 			unitOfWork
 				.Setup(uow => uow.Courses.GetAll())
-				.Returns(courses);
+				.Returns(Courses);
 			var sut = new Catalog(unitOfWork.Object);
 
-			var course = courses[0];
+			var course = Courses[0];
 
-			var actual = sut.GetCourse(course.Name);
+			var actual = sut.GetCourse(course.Linking);
 			var expected = course;
 
 			Assert.AreEqual(expected, actual);

@@ -1,11 +1,11 @@
-﻿using MemoDAL;
+﻿using System.Collections.Generic;
+using MemoBll.Logic;
+using MemoDAL;
 using MemoDAL.Entities;
 using Moq;
 using NUnit.Framework;
-using System.Collections.Generic;
-using MemoBll.Logic;
 
-namespace Memorise.Tests
+namespace Memorise.Tests.BLL.LogicTests
 {
 	[TestFixture]
     class FilterLogicTests
