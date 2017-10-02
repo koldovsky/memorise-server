@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 
+
 namespace MemoRise.Controllers
 {
     public class AccountController : ApiController
@@ -26,7 +27,7 @@ namespace MemoRise.Controllers
                       newUser.Email);
             if (userWithSuchEmail != null)
             {
-                return BadRequest("User with such email already exists");
+                return BadRequest("user with such email already exists!");
             }
             UserProfile userProfile = new UserProfile
             {
