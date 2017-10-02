@@ -35,6 +35,7 @@ namespace Memorise.Tests
             courses.Add(new Course { Id = 2, Name = "Course2", Decks = freeDecks });
         }
         
+        [Test]
         public void GetAllPaidDecksTest()
         {
             // Arrange

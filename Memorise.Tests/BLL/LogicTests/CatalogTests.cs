@@ -113,7 +113,7 @@ namespace Memorise.Tests.BLL.LogicTests
 
 			var course = courses[0];
 
-			var actual = sut.GetAllDecksByCourse(course.Name);
+			var actual = sut.GetAllDecksByCourse(course.Linking);
 			var expected = course.Decks;
 
 			Assert.AreEqual(expected, actual);
@@ -133,7 +133,7 @@ namespace Memorise.Tests.BLL.LogicTests
 
 			var category = categories[0];
 
-			var actual = sut.GetAllDecksByCategory(category.Name);
+			var actual = sut.GetAllDecksByCategory(category.Linking);
 			var expected = category.Decks;
 
 			Assert.AreEqual(expected, actual);
@@ -153,7 +153,7 @@ namespace Memorise.Tests.BLL.LogicTests
 
 			var category = categories[0];
 
-			var actual = sut.GetAllCoursesByCategory(category.Name);
+			var actual = sut.GetAllCoursesByCategory(category.Linking);
 			var expected = category.Courses;
 
 			Assert.AreEqual(expected, actual);
@@ -173,7 +173,7 @@ namespace Memorise.Tests.BLL.LogicTests
 
 			var course = courses[0];
 
-			var actual = sut.GetCourse(course.Name);
+			var actual = sut.GetCourse(course.Linking);
 			var expected = course;
 
 			Assert.AreEqual(expected, actual);

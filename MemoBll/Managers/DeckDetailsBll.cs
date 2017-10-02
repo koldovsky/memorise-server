@@ -14,9 +14,9 @@ namespace MemoBll
         UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
         ConverterToDTO converterToDto = new ConverterToDTO();
 
-        public DeckWithDetailsDTO GetDeckWithDetails(string deckName)
+        public DeckWithDetailsDTO GetDeckWithDetails(string deckLinking)
         {
-            Deck deck = unitOfWork.Decks.GetAll().FirstOrDefault(x => x.Name == deckName);
+            Deck deck = unitOfWork.Decks.GetAll().FirstOrDefault(x => x.Linking == deckLinking);
             if (deck == null)
             {
                 throw new ArgumentNullException();
