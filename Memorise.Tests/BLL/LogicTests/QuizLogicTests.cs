@@ -6,7 +6,7 @@ using MemoDAL.Entities;
 using Moq;
 using NUnit.Framework;
 
-namespace Memorise.Tests.LogicTests
+namespace Memorise.Tests.BLL.LogicTests
 {
     [TestFixture]
     class QuizLogicTests

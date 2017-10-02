@@ -1,13 +1,13 @@
-﻿using MemoBll.Interfaces;
+﻿using System.Collections.Generic;
+using System.Linq;
+using MemoBll.Interfaces;
 using MemoBll.Managers;
 using MemoDAL.Entities;
 using MemoDTO;
 using Moq;
 using NUnit.Framework;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace Memorise.Tests
+namespace Memorise.Tests.BLL.ManagersTests
 {
 	[TestFixture]
     class CatalogBllTests
