@@ -7,24 +7,13 @@ namespace MemoBll.Logic
 {
 	public class ConverterToDTO : IConverterToDTO
     {
-
-        public DeckWithDetailsDTO ConvertToDeckWithDetailsDTO(Deck deck)
-        {
-            return new DeckWithDetailsDTO
-            {
-                Name = deck.Name,
-                Linking = deck.Linking,
-                Price = deck.Price,
-                CardsNumber = deck.Cards.Count
-            };
-        }
-
         public DeckDTO ConvertToDeckDTO(Deck deck)
         {
             return new DeckDTO
             {
                 Name = deck.Name,
                 Linking = deck.Linking,
+				CardsNumber = deck.Cards.Count,
                 Price = deck.Price
             };
         }
