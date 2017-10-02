@@ -65,7 +65,7 @@ namespace MemoBll.Logic
 
         public CategoryDTO ConvertToCategoryDTO(Category category)
         {
-            return new CategoryDTO { Name = category.Name };
+            return new CategoryDTO { Name = category.Name, Linking = category.Linking };
         }
 
         public CardTypeDTO ConvertToCardTypeDTO(CardType cardtype)
