@@ -7,22 +7,13 @@ namespace MemoBll.Logic
 {
 	public class ConverterToDTO : IConverterToDTO
     {
-
-        public DeckWithDetailsDTO ConvertToDeckWithDetailsDTO(Deck deck)
-        {
-            return new DeckWithDetailsDTO
-            {
-                Name = deck.Name,
-                Price = deck.Price,
-                CardsNumber = deck.Cards.Count
-            };
-        }
-
         public DeckDTO ConvertToDeckDTO(Deck deck)
         {
             return new DeckDTO
             {
                 Name = deck.Name,
+                Linking = deck.Linking,
+				CardsNumber = deck.Cards.Count,
                 Price = deck.Price
             };
         }
@@ -43,6 +34,7 @@ namespace MemoBll.Logic
             return new CourseDTO
             {
                 Name = course.Name,
+                Linking = course.Linking,
                 Price = course.Price,
                 Description = course.Description
             };
@@ -64,6 +56,7 @@ namespace MemoBll.Logic
             return new CourseWithDecksDTO
             {
                 Name = course.Name,
+                Linking = course.Linking,
                 Price = course.Price,
                 Description = course.Description,
                 Decks = ConvertToDeckListDTO(course.Decks)
@@ -72,7 +65,7 @@ namespace MemoBll.Logic
 
         public CategoryDTO ConvertToCategoryDTO(Category category)
         {
-            return new CategoryDTO { Name = category.Name };
+            return new CategoryDTO { Name = category.Name, Linking = category.Linking };
         }
 
         public CardTypeDTO ConvertToCardTypeDTO(CardType cardtype)

@@ -4,7 +4,7 @@ using MemoDAL.Entities;
 
 namespace MemoDAL.EF
 {
-    public class MemoInitializer: DropCreateDatabaseIfModelChanges<MemoContext>
+    public class MemoInitializer : DropCreateDatabaseIfModelChanges<MemoContext>
     {
         protected override void Seed(MemoContext context)
         {
@@ -36,17 +36,17 @@ namespace MemoDAL.EF
             //{
             //    context.Users.Add(user);
             //}
-                      
+
             //CATEGORY
             IList<Category> categories = new List<Category>()
             {
-                new Category{Name=".Net"},
-                new Category{Name="Java"},
-                new Category{Name="JavaScript"},
-                new Category{Name="Python"},
-                new Category{Name="Ruby"}
+                new Category{Name=".Net", Linking="_Net"},
+                new Category{Name="Java", Linking="Java"},
+                new Category{Name="JavaScript", Linking="JavaScript"},
+                new Category{Name="Python", Linking="Python"},
+                new Category{Name="Ruby", Linking="Ruby"}
             };
-            foreach(var cat in categories)
+            foreach (var cat in categories)
             {
                 context.Categories.Add(cat);
             }
@@ -54,18 +54,19 @@ namespace MemoDAL.EF
             //DECK
             IList<Deck> decks = new List<Deck>()
             {
-                new Deck{Name="Arrays",Price=0,Category=categories[0]},
-                new Deck{Name="Generics",Price=0,Category=categories[0]},
-                new Deck{Name="Threads",Price=0,Category=categories[0]},
-                new Deck{Name="LINQ",Price=0,Category=categories[0]},
-                new Deck{Name="Database First",Price=0,Category=categories[0]},
-                new Deck{Name="Model First",Price=0,Category=categories[0]},
-                new Deck{Name="Code First",Price=0,Category=categories[0]},
-                new Deck{Name="Web API",Price=0,Category=categories[0]},
-                new Deck{Name="IIS",Price=0,Category=categories[0]},
-                new Deck{Name="Rouring",Price=0,Category=categories[0]},
-                new Deck{Name="XAML",Price=0,Category=categories[0]},
-                new Deck{Name="Binding",Price=0,Category=categories[0]},
+                new Deck{Name="Arrays", Linking="Arrays", Price=0, Category=categories[0]},
+                new Deck{Name="Generics",Linking="Generics", Price=0, Category=categories[0]},
+                new Deck{Name="Threads",Linking="Threads",Price=0,Category=categories[0]},
+                new Deck{Name="LINQ",Linking="LINQ",Price=0,Category=categories[0]},
+                new Deck{Name="Database First",Linking="Database_First",Price=0,Category=categories[0]},
+                new Deck{Name="Model First",Linking="Model_First",Price=0,Category=categories[0]},
+                new Deck{Name="Code First",Linking="Code_First",Price=0,Category=categories[0]},
+                new Deck{Name="Web API",Linking="Web_API",Price=0,Category=categories[0]},
+                new Deck{Name="IIS",Linking="IIS",Price=0,Category=categories[0]},
+                new Deck{Name="Routing",Linking="Routing",Price=0,Category=categories[0]},
+                new Deck{Name="XAML",Linking="XAML",Price=0,Category=categories[0]},
+                new Deck{Name="Binding",Linking="Binding",Price=0,Category=categories[0]},
+                new Deck{Name="CSS", Linking="CSS", Price=0, Category=categories[2]}
             };
             foreach (var deck in decks)
             {
@@ -75,10 +76,11 @@ namespace MemoDAL.EF
             //COURSE
             IList<Course> courses = new List<Course>()
             {
-                new Course{Name="cSharp",Description="C# course description",Price=0,Category=categories[0]},
-                new Course{Name="ASP.MVC",Description="ASP.MVC course description",Price=0,Category=categories[0]},
-                new Course{Name="EntityFramework",Description="EntityFramework course description",Price=100,Category=categories[0]},
-                new Course{Name="WPF",Description="WPF course description",Price=0,Category=categories[0]}
+                new Course{Name="C#", Linking="cSharp", Description="C# course description",Price=0,Category=categories[0]},
+                new Course{Name="ASP.MVC", Linking="ASP_MVC", Description="ASP.MVC course description",Price=0,Category=categories[0]},
+                new Course{Name="EntityFramework",Linking="EF", Description="EntityFramework course description",Price=100,Category=categories[0]},
+                new Course{Name="WPF", Linking="WPF", Description="WPF course description",Price=0,Category=categories[0]},
+                new Course{Name="JQUERY", Linking="JQ", Description="JQUERY course description", Price=0, Category=categories[2]}
             };
             for (int i = 0; i < 4; i++)
             {
@@ -96,6 +98,10 @@ namespace MemoDAL.EF
             {
                 courses[3].Decks.Add(decks[i]);
             }
+            for (int i = 12; i <= 12; i++)
+            {
+                courses[4].Decks.Add(decks[i]);
+            }
             foreach (var course in courses)
             {
                 context.Courses.Add(course);
@@ -110,7 +116,7 @@ namespace MemoDAL.EF
                 new CardType{Name="CardType3"},
                 new CardType{Name="CardType4"},
             };
-            foreach(var cardType in cardTypes)
+            foreach (var cardType in cardTypes)
             {
                 context.CardTypes.Add(cardType);
             }
@@ -122,7 +128,7 @@ namespace MemoDAL.EF
                 new Card{Question="Question3",Deck=decks[0],CardType=cardTypes[2]},
                 new Card{Question="Question4",Deck=decks[0],CardType=cardTypes[3]},
             };
-            foreach(var card in cards)
+            foreach (var card in cards)
             {
                 context.Cards.Add(card);
             }

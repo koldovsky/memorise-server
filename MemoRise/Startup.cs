@@ -21,8 +21,9 @@ namespace MemoRise
     {
         public void Configuration(IAppBuilder app)
         {
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             ConfigureOAuth(app);
-
+           
         }
         public void ConfigureOAuth(IAppBuilder app)
         {
@@ -47,8 +48,8 @@ namespace MemoRise
             app.UseOAuthAuthorizationServer(new OAuthAuthorizationServerOptions
             {
                 AllowInsecureHttp = true,
-                TokenEndpointPath = new PathString("/memo/login"),///oauth2/token
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
+                TokenEndpointPath = new PathString("/memo/login"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromHours(10),
                 Provider = new CustomOAuthProvider(),
                 AccessTokenFormat = new CustomJwtFormat(issuer)
             });

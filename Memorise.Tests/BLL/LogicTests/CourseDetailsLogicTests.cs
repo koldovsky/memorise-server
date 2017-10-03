@@ -36,6 +36,7 @@ namespace Memorise.Tests.BLL.LogicTests
             _courses.Add(new Course { Id = 2, Name = "Course2", Decks = _freeDecks });
         }
         
+        [Test]
         public void GetAllPaidDecksTest()
         {
             // Arrange

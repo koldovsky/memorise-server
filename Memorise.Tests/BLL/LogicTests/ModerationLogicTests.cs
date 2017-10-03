@@ -5,6 +5,8 @@ using MemoDAL;
 using MemoDAL.Entities;
 using Moq;
 using NUnit.Framework;
+using MemoBll.Managers;
+using MemoBll.Interfaces;
 
 namespace Memorise.Tests.BLL.LogicTests
 {
@@ -13,8 +15,9 @@ namespace Memorise.Tests.BLL.LogicTests
     {
         Mock<IUnitOfWork> unitOfWork;
         List<Report> reports = new List<Report>();
+        List<Deck> decks = new List<Deck>();
         //List<User> users = new List<User>();
-        //List<Statistics> statistics = new List<Statistics>();
+        List<Statistics> statistics = new List<Statistics>();
         Moderation moderation;
 
         public ModerationLogicTests()
@@ -131,5 +134,22 @@ namespace Memorise.Tests.BLL.LogicTests
             Assert.AreEqual(expected, actual);
             unitOfWork.Verify(uow => uow.Reports.Get(id), Times.Once);
         }
+
+        [Test]
+        public void GetDeckStatisticsTest() 
+        {
+            List<Statistics> list = new List<Statistics> {
+                    new Statistics { Id = 1, Deck = new Deck { Id = 1}, SuccessPercent = 20  },
+                    new Statistics { Id = 2, Deck = new Deck { Id = 1 }, SuccessPercent = 80 },
+                    new Statistics { Id = 3, Deck = new Deck { Id = 1 }, SuccessPercent = 20 } };
+            var moderationMock = new Mock<IModeration>();
+            var id = 1;
+            moderationMock.Setup(temp => temp.GetDeckStatistics(id)).Returns(list);
+            ModerationBll getStat = new ModerationBll( moderationMock.Object, new ConverterToDTO());
+            var actual = getStat.GetDeckStatistics(1);
+
+            Assert.AreEqual(40, actual);
+        }
+
     }
 }

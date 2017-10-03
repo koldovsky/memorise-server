@@ -22,13 +22,15 @@ namespace MemoRise.Identity
         public override Task GrantResourceOwnerCredentials(
             OAuthGrantResourceOwnerCredentialsContext context)
         {
-            context.OwinContext.Response.Headers
-                   .Add("Access-Control-Allow-Origin", new[] { "*" });
-
+            
             var user = context.OwinContext.Get<MemoContext>().Users
                        .FirstOrDefault(u => u.UserName == context.UserName);
+            
+            string password = Encoding.UTF8.GetString(
+                Convert.FromBase64String(context.Password));
+
             if (!context.OwinContext.Get<UserRepository>()
-                .CheckPassword(user, Encoding.UTF8.GetString(Convert.FromBase64String(context.Password))))
+                .CheckPassword(user, password))
             {
                 context.SetError("invalid_grant",
                                 "The user name or password is incorrect");

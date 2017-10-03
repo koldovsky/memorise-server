@@ -14,12 +14,13 @@ namespace MemoRise.Controllers
         CatalogBll catalog = new CatalogBll();
 
         [HttpGet]
-        //[Authorize(Roles = "Customer")]
+        
         public IHttpActionResult GetCategories()
         {
             try
             {
-                List<CategoryDTO> categories = catalog.GetAllCategories().ToList();
+                List<CategoryDTO> categories = catalog.GetAllCategories()
+                                               .ToList();
                 return  Ok(categories);
             }
             catch (ArgumentNullException ex)
@@ -54,6 +55,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpGet]
+        //[Authorize(Roles = "Customer")]
         public IHttpActionResult GetDecks()
         {
             try
@@ -78,9 +80,13 @@ namespace MemoRise.Controllers
         {
             try
             {
-                List<CourseDTO> courses = catalog.
-                                          GetAllCoursesByCategory(categoryName).ToList();
-                return Ok(courses);
+                IEnumerable<CourseDTO> courses = catalog.
+                                          GetAllCoursesByCategory(categoryName);
+                if(courses == null)
+                {
+                    throw new Exception("Courses aren't found by this category!");
+                }
+                return Ok(courses.ToList());
             }
             catch (ArgumentNullException ex)
             {
@@ -100,9 +106,13 @@ namespace MemoRise.Controllers
         {
             try
             {
-                List<DeckDTO> decks = catalog
-                                     .GetAllDecksByCategory(categoryName).ToList();
-                return Ok(decks);
+                IEnumerable<DeckDTO> decks = catalog
+                                     .GetAllDecksByCategory(categoryName);
+                if (decks == null)
+                {
+                    throw new Exception("Decks aren't found by this category!");
+                }
+                return Ok(decks.ToList());
             }
             catch (ArgumentNullException ex)
             {
@@ -124,7 +134,8 @@ namespace MemoRise.Controllers
         {
             try
             {
-                List<DeckDTO> decks = catalog.GetAllDecksByCourse(courseName).ToList();
+                List<DeckDTO> decks = catalog.GetAllDecksByCourse(courseName)
+                                     .ToList();
                 return Ok(decks);
             }
             catch (ArgumentNullException ex)

@@ -3,8 +3,11 @@ using MemoDAL.EF;
 using MemoDAL.Entities;
 using MemoDTO;
 using Microsoft.AspNet.Identity;
+using System;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+
 
 namespace MemoRise.Controllers
 {
@@ -12,35 +15,6 @@ namespace MemoRise.Controllers
     {
         UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
 
-        //[HttpPost]
-        //public async Task<IHttpActionResult> SignIn(
-        //    [FromBody] UserLoginDTO registeredUser)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    var user = await unitOfWork.Users.FindByNameAsync(
-        //              registeredUser.Login);
-        //    if (user != null)
-        //    {
-        //        var result = await unitOfWork.Users.CheckPasswordAsync(user,
-        //                     registeredUser.Password);
-
-        //        if (result)
-        //        {
-        //            return Ok(new UserDTO { Login=user.UserName });
-        //        }
-        //        else
-        //        {
-        //            return BadRequest("The user name or password is incorrect");
-        //        }
-        //    }
-
-        //    return BadRequest("User with such name not found");
-
-        //}
         [HttpPost]
         public async Task<IHttpActionResult> SignUp(
             [FromBody] UserLoginDTO newUser)
@@ -53,7 +27,7 @@ namespace MemoRise.Controllers
                       newUser.Email);
             if (userWithSuchEmail != null)
             {
-                return BadRequest("User with such email already exists");
+                return BadRequest("user with such email already exists!");
             }
             UserProfile userProfile = new UserProfile
             {
@@ -67,9 +41,10 @@ namespace MemoRise.Controllers
                 UserProfile = userProfile
 
             };
-
+            string password = Encoding.UTF8.GetString(
+                              Convert.FromBase64String(newUser.Password));
             var result = await unitOfWork.Users
-                        .CreateAsync(user, newUser.Password);
+                        .CreateAsync(user,password);
             if (result.Succeeded)
             {
                 result = unitOfWork.Users.AddToRole(user.Id, "Customer");
