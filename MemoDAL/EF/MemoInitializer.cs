@@ -123,10 +123,10 @@ namespace MemoDAL.EF
             //CARD
             IList<Card> cards = new List<Card>()
             {
-                new Card{Question="Question1",Deck=decks[0],CardType=cardTypes[0]},
-                new Card{Question="Question2",Deck=decks[0],CardType=cardTypes[1]},
-                new Card{Question="Question3",Deck=decks[0],CardType=cardTypes[2]},
-                new Card{Question="Question4",Deck=decks[0],CardType=cardTypes[3]},
+                new Card{Question="Which of the following statements are correct about the C#.NET code snippet given below?  \n int[ , , ] a = new int[ 3, 2, 3 ]; \n Console.WriteLine(a.Length); ",Deck=decks[0],CardType=cardTypes[0]},
+                new Card{Question="Which of the following statements are correct about the C#.NET code snippet given below?  \n int[][][] intMyArr = new int[2][][];",Deck=decks[0],CardType=cardTypes[1]},
+                new Card{Question="Which one of the following statements is correct?",Deck=decks[0],CardType=cardTypes[2]}
+                
             };
             foreach (var card in cards)
             {
@@ -136,17 +136,21 @@ namespace MemoDAL.EF
             //ANSWER
             IList<Answer> answers = new List<Answer>()
             {
-                new Answer{Text="Answer1",IsCorrect=true,Card=cards[0]},
-                new Answer{Text="Answer2",IsCorrect=false,Card=cards[0]},
-                new Answer{Text="Answer3",IsCorrect=false,Card=cards[0]},
-                new Answer{Text="Answer4",IsCorrect=false,Card=cards[0]},
-                new Answer{Text="Answer5",IsCorrect=true,Card=cards[1]},
-                new Answer{Text="Answer6",IsCorrect=true,Card=cards[2]},
-                new Answer{Text="Answer7",IsCorrect=false,Card=cards[2]},
-                new Answer{Text="Answer8",IsCorrect=false,Card=cards[2]},
-                new Answer{Text="Answer9",IsCorrect=false,Card=cards[2]},
-                new Answer{Text="Answer10",IsCorrect=true,Card=cards[2]},
-                new Answer{Text="Answer11",IsCorrect=true,Card=cards[3]}
+                new Answer{Text="18",IsCorrect=true,Card=cards[0]},
+                new Answer{Text="4",IsCorrect=false,Card=cards[0]},
+                new Answer{Text="20",IsCorrect=false,Card=cards[0]},
+                new Answer{Text="10",IsCorrect=false,Card=cards[0]},
+                new Answer{Text="intMyArr refers to a 2-D jagged array containing 2 rows.",IsCorrect=false,Card=cards[1]},
+                new Answer{Text="intMyArr refers to a 2-D jagged array containing 3 rows.",IsCorrect=false,Card=cards[1]},
+                new Answer{Text="intMyArr refers to a 3-D jagged array containing 2 2-D jagged arrays.",IsCorrect=true,Card=cards[1]},
+                new Answer{Text="intMyArr refers to a 3-D jagged array containing three 2-D jagged arrays.",IsCorrect=false,Card=cards[1]},
+                new Answer{Text="intMyArr refers to a 3-D jagged array containing 2 2-D rectangular arrays.",IsCorrect=false,Card=cards[1]},
+                new Answer{Text="Array elements can be of integer type only",IsCorrect=false,Card=cards[2]},
+                new Answer{Text="The rank of an Array is the total number of elements it can contain.",IsCorrect=false,Card=cards[2]},
+                new Answer{Text="The length of an Array is the number of dimensions in the Array.",IsCorrect=false,Card=cards[2]},
+                new Answer{Text="The Array elements are guaranteed to be sorted.",IsCorrect=false,Card=cards[2]},
+                new Answer{Text="The default value of numeric array elements is zero.",IsCorrect=true,Card=cards[2]}
+
             };
             foreach (var answ in answers)
             {
