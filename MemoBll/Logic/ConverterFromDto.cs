@@ -55,6 +55,7 @@ namespace MemoBll.Logic
         {
             return new Course
             {
+                Id = course.Id,
                 Name = course.Name,
                 Description = course.Description,
                 Linking = course.Linking,

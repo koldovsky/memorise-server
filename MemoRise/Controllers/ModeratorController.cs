@@ -31,9 +31,40 @@ namespace MemoRise.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPut]
+        public IHttpActionResult UpdateCourse(CourseDTO courseDto)
+        {
+            try
+            {
+                Course course = converter.ConvertToCourse(courseDto);
+                moderation.UpdateCourse(course);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Route("Moderator/DeleteCourse/{courseId}")]
+        public IHttpActionResult DeleteCourse(int courseId)
+        {
+            try
+            {
+                moderation.RemoveCourse(courseId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
         //public void UpdateAnswer(Answer answer);
         //public  RemoveAnswer(int answerId);
-        
+
 
         //void AddCategory(Category category);
         //void UpdateCategory(Category category);
