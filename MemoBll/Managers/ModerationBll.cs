@@ -27,6 +27,8 @@ namespace MemoBll.Managers
             this.converterToDto = converterToDto;
         }
 
+        #region ForReports
+
         public int GetReportCountForReason(string reason)
         {
             return moderation.GetReportCountForReason(reason);
@@ -51,6 +53,10 @@ namespace MemoBll.Managers
         {
             return moderation.GetReport(reportId);
         }
+
+        #endregion
+
+        #region ForStatistics
 
         public int GetDeckStatistics(int deckId)
         {
@@ -77,10 +83,14 @@ namespace MemoBll.Managers
             return statistics != null ? statistics.SuccessPercent : 0;
         }
 
-        public void DeleteStatistics(Statistics statistics)
+        public void DeleteStatistics(int statisticsId)
         {
-            moderation.DeleteStatistics(statistics);
+            moderation.DeleteStatistics(statisticsId);
         }
+
+        #endregion
+
+        #region ForUserBy
 
         public List<UserDTO> GetAllUsersByCourse(int courseId)
         {
@@ -105,5 +115,102 @@ namespace MemoBll.Managers
 
             return usersDto;
         }
+
+        #endregion
+
+        #region ForAnswers
+
+        public void CreateAnswer(Answer answer)
+        {
+            moderation.CreateAnswer(answer);
+        }
+
+        public void UpdateAnswer(Answer answer)
+        {
+            moderation.UpdateAnswer(answer);
+        }
+
+        public void RemoveAnswer(int answerId)
+        {
+            moderation.RemoveAnswer(answerId);
+        }
+
+        #endregion
+
+        #region ForCategories
+
+        public void AddCategory(Category category)
+        {
+            moderation.AddCategory(category);
+        }
+
+        public void UpdateCategory(Category category)
+        {
+            moderation.UpdateCategory(category);
+        }
+
+        public void RemoveCategory(int categoryId)
+        {
+            moderation.RemoveCategory(categoryId);
+        }
+
+        #endregion
+
+        #region ForCourses
+
+        public void CreateCourse(Course course)
+        {
+            moderation.CreateCourse(course);
+        }
+
+        public void UpdateCourse(Course course)
+        {
+            moderation.UpdateCourse(course);
+        }
+
+        public void RemoveCourse(int courseId)
+        {
+            moderation.RemoveCourse(courseId);
+        }
+
+        #endregion
+
+        #region ForDecks
+
+        public void CreateDeck(Deck deck)
+        {
+            moderation.CreateDeck(deck);
+        }
+
+        public void UpdateDeck(Deck deck)
+        {
+            moderation.UpdateDeck(deck);
+        }
+
+        public void RemoveDeck(int deckId)
+        {
+            moderation.RemoveDeck(deckId);
+        }
+
+        #endregion
+
+        #region ForCards
+
+        public void CreateCard(Card card)
+        {
+            moderation.CreateCard(card);
+        }
+
+        public void UpdateCard(Card card)
+        {
+            moderation.UpdateCard(card);
+        }
+
+        public void RemoveCard(int cardId)
+        {
+            moderation.RemoveCard(cardId);
+        }
+
+        #endregion
     }
 }

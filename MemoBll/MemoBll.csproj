@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IConverterFromDto.cs" />
+    <Compile Include="Logic\ConverterFromDto.cs" />
     <Compile Include="Logic\CourseDetails.cs" />
     <Compile Include="Interfaces\ICourseDetails.cs" />
     <Compile Include="Interfaces\IModeration.cs" />

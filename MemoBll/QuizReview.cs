@@ -45,9 +45,9 @@ namespace MemoBll
             unitOfWork.Comments.Update(comment);
         }
 
-        public void RemoveComment(Comment comment)
+        public void RemoveComment(int commentId)
         {
-            unitOfWork.Comments.Delete(comment);
+            unitOfWork.Comments.Delete(commentId);
         }
     }
 }

@@ -14,7 +14,6 @@ namespace MemoRise.Controllers
         CatalogBll catalog = new CatalogBll();
 
         [HttpGet]
-        
         public IHttpActionResult GetCategories()
         {
             try
@@ -26,7 +25,7 @@ namespace MemoRise.Controllers
             catch (ArgumentNullException ex)
             {
                 var message = $"Categories collection is empty.";
-                return  BadRequest(message);
+                return  BadRequest(ex.Message);
             }
             catch (Exception ex)
             {

@@ -15,45 +15,41 @@ namespace MemoRise.Controllers
 
         [HttpGet]
         [Route("Quiz/GetCardsByDeck/{deckName}")]
-        public HttpResponseMessage GetCardsByDeck(string deckName)
+        public IHttpActionResult GetCardsByDeck(string deckName)
         {
             try
             {
                 List<CardDTO> cards = quiz.GetCardsByDeck(deckName);
-                return Request.CreateResponse(HttpStatusCode.OK, cards);
+                return Ok(cards);
             }
             catch (ArgumentNullException ex)
             {
                 var message = $"Deck with name = {deckName} not found. {ex.Message}";
-                HttpError err = new HttpError(message);
-                return Request.CreateResponse(HttpStatusCode.NotFound, err);
+                return BadRequest(message);
             }
             catch (Exception ex)
             {
-                HttpError err = new HttpError(ex.Message);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, err);
+                return BadRequest(ex.Message);
             }
         }
 
         [HttpGet]
         [Route("Quiz/IsAnswerCorrect/{cardId:int}/{answerText}")]
-        public HttpResponseMessage IsAnswerCorrect(int cardId, string answerText)
+        public IHttpActionResult IsAnswerCorrect(int cardId, string answerText)
         {
             try
             {
                 bool isCorrect = quiz.IsAnswerCorrect(cardId, answerText);
-                return Request.CreateResponse(HttpStatusCode.OK, isCorrect);
+                return Ok(isCorrect);
             }
             catch (ArgumentNullException ex)
             {
                 var message = $"Card with id = {cardId} not found. {ex.Message}";
-                HttpError err = new HttpError(message);
-                return Request.CreateResponse(HttpStatusCode.NotFound, err);
+                return BadRequest(message);
             }
             catch (Exception ex)
             {
-                HttpError err = new HttpError(ex.Message);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, err);
+                return BadRequest(ex.Message);
             }
         }
     }
