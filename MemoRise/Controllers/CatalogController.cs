@@ -14,7 +14,6 @@ namespace MemoRise.Controllers
         CatalogBll catalog = new CatalogBll();
 
         [HttpGet]
-        
         public IHttpActionResult GetCategories()
         {
             try
@@ -55,7 +54,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Customer")]
+        //[Authorize(Roles = "Customer")]
         public IHttpActionResult GetDecks()
         {
             try
@@ -126,7 +125,6 @@ namespace MemoRise.Controllers
             }
 
         }
-               
 
         [HttpGet]
         [Route("Catalog/GetAllDecksByCourse/{courseName}")]
