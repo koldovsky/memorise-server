@@ -56,11 +56,6 @@ namespace MemoBll.Logic
 
         #region ForStatistics
 
-        public Statistics GetStatistics(string deckName, int userId)
-        {
-            throw new NotImplementedException();
-        }
-
         public IEnumerable<Statistics> GetDeckStatistics(int deckId)
         {
             return unitOfWork.Statistics
