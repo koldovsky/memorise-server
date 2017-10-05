@@ -30,14 +30,14 @@ namespace MemoBll.Logic
 
         public Card ConvertToCard(CardDTO cardDTO)
         {
-            return new Card
+            return new Card()
             {
                 Id = cardDTO.Id,
-                Question = cardDTO.Question,
-                CardType = ConvertToCardType(cardDTO.CardType),
-                Deck = ConvertToDeck(cardDTO.Deck),
-                Answers = ConvertToAnswerList(cardDTO.Answers),
-                Comments = ConvertToCommentList(cardDTO.Comments)
+                Question = cardDTO.Question == null ? "" : cardDTO.Question,
+                CardType = ConvertToCardType(cardDTO.CardType == null ? new CardTypeDTO() : cardDTO.CardType),
+                Deck = ConvertToDeck(cardDTO.Deck == null ? new DeckDTO() : cardDTO.Deck),
+                Answers = ConvertToAnswerList(cardDTO.Answers == null ? new List<AnswerDTO>() : cardDTO.Answers),
+                Comments = ConvertToCommentList(cardDTO.Comments == null ? new List<CommentDTO>() : cardDTO.Comments)
             };
         }
 
@@ -71,8 +71,8 @@ namespace MemoBll.Logic
             {
                 Id = commentDTO.Id,
                 Message = commentDTO.Message,
-                Course = ConvertToCourse(commentDTO.Course),
-                User = ConvertToUser(commentDTO.User)
+                Course = ConvertToCourse(commentDTO.Course == null ? new CourseDTO() : commentDTO.Course),
+                User = ConvertToUser(commentDTO.User == null ? new UserDTO() : commentDTO.User)
             };
         }
 

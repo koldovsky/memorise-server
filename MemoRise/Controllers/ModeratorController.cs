@@ -18,6 +18,7 @@ namespace MemoRise.Controllers
         ConverterFromDto converter = new ConverterFromDto();
 
         [HttpPost]
+        [Authorize()]
         public IHttpActionResult CreateCategory(CategoryDTO categoryDto)
         {
             try
@@ -33,6 +34,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpPut]
+        [Authorize()]
         public IHttpActionResult UpdateCategory(CategoryDTO categoryDto)
         {
             try
@@ -48,6 +50,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpDelete]
+        [Authorize()]
         [Route("Moderator/DeleteCategory/{categoryId}")]
         public IHttpActionResult DeleteCategory(int categoryId)
         {
@@ -63,6 +66,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
+        [Authorize()]
         public IHttpActionResult CreateCourse(CourseDTO courseDto)
         {
             try
@@ -78,6 +82,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpPut]
+        [Authorize()]
         public IHttpActionResult UpdateCourse(CourseDTO courseDto)
         {
             try
@@ -93,6 +98,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpDelete]
+        [Authorize()]
         [Route("Moderator/DeleteCourse/{courseId}")]
         public IHttpActionResult DeleteCourse(int courseId)
         {
@@ -108,6 +114,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
+        [Authorize()]
         public IHttpActionResult CreateDeck(DeckDTO deckDto)
         {
             try
@@ -123,6 +130,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpPut]
+        [Authorize()]
         public IHttpActionResult UpdateDeck(DeckDTO deckDto)
         {
             try
@@ -138,6 +146,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpDelete]
+        [Authorize()]
         [Route("Moderator/DeleteDeck/{deckId}")]
         public IHttpActionResult DeleteDeck(int deckId)
         {
@@ -153,6 +162,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
+        [Authorize()]
         public IHttpActionResult CreateCard(CardDTO cardDto)
         {
             try
@@ -168,6 +178,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpPut]
+        [Authorize()]
         public IHttpActionResult UpdateCard(CardDTO cardDto)
         {
             try
@@ -183,6 +194,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpDelete]
+        [Authorize()]
         [Route("Moderator/DeleteCard/{cardId}")]
         public IHttpActionResult DeleteCard(int cardId)
         {
@@ -198,6 +210,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
+        [Authorize()]
         public IHttpActionResult CreateAnswer(AnswerDTO answerDto)
         {
             try
@@ -213,6 +226,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpPut]
+        [Authorize()]
         public IHttpActionResult UpdateAnswer(AnswerDTO answerDto)
         {
             try
@@ -228,6 +242,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpDelete]
+        [Authorize()]
         [Route("Moderator/DeleteAnswer/{answerId}")]
         public IHttpActionResult DeleteAnswer(int answerId)
         {
