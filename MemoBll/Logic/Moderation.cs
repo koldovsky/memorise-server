@@ -56,12 +56,12 @@ namespace MemoBll.Logic
                 .GetAll().Where(x => x.Deck.Id == deckId);
         }
 
-        //public Statistics GetStatistics(string deckName, int userId)
-        //{
-        //    return unitOfWork.Statistics
-        //        .GetAll()
-        //        .FirstOrDefault(x => x.Deck.Name == deckName && x.User.Id == userId);
-        //}
+        public Statistics GetStatistics(string deckName, int userId)
+        {
+            return unitOfWork.Statistics
+                .GetAll()
+                .FirstOrDefault(x => x.Deck.Name == deckName && x.User.UserProfile.Id == userId);
+        }
 
         public void DeleteStatistics(Statistics statistics)
         {
@@ -93,11 +93,6 @@ namespace MemoBll.Logic
             }
 
             return users;
-        }
-
-        public Statistics GetStatistics(string deckName, int userId)
-        {
-            throw new NotImplementedException();
         }
     }
 }

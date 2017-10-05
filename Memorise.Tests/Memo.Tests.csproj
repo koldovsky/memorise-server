@@ -63,6 +63,7 @@
     <Compile Include="BLL\LogicTests\CourseDetailsLogicTests.cs" />
     <Compile Include="BLL\LogicTests\FilterLogicTests.cs" />
     <Compile Include="BLL\LogicTests\ModerationLogicTests.cs" />
+    <Compile Include="BLL\ManagersTests\ModerationManagersTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BLL\ManagersTests\QuizBllTests.cs" />
     <Compile Include="BLL\LogicTests\QuizLogicTests.cs" />

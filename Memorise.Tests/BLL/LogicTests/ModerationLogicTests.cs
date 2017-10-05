@@ -40,6 +40,12 @@ namespace Memorise.Tests.BLL.LogicTests
                 Date = DateTime.Today,
                 Reason = "reason2"
             });
+            statistics.Add(new Statistics
+            {
+                Id = 2,
+                Deck = new Deck { Id = 1 ,Name = "C#"},
+                User = new User {  UserProfile = new MemoDAL.Entities.UserProfile {  Id = 1} } 
+            });
         }
 
         [Test]
@@ -136,20 +142,41 @@ namespace Memorise.Tests.BLL.LogicTests
         }
 
         [Test]
-        public void GetDeckStatisticsTest() 
+        public void GetDeckStatisticsTest()
         {
-            List<Statistics> list = new List<Statistics> {
-                    new Statistics { Id = 1, Deck = new Deck { Id = 1}, SuccessPercent = 20  },
-                    new Statistics { Id = 2, Deck = new Deck { Id = 1 }, SuccessPercent = 80 },
-                    new Statistics { Id = 3, Deck = new Deck { Id = 1 }, SuccessPercent = 20 } };
-            var moderationMock = new Mock<IModeration>();
-            var id = 1;
-            moderationMock.Setup(temp => temp.GetDeckStatistics(id)).Returns(list);
-            ModerationBll getStat = new ModerationBll( moderationMock.Object, new ConverterToDTO());
-            var actual = getStat.GetDeckStatistics(1);
+            var expected = statistics;
+            unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
+            unitOfWork.Setup(temp => temp.Statistics.GetAll()).Returns(statistics);
+            moderation = new Moderation(unitOfWork.Object);
 
-            Assert.AreEqual(40, actual);
+            var actual = moderation.GetDeckStatistics(1);
+
+            Assert.AreEqual(expected, actual);
         }
+
+        [Test]
+        public void GetStatisticsTest()
+        {
+            var expected = statistics[0];
+            unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
+            unitOfWork.Setup(temp => temp.Statistics.GetAll()).Returns(statistics);
+            moderation = new Moderation(unitOfWork.Object);
+
+            var actual = moderation.GetStatistics("C#", 1);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        //[Test]
+        //public void DeleteStatisticsTest()
+        //{
+        //    Statistics statistics = new Statistics();
+        //    var moderationMock = new Mock<IModeration>();
+        //    moderationMock.Setup(temp => temp.DeleteStatistics(statistics));
+        //    ModerationBll getStat = new ModerationBll(moderationMock.Object, new ConverterToDTO());
+
+        //    ;
+        //}
 
     }
 }
