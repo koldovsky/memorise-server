@@ -18,6 +18,55 @@ namespace MemoRise.Controllers
         ConverterFromDto converter = new ConverterFromDto();
 
         [HttpPost]
+        [Authorize()]
+        public IHttpActionResult CreateCategory(CategoryDTO categoryDto)
+        {
+            try
+            {
+                Category course = converter.ConvertToCategory(categoryDto);
+                moderation.CreateCategory(course);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [Authorize()]
+        public IHttpActionResult UpdateCategory(CategoryDTO categoryDto)
+        {
+            try
+            {
+                Category category = converter.ConvertToCategory(categoryDto);
+                moderation.UpdateCategory(category);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Authorize()]
+        [Route("Moderator/DeleteCategory/{categoryId}")]
+        public IHttpActionResult DeleteCategory(int categoryId)
+        {
+            try
+            {
+                moderation.RemoveCategory(categoryId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Authorize()]
         public IHttpActionResult CreateCourse(CourseDTO courseDto)
         {
             try
@@ -33,6 +82,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpPut]
+        [Authorize()]
         public IHttpActionResult UpdateCourse(CourseDTO courseDto)
         {
             try
@@ -48,6 +98,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpDelete]
+        [Authorize()]
         [Route("Moderator/DeleteCourse/{courseId}")]
         public IHttpActionResult DeleteCourse(int courseId)
         {
@@ -61,26 +112,150 @@ namespace MemoRise.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
-        //public void UpdateAnswer(Answer answer);
-        //public  RemoveAnswer(int answerId);
 
+        [HttpPost]
+        [Authorize()]
+        public IHttpActionResult CreateDeck(DeckDTO deckDto)
+        {
+            try
+            {
+                Deck deck = converter.ConvertToDeck(deckDto);
+                moderation.CreateDeck(deck);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
-        //void AddCategory(Category category);
-        //void UpdateCategory(Category category);
-        //void RemoveCategory(int categoryId);
+        [HttpPut]
+        [Authorize()]
+        public IHttpActionResult UpdateDeck(DeckDTO deckDto)
+        {
+            try
+            {
+                Deck deck = converter.ConvertToDeck(deckDto);
+                moderation.UpdateDeck(deck);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
-        //void CreateCourse(Course course);
-        //void UpdateCourse(Course course);
-        //void RemoveCourse(int courseId);
+        [HttpDelete]
+        [Authorize()]
+        [Route("Moderator/DeleteDeck/{deckId}")]
+        public IHttpActionResult DeleteDeck(int deckId)
+        {
+            try
+            {
+                moderation.RemoveDeck(deckId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
-        //void CreateDeck(Deck deck);
-        //void UpdateDeck(Deck deck);
-        //void RemoveDeck(int deckId);
+        [HttpPost]
+        [Authorize()]
+        public IHttpActionResult CreateCard(CardDTO cardDto)
+        {
+            try
+            {
+                Card card = converter.ConvertToCard(cardDto);
+                moderation.CreateCard(card);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
-        //void CreateCard(Card card);
-        //void UpdateCard(Card card);
-        //void RemoveCard(int cardId);
+        [HttpPut]
+        [Authorize()]
+        public IHttpActionResult UpdateCard(CardDTO cardDto)
+        {
+            try
+            {
+                Card card = converter.ConvertToCard(cardDto);
+                moderation.UpdateCard(card);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Authorize()]
+        [Route("Moderator/DeleteCard/{cardId}")]
+        public IHttpActionResult DeleteCard(int cardId)
+        {
+            try
+            {
+                moderation.RemoveCard(cardId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Authorize()]
+        public IHttpActionResult CreateAnswer(AnswerDTO answerDto)
+        {
+            try
+            {
+                Answer answer = converter.ConvertToAnswer(answerDto);
+                moderation.CreateAnswer(answer);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [Authorize()]
+        public IHttpActionResult UpdateAnswer(AnswerDTO answerDto)
+        {
+            try
+            {
+                Answer answer = converter.ConvertToAnswer(answerDto);
+                moderation.UpdateAnswer(answer);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Authorize()]
+        [Route("Moderator/DeleteAnswer/{answerId}")]
+        public IHttpActionResult DeleteAnswer(int answerId)
+        {
+            try
+            {
+                moderation.RemoveAnswer(answerId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
     }
 }

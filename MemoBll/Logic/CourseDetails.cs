@@ -45,12 +45,13 @@ namespace MemoBll.Logic
 
         public Course GetCourseByName(string name)
         {
-            return unitOfWork.Courses.GetAll().FirstOrDefault(x => x.Name == name);
+            return unitOfWork.Courses.GetAll()
+                .FirstOrDefault(x => x.Name == name) ?? throw new ArgumentNullException();
         }
 
         public Course GetCourseById(int id)
         {
-            return unitOfWork.Courses.Get(id);
+            return unitOfWork.Courses.Get(id) ?? throw new ArgumentNullException();
         }
     }
 }

@@ -139,9 +139,9 @@ namespace MemoBll.Managers
 
         #region ForCategories
 
-        public void AddCategory(Category category)
+        public void CreateCategory(Category category)
         {
-            moderation.AddCategory(category);
+            moderation.CreateCategory(category);
         }
 
         public void UpdateCategory(Category category)

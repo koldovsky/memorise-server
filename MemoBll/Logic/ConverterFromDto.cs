@@ -11,19 +11,34 @@ namespace MemoBll.Logic
 {
     public class ConverterFromDto : IConverterFromDto
     {
-        public Answer ConvertToAnswer(AnswerDTO answer)
+        public Answer ConvertToAnswer(AnswerDTO answerDTO)
         {
-            throw new NotImplementedException();
+            return new Answer
+            {
+                Id = answerDTO.Id,
+                Text = answerDTO.Text,
+                IsCorrect = answerDTO.IsCorrect
+            };
         }
 
-        public List<Answer> ConvertToAnswerList(IEnumerable<AnswerDTO> answers)
+        public List<Answer> ConvertToAnswerList(IEnumerable<AnswerDTO> answerDTOs)
         {
-            throw new NotImplementedException();
+            List<Answer> answers = new List<Answer>();
+            answerDTOs.ToList().ForEach(a => answers.Add(ConvertToAnswer(a)));
+            return answers;
         }
 
-        public Card ConvertToCard(CardDTO card)
+        public Card ConvertToCard(CardDTO cardDTO)
         {
-            throw new NotImplementedException();
+            return new Card()
+            {
+                Id = cardDTO.Id,
+                Question = cardDTO.Question == null ? "" : cardDTO.Question,
+                CardType = ConvertToCardType(cardDTO.CardType == null ? new CardTypeDTO() : cardDTO.CardType),
+                Deck = ConvertToDeck(cardDTO.Deck == null ? new DeckDTO() : cardDTO.Deck),
+                Answers = ConvertToAnswerList(cardDTO.Answers == null ? new List<AnswerDTO>() : cardDTO.Answers),
+                Comments = ConvertToCommentList(cardDTO.Comments == null ? new List<CommentDTO>() : cardDTO.Comments)
+            };
         }
 
         public List<Card> ConvertToCardList(IEnumerable<CardDTO> cards)
@@ -31,35 +46,52 @@ namespace MemoBll.Logic
             throw new NotImplementedException();
         }
 
-        public CardType ConvertToCardType(CardTypeDTO cardtype)
+        public CardType ConvertToCardType(CardTypeDTO cardtypeDTO)
         {
-            throw new NotImplementedException();
+            return new CardType
+            {
+                Id = cardtypeDTO.Id,
+                Name = cardtypeDTO.Name
+            };
         }
 
-        public Category ConvertToCategory(CategoryDTO category)
+        public Category ConvertToCategory(CategoryDTO categoryDTO)
         {
-            throw new NotImplementedException();
+            return new Category
+            {
+                Id = categoryDTO.Id,
+                Name = categoryDTO.Name,
+                Linking = categoryDTO.Linking
+            };
         }
 
-        public Comment ConvertToComment(CommentDTO comment)
+        public Comment ConvertToComment(CommentDTO commentDTO)
         {
-            throw new NotImplementedException();
+            return new Comment
+            {
+                Id = commentDTO.Id,
+                Message = commentDTO.Message,
+                Course = ConvertToCourse(commentDTO.Course == null ? new CourseDTO() : commentDTO.Course),
+                User = ConvertToUser(commentDTO.User == null ? new UserDTO() : commentDTO.User)
+            };
         }
 
-        public List<Comment> ConvertToCommentList(IEnumerable<CommentDTO> comments)
+        public List<Comment> ConvertToCommentList(IEnumerable<CommentDTO> commentDTOs)
         {
-            throw new NotImplementedException();
+            List<Comment> comments = new List<Comment>();
+            commentDTOs.ToList().ForEach(c => comments.Add(ConvertToComment(c)));
+            return comments;
         }
 
-        public Course ConvertToCourse(CourseDTO course)
+        public Course ConvertToCourse(CourseDTO courseDTO)
         {
             return new Course
             {
-                Id = course.Id,
-                Name = course.Name,
-                Description = course.Description,
-                Linking = course.Linking,
-                Price = course.Price
+                Id = courseDTO.Id,
+                Name = courseDTO.Name,
+                Description = courseDTO.Description,
+                Linking = courseDTO.Linking,
+                Price = courseDTO.Price
             };
         }
 
@@ -68,9 +100,15 @@ namespace MemoBll.Logic
             throw new NotImplementedException();
         }
 
-        public Deck ConvertToDeck(DeckDTO deck)
+        public Deck ConvertToDeck(DeckDTO deckDTO)
         {
-            throw new NotImplementedException();
+            return new Deck
+            {
+                  Id = deckDTO.Id,
+                  Name = deckDTO.Name,
+                  Linking = deckDTO.Linking,
+                  Price = deckDTO.Price
+            };
         }
 
         public List<Deck> ConvertToDeckList(IEnumerable<DeckDTO> decks)
@@ -98,9 +136,15 @@ namespace MemoBll.Logic
             throw new NotImplementedException();
         }
 
-        public User ConvertToUser(UserDTO user)
+        /// <summary>
+        /// It is EmptyUser
+        /// </summary>
+        /// <param name="userDTO"></param>
+        /// <returns></returns>
+        public User ConvertToUser(UserDTO userDTO)
         {
-            throw new NotImplementedException();
+            User user = new User();
+            return user;
         }
 
         public List<User> ConvertToUserList(IEnumerable<UserDTO> users)
