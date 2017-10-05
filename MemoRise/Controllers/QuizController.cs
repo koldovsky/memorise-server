@@ -52,7 +52,8 @@ namespace MemoRise.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+               
             }
         }
 
