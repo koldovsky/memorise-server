@@ -3,6 +3,8 @@ using MemoDAL.Entities;
 using MemoDTO;
 using System.Collections.Generic;
 
+
+
 namespace MemoBll.Logic
 {
 	public class ConverterToDTO : IConverterToDTO
@@ -79,7 +81,7 @@ namespace MemoBll.Logic
             {
                 Id = answer.Id,
                 IsCorrect = answer.IsCorrect,
-                Text = answer.Text
+                Text = answer.Text,
             };
         }
 
@@ -204,7 +206,12 @@ namespace MemoBll.Logic
 
         public UserDTO ConvertToUserDTO(User user)
         {
-            throw new System.NotImplementedException();
+            return new UserDTO
+            {
+                Login = user.UserName,
+                Email = user.Email,
+                IsBlocked = user.UserProfile.IsBlocked
+            };
         }
     }
 }

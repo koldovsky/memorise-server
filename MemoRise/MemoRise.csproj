@@ -52,14 +52,8 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="MemoBll">
-      <HintPath>..\MemoBll\bin\Debug\MemoBll.dll</HintPath>
-    </Reference>
-    <Reference Include="MemoDAL">
-      <HintPath>..\MemoDAL\bin\Debug\MemoDAL.dll</HintPath>
-    </Reference>
-    <Reference Include="MemoDTO">
-      <HintPath>..\MemoDTO\bin\Debug\MemoDTO.dll</HintPath>
+    <Reference Include="FlickrNet, Version=3.24.0.0, Culture=neutral, PublicKeyToken=2491df59efa5d132, processorArchitecture=MSIL">
+      <HintPath>..\packages\FlickrNet.3.24.0\lib\net20\FlickrNet.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -243,11 +237,14 @@
     <Compile Include="Controllers\ModeratorController.cs" />
     <Compile Include="Controllers\CatalogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\QuizController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\FlickrManager.cs" />
+    <Compile Include="Helpers\PhotoUrlLoader.cs" />
     <Compile Include="Identity\CustomJwtFormat.cs" />
     <Compile Include="Identity\CustomOAuthProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -325,6 +322,24 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MemoBll\MemoBll.csproj">
+      <Project>{42c24782-5c80-4389-9aa5-6a3471488e38}</Project>
+      <Name>MemoBll</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MemoBll\MemoBll.csproj">
+      <Project>{42c24782-5c80-4389-9aa5-6a3471488e38}</Project>
+      <Name>MemoBll</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MemoDAL\MemoDAL.csproj">
+      <Project>{4d151ebe-00e1-4048-b5a8-9581b928851b}</Project>
+      <Name>MemoDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MemoDTO\MemoDTO.csproj">
+      <Project>{658e019f-215b-491b-bbdc-b96cc76f0ebd}</Project>
+      <Name>MemoDTO</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

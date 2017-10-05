@@ -18,7 +18,7 @@ namespace MemoRise.Controllers
         ConverterFromDto converter = new ConverterFromDto();
 
         [HttpPost]
-        [Authorize()]
+        [Authorize]
         public IHttpActionResult CreateCategory(CategoryDTO categoryDto)
         {
             try
@@ -34,7 +34,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpPut]
-        [Authorize()]
+        [Authorize]
         public IHttpActionResult UpdateCategory(CategoryDTO categoryDto)
         {
             try
@@ -50,7 +50,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpDelete]
-        [Authorize()]
+        [Authorize]
         [Route("Moderator/DeleteCategory/{categoryId}")]
         public IHttpActionResult DeleteCategory(int categoryId)
         {
@@ -66,7 +66,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
-        [Authorize()]
+        [Authorize]
         public IHttpActionResult CreateCourse(CourseDTO courseDto)
         {
             try
@@ -82,7 +82,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpPut]
-        [Authorize()]
+        [Authorize]
         public IHttpActionResult UpdateCourse(CourseDTO courseDto)
         {
             try
@@ -98,7 +98,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpDelete]
-        [Authorize()]
+        [Authorize]
         [Route("Moderator/DeleteCourse/{courseId}")]
         public IHttpActionResult DeleteCourse(int courseId)
         {
@@ -114,7 +114,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
-        [Authorize()]
+        [Authorize]
         public IHttpActionResult CreateDeck(DeckDTO deckDto)
         {
             try
@@ -130,7 +130,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpPut]
-        [Authorize()]
+        [Authorize]
         public IHttpActionResult UpdateDeck(DeckDTO deckDto)
         {
             try
@@ -146,7 +146,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpDelete]
-        [Authorize()]
+        [Authorize]
         [Route("Moderator/DeleteDeck/{deckId}")]
         public IHttpActionResult DeleteDeck(int deckId)
         {

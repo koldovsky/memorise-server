@@ -70,10 +70,6 @@ namespace Memorise.Tests.BLL.LogicTests
 			#endregion
 		}
 
-		[Test]
-		public void ConvertToDeckDTO()
-		{
-
-		}
+		
 	}
 }

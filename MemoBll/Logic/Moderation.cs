@@ -62,11 +62,13 @@ namespace MemoBll.Logic
                 .GetAll().Where(x => x.Deck.Id == deckId);
         }
 
+        
         public Statistics GetStatistics(string deckName, int userId)
         {
             return unitOfWork.Statistics
                 .GetAll()
-                .FirstOrDefault(x => x.Deck.Name == deckName && x.User.UserProfile.Id == userId);
+                .FirstOrDefault(x => x.Deck.Name == deckName
+                && x.User.UserProfile.Id == userId);
         }
 
         public void DeleteStatistics(int statisticsId)
@@ -214,6 +216,11 @@ namespace MemoBll.Logic
             unitOfWork.Answers.Delete(answerId);
             unitOfWork.Save();
         }
+
+        //public Statistics GetStatistics(string deckName, int userId)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         #endregion
     }

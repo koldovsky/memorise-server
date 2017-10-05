@@ -2,6 +2,7 @@
 using MemoDAL.Repositories.Interfaces;
 using Microsoft.AspNet.Identity;
 using MemoDAL.Entities;
+using MemoDAL.Repositories;
 
 namespace MemoDAL
 {
@@ -18,7 +19,7 @@ namespace MemoDAL
         RoleManager<Role> Roles { get; }
         IStatisticsRepository Statistics { get; }
         IUserCourseRepository UserCourses { get; }
-        UserManager<User> Users { get; }
+        UserRepository Users { get; }
 
         void Save();
     }

@@ -30,14 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MemoDAL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\MemoDAL\bin\Debug\MemoDAL.dll</HintPath>
-    </Reference>
-    <Reference Include="MemoDTO, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\MemoDTO\bin\Debug\MemoDTO.dll</HintPath>
-    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -79,6 +73,16 @@
     <Compile Include="Managers\QuizBll.cs" />
     <Compile Include="Logic\UserProfile.cs" />
     <Compile Include="Managers\UserProfileBll.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MemoDAL\MemoDAL.csproj">
+      <Project>{4d151ebe-00e1-4048-b5a8-9581b928851b}</Project>
+      <Name>MemoDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MemoDTO\MemoDTO.csproj">
+      <Project>{658e019f-215b-491b-bbdc-b96cc76f0ebd}</Project>
+      <Name>MemoDTO</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
