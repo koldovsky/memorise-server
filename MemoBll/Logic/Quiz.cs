@@ -24,7 +24,7 @@ namespace MemoBll.Logic
 
         public IEnumerable<Answer> GetAllAnswersInCard(int cardId)
         {
-            return unitOfWork.Cards.Get(cardId)?.Answers;
+            return unitOfWork.Cards.Get(cardId)?.Answers ?? throw new ArgumentNullException();
         }
 
         public IEnumerable<Card> GetCardsByDeck(string deckName)

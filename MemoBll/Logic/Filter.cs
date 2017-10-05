@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System;
 using MemoDAL;
 using MemoDAL.EF;
 using MemoDAL.Entities;
@@ -27,7 +28,7 @@ namespace MemoBll.Logic
 
         public Category GetCategory(int categoryId)
         {
-            return unitOfWork.Categories.Get(categoryId);
+            return unitOfWork.Categories.Get(categoryId) ?? throw new ArgumentNullException();
         }
 
         public List<Course> GetAllCourses()

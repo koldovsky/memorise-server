@@ -1,4 +1,5 @@
-﻿using MemoDAL;
+﻿using System;
+using MemoDAL;
 using MemoDAL.EF;
 using MemoDAL.Entities;
 
@@ -20,7 +21,7 @@ namespace MemoBll.Logic
 
         public Course GetCourse(int courseId)
         {
-            return unitOfWork.Courses.Get(courseId);
+            return unitOfWork.Courses.Get(courseId) ?? throw new ArgumentNullException();
         }
     }
 }
