@@ -8,5 +8,6 @@ namespace MemoBll.Interfaces
         IEnumerable<Answer> GetAllAnswersInCard(int cardId);
         IEnumerable<Card> GetCardsByDeck(string deckName);
         bool IsAnswerCorrect(int cardId, string answerText);
+        IEnumerable<Card> GetCardsByCourse(string courseName);
     }
 }

@@ -31,19 +31,23 @@ namespace MemoBll.Managers
         {
             var answers = quiz.GetAllAnswersInCard(cardId).ToList();
 
-            return answers != null 
-                ? converterToDto.ConvertToAnswerListDTO(answers) 
-                : throw new ArgumentNullException();
+            return converterToDto.ConvertToAnswerListDTO(answers);
         }
         
-        public List<CardDTO> GetCardsByDeck(string deckName)   
-         {
-             List<Card> cards = quiz.GetCardsByDeck(deckName).ToList();
+        public List<CardDTO> GetCardsByDeck(string deckLink)   
+        {
+             List<Card> cards = quiz.GetCardsByDeck(deckLink).ToList();
              
-             return cards != null
-                ? converterToDto.ConvertToCardListDTO(cards)
-                : throw new ArgumentNullException();
-         }
+             return converterToDto.ConvertToCardListDTO(cards);
+        }
+
+        public List<CardDTO> GetCardsByCourse(string courseLink)
+        {
+            List<Card> cards = quiz.GetCardsByCourse(courseLink).ToList();
+
+            return converterToDto.ConvertToCardListDTO(cards);
+        }
+
         public bool IsAnswerCorrect(int cardId, string answerText)
         {
             return quiz.IsAnswerCorrect(cardId, answerText);
