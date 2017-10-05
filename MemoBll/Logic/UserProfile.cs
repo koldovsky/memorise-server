@@ -2,13 +2,13 @@
 using MemoDAL;
 using MemoDAL.EF;
 using MemoDAL.Entities;
+using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNet.Identity;
 
 namespace MemoBll.Logic
 {
-	public class UserProfile : IUserProfile
+    public class UserProfile : IUserProfile
     {
         IUnitOfWork unitOfWork;
 
