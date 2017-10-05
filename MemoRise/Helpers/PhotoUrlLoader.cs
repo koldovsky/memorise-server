@@ -35,8 +35,10 @@ namespace MemoRise.Helpers
 							?.MediumUrl;
 
 			var photosFiltered =
-				photos.Where(
-					ph => course.Decks
+                FlickrManager.GetInstance()
+                    .PhotosetsGetPhotos(
+                    ConfigurationManager.AppSettings["flickrDeckGalleryId"])
+                    .Where( ph => course.Decks
 					.Select(deck => deck.Linking)
 					.Contains(ph.Title));
 
