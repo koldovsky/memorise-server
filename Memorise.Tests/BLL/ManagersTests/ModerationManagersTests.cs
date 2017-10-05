@@ -1,4 +1,5 @@
 ﻿using MemoBll.Interfaces;
+using MemoBll.Logic;
 using MemoBll.Managers;
 using MemoDAL.Entities;
 using MemoDTO;

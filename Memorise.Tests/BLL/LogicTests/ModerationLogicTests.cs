@@ -107,9 +107,9 @@ namespace Memorise.Tests.BLL.LogicTests
                 });
             statistics.Add(new Statistics
             {
-                Id = 2,
-                Deck = new Deck { Id = 1, Name = "C#" },
-                User = new User { UserProfile = new MemoDAL.Entities.UserProfile { Id = 1 } }
+                Id = 4,
+                Deck = new Deck { Id = 4, Name = "C#" },
+                User = new User { UserProfile = new MemoDAL.Entities.UserProfile { Id = 4 } }
             });
 
 
@@ -209,22 +209,7 @@ namespace Memorise.Tests.BLL.LogicTests
             unitOfWork.Verify(uow => uow.Reports.Get(id), Times.Once);
         }
 
-        //[Test]
-        //public void GetDeckStatisticsTest() 
-        //{
-        //    List<Statistics> list = new List<Statistics> {
-        //            new Statistics { Id = 1, Deck = new Deck { Id = 1}, SuccessPercent = 20  },
-        //            new Statistics { Id = 2, Deck = new Deck { Id = 2 }, SuccessPercent = 80 },
-        //            new Statistics { Id = 3, Deck = new Deck { Id = 3 }, SuccessPercent = 30 } };
-        //    var moderationMock = new Mock<IModeration>();
-        //    var id = 1;
-        //    moderationMock.Setup(temp => temp.GetDeckStatistics(id)).Returns(list);
-        //    ModerationBll getStat = new ModerationBll( moderationMock.Object, new ConverterToDTO());
-        //    var actual = getStat.GetDeckStatistics(1);
-
-        //    Assert.AreEqual(40, actual);
-        //}
-
+        
         [Test]
         public void GetAllUsersByCourseTest()
         {
@@ -279,35 +264,6 @@ namespace Memorise.Tests.BLL.LogicTests
             unitOfWork.Verify(x => x.Statistics.GetAll(), Times.Once);
 
         }
-
-        [Test]
-        public void GetDeckStatisticsTest()
-        {
-            var expected = statistics;
-            unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
-            unitOfWork.Setup(temp => temp.Statistics.GetAll()).Returns(statistics);
-            moderation = new Moderation(unitOfWork.Object);
-
-            var actual = moderation.GetDeckStatistics(1);
-
-            Assert.AreEqual(expected, actual);
-        }
-
-        [Test]
-        public void GetStatisticsTest()
-        {
-            var expected = statistics[0];
-            unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
-            unitOfWork.Setup(temp => temp.Statistics.GetAll()).Returns(statistics);
-            moderation = new Moderation(unitOfWork.Object);
-
-            var actual = moderation.GetStatistics("C#", 1);
-
-            Assert.AreEqual(expected, actual);
-        }
-
-
-
         [Test]
         public void GetAllUsersByDeckTestIsEmpty()
         {
@@ -326,6 +282,36 @@ namespace Memorise.Tests.BLL.LogicTests
             unitOfWork.Verify(x => x.Statistics.GetAll(), Times.Once);
 
         }
+
+        [Test]
+        public void GetDeckStatisticsTest()
+        {
+            var expected = statistics[3];
+            unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
+            unitOfWork.Setup(temp => temp.Statistics.GetAll()).Returns(statistics);
+            moderation = new Moderation(unitOfWork.Object);
+
+            var actual = moderation.GetDeckStatistics(4).First();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void GetStatisticsTest()
+        {
+            var expected = statistics[3];
+            unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
+            unitOfWork.Setup(temp => temp.Statistics.GetAll()).Returns(statistics);
+            moderation = new Moderation(unitOfWork.Object);
+
+            var actual = moderation.GetStatistics("C#", 4);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+
+
+        
 
 
     }
