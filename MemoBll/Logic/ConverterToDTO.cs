@@ -3,6 +3,8 @@ using MemoDAL.Entities;
 using MemoDTO;
 using System.Collections.Generic;
 
+
+
 namespace MemoBll.Logic
 {
 	public class ConverterToDTO : IConverterToDTO

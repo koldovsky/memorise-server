@@ -7,6 +7,7 @@ using Moq;
 using NUnit.Framework;
 using MemoBll.Managers;
 using MemoBll.Interfaces;
+using System.Linq;
 
 namespace Memorise.Tests.BLL.LogicTests
 {
@@ -16,8 +17,9 @@ namespace Memorise.Tests.BLL.LogicTests
         Mock<IUnitOfWork> unitOfWork;
         List<Report> reports = new List<Report>();
         List<Deck> decks = new List<Deck>();
-        //List<User> users = new List<User>();
+        List<User> users = new List<User>();
         List<Statistics> statistics = new List<Statistics>();
+        List<UserCourse> userCourses = new List<UserCourse>();
         Moderation moderation;
 
         public ModerationLogicTests()
@@ -40,6 +42,72 @@ namespace Memorise.Tests.BLL.LogicTests
                 Date = DateTime.Today,
                 Reason = "reason2"
             });
+
+            users.Add(
+                new User
+                {
+                    Id = "1",
+                    UserName = "User1",
+                    UserProfile = new MemoDAL.Entities.UserProfile
+                    {
+                        Id = 1
+                    }
+                });
+            users.Add(
+                new User
+                {
+                    Id = "2",
+                    UserName = "User2",
+                    UserProfile = new MemoDAL.Entities.UserProfile
+                    {
+                        Id = 2
+                    }
+                });
+            users.Add(
+                new User
+                {
+                    Id = "3",
+                    UserName = "User3",
+                    UserProfile = new MemoDAL.Entities.UserProfile
+                    {
+                        Id = 3
+                    }
+                });
+            userCourses.Add(
+                new UserCourse
+                {
+                    Id = 1,
+                    Course = new Course { Id = 1, Name = "course1" },
+                    User = users[0]
+
+                });
+            statistics.Add(
+                new Statistics
+                {
+                    Id = 1,
+                    Deck = new Deck { Id = 1, Name="deck1" },
+                    SuccessPercent = 20,
+                    User = users[0]
+                });
+            statistics.Add(
+                new Statistics
+                {
+                    Id = 2,
+                    Deck = new Deck { Id = 2, Name = "deck2" },
+                    SuccessPercent = 80,
+                    User = users[1]
+                });
+            statistics.Add(
+                new Statistics
+                {
+                    Id = 3,
+                    Deck = new Deck { Id = 3, Name = "deck3" },
+                    SuccessPercent = 30,
+                    User = users[2]
+                });
+            
+
+
         }
 
         [Test]
@@ -135,21 +203,97 @@ namespace Memorise.Tests.BLL.LogicTests
             unitOfWork.Verify(uow => uow.Reports.Get(id), Times.Once);
         }
 
-        [Test]
-        public void GetDeckStatisticsTest() 
-        {
-            List<Statistics> list = new List<Statistics> {
-                    new Statistics { Id = 1, Deck = new Deck { Id = 1}, SuccessPercent = 20  },
-                    new Statistics { Id = 2, Deck = new Deck { Id = 1 }, SuccessPercent = 80 },
-                    new Statistics { Id = 3, Deck = new Deck { Id = 1 }, SuccessPercent = 20 } };
-            var moderationMock = new Mock<IModeration>();
-            var id = 1;
-            moderationMock.Setup(temp => temp.GetDeckStatistics(id)).Returns(list);
-            ModerationBll getStat = new ModerationBll( moderationMock.Object, new ConverterToDTO());
-            var actual = getStat.GetDeckStatistics(1);
+        //[Test]
+        //public void GetDeckStatisticsTest() 
+        //{
+        //    List<Statistics> list = new List<Statistics> {
+        //            new Statistics { Id = 1, Deck = new Deck { Id = 1}, SuccessPercent = 20  },
+        //            new Statistics { Id = 2, Deck = new Deck { Id = 2 }, SuccessPercent = 80 },
+        //            new Statistics { Id = 3, Deck = new Deck { Id = 3 }, SuccessPercent = 30 } };
+        //    var moderationMock = new Mock<IModeration>();
+        //    var id = 1;
+        //    moderationMock.Setup(temp => temp.GetDeckStatistics(id)).Returns(list);
+        //    ModerationBll getStat = new ModerationBll( moderationMock.Object, new ConverterToDTO());
+        //    var actual = getStat.GetDeckStatistics(1);
 
-            Assert.AreEqual(40, actual);
+        //    Assert.AreEqual(40, actual);
+        //}
+
+        [Test]
+        public void GetAllUsersByCourseTest()
+        {
+            // Arrange
+            unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
+            unitOfWork.Setup(uow => uow.UserCourses.GetAll()).Returns(userCourses);
+            moderation = new Moderation(unitOfWork.Object);
+            var expected = new List<User> { users[0]};
+            const int VALID_COURSE_ID = 1;
+            // Act
+            var actual = moderation.GetAllUsersByCourse(VALID_COURSE_ID);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+            unitOfWork.Verify(x=>x.UserCourses.GetAll(),Times.Once);
+
         }
+
+        [Test]
+        public void GetAllUsersByCourseTestIsEmpty()
+        {
+            // Arrange
+            unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
+            unitOfWork.Setup(uow => uow.UserCourses.GetAll()).Returns(userCourses);
+            moderation = new Moderation(unitOfWork.Object);
+            var expected = new List<User> { users[0] };
+            const int INVALID_COURSE_ID = 2;
+            // Act
+            var actual = moderation.GetAllUsersByCourse(INVALID_COURSE_ID);
+
+            // Assert
+            Assert.IsEmpty(actual);
+            unitOfWork.Verify(x => x.UserCourses.GetAll(), Times.Once);
+
+        }
+
+        [Test]
+        public void GetAllUsersByDeckTest()
+        {
+            // Arrange
+            unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
+            unitOfWork.Setup(uow => uow.Statistics.GetAll()).Returns(statistics);
+            moderation = new Moderation(unitOfWork.Object);
+            var expected = new List<User> { users[0] };
+            const string VALID_DECK_NAME = "deck1";
+
+            // Act
+            var actual = moderation.GetAllUsersByDeck(VALID_DECK_NAME);
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+            unitOfWork.Verify(x => x.Statistics.GetAll(), Times.Once);
+
+        }
+
+        [Test]
+        public void GetAllUsersByDeckTestIsEmpty()
+        {
+            // Arrange
+            unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
+            unitOfWork.Setup(uow => uow.Statistics.GetAll()).Returns(statistics);
+            moderation = new Moderation(unitOfWork.Object);
+            var expected = new List<User> { users[0] };
+            const string INVALID_DECK_NAME = "deck4";
+
+            // Act
+            var actual = moderation.GetAllUsersByDeck(INVALID_DECK_NAME);
+
+            // Assert
+            Assert.IsEmpty(actual);
+            unitOfWork.Verify(x => x.Statistics.GetAll(), Times.Once);
+
+        }
+
+
 
     }
 }

@@ -56,10 +56,6 @@ namespace MemoBll.Logic
 
         #region ForStatistics
 
-        public Statistics GetStatistics(string deckName, int userId)
-        {
-            throw new NotImplementedException();
-        }
 
         public IEnumerable<Statistics> GetDeckStatistics(int deckId)
         {
@@ -67,12 +63,13 @@ namespace MemoBll.Logic
                 .GetAll().Where(x => x.Deck.Id == deckId);
         }
 
-        //public Statistics GetStatistics(string deckName, int userId)
-        //{
-        //    return unitOfWork.Statistics
-        //        .GetAll()
-        //        .FirstOrDefault(x => x.Deck.Name == deckName && x.User.Id == userId);
-        //}
+        public Statistics GetStatistics(string deckName, int userId)
+        {
+            return unitOfWork.Statistics
+                .GetAll()
+                .FirstOrDefault(x => x.Deck.Name == deckName
+                && x.User.UserProfile.Id == userId);
+        }
 
         public void DeleteStatistics(int statisticsId)
         {
@@ -219,6 +216,11 @@ namespace MemoBll.Logic
             unitOfWork.Answers.Delete(answerId);
             unitOfWork.Save();
         }
+
+        //public Statistics GetStatistics(string deckName, int userId)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         #endregion
     }

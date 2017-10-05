@@ -54,7 +54,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Customer")]
+        //[Authorize(Roles = "Customer")]
         public IHttpActionResult GetDecks()
         {
             try

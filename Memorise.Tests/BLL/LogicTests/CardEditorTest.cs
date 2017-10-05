@@ -64,15 +64,15 @@ namespace Memorise.Tests.BLL.LogicTests
 			Mock<IUnitOfWork> unitOfWork
 				= new Mock<IUnitOfWork>(MockBehavior.Strict);
 			unitOfWork
-				.Setup(uow => uow.Cards.Delete(It.IsAny<Card>()));
+				.Setup(uow => uow.Cards.Delete(It.IsAny<int>()));
 
 			var sut = new CardEditor(unitOfWork.Object);
 
 			var card = Cards[0];
-			sut.RemoveCard(card);
+			sut.RemoveCard(card.Id);
 
 			unitOfWork.Verify(
-				uow => uow.Cards.Delete(It.IsAny<Card>()), Times.Once);
+				uow => uow.Cards.Delete(It.IsAny<int>()), Times.Once);
 		}
 	}
 }
