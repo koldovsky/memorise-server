@@ -28,9 +28,9 @@ namespace MemoBll.Logic
             unitOfWork.Cards.Update(card);
         }
 
-        public void RemoveCard(Card card)
+        public void RemoveCard(int cardId)
         {
-            unitOfWork.Cards.Delete(card);
+            unitOfWork.Cards.Delete(cardId);
         }
     }
 }

@@ -67,9 +67,9 @@ namespace MemoBll.Logic
 		//		.Where(x => x.Deck.Id == deckId && x.User.Id == userId);
 		//}
 
-		public void DeleteStatistics(Statistics statistics)
+		public void DeleteStatistics(int statisticsId)
 		{
-			unitOfWork.Statistics.Delete(statistics);
+			unitOfWork.Statistics.Delete(statisticsId);
 			unitOfWork.Save();
 		}
 
@@ -161,45 +161,9 @@ namespace MemoBll.Logic
 			unitOfWork.Answers.Update(answer);
 		}
 
-		public void RemoveAnswer(Answer answer)
+		public void RemoveAnswer(int answerId)
 		{
-			unitOfWork.Answers.Delete(answer);
-		}
-
-		public IEnumerable<Answer> GetAllCorrectAnswersInCard(int cardId)
-		{
-			return unitOfWork.Answers.GetAll()
-				.Where(x => x.Card.Id == cardId && x.IsCorrect);
-		}
-
-		public void AddCategory(Category category)
-		{
-			unitOfWork.Categories.Create(category);
-		}
-
-		public void UpdateCategory(Category category) //to return bool is better idea
-		{                                             //to give only id and then delete by id
-			unitOfWork.Categories.Update(category);
-		}
-
-		public void RemoveCategory(Category category) //to return bool is better idea
-		{                                             //to give only id and then delete by id
-			unitOfWork.Categories.Delete(category);
-		}
-
-		public void CreateCourse(Course course)
-		{
-			unitOfWork.Courses.Create(course);
-		}
-
-		public void UpdateCourse(Course course)
-		{
-			unitOfWork.Courses.Update(course);
-		}
-
-		public void RemoveCourse(Course course)
-		{
-			unitOfWork.Courses.Delete(course);
+			unitOfWork.Answers.Delete(answerId);
 		}
 
         public IEnumerable<Role> GetAllRoles()
@@ -276,5 +240,6 @@ namespace MemoBll.Logic
         {
             throw new System.NotImplementedException();
         }
+
     }
 }

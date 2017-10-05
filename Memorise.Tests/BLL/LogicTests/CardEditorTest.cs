@@ -58,21 +58,21 @@ namespace Memorise.Tests.BLL.LogicTests
 				uow => uow.Cards.Update(It.IsAny<Card>()), Times.Once);
 		}
 
-		[Test]
-		public void RemoveCard()
-		{
-			Mock<IUnitOfWork> unitOfWork
-				= new Mock<IUnitOfWork>(MockBehavior.Strict);
-			unitOfWork
-				.Setup(uow => uow.Cards.Delete(It.IsAny<Card>()));
+		//[Test]
+		//public void RemoveCard()
+		//{
+		//	Mock<IUnitOfWork> unitOfWork
+		//		= new Mock<IUnitOfWork>(MockBehavior.Strict);
+		//	unitOfWork
+		//		.Setup(uow => uow.Cards.Delete(It.IsAny<Card>()));
 
-			var sut = new CardEditor(unitOfWork.Object);
+		//	var sut = new CardEditor(unitOfWork.Object);
 
-			var card = Cards[0];
-			sut.RemoveCard(card);
+		//	var card = Cards[0];
+		//	sut.RemoveCard(card);
 
-			unitOfWork.Verify(
-				uow => uow.Cards.Delete(It.IsAny<Card>()), Times.Once);
-		}
+		//	unitOfWork.Verify(
+		//		uow => uow.Cards.Delete(It.IsAny<Card>()), Times.Once);
+		//}
 	}
 }

@@ -15,7 +15,7 @@ namespace MemoBll.Interfaces
 		IEnumerable<Statistics> GetDeckStatistics(int deckId);
 		Course GetCourse(int courseId);
 		IEnumerable<Statistics> GetStatistics(int deckId, int userId);
-		void DeleteStatistics(Statistics statistics);
+		void DeleteStatistics(int statisticsId);
 
 		IEnumerable<User> GetAllUsersOnRole(string roleName);
 		User GetUser(int userId);
@@ -29,17 +29,5 @@ namespace MemoBll.Interfaces
 		void SetUserRole(User user, Role role);
 		void RemoveRoleFromUser(User user, Role role);
 
-		void CreateAnswer(Answer answer);
-		void UpdateAnswer(Answer answer);
-		void RemoveAnswer(Answer answer);
-		IEnumerable<Answer> GetAllCorrectAnswersInCard(int cardId);
-
-		void AddCategory(Category category);
-		void UpdateCategory(Category category);
-		void RemoveCategory(Category category);
-
-		void CreateCourse(Course course);
-		void UpdateCourse(Course course);
-		void RemoveCourse(Course course);
-	}
+    }
 }

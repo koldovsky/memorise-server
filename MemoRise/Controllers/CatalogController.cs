@@ -14,7 +14,6 @@ namespace MemoRise.Controllers
         CatalogBll catalog = new CatalogBll();
 
         [HttpGet]
-        
         public IHttpActionResult GetCategories()
         {
             try

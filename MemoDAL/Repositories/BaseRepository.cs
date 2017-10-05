@@ -44,9 +44,9 @@ namespace MemoDAL.Repositories
             Context.Entry(obj).State = EntityState.Modified;
         }
 
-        public void Delete(T obj)
+        public void Delete(int id)
         {
-            Context.Set<T>().Remove(obj);
+            Context.Set<T>().Remove(Get(id));
         }
 
         public MemoContext MemoContext
