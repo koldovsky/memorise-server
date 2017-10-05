@@ -21,7 +21,7 @@ namespace MemoBll.Interfaces
         void UpdateAnswer(Answer answer);
         void RemoveAnswer(int answerId);
 
-        void AddCategory(Category category);
+        void CreateCategory(Category category);
         void UpdateCategory(Category category);
         void RemoveCategory(int categoryId);
 

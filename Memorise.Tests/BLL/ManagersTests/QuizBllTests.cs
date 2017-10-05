@@ -46,11 +46,11 @@ namespace Memorise.Tests.BLL.ManagersTests
         }
 
         [Test]
-        public void GetAllAnswersInCardTest()
+        public void GetAllAnswersInCardBllTest()
         {
             // Arrange
             int cardId = cards[0].Id;
-            mockQuiz.Setup(m => m.GetAllAnswersInCard(It.IsInRange<int>(0, 3,
+            mockQuiz.Setup(m => m.GetAllAnswersInCard(It.IsInRange<int>(1, 4,
                 Range.Inclusive))).Returns(answers);
             mockConverter.Setup(m => m.ConvertToAnswerListDTO(answers)).Returns(answerDTOs);
             quiz = new QuizBll(mockQuiz.Object, mockConverter.Object);
@@ -70,11 +70,27 @@ namespace Memorise.Tests.BLL.ManagersTests
         }
 
         [Test]
-        public void GetCardsByDeckTest()
+        public void GetAllAnswersInCardBllArgumentNullExceptionTest()
+        {
+            // Arrange
+            List<Answer> nullAnswers = null;
+            int cargId = 0;
+            mockQuiz.Setup(m => m.GetAllAnswersInCard(cargId)).Returns(nullAnswers);
+            mockConverter.Setup(m => m.ConvertToAnswerListDTO(answers)).Returns(answerDTOs);
+            quiz = new QuizBll(mockQuiz.Object, mockConverter.Object);
+
+            //act, accert
+            Assert.Throws<ArgumentNullException>(
+                () => quiz.GetAllAnswersInCard(cargId));
+        }
+        
+
+        [Test]
+        public void GetCardsByDeckBllTest()
         {
             // Arrange
             string deckName = decks[0].Name;
-            var expected = cards;
+            List<Card> expected = cards;
             mockQuiz.Setup(m => m.GetCardsByDeck(deckName)).Returns(cards);
             mockConverter.Setup(m => m.ConvertToCardListDTO(cards)).Returns(cardDTOs);
             quiz = new QuizBll(mockQuiz.Object, mockConverter.Object);

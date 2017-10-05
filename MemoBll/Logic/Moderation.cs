@@ -158,7 +158,7 @@ namespace MemoBll.Logic
 
         #region ForCategory
 
-        public void AddCategory(Category category)
+        public void CreateCategory(Category category)
         {
             unitOfWork.Categories.Create(category);
             unitOfWork.Save();
