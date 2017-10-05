@@ -204,7 +204,12 @@ namespace MemoBll.Logic
 
         public UserDTO ConvertToUserDTO(User user)
         {
-            throw new System.NotImplementedException();
+            return new UserDTO
+            {
+                Login = user.UserName,
+                Email = user.Email,
+                IsBlocked = user.UserProfile.IsBlocked
+            };
         }
     }
 }
