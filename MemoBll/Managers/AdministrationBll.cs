@@ -116,9 +116,9 @@ namespace MemoBll.Managers
 			}
 		}
 
-		public void DeleteStatistics(Statistics statistics)
+		public void DeleteStatistics(int statisticsId)
 		{
-			administration.DeleteStatistics(statistics);
+			administration.DeleteStatistics(statisticsId);
 		}
 
 		#endregion
@@ -174,67 +174,5 @@ namespace MemoBll.Managers
 
 		#endregion
 
-		#region ForAnswers
-
-		public void CreateAnswer(Answer answer)
-		{
-			administration.CreateAnswer(answer);
-		}
-
-		public void UpdateAnswer(Answer answer)
-		{
-			administration.UpdateAnswer(answer);
-		}
-
-		public void RemoveAnswer(Answer answer)
-		{
-			administration.RemoveAnswer(answer);
-		}
-
-		public IEnumerable<Answer> GetAllCorrectAnswersInCard(int cardId)
-		{
-			return administration.GetAllCorrectAnswersInCard(cardId);
-		}
-
-		#endregion
-
-		#region ForCategories
-
-		public void AddCategory(Category category)
-		{
-			administration.AddCategory(category);
-		}
-
-		public void UpdateCategory(Category category) //to return bool is better idea
-		{                                             //to give only id and then delete by id
-			administration.UpdateCategory(category);
-		}
-
-		public void RemoveCategory(Category category) //to return bool is better idea
-		{                                             //to give only id and then delete by id
-			administration.RemoveCategory(category);
-		}
-
-		#endregion
-
-		#region ForCourses
-
-		public void CreateCourse(Course course)
-		{
-			administration.CreateCourse(course);
-		}
-
-		public void UpdateCourse(Course course)
-		{
-			administration.UpdateCourse(course);
-		}
-
-		public void RemoveCourse(Course course)
-		{
-			administration.RemoveCourse(course);
-		}
-
-		#endregion
-
-	}
+    }
 }

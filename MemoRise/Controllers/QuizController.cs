@@ -52,30 +52,28 @@ namespace MemoRise.Controllers
             }
             catch (Exception ex)
             {
-                HttpError err = new HttpError(ex.Message);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, err);
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+               
             }
         }
 
         [HttpGet]
         [Route("Quiz/IsAnswerCorrect/{cardId:int}/{answerText}")]
-        public HttpResponseMessage IsAnswerCorrect(int cardId, string answerText)
+        public IHttpActionResult IsAnswerCorrect(int cardId, string answerText)
         {
             try
             {
                 bool isCorrect = quiz.IsAnswerCorrect(cardId, answerText);
-                return Request.CreateResponse(HttpStatusCode.OK, isCorrect);
+                return Ok(isCorrect);
             }
             catch (ArgumentNullException ex)
             {
                 var message = $"Card with id = {cardId} not found. {ex.Message}";
-                HttpError err = new HttpError(message);
-                return Request.CreateResponse(HttpStatusCode.NotFound, err);
+                return BadRequest(message);
             }
             catch (Exception ex)
             {
-                HttpError err = new HttpError(ex.Message);
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, err);
+                return BadRequest(ex.Message);
             }
         }
     }

@@ -27,11 +27,6 @@ namespace MemoBll.Managers
             this.converterToDto = converterToDto;
         }
 
-        public bool CheckAnswer (AnswerDTO answerDto, int cardId)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<AnswerDTO> GetAllAnswersInCard(int cardId)
         {
             var answers = quiz.GetAllAnswersInCard(cardId).ToList();

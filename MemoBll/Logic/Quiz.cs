@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace MemoBll.Logic
 {
-	public class Quiz : IQuiz
+    public class Quiz : IQuiz
     {
         IUnitOfWork unitOfWork;
 
@@ -22,27 +22,9 @@ namespace MemoBll.Logic
             this.unitOfWork = unitOfWork;
         }
 
-        public bool CheckAnswer(Answer answer, int cardId)
-        {
-            //bool result = false;
-            //Card card = unitOfWork.Cards.Get(cardId);
-
-            //foreach (Answer answers in card.Answers)
-            //{
-            //    if (answers.Text == answer.Text)
-            //    {
-            //        result = true;
-            //        break;
-            //    }
-            //}
-
-            //return result;
-            throw new NotImplementedException();
-        }
-
         public IEnumerable<Answer> GetAllAnswersInCard(int cardId)
         {
-            return unitOfWork.Cards.Get(cardId)?.Answers;
+            return unitOfWork.Cards.Get(cardId)?.Answers ?? throw new ArgumentNullException();
         }
 
         public IEnumerable<Card> GetCardsByCourse(string courseLink)

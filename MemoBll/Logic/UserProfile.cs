@@ -2,11 +2,13 @@
 using MemoDAL;
 using MemoDAL.EF;
 using MemoDAL.Entities;
+using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MemoBll.Logic
 {
-	public class UserProfile : IUserProfile
+    public class UserProfile : IUserProfile
     {
         IUnitOfWork unitOfWork;
 
@@ -22,30 +24,36 @@ namespace MemoBll.Logic
 
         public IEnumerable<Course> GetCoursesByUser(string userEmail)
         {
-            throw new System.NotImplementedException();
+            List<Course> courses = new List<Course>();
+            IEnumerable<UserCourse> userCourses = unitOfWork.UserCourses
+                .GetAll().Where(x => x.User.Email == userEmail);
+            foreach (UserCourse userCourse in userCourses)
+            {
+                courses.Add(userCourse.Course);
+            }
+            return courses;
         }
 
-        public User GetUser(int userId)
+        public User GetUserByEmail(string userEmail)
         {
-            throw new System.NotImplementedException();
+            return unitOfWork.Users.FindByEmail(userEmail);
         }
 
-        //public IEnumerable<Course> GetCoursesByUser(string userEmail)
-        //{
-        //    List<Course> courses = new List<Course>();
-        //    IEnumerable<UserCourse> userCourses = unitOfWork.UserCourses
-        //        .GetAll().Where(x => x.User.Email == userEmail);
-        //    foreach (UserCourse userCourse in userCourses)
-        //    {
-        //        courses.Add(userCourse.Course);
-        //    }
+        public User GetUserByLogin(string userLogin)
+        {
+            return unitOfWork.Users.FindByName(userLogin);
+        }
 
-        //    return courses;
-        //}
+        public bool UpdateUserProfileEmail(string userId, string userEmail)
+        {
+            return unitOfWork.Users.SetEmail(userId, userEmail).Succeeded;
+        }
 
-        //public User GetUser(int userId)
-        //{
-        //    return unitOfWork.Users.Get(userId);
-        //}
+        public bool UpdateUserProfileLogin(string userId, string userLogin)
+        {
+            User user = unitOfWork.Users.FindById(userId);
+            user.UserName = userLogin;
+            return unitOfWork.Users.Update(user).Succeeded;
+        }
     }
 }

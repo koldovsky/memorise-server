@@ -1,4 +1,5 @@
-﻿using MemoBll;
+﻿using System;
+using MemoBll;
 using MemoBll.Managers;
 using MemoDTO;
 using System.Collections.Generic;
@@ -9,6 +10,26 @@ namespace MemoRise.Controllers
     public class UserProfileController : ApiController
     {
         UserProfileBll userProfile = new UserProfileBll();
+
+        [HttpGet]
+        //[Authorize(Roles = "Customer")]
+        [Route("UserProfile/GetUserByLogin/{userLogin}")]
+        public IHttpActionResult GetUserByLogin(string userLogin)
+        {
+            try
+            {
+                return Ok(userProfile.GetUserByLogin(userLogin));
+            }
+            catch (ArgumentNullException ex)
+            {
+                var message = $"Could not find such user.";
+                return BadRequest(message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         //[HttpGet]
         //[Route("UserProfile/GetCoursesByUser/{userEmaile}")]
@@ -22,12 +43,6 @@ namespace MemoRise.Controllers
         //public List<DeckDTO> GetDecksByUser(string userEmail)
         //{
         //    return userProfile.GetDecksByUser(userEmail);
-        //}
-
-        //[HttpGet]
-        //public UserDTO GetUserById(int id)
-        //{
-        //    return userProfile.GetUser(id);
         //}
     }
 }

@@ -41,7 +41,7 @@ namespace MemoDAL
 		private RoleManager<Role> roles;
 		private IStatisticsRepository statistics;
 		private IUserCourseRepository userCourses;
-		private UserManager<User> users;
+		private UserRepository users;
 		private bool disposed = false;
 
 		#endregion
@@ -103,7 +103,7 @@ namespace MemoDAL
 			get { return userCourses; }
 		}
 
-		public UserManager<User> Users
+		public UserRepository Users
 		{
 			get { return users; }
 		}

@@ -3,6 +3,7 @@ using System.Linq;
 using MemoDAL;
 using MemoDAL.Entities;
 using MemoDAL.EF;
+using System;
 
 namespace MemoBll
 {
@@ -32,7 +33,7 @@ namespace MemoBll
 
         public Comment GetComment(int commentId)
         {
-            return unitOfWork.Comments.Get(commentId);
+            return unitOfWork.Comments.Get(commentId) ?? throw new ArgumentNullException();
         }
 
         public void CreateComment(Comment comment)
@@ -45,9 +46,9 @@ namespace MemoBll
             unitOfWork.Comments.Update(comment);
         }
 
-        public void RemoveComment(Comment comment)
+        public void RemoveComment(int commentId)
         {
-            unitOfWork.Comments.Delete(comment);
+            unitOfWork.Comments.Delete(commentId);
         }
     }
 }
