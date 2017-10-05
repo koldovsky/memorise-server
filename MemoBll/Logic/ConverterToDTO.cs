@@ -79,7 +79,7 @@ namespace MemoBll.Logic
             {
                 Id = answer.Id,
                 IsCorrect = answer.IsCorrect,
-                Text = answer.Text
+                Text = answer.Text,
             };
         }
 
