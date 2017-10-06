@@ -9,90 +9,76 @@ using NUnit.Framework;
 namespace Memorise.Tests.BLL.LogicTests
 {
     [TestFixture]
-    class QuizLogicTests
+    public class QuizLogicTests
     {
-        Mock<IUnitOfWork> unitOfWork;
-        List<Deck> decks = new List<Deck>();
-        List<Card> cards = new List<Card>();
-        List<Answer> answers = new List<Answer>();
-        Quiz quiz;
+        private Mock<IUnitOfWork> unitOfWork;
+        private List<Deck> decks = new List<Deck>();
+        private List<Card> cards = new List<Card>();
+        private List<Answer> answers = new List<Answer>();
+        private Quiz quiz;
 
         public QuizLogicTests()
         {
-            answers.Add(new Answer { Id = 1, Text = "a", IsCorrect = true});
-            answers.Add(new Answer { Id = 2, Text = "b", IsCorrect = false});
-            answers.Add(new Answer { Id = 3, Text = "c", IsCorrect = false });
-            answers.Add(new Answer { Id = 4, Text = "d", IsCorrect = true });
+            this.answers.Add(new Answer { Id = 1, Text = "a", IsCorrect = true });
+            this.answers.Add(new Answer { Id = 2, Text = "b", IsCorrect = false });
+            this.answers.Add(new Answer { Id = 3, Text = "c", IsCorrect = false });
+            this.answers.Add(new Answer { Id = 4, Text = "d", IsCorrect = true });
 
-            cards.Add(new Card { Id = 1, Answers = answers});
+            this.cards.Add(new Card { Id = 1, Answers = this.answers });
 
-            decks.Add(new Deck { Id = 1, Cards = cards });
+            this.decks.Add(new Deck { Id = 1, Cards = this.cards });
         }
-
-        //[Test]
-        //public void CheckAnswerTest()
-        //{
-        //    // Arrange
-        //    unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
-        //    quiz = new Quiz(unitOfWork.Object);
-
-        //    // Act
-
-        //    // Assert
-        //    Assert.Throws<NotImplementedException>(
-        //        () => quiz.CheckAnswer(answers[0], cards[0].Id));
-        //}
 
         [Test]
         public void GetAllAnswersInCardTest()
         {
             // Arrange
-            var cardId = cards[0].Id;
-            var expected = answers;
-            unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
-            unitOfWork.Setup(uow => uow.Cards.Get(cardId)).Returns(cards[0]);
-            quiz = new Quiz(unitOfWork.Object);
+            var cardId = this.cards[0].Id;
+            var expected = this.answers;
+            this.unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
+            this.unitOfWork.Setup(uow => uow.Cards.Get(cardId)).Returns(this.cards[0]);
+            this.quiz = new Quiz(this.unitOfWork.Object);
 
             // Act
-            var actual = quiz.GetAllAnswersInCard(cardId);
+            var actual = this.quiz.GetAllAnswersInCard(cardId);
 
             // Assert
             Assert.AreEqual(expected, actual);
-            unitOfWork.Verify(uow => uow.Cards.Get(cardId), Times.Once);
+            this.unitOfWork.Verify(uow => uow.Cards.Get(cardId), Times.Once);
         }
 
-        //[Test]
+        // [Test]
         public void GetAllAnswersInCardNullTest()
         {
             // Arrange
             int cardId = 0;
             Card nullCard = null;
-            unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
-            unitOfWork.Setup(uow => uow.Cards.Get(cardId)).Returns(nullCard);
-            quiz = new Quiz(unitOfWork.Object);
+            this.unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
+            this.unitOfWork.Setup(uow => uow.Cards.Get(cardId)).Returns(nullCard);
+            this.quiz = new Quiz(this.unitOfWork.Object);
 
             // Act
 
             // Assert
-            Assert.IsNull(quiz.GetAllAnswersInCard(cardId));
+            Assert.IsNull(this.quiz.GetAllAnswersInCard(cardId));
         }
 
         [Test]
         public void GetCardsByDeckTest()
         {
             // Arrange
-            string deckName = decks[0].Name;
-            var expected = cards;
-            unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
-            unitOfWork.Setup(uow => uow.Decks.GetAll()).Returns(decks);
-            quiz = new Quiz(unitOfWork.Object);
+            string deckName = this.decks[0].Name;
+            var expected = this.cards;
+            this.unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
+            this.unitOfWork.Setup(uow => uow.Decks.GetAll()).Returns(this.decks);
+            this.quiz = new Quiz(this.unitOfWork.Object);
 
             // Act
-            var actual = quiz.GetCardsByDeck(deckName);
+            var actual = this.quiz.GetCardsByDeck(deckName);
 
             // Assert
             Assert.AreEqual(expected, actual);
-            unitOfWork.Verify(uow => uow.Decks.GetAll(), Times.Once);
+            this.unitOfWork.Verify(uow => uow.Decks.GetAll(), Times.Once);
         }
 
         [Test]
@@ -100,14 +86,14 @@ namespace Memorise.Tests.BLL.LogicTests
         {
             // Arrange
             string deckName = "unknown";
-            unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
-            unitOfWork.Setup(uow => uow.Decks.GetAll()).Returns(decks);
-            quiz = new Quiz(unitOfWork.Object);
+            this.unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
+            this.unitOfWork.Setup(uow => uow.Decks.GetAll()).Returns(this.decks);
+            this.quiz = new Quiz(this.unitOfWork.Object);
 
             // Act
 
             // Assert
-            Assert.IsNull(quiz.GetCardsByDeck(deckName));
+            Assert.IsNull(this.quiz.GetCardsByDeck(deckName));
         }
     }
 }

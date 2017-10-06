@@ -9,28 +9,26 @@ using NUnit.Framework;
 
 namespace Memorise.Tests.BLL.ManagersTests
 {
-
     [TestFixture]
-    class UserProfileBllTests
+    public class UserProfileBllTests
     {
-        public static IList<User> users = new List<User>();
-        public static IList<Course> courses = new List<Course>();
-        public static IList<UserProfile> usersProfiles = new List<UserProfile>();
-        public static bool updated = true;
+        private static IList<User> users = new List<User>();
+        private static IList<Course> courses = new List<Course>();
+        private static IList<UserProfile> usersProfiles = new List<UserProfile>();
+        private static bool updated = true;
 
         public UserProfileBllTests()
         {
-            Initialize();
-        }
-
-        private void Initialize()
-        {
             for (int i = 0; i < 5; i++)
             {
-                users.Add(new User {Id = $"{i}", UserName = $"Category{i}",
-                    Email = $"user{i}@gmail.com"});
-                usersProfiles.Add(new UserProfile {User = users[i], IsBlocked = false});
-                courses.Add(new Course{ Name = $"user{i}"});
+                users.Add(new User
+                {
+                    Id = $"{i}",
+                    UserName = $"Category{i}",
+                    Email = $"user{i}@gmail.com"
+                });
+                usersProfiles.Add(new UserProfile { User = users[i], IsBlocked = false });
+                courses.Add(new Course { Name = $"user{i}" });
             }
         }
 
@@ -113,7 +111,8 @@ namespace Memorise.Tests.BLL.ManagersTests
             Mock<IUserProfile> userProfile = new Mock<IUserProfile>(MockBehavior.Strict);
             userProfile
                 .Setup(exuser =>
-                    exuser.UpdateUserProfileEmail(It.IsIn(users.Select(u => u.Id)),
+                    exuser.UpdateUserProfileEmail(
+                        It.IsIn(users.Select(u => u.Id)),
                         It.IsIn(users.Select(u => u.Email))))
                 .Returns(updated);
             Mock<IConverterToDTO> converter = new Mock<IConverterToDTO>(MockBehavior.Strict);
@@ -132,4 +131,3 @@ namespace Memorise.Tests.BLL.ManagersTests
         }
     }
 }
-
