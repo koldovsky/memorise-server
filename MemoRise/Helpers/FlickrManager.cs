@@ -61,6 +61,19 @@ namespace MemoRise.Helpers
                 f.OAuthAccessTokenSecret = OAuthToken.TokenSecret;
             }
 
+            else
+            {
+                var cookie = new HttpCookie("OAuthToken")
+                {
+                    Expires = DateTime.UtcNow.AddHours(1),
+                };
+                cookie.Values["FullName"] = ConfigurationManager.AppSettings["flickrAppName"];
+                cookie.Values["Token"] = ConfigurationManager.AppSettings["flickrApi"];
+                cookie.Values["TokenSecret"] = ConfigurationManager.AppSettings["flickrSharedSecret"];
+                cookie.Values["UserId"] = ConfigurationManager.AppSettings["flickrUserId"];
+                cookie.Values["Username"] = ConfigurationManager.AppSettings["flickrUserName"];
+                HttpContext.Current.Response.AppendCookie(cookie);
+            }
             return f;
         }
     }

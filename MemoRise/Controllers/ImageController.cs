@@ -1,9 +1,10 @@
-﻿using System;
-using System.Configuration;
-using System.Linq;
-using System.Web.Http;
-using FlickrNet;
+﻿using FlickrNet;
 using MemoRise.Helpers;
+using System;
+using System.Configuration;
+using System.IO;
+using System.Web;
+using System.Web.Http;
 
 namespace MemoRise.Controllers
 {
@@ -19,16 +20,17 @@ namespace MemoRise.Controllers
             this.flickr = FlickrManager.GetInstance();
         }
 
-        [HttpGet]
-        [Route("memo/images/course/{name}")]
-        public IHttpActionResult GetPhotoForCourseByName(string name)
+        [HttpPost]
+        [Route("memo/images/course/{linking}")]
+        public IHttpActionResult UploadPhotoForCourse(string linking)
         {
             try
             {
-                var photo = this.flickr.PhotosetsGetPhotos(
-                ConfigurationManager.AppSettings["flickrGalleryId"],
-                PhotoSearchExtras.OriginalUrl)
-                .First(ph => ph.Title == name);
+                var photo = UploadPhoto(SaveFile(), linking);
+
+                this.flickr.PhotosetsAddPhoto(
+                    ConfigurationManager.AppSettings["flickrCourseGalleryId"],
+                    photo.PhotoId);
 
                 return this.Ok(photo.OriginalUrl);
             }
@@ -40,30 +42,75 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Moderator")]
-        [Route("memo/images/upload")]
-        public IHttpActionResult UploadPhoto()
+        [Route("memo/images/deck/{linking}")]
+        public IHttpActionResult UploadPhotoForDeck(string linking)
         {
             try
             {
-                // To implement upload with FlickrNet library you'll need to use syntax:
+                var photo = UploadPhoto("", linking);
 
-                // OAuthAccessToken accessToken = new OAuthAccessToken();
-                // accessToken.FullName = "your app name"; -> here "Memorise"
-                // accessToken.Token = "get it from Flickr Website for your login";
-                // accessToken.TokenSecret = "get it from Flickr Website for your login";
-                // accessToken.UserId = "get it from Flickr Website for your login";
-                // accessToken.Username = "get it from Flickr Website for your login";
-                // FlickrManager.OAuthToken = accessToken;
-                // Flickr flickr = FlickrManager.GetAuthInstance();
-                // string FileuploadedID = flickr.UploadPicture(@url, title, description, tags, true, false, false);
-                // PhotoInfo oPhotoInfo = flickr.PhotosGetInfo(FileuploadedID);
-                return this.Ok();
+                this.flickr.PhotosetsAddPhoto(
+                    ConfigurationManager.AppSettings["flickrDeckGalleryId"],
+                    photo.PhotoId);
+
+                return this.Ok(photo.OriginalUrl);
             }
             catch (ArgumentNullException ex)
             {
-                return this.BadRequest(ex.Message);
+                var message = $"Photo not found. {ex.Message}";
+                return this.BadRequest(message);
             }
+        }
+
+        [HttpPost]
+        [Route("memo/images/category/{linking}")]
+        public IHttpActionResult UploadPhotoForCategory(string linking)
+        {
+            try
+            {
+                var photo = UploadPhoto("", linking);
+
+                this.flickr.PhotosetsAddPhoto(
+                    ConfigurationManager.AppSettings["flickrCategoryGalleryId"],
+                    photo.PhotoId);
+
+                return this.Ok(photo.OriginalUrl);
+            }
+            catch (ArgumentNullException ex)
+            {
+                var message = $"Photo not found. {ex.Message}";
+                return this.BadRequest(message);
+            }
+        }
+
+        public string SaveFile()
+        {
+            var file =
+                HttpContext.Current.Request.Files[0]
+                ?? throw new ArgumentNullException();
+
+            if (file.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(file.FileName);
+
+                var path = Path.Combine(
+                    HttpContext.Current.Server.MapPath("~/uploads"),
+                    fileName
+                );
+
+                file.SaveAs(path);
+            }
+
+            return Path.Combine("/uploads", file.FileName);
+        }
+
+        public PhotoInfo UploadPhoto(string localPath, string title)
+        {
+            Flickr flickr = FlickrManager.GetAuthInstance();
+            string FileuploadedID = flickr.UploadPicture(
+                @localPath,
+                title);
+            return flickr.PhotosGetInfo(FileuploadedID);
         }
     }
 }
