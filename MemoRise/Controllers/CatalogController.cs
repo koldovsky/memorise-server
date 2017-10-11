@@ -36,7 +36,6 @@ namespace MemoRise.Controllers
         }
 
 		[HttpGet]
-		//[Authorize(Roles = "Admin")]
 		public IHttpActionResult GetCourses()
 		{
 			try

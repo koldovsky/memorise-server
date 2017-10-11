@@ -11,10 +11,14 @@ namespace MemoDAL.Repositories
     {
         public DeckRepository(MemoContext context) : base(context) { }
         
-        public IEnumerable<Deck> GetSomeAmount(int previousNumbersOfDecks, int numbersOfDecksOnPage)
+        public IEnumerable<Deck> GetSomeAmount(int previousNumbersOfDecks, 
+                                               int numbersOfDecksOnPage)
         {
-            return MemoContext.Decks.OrderBy(deck => deck.Id)
-                .Skip(previousNumbersOfDecks).Take(numbersOfDecksOnPage).ToList();
+            return MemoContext.Decks
+                .OrderBy(deck => deck.Id)
+                .Skip(previousNumbersOfDecks)
+                .Take(numbersOfDecksOnPage)
+                .ToList();
         }
     }
 }

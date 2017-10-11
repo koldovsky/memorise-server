@@ -112,6 +112,51 @@ namespace MemoRise.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpGet]
+        [Authorize]
+        [Route("Moderator/FindCourseByName/{courseName}")]
+        public IHttpActionResult FindCourseByName (string courseName)
+        {
+            try
+            {
+                var course = moderation.FindCourseByName(courseName);
+                return Ok(course);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet]
+        [Authorize]
+        [Route("Moderator/FindDeckByName/{deckName}")]
+        public IHttpActionResult FindDeckByName(string deckName)
+        {
+            try
+            {
+                var deck = moderation.FindDeckByName(deckName);
+                return Ok(deck);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet]
+        [Authorize]
+        [Route("Moderator/FindCategoryByName/{categoryName}")]
+        public IHttpActionResult FindCategoryByName(string categoryName)
+        {
+            try
+            {
+                var category = moderation.FindCategoryByName(categoryName);
+                return Ok(category);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost]
         [Authorize]
