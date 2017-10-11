@@ -66,7 +66,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         public IHttpActionResult CreateCourse(CourseDTO courseDto)
         {
             try
@@ -82,7 +82,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpPut]
-        [Authorize]
+        //[Authorize]
         public IHttpActionResult UpdateCourse(CourseDTO courseDto)
         {
             try
@@ -98,7 +98,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpDelete]
-        [Authorize]
+        //[Authorize]
         [Route("Moderator/DeleteCourse/{courseId}")]
         public IHttpActionResult DeleteCourse(int courseId)
         {
