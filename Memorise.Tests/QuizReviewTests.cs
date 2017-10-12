@@ -1,6 +1,6 @@
 ﻿namespace Memorise.Tests
 {
-	class QuizReviewTests
+    public class QuizReviewTests
     {
     }
 }
