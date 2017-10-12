@@ -8,5 +8,6 @@
         public int CardsNumber { get; set; }
 		public string Photo { get; set; }
         public string Linking { get; set; }
-	}
+        public string CategoryName { get; set; }
+    }
 }

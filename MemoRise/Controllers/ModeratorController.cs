@@ -66,7 +66,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         public IHttpActionResult CreateCourse(CourseDTO courseDto)
         {
             try
@@ -82,7 +82,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpPut]
-        [Authorize]
+        //[Authorize]
         public IHttpActionResult UpdateCourse(CourseDTO courseDto)
         {
             try
@@ -98,7 +98,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpDelete]
-        [Authorize]
+        //[Authorize]
         [Route("Moderator/DeleteCourse/{courseId}")]
         public IHttpActionResult DeleteCourse(int courseId)
         {
@@ -106,6 +106,51 @@ namespace MemoRise.Controllers
             {
                 moderation.RemoveCourse(courseId);
                 return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet]
+        [Authorize]
+        [Route("Moderator/FindCourseByName/{courseName}")]
+        public IHttpActionResult FindCourseByName (string courseName)
+        {
+            try
+            {
+                var course = moderation.FindCourseByName(courseName);
+                return Ok(course);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet]
+        [Authorize]
+        [Route("Moderator/FindDeckByName/{deckName}")]
+        public IHttpActionResult FindDeckByName(string deckName)
+        {
+            try
+            {
+                var deck = moderation.FindDeckByName(deckName);
+                return Ok(deck);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet]
+        [Authorize]
+        [Route("Moderator/FindCategoryByName/{categoryName}")]
+        public IHttpActionResult FindCategoryByName(string categoryName)
+        {
+            try
+            {
+                var category = moderation.FindCategoryByName(categoryName);
+                return Ok(category);
             }
             catch (Exception ex)
             {

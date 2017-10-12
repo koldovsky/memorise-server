@@ -112,10 +112,10 @@ namespace MemoDAL
 
 		public void Save()
 		{
-			dbContext.SaveChanges();
+            dbContext.SaveChanges();
 		}
 
-		public virtual void Dispose(bool disposing)
+		protected virtual void Dispose(bool disposing)
 		{
 			if (!this.disposed)
 			{

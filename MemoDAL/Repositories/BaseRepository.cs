@@ -16,7 +16,7 @@ namespace MemoDAL.Repositories
 
         public IEnumerable<T> GetAll()
         {
-            return Context.Set<T>(); //.ToList();
+            return Context.Set<T>(); 
         }
 
         public T Get(int id)
@@ -24,16 +24,7 @@ namespace MemoDAL.Repositories
             return Context.Set<T>().Find(id);
         }
 
-        //public IEnumerable<T> GetCollectionByPredicate(Func<T, Boolean> predicate)
-        //{
-        //    return Context.Set<T>().Where(predicate).ToList();
-        //}
-
-        //public T GetOneElementOrDefault(Func<T, Boolean> predicate)
-        //{
-        //    return Context.Set<T>().FirstOrDefault(predicate);
-        //}
-
+        
         public void Create(T obj)
         {
             Context.Set<T>().Add(obj);
