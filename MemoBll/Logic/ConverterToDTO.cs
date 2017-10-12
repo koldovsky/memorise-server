@@ -179,14 +179,25 @@ namespace MemoBll.Logic
             };
         }
 
-        public StatisticDTO ConvertToStatisticDTO(Statistics statistic)
+        public StatisticsDTO ConvertToStatisticDTO(Statistics statistic)
         {
-            return new StatisticDTO
+            return new StatisticsDTO
             {
-                SuccessPercent = statistic.SuccessPercent,
-                Deck = ConvertToDeckDTO(statistic.Deck),
-                User = ConvertToUserDTO(statistic.User)
+                CardStatus = statistic.CardStatus,
+                User = ConvertToUserDTO(statistic.User),
+                Card = ConvertToCardDTO(statistic.Card)
             };
+        }
+
+        public List<StatisticsDTO> ConvertToStatisticsListDTO(IEnumerable<Statistics> statistics)
+        {
+            List<StatisticsDTO> statisticsDTOs = new List<StatisticsDTO>();
+            foreach (var s in statistics)
+            {
+                statisticsDTOs.Add(ConvertToStatisticDTO(s));
+            }
+
+            return statisticsDTOs;
         }
 
         public UserCourseDTO ConvertToUserCourseDTO(UserCourse userCourse)

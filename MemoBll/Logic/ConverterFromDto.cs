@@ -9,7 +9,7 @@ using MemoDTO;
 
 namespace MemoBll.Logic
 {
-    public class ConverterFromDto : IConverterFromDto
+    public class ConverterFromDTO : IConverterFromDTO
     {
         public Answer ConvertToAnswer(AnswerDTO answerDTO)
         {
@@ -126,9 +126,14 @@ namespace MemoBll.Logic
             throw new NotImplementedException();
         }
 
-        public Statistics ConvertToStatistic(StatisticDTO statistic)
+        public Statistics ConvertToStatistics(StatisticsDTO statistics)
         {
-            throw new NotImplementedException();
+            return new Statistics
+            {
+                CardStatus = statistics.CardStatus,
+                User = ConvertToUser(statistics.User),
+                Card = ConvertToCard(statistics.Card)
+            };
         }
 
         public UserCourse ConvertToUserCourse(UserCourseDTO userCourse)

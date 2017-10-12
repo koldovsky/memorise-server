@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using MemoDTO;
 using MemoBll.Managers;
@@ -11,20 +7,18 @@ using MemoDAL.Entities;
 
 namespace MemoRise.Controllers
 {
-
     public class ModeratorController : ApiController
     {
         ModerationBll moderation = new ModerationBll();
-        ConverterFromDto converter = new ConverterFromDto();
+        ConverterFromDTO converter = new ConverterFromDTO();
 
         [HttpPost]
-        [Authorize]
         public IHttpActionResult CreateCategory(CategoryDTO categoryDto)
         {
             try
             {
-                Category course = converter.ConvertToCategory(categoryDto);
-                moderation.CreateCategory(course);
+                Category category = converter.ConvertToCategory(categoryDto);
+                moderation.CreateCategory(category);
                 return Ok();
             }
             catch (Exception ex)
@@ -34,7 +28,6 @@ namespace MemoRise.Controllers
         }
 
         [HttpPut]
-        [Authorize]
         public IHttpActionResult UpdateCategory(CategoryDTO categoryDto)
         {
             try
@@ -50,7 +43,6 @@ namespace MemoRise.Controllers
         }
 
         [HttpDelete]
-        [Authorize]
         [Route("Moderator/DeleteCategory/{categoryId}")]
         public IHttpActionResult DeleteCategory(int categoryId)
         {
@@ -66,7 +58,6 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public IHttpActionResult CreateCourse(CourseDTO courseDto)
         {
             try
@@ -82,7 +73,6 @@ namespace MemoRise.Controllers
         }
 
         [HttpPut]
-        [Authorize]
         public IHttpActionResult UpdateCourse(CourseDTO courseDto)
         {
             try
@@ -98,7 +88,6 @@ namespace MemoRise.Controllers
         }
 
         [HttpDelete]
-        [Authorize]
         [Route("Moderator/DeleteCourse/{courseId}")]
         public IHttpActionResult DeleteCourse(int courseId)
         {

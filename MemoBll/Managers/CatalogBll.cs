@@ -54,9 +54,9 @@ namespace MemoBll.Managers
 				.Select(d => converterToDto.ConvertToDeckDTO(d));
         }
 
-        public IEnumerable<CourseDTO> GetAllCoursesByCategory(string categoryName)
+        public IEnumerable<CourseDTO> GetAllCoursesByCategory(string categoryLinking)
         {
-            return catalog.GetAllCoursesByCategory(categoryName)
+            return catalog.GetAllCoursesByCategory(categoryLinking)
 				.Select(c => converterToDto.ConvertToCourseDTO(c));
         }
 

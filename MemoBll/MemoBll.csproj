@@ -42,8 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IConverterFromDto.cs" />
-    <Compile Include="Logic\ConverterFromDto.cs" />
+    <Compile Include="Interfaces\IConverterFromDTO.cs" />
+    <Compile Include="Interfaces\ICustomerStatistics.cs" />
+    <Compile Include="Logic\ConverterFromDTO.cs" />
     <Compile Include="Logic\CourseDetails.cs" />
     <Compile Include="Interfaces\ICourseDetails.cs" />
     <Compile Include="Interfaces\IModeration.cs" />
@@ -59,10 +60,11 @@
     <Compile Include="Managers\CourseDetailsBll.cs" />
     <Compile Include="CustomerAccount.cs" />
     <Compile Include="Logic\CustomerCourse.cs" />
-    <Compile Include="CustomerStatistic.cs" />
+    <Compile Include="Logic\CustomerStatistics.cs" />
     <Compile Include="Interfaces\IConverterToDTO.cs" />
     <Compile Include="Interfaces\IAdministration.cs" />
     <Compile Include="Logic\Moderation.cs" />
+    <Compile Include="Managers\CustomerStatisticsBll.cs" />
     <Compile Include="Managers\ModerationBll.cs" />
     <Compile Include="Logic\Quiz.cs" />
     <Compile Include="QuizReview.cs" />

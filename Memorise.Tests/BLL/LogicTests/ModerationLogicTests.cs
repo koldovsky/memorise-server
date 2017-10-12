@@ -5,8 +5,6 @@ using MemoDAL;
 using MemoDAL.Entities;
 using Moq;
 using NUnit.Framework;
-using MemoBll.Managers;
-using MemoBll.Interfaces;
 using System.Linq;
 
 namespace Memorise.Tests.BLL.LogicTests

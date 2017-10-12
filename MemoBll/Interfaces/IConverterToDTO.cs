@@ -23,6 +23,7 @@ namespace MemoBll.Interfaces
         CommentDTO ConvertToCommentDTO(Comment comment);
         List<CommentDTO> ConvertToCommentListDTO(IEnumerable<Comment> comments);
         ReportDTO ConvertToReportDTO(Report report);
-        StatisticDTO ConvertToStatisticDTO(Statistics statistic);
+        StatisticsDTO ConvertToStatisticDTO(Statistics statistic);
+        List<StatisticsDTO> ConvertToStatisticsListDTO(IEnumerable<Statistics> statistics);
         UserCourseDTO ConvertToUserCourseDTO(UserCourse userCourse);}
 }

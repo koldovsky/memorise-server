@@ -24,14 +24,16 @@ namespace MemoBll.Logic
 
         public IEnumerable<Answer> GetAllAnswersInCard(int cardId)
         {
-            return unitOfWork.Cards.Get(cardId)?.Answers ?? throw new ArgumentNullException();
+            return unitOfWork.Cards.Get(cardId)?.Answers 
+                ?? throw new ArgumentNullException();
         }
 
         public IEnumerable<Card> GetCardsByCourse(string courseLink)
         {
             var result = new List<Card>();
             var decks = unitOfWork.Courses
-                .GetAll().FirstOrDefault(x => x.Linking == courseLink)?.Decks;
+                .GetAll().FirstOrDefault(x => x.Linking == courseLink)?.Decks
+                ?? throw new ArgumentNullException();
             foreach (var deck in decks)
             {
                 result.AddRange(deck.Cards);
@@ -42,13 +44,15 @@ namespace MemoBll.Logic
         public IEnumerable<Card> GetCardsByDeck(string deckLink)
         {
             return unitOfWork.Decks
-                .GetAll().FirstOrDefault(x => x.Linking == deckLink)?.Cards;
+                .GetAll().FirstOrDefault(x => x.Linking == deckLink)?.Cards
+                ?? throw new ArgumentNullException();
         }
 
         public IEnumerable<Card> GetCardsByDeckAndAmount(string deckName, int amount)
         {
             var cards = unitOfWork.Decks
-                .GetAll().FirstOrDefault(x => x.Name == deckName)?.Cards;
+                .GetAll().FirstOrDefault(x => x.Name == deckName)?.Cards
+                ?? throw new ArgumentNullException();
             return cards;
         }
 

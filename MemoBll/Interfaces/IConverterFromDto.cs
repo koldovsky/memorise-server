@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using MemoDAL.Entities;
 using MemoDTO;
 
-
 namespace MemoBll.Interfaces
 {
-    interface IConverterFromDto
+    public interface IConverterFromDTO
     {
         Deck ConvertToDeck(DeckDTO deck);
         List<Deck> ConvertToDeckList(IEnumerable<DeckDTO> decks);
@@ -25,7 +22,7 @@ namespace MemoBll.Interfaces
         Comment ConvertToComment(CommentDTO comment);
         List<Comment> ConvertToCommentList(IEnumerable<CommentDTO> comments);
         Report ConvertToReport(ReportDTO report);
-        Statistics ConvertToStatistic(StatisticDTO statistic);
+        Statistics ConvertToStatistics(StatisticsDTO statistics);
         UserCourse ConvertToUserCourse(UserCourseDTO userCourse);
     }
 }

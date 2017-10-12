@@ -12,7 +12,6 @@ namespace MemoRise.Controllers
         UserProfileBll userProfile = new UserProfileBll();
 
         [HttpGet]
-        //[Authorize(Roles = "Customer")]
         [Route("UserProfile/GetUserByLogin/{userLogin}")]
         public IHttpActionResult GetUserByLogin(string userLogin)
         {
@@ -20,9 +19,9 @@ namespace MemoRise.Controllers
             {
                 return Ok(userProfile.GetUserByLogin(userLogin));
             }
-            catch (ArgumentNullException ex)
+            catch (ArgumentNullException)
             {
-                var message = $"Could not find such user.";
+                var message = "Could not find such user.";
                 return BadRequest(message);
             }
             catch (Exception ex)

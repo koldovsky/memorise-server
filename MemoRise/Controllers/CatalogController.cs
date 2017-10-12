@@ -36,7 +36,6 @@ namespace MemoRise.Controllers
         }
 
 		[HttpGet]
-		//[Authorize(Roles = "Admin")]
 		public IHttpActionResult GetCourses()
 		{
 			try
@@ -57,7 +56,6 @@ namespace MemoRise.Controllers
 		}
 
 		[HttpGet]
-		//[Authorize(Roles = "Customer")]
 		public IHttpActionResult GetDecks()
 		{
 			try
@@ -79,13 +77,13 @@ namespace MemoRise.Controllers
 		}
 
 		[HttpGet]
-		[Route("Catalog/GetCoursesByCategory/{categoryName}")]
-		public IHttpActionResult GetCoursesByCategory(string categoryName)
+		[Route("Catalog/GetCoursesByCategory/{categoryLinking}")]
+		public IHttpActionResult GetCoursesByCategory(string categoryLinking)
 		{
 			try
 			{
 				IEnumerable<CourseDTO> courses = catalog.
-										  GetAllCoursesByCategory(categoryName);
+										  GetAllCoursesByCategory(categoryLinking);
 				if (courses == null)
 				{
 					throw new Exception("Courses aren't found by this category!");
@@ -96,7 +94,7 @@ namespace MemoRise.Controllers
 			}
 			catch (ArgumentNullException ex)
 			{
-				var message = $"Category with name = {categoryName} " +
+				var message = $"Category with name = {categoryLinking} " +
 							  $"not found. {ex.Message}";
 				return BadRequest(message);
 			}

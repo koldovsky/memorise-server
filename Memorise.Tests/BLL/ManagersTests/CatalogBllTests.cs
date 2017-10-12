@@ -75,16 +75,13 @@ namespace Memorise.Tests.BLL.ManagersTests
         [Test]
         public void GetAllCategoriesTest()
         {
-            var sut = new CatalogBll(this.catalog.Object, converter.Object);
+            var sut = new CatalogBll(catalog.Object, converter.Object);
 
             var actual = sut.GetAllCategories();
 
-            this.catalog.Verify(
+            catalog.Verify(
 				cat => cat.GetAllCategories(), 
 				Times.Exactly(1));
-			//this.converter.Verify(
-			//	conv => conv.ConvertToCategoryDTO(It.IsAny<Category>()),
-			//	Times.Exactly(categories.Count));
 
 			Assert.That(actual, Is.All.InstanceOf(typeof(CategoryDTO)));
             Assert.AreEqual(categories.Count, actual.Count());
@@ -93,16 +90,13 @@ namespace Memorise.Tests.BLL.ManagersTests
         [Test]
         public void GetAllDecksTest()
         {
-            var sut = new CatalogBll(this.catalog.Object, converter.Object);
+            var sut = new CatalogBll(catalog.Object, converter.Object);
 
             var actual = sut.GetAllDecks();
 
-            this.catalog.Verify(
+            catalog.Verify(
 				cat => cat.GetAllDecks(), 
 				Times.Exactly(1));
-			//this.converter.Verify(
-			//   conv => conv.ConvertToDeckDTO(It.IsAny<Deck>()),
-			//   Times.Exactly(decks.Count));
 			Assert.That(actual, Is.All.InstanceOf(typeof(DeckDTO)));
             Assert.AreEqual(decks.Count, actual.Count());
         }
@@ -110,16 +104,13 @@ namespace Memorise.Tests.BLL.ManagersTests
         [Test]
         public void GetAllCoursesTest()
         {
-            var sut = new CatalogBll(this.catalog.Object, converter.Object);
+            var sut = new CatalogBll(catalog.Object, converter.Object);
 
             var actual = sut.GetAllCourses();
 
-            this.catalog.Verify(
+            catalog.Verify(
 				cat => cat.GetAllCourses(), 
 				Times.AtLeastOnce());
-			//this.converter.Verify(
-			//	conv => conv.ConvertToCourseDTO(It.IsAny<Course>()),
-			//	Times.Exactly(courses.Count));
 			Assert.That(actual, Is.All.InstanceOf(typeof(CourseDTO)));
             Assert.AreEqual(courses.Count, actual.Count());
         }
@@ -127,17 +118,14 @@ namespace Memorise.Tests.BLL.ManagersTests
         [Test]
         public void GetAllDecksByCourseTest()
         {
-            var sut = new CatalogBll(this.catalog.Object, converter.Object);
+            var sut = new CatalogBll(catalog.Object, converter.Object);
 
             foreach (var course in courses)
             {
                 var actual = sut.GetAllDecksByCourse(course.Name);
-                this.catalog.Verify(
+                catalog.Verify(
 					cat => cat.GetAllDecksByCourse(course.Name), 
 					Times.AtLeastOnce());
-				//this.converter.Verify(
-				//   conv => conv.ConvertToDeckDTO(It.IsAny<Deck>()),
-				//   Times.AtLeastOnce());
 				Assert.That(actual, Is.All.InstanceOf(typeof(DeckDTO)));
             }
         }
@@ -145,38 +133,32 @@ namespace Memorise.Tests.BLL.ManagersTests
         [Test]
         public void GetAllDecksByCategoryTest()
         {
-            var sut = new CatalogBll(this.catalog.Object, converter.Object);
+            var sut = new CatalogBll(catalog.Object, converter.Object);
 
             foreach (var category in categories)
             {
                 var actual = sut.GetAllDecksByCategory(category.Name);
 
-                this.catalog.Verify(
+                catalog.Verify(
 					cat => cat.GetAllDecksByCategory(category.Name), 
 					Times.AtLeastOnce());
-				//this.converter.Verify(
-				//	conv => conv.ConvertToDeckDTO(It.IsAny<Deck>()),
-				//	Times.AtLeastOnce());
 
 				Assert.That(actual, Is.All.InstanceOf(typeof(DeckDTO)));
-                //Assert.AreEqual(category.Decks.Count, actual.Count());
             }
         }
 
         [Test]
         public void GetAllCoursesByCategoryTest()
         {
-            var sut = new CatalogBll(this.catalog.Object, converter.Object);
+            var sut = new CatalogBll(catalog.Object, converter.Object);
 
             foreach (var category in categories)
             {
                 var actual = sut.GetAllCoursesByCategory(category.Name);
 
-                this.catalog.Verify(
+                catalog.Verify(
 					cat => cat.GetAllCoursesByCategory(category.Name), 
 					Times.AtLeastOnce());
-				//this.converter.Verify(
-				//	conv => conv.ConvertToCourseDTO(It.IsAny<Course>()));
                 Assert.That(actual, Is.All.InstanceOf(typeof(CourseDTO)));
             }
         }
@@ -184,13 +166,13 @@ namespace Memorise.Tests.BLL.ManagersTests
         [Test]
         public void GetCourseWithDecksDTOTest()
         {
-            var sut = new CatalogBll(this.catalog.Object, converter.Object);
+            var sut = new CatalogBll(catalog.Object, converter.Object);
             foreach (var course in courses)
             {
                 var actual = sut.GetCourseWithDecksDTO(course.Name);
 
-                this.catalog.Verify(cat => cat.GetCourse(course.Name), Times.AtLeastOnce());
-                this.converter.Verify(
+                catalog.Verify(cat => cat.GetCourse(course.Name), Times.AtLeastOnce());
+                converter.Verify(
 					conv => conv.ConvertToCourseWithDecksDTO(It.IsAny<Course>()), 
 					Times.AtLeastOnce());
 				Assert.That(actual, Is.InstanceOf(typeof(CourseWithDecksDTO)));

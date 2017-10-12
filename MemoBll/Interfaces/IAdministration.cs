@@ -12,10 +12,10 @@ namespace MemoBll.Interfaces
 		void UpdateRole(Role role);
 		void DeleteRole(Role role);
 
-		IEnumerable<Statistics> GetDeckStatistics(int deckId);
+		//IEnumerable<Statistics> GetDeckStatistics(int deckId);
 		Course GetCourse(int courseId);
-		IEnumerable<Statistics> GetStatistics(int deckId, int userId);
-		void DeleteStatistics(int statisticsId);
+		//IEnumerable<Statistics> GetStatistics(int deckId, int userId);
+		//void DeleteStatistics(int statisticsId);
 
 		IEnumerable<User> GetAllUsersOnRole(string roleName);
 		User GetUser(int userId);
