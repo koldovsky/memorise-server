@@ -13,6 +13,7 @@ namespace MemoBll.Logic
         {
             return new DeckDTO
             {
+                Id = deck.Id,
                 Name = deck.Name,
                 Linking = deck.Linking,
 				CardsNumber = deck.Cards.Count,
@@ -33,8 +34,9 @@ namespace MemoBll.Logic
 
         public CourseDTO ConvertToCourseDTO(Course course)
         {
-            return new CourseDTO
-            {
+        return new CourseDTO
+        {
+                Id = course.Id,
                 Name = course.Name,
                 Linking = course.Linking,
                 Price = course.Price,
@@ -69,7 +71,11 @@ namespace MemoBll.Logic
 
         public CategoryDTO ConvertToCategoryDTO(Category category)
         {
-            return new CategoryDTO { Name = category.Name, Linking = category.Linking };
+            return new CategoryDTO {
+                Id =category.Id,
+                Name = category.Name,
+                Linking = category.Linking
+            };
         }
 
         public CardTypeDTO ConvertToCardTypeDTO(CardType cardtype)

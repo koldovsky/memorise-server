@@ -92,6 +92,7 @@ namespace MemoBll.Logic
                 Description = courseDTO.Description,
                 Linking = courseDTO.Linking,
                 Price = courseDTO.Price
+               
             };
         }
 

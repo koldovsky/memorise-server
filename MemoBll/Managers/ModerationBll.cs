@@ -154,17 +154,13 @@ namespace MemoBll.Managers
             moderation.RemoveCategory(categoryId);
         }
 
-        #endregion
-        #region ForCategories
-
-        public CategoryDTO FindCategoryByName(string categoryName)
+        public Category FindCategoryByName(string categoryName)
         {
-            Category category = moderation.FindCategoryByName(categoryName);
-            return converterToDto.ConvertToCategoryDTO(category);
+            return moderation.FindCategoryByName(categoryName);
+
         }
-
         #endregion
-
+        
         #region ForCourses
 
         public void CreateCourse(Course course)

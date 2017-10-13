@@ -72,8 +72,12 @@ namespace MemoRise.Controllers
             try
             {
                 Course course = converter.ConvertToCourse(courseDto);
+                course.Category = moderation
+                    .FindCategoryByName(courseDto.CategoryName);
                 moderation.CreateCourse(course);
-                return Ok();
+
+
+                return Ok(moderation.FindCourseByName(courseDto.Name));
             }
             catch (Exception ex)
             {
@@ -105,7 +109,7 @@ namespace MemoRise.Controllers
             try
             {
                 moderation.RemoveCourse(courseId);
-                return Ok();
+                return Ok(courseId);
             }
             catch (Exception ex)
             {
@@ -122,6 +126,11 @@ namespace MemoRise.Controllers
                 var course = moderation.FindCourseByName(courseName);
                 return Ok(course);
             }
+            catch (NullReferenceException ex)
+            {
+                return Ok(new CourseDTO { Name = "unique" });
+            }
+
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
