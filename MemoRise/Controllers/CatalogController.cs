@@ -157,7 +157,29 @@ namespace MemoRise.Controllers
 			}
 		}
 
-		[HttpGet]
+        [HttpGet]
+        [Route("Catalog/GetDeckByLinking/{linking}")]
+        public IHttpActionResult GetDeckByLinking(string linking)
+        {
+            try
+            {
+                DeckDTO deck = catalog.GetDeckDTO(linking);
+                //PhotoUrlLoader.LoadDecksPhotos(deck);
+                return Ok(deck);
+            }
+            catch (ArgumentNullException ex)
+            {
+                var message = $"DEck with linking = {linking} " +
+                              $"not found. {ex.Message}";
+                return BadRequest(message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
 		[Route("Catalog/GetCourse/{courseName}")]
 		public IHttpActionResult GetCourse(string courseName)
 		{
