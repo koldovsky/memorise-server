@@ -154,13 +154,15 @@ namespace MemoBll.Managers
             moderation.RemoveCategory(categoryId);
         }
 
-        #endregion
-        #region ForCategories
-
-        public CategoryDTO FindCategoryByName(string categoryName)
+        public CategoryDTO FindCategoryDTOByName(string categoryName)
         {
             Category category = moderation.FindCategoryByName(categoryName);
             return converterToDto.ConvertToCategoryDTO(category);
+        }
+
+        public Category FindCategoryByName(string categoryName)
+        {
+            return moderation.FindCategoryByName(categoryName);
         }
 
         #endregion
@@ -206,10 +208,15 @@ namespace MemoBll.Managers
             moderation.RemoveDeck(deckId);
         }
 
-        public DeckDTO FindDeckByName(string deckName)
+        public DeckDTO FindDeckDTOByName(string deckName)
         {
             Deck deck = moderation.FindDeckByName(deckName);
             return converterToDto.ConvertToDeckDTO(deck);
+        }
+
+        public Deck FindDeckByName(string deckName)
+        {
+            return moderation.FindDeckByName(deckName);
         }
 
         #endregion

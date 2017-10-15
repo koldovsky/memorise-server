@@ -57,6 +57,7 @@ namespace MemoBll.Logic
         {
             return new CourseWithDecksDTO
             {
+                Id = course.Id,
                 Name = course.Name,
                 Linking = course.Linking,
                 Price = course.Price,
