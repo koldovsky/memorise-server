@@ -159,8 +159,15 @@ namespace MemoBll.Managers
             return moderation.FindCategoryByName(categoryName);
 
         }
+
+        public CategoryDTO FindCategoryByNameDTO(string categoryName)
+        {
+            Category category = moderation.FindCategoryByName(categoryName);
+            return converterToDto.ConvertToCategoryDTO(category);
+
+        }
         #endregion
-        
+
         #region ForCourses
 
         public void CreateCourse(Course course)

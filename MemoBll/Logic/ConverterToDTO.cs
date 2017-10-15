@@ -16,8 +16,9 @@ namespace MemoBll.Logic
                 Id = deck.Id,
                 Name = deck.Name,
                 Linking = deck.Linking,
-				CardsNumber = deck.Cards.Count,
-                Price = deck.Price
+                CardsNumber = deck.Cards.Count,
+                Price = deck.Price,
+                Description = deck.Description
             };
         }
 
