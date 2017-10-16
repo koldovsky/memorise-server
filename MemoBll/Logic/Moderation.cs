@@ -176,6 +176,22 @@ namespace MemoBll.Logic
 
         public void RemoveCategory(int categoryId)
         {
+            Category category = unitOfWork.Categories.Get(categoryId);
+            if (category.Decks.Count>0)
+            {
+                foreach( var deck in category.Decks)
+                {
+                    RemoveDeck(deck.Id);
+                }
+            }
+            if (category.Courses.Count > 0)
+            {
+                foreach (var course in category.Courses)
+                {
+                    RemoveDeck(course.Id);
+                }
+
+            }
             unitOfWork.Categories.Delete(categoryId);
             unitOfWork.Save();
         }

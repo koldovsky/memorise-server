@@ -21,6 +21,11 @@ namespace MemoRise.Controllers
         [Authorize]
         public IHttpActionResult CreateCategory(CategoryDTO categoryDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             try
             {
                 Category category = converter.ConvertToCategory(categoryDto);
@@ -69,6 +74,11 @@ namespace MemoRise.Controllers
         //[Authorize]
         public IHttpActionResult CreateCourse(CourseDTO courseDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             try
             {
                 Course course = converter.ConvertToCourse(courseDto);
@@ -177,6 +187,12 @@ namespace MemoRise.Controllers
         [Authorize]
         public IHttpActionResult CreateDeck(DeckDTO deckDto)
         {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             try
             {
                 Deck deck = converter.ConvertToDeck(deckDto);
@@ -223,8 +239,29 @@ namespace MemoRise.Controllers
             }
         }
 
+        //[HttpGet]
+        //[Authorize]
+        //public IHttpActionResult GetCardsType()
+        //{
+        //    try
+        //    {
+        //        List<CardTypeDTO> cardsType = moderation.
+        //                                       .ToList();
+        //        return Ok(categories);
+        //    }
+        //    catch (ArgumentNullException ex)
+        //    {
+        //        var message = $"Categories collection is empty.";
+        //        return BadRequest(ex.Message);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
+
         [HttpPost]
-        [Authorize()]
+        [Authorize]
         public IHttpActionResult CreateCard(CardDTO cardDto)
         {
             try
