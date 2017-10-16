@@ -12,5 +12,6 @@ namespace MemoBll.Interfaces
 		IEnumerable<Deck> GetAllDecksByCategory(string categoryName);
 		IEnumerable<Course> GetAllCoursesByCategory(string categoryName);
 		Course GetCourse(string courseName);
-	}
+        Deck GetDeck(string linking);
+    }
 }
