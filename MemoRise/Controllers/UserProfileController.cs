@@ -23,7 +23,7 @@ namespace MemoRise.Controllers
             catch (ArgumentNullException ex)
             {
                 var message = $"Could not find such user.";
-                return BadRequest(message);
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {

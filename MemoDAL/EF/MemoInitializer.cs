@@ -8,6 +8,7 @@ namespace MemoDAL.EF
     {
         protected override void Seed(MemoContext context)
         {
+            
             #region Roles
 
             // ROLE
@@ -75,7 +76,8 @@ namespace MemoDAL.EF
                 new Deck{Name = "Routing", Linking = "Routing", Price = 0, Category = categories[0]},
                 new Deck{Name = "XAML", Linking = "XAML", Price = 0, Category = categories[0]},
                 new Deck{Name = "Binding", Linking = "Binding", Price = 0, Category = categories[0]},
-                new Deck{Name = "CSS", Linking = "CSS", Price = 0, Category = categories[2]}
+                new Deck{Name = "CSS", Linking = "CSS", Price = 0, Category = categories[2]},
+                new Deck{Name = "Base knowledge", Linking="BaseKnowledge", Price=12, Category = categories[0] }
             };
             foreach (var deck in decks)
             {
@@ -99,6 +101,8 @@ namespace MemoDAL.EF
             {
                 courses[0].Decks.Add(decks[i]);
             }
+            courses[0].Decks.Add(decks[12]);
+
             for (int i = 3; i < 6; i++)
             {
                 courses[1].Decks.Add(decks[i]);
@@ -237,6 +241,36 @@ namespace MemoDAL.EF
                 },
 
                 #endregion
+
+                #region Base knowledge
+
+                new Card
+                {
+                     Question = "What key word is used in class declaration to prevent the class from being inherited from other classes?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "What operator is used for checking the object with type and this will return a Boolean value?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "What is name of the compiler for C#?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "What is the base type for all other types in C#?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+
+                #endregion
+
             };
             foreach (var card in cards)
             {
@@ -642,7 +676,54 @@ namespace MemoDAL.EF
                     Text = "None of the above.",
                     IsCorrect = false,
                     Card = cards[11]
-                }
+                },
+
+                #endregion
+
+                #region For Base knowledge
+
+                new Answer
+                {
+                    Text = "sealed",
+                    IsCorrect = true,
+                    Card = cards[12]
+                },
+                new Answer
+                {
+                    Text = "is",
+                    IsCorrect = true,
+                    Card = cards[13]
+                },
+                new Answer
+                {
+                    Text = "CSC",
+                    IsCorrect = true,
+                    Card = cards[14]
+                },
+                new Answer
+                {
+                    Text = "csc",
+                    IsCorrect = true,
+                    Card = cards[14]
+                },
+                new Answer
+                {
+                    Text = "object",
+                    IsCorrect = true,
+                    Card = cards[15]
+                },
+                new Answer
+                {
+                    Text = "System.Object",
+                    IsCorrect = true,
+                    Card = cards[15]
+                },
+                new Answer
+                {
+                    Text = "Object",
+                    IsCorrect = true,
+                    Card = cards[15]
+                },
 
                 #endregion
             };

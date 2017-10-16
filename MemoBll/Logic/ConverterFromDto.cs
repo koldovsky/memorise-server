@@ -105,8 +105,6 @@ namespace MemoBll.Logic
                 Description = courseWithDecksDTO.Description,
                 Linking = courseWithDecksDTO.Linking,
                 Price = courseWithDecksDTO.Price,
-                Decks = ConvertToDeckList(courseWithDecksDTO.Decks),
-                Category = ConvertToCategory(courseWithDecksDTO.Category),
                 Photo = courseWithDecksDTO.Photo
             };
         }

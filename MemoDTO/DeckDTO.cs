@@ -23,5 +23,7 @@ namespace MemoDTO
         [Required]
         [StringLength(30, ErrorMessage = "maximum length 30 characters")]
         public string CategoryName { get; set; }
+        public List<string> CardIds { get; set; }
+        public List<string> CourseNames { get; set; }
     }
 }

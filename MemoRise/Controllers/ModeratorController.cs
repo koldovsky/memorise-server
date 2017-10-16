@@ -95,13 +95,24 @@ namespace MemoRise.Controllers
 
         [HttpPut]
         //[Authorize]
-        public IHttpActionResult UpdateCourse(CourseDTO courseDto)
+        public IHttpActionResult UpdateCourse(CourseWithDecksDTO courseDto)
         {
             try
             {
                 Course course = converter.ConvertToCourse(courseDto);
+                Category category = moderation.FindCategoryByName(courseDto.CategoryName);
+                course.Category = category;
+
+                List<Deck> decks = new List<Deck>();
+                for(int i = 0; i < courseDto.DeckNames.Length; i++)
+                {
+                    decks.Add(moderation.FindDeckByName(courseDto.DeckNames[i]));
+                }
+                course.Decks = decks;
+
                 moderation.UpdateCourse(course);
-                return Ok();
+
+                return Ok(course);
             }
             catch (Exception ex)
             {
@@ -131,7 +142,7 @@ namespace MemoRise.Controllers
         {
             try
             {
-                var course = moderation.FindCourseByName(courseName);
+                var course = moderation.FindCourseDtoByName(courseName);
                 return Ok(course);
             }
             catch (NullReferenceException ex)
@@ -151,7 +162,7 @@ namespace MemoRise.Controllers
         {
             try
             {
-                var deck = moderation.FindDeckByName(deckName);
+                var deck = moderation.FindDeckDTOByName(deckName);
                 return Ok(deck);
             }
             catch (NullReferenceException ex)
@@ -170,7 +181,7 @@ namespace MemoRise.Controllers
         {
             try
             {
-                var category = moderation.FindCategoryByNameDTO(categoryName);
+                var category = moderation.FindCategoryDTOByName(categoryName);
                 return Ok(category);
             }
             catch (NullReferenceException ex)
@@ -214,8 +225,18 @@ namespace MemoRise.Controllers
             try
             {
                 Deck deck = converter.ConvertToDeck(deckDto);
+                Category category = moderation.FindCategoryByName(deckDto.CategoryName);
+                deck.Category = category;
+
+                List<Card> cards = new List<Card>();
+                deckDto.CardIds.ForEach(x => cards.Add(moderation.FindCardById(x)));
+
+                List<Course> courses = new List<Course>();
+                deckDto.CourseNames.ForEach(x => courses.Add(moderation.FindCourseByName(x)));
+
                 moderation.UpdateDeck(deck);
-                return Ok();
+
+                return Ok(deck);
             }
             catch (Exception ex)
             {

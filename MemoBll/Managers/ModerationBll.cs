@@ -154,18 +154,18 @@ namespace MemoBll.Managers
             moderation.RemoveCategory(categoryId);
         }
 
-        public Category FindCategoryByName(string categoryName)
-        {
-            return moderation.FindCategoryByName(categoryName);
-
-        }
-
-        public CategoryDTO FindCategoryByNameDTO(string categoryName)
+        public CategoryDTO FindCategoryDTOByName(string categoryName)
         {
             Category category = moderation.FindCategoryByName(categoryName);
             return converterToDto.ConvertToCategoryDTO(category);
 
         }
+
+        public Category FindCategoryByName(string categoryName)
+        {
+            return moderation.FindCategoryByName(categoryName);
+        }
+
         #endregion
 
         #region ForCourses
@@ -184,10 +184,14 @@ namespace MemoBll.Managers
         {
             moderation.RemoveCourse(courseId);
         }
-        public CourseDTO FindCourseByName(string courseName)
+        public CourseDTO FindCourseDtoByName(string courseName)
         {
             Course course = moderation.FindCourseByName(courseName);
             return converterToDto.ConvertToCourseDTO(course);
+        }
+        public Course FindCourseByName(string courseName)
+        {
+            return moderation.FindCourseByName(courseName);
         }
 
         #endregion
@@ -209,10 +213,15 @@ namespace MemoBll.Managers
             moderation.RemoveDeck(deckId);
         }
 
-        public DeckDTO FindDeckByName(string deckName)
+        public DeckDTO FindDeckDTOByName(string deckName)
         {
             Deck deck = moderation.FindDeckByName(deckName);
             return converterToDto.ConvertToDeckDTO(deck);
+        }
+
+        public Deck FindDeckByName(string deckName)
+        {
+            return moderation.FindDeckByName(deckName);
         }
 
         #endregion
@@ -232,6 +241,21 @@ namespace MemoBll.Managers
         public void RemoveCard(int cardId)
         {
             moderation.RemoveCard(cardId);
+        }
+
+        public Card FindCardById(string cardId)
+        {
+            int id;
+            int.TryParse(cardId, out id);
+            if(id != 0)
+            {
+                return moderation.FindCardById(id);
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
+            
         }
 
         #endregion

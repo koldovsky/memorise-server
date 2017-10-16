@@ -2,6 +2,7 @@
 using MemoDAL.Entities;
 using MemoDTO;
 using System.Collections.Generic;
+using System.Linq;
 
 
 
@@ -11,14 +12,23 @@ namespace MemoBll.Logic
     {
         public DeckDTO ConvertToDeckDTO(Deck deck)
         {
+            List<string> cardIds = new List<string>();
+            deck.Cards.ToList().ForEach(x => cardIds.Add(x.Id.ToString()));
+
+            List<string> courseNames = new List<string>();
+            deck.Courses.ToList().ForEach(x => courseNames.Add(x.Name));
+
             return new DeckDTO
             {
                 Id = deck.Id,
                 Name = deck.Name,
                 Linking = deck.Linking,
-                CardsNumber = deck.Cards.Count,
+				CardsNumber = deck.Cards.Count,
                 Price = deck.Price,
-                Description = deck.Description
+                Photo = deck.Photo,
+                CategoryName = deck.Category.Name,
+                CardIds = cardIds,
+                CourseNames = courseNames
             };
         }
 
@@ -60,6 +70,7 @@ namespace MemoBll.Logic
         {
             return new CourseWithDecksDTO
             {
+                Id = course.Id,
                 Name = course.Name,
                 Linking = course.Linking,
                 Price = course.Price,

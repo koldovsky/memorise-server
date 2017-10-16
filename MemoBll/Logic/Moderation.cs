@@ -158,6 +158,11 @@ namespace MemoBll.Logic
             unitOfWork.Save();
         }
 
+        public Card FindCardById(int cardId)
+        {
+            return unitOfWork.Cards.Get(cardId);
+        }
+
         #endregion
 
         #region ForCategory

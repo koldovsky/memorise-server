@@ -39,5 +39,6 @@ namespace MemoBll.Interfaces
         void CreateCard(Card card);
         void UpdateCard(Card card);
         void RemoveCard(int cardId);
+        Card FindCardById(int cardId);
     }
 }

@@ -13,7 +13,15 @@ namespace MemoRise.Controllers
 {
     public class AccountController : ApiController
     {
-        UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
+        IUnitOfWork unitOfWork;
+        public AccountController()
+        {
+            unitOfWork = new UnitOfWork(new MemoContext());
+        }
+        public AccountController(IUnitOfWork unitOfWork)
+        {
+            this.unitOfWork = unitOfWork;
+        }
 
         [HttpPost]
         public async Task<IHttpActionResult> SignUp(
