@@ -38,6 +38,50 @@ namespace MemoRise.Controllers
         }
 
         [HttpGet]
+        [Route("Catalog/GetCategoriesByPage/{page}/{pageSize}/{sort}")]
+        public IHttpActionResult GetCategoriesByPage(int page, int pageSize, bool sort) 
+        {
+            try
+            {
+                List<CategoryDTO> categories;
+                if (page == 0 && pageSize == 0)
+                {
+                    categories = catalog.GetAllCategories().ToList();
+                }
+                else
+                {
+                    if (!sort)
+                    {
+                        categories = catalog.GetAllCategories()
+                            .OrderBy(name => name.Name)
+                            .Skip((page - 1) * pageSize)
+                            .Take(pageSize)
+                            .ToList();
+                    }
+                    else
+                    {
+                        categories = catalog.GetAllCategories()
+                            .OrderByDescending(name => name.Name)
+                            .Skip((page - 1) * pageSize)
+                            .Take(pageSize)
+                            .ToList();
+                    }
+                }
+                var temp = new { items = categories, totalCount = categories.Count };
+                return Ok(temp);
+            }
+            catch (ArgumentNullException ex)
+            {
+                var message = $"Courses collection is empty. {ex.Message}";
+                return BadRequest(message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
         public IHttpActionResult GetCourses()
         {
             try
@@ -58,8 +102,8 @@ namespace MemoRise.Controllers
         }
 
         [HttpGet]
-        [Route("Catalog/GetCoursesByPage/{page}/{pageSize}")]
-        public IHttpActionResult GetCoursesByPage(int page, int pageSize)
+        [Route("Catalog/GetCoursesByPage/{page}/{pageSize}/{sort}")]
+        public IHttpActionResult GetCoursesByPage(int page, int pageSize, bool sort)
         {
             try
             {
@@ -70,7 +114,22 @@ namespace MemoRise.Controllers
                 }
                 else
                 {
-                    courses = catalog.GetAllCourses().Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                    if (!sort)
+                    {
+                        courses = catalog.GetAllCourses()
+                            .OrderBy(name => name.Name)
+                            .Skip((page - 1) * pageSize)
+                            .Take(pageSize)
+                            .ToList();
+                    }
+                    else
+                    {
+                        courses = catalog.GetAllCourses()
+                            .OrderByDescending(name => name.Name)
+                            .Skip((page - 1) * pageSize)
+                            .Take(pageSize)
+                            .ToList();
+                    }
                 }
                 var temp = new { items = courses, totalCount = courses.Count };
                 return Ok(temp);
@@ -109,8 +168,8 @@ namespace MemoRise.Controllers
         }
 
         [HttpGet]
-        [Route("Catalog/GetDecksByPage/{page}/{pageSize}")]
-        public IHttpActionResult GetDecksByPage(int page, int pageSize)
+        [Route("Catalog/GetDecksByPage/{page}/{pageSize}/{sort}")]
+        public IHttpActionResult GetDecksByPage(int page, int pageSize, bool sort)
         {
             try
             {
@@ -121,7 +180,23 @@ namespace MemoRise.Controllers
                 }
                 else
                 {
-                    decks = catalog.GetAllDecks().Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                    if(!sort)
+                    {
+                        decks = catalog.GetAllDecks()
+                            .OrderBy(name => name.Name)
+                            .Skip((page - 1) * pageSize)
+                            .Take(pageSize)
+                            .ToList();
+                    }
+                    else
+                    {
+                        decks = catalog.GetAllDecks()
+                            .OrderByDescending(name => name.Name)
+                            .Skip((page - 1) * pageSize)
+                            .Take(pageSize)
+                            .ToList();
+                    }
+
                 }
                 var temp = new { items = decks, totalCount = decks.Count };
                 return Ok(temp);
@@ -136,27 +211,6 @@ namespace MemoRise.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        //[HttpGet]
-
-        //public IHttpActionResult GetSortedDecks()
-        //{
-        //    try
-        //    {
-        //        IEnumerable<DeckDTO> decks = catalog.GetAllDecks().OrderBy(s => s.Name);
-
-        //        return Ok();
-        //    }
-        //    catch (ArgumentNullException ex)
-        //    {
-        //        var message = $"Decks collection is empty. {ex.Message}";
-        //        return BadRequest(message);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
 
         [HttpGet]
         [Route("Catalog/GetCoursesByCategory/{categoryName}")]
@@ -254,6 +308,31 @@ namespace MemoRise.Controllers
             catch (ArgumentNullException ex)
             {
                 var message = $"Course with name = {courseName} " +
+                              $"not found. {ex.Message}";
+                return BadRequest(message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("Catalog/GetDeckBySearch/{searchString}")]
+        public IHttpActionResult GetDeckBySearch(string searchString)           
+        {
+            try
+            {
+                List<DeckDTO> deck = catalog
+                    .GetAllDecks()
+                    .Where(decks => decks.Name.Contains(searchString))
+                    .ToList();
+
+                return Ok(deck);
+            }
+            catch (ArgumentNullException ex)
+            {
+                var message = $"Course with name = {searchString} " +
                               $"not found. {ex.Message}";
                 return BadRequest(message);
             }
