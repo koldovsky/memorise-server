@@ -10,6 +10,7 @@ using System.Configuration;
 using FlickrNet;
 using PagedList;
 using PagedList.Mvc;
+using MemoRise.Models;
 
 namespace MemoRise.Controllers
 {
@@ -167,38 +168,32 @@ namespace MemoRise.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("Catalog/GetDecksByPage/{page}/{pageSize}/{sort}")]
-        public IHttpActionResult GetDecksByPage(int page, int pageSize, bool sort)
+        [HttpPost]
+        //[Route("Catalog/GetDecksByPage/{page}/{pageSize}/{sort}/{searchString}")]
+        public IHttpActionResult GetDecksByPage([FromBody]SearchDataModel searchDataModel)
         {
+            int totalCount = 0;
             try
             {
-                List<DeckDTO> decks;
-                if (page == 0 && pageSize == 0)
+                IEnumerable<DeckDTO> decks;
+                if (searchDataModel.Page == 0 && searchDataModel.PageSize == 0)
                 {
                     decks = catalog.GetAllDecks().ToList();
                 }
                 else
                 {
-                    if(!sort)
+                    decks = catalog.GetAllDecks();
+                    if (!string.IsNullOrEmpty(searchDataModel.SearchString))
                     {
-                        decks = catalog.GetAllDecks()
-                            .OrderBy(name => name.Name)
-                            .Skip((page - 1) * pageSize)
-                            .Take(pageSize)
-                            .ToList();
+                        decks = decks.Where(deck => deck.Name.ToLower().Contains(searchDataModel.SearchString.ToLower()));
                     }
-                    else
-                    {
-                        decks = catalog.GetAllDecks()
-                            .OrderByDescending(name => name.Name)
-                            .Skip((page - 1) * pageSize)
-                            .Take(pageSize)
-                            .ToList();
-                    }
-
+                    totalCount = decks.Count();
+                    decks = searchDataModel.Sort ? decks.OrderByDescending(name => name.Name) : decks.OrderBy(name => name.Name);
+                    decks = decks.Skip((searchDataModel.Page - 1) * searchDataModel.PageSize)
+                                 .Take(searchDataModel.PageSize)
+                                 .ToList();
                 }
-                var temp = new { items = decks, totalCount = decks.Count };
+                var temp = new { items = decks, totalCount = totalCount };
                 return Ok(temp);
             }
             catch (ArgumentNullException ex)
@@ -339,29 +334,29 @@ namespace MemoRise.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("Catalog/GetDeckBySearch/{searchString}")]
-        public IHttpActionResult GetDeckBySearch(string searchString)           
-        {
-            try
-            {
-                List<DeckDTO> deck = catalog
-                    .GetAllDecks()
-                    .Where(decks => decks.Name.Contains(searchString))
-                    .ToList();
+        //[HttpGet]
+        //[Route("Catalog/GetDeckBySearch/{searchString}")]
+        //public IHttpActionResult GetDeckBySearch(string searchString)           
+        //{
+        //    try
+        //    {
+        //        List<DeckDTO> deck = catalog
+        //            .GetAllDecks()
+        //            .Where(decks => decks.Name.ToLower().Contains(searchString.ToLower()))
+        //            .ToList();
 
-                return Ok(deck);
-            }
-            catch (ArgumentNullException ex)
-            {
-                var message = $"Course with name = {searchString} " +
-                              $"not found. {ex.Message}";
-                return BadRequest(message);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        //        return Ok(deck);
+        //    }
+        //    catch (ArgumentNullException ex)
+        //    {
+        //        var message = $"Course with name = {searchString} " +
+        //                      $"not found. {ex.Message}";
+        //        return BadRequest(message);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
     }
 }

@@ -45,6 +45,21 @@ namespace MemoBll.Logic
                 .GetAll().FirstOrDefault(x => x.Linking == deckLink)?.Cards;
         }
 
+        public IEnumerable<Card> GetCardsByDeckArray(string[] deckLink)
+        {
+            var carsByDecks = unitOfWork.Decks  
+                .GetAll().Where(x => deckLink.Contains(x.Linking)).Select(temp => temp.Cards);
+            List<Card> listCards = new List<Card>();   
+            foreach (var item in carsByDecks)
+            {
+                foreach (var temp in item)
+                {
+                    listCards.Add(temp);
+                }
+            }
+            return listCards;
+        }
+
         public IEnumerable<Card> GetCardsByDeckAndAmount(string deckName, int amount)
         {
             var cards = unitOfWork.Decks
