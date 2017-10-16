@@ -13,6 +13,7 @@ namespace MemoBll.Logic
         {
             return new DeckDTO
             {
+                Id = deck.Id,
                 Name = deck.Name,
                 Linking = deck.Linking,
 				CardsNumber = deck.Cards.Count,
@@ -179,13 +180,14 @@ namespace MemoBll.Logic
             };
         }
 
-        public StatisticsDTO ConvertToStatisticDTO(Statistics statistic)
+        public StatisticsDTO ConvertToStatisticsDTO(Statistics statistic)
         {
             return new StatisticsDTO
             {
+                Id = statistic.Id,
                 CardStatus = statistic.CardStatus,
-                User = ConvertToUserDTO(statistic.User),
-                Card = ConvertToCardDTO(statistic.Card)
+                UserLogin = statistic.User.UserName,
+                CardId = statistic.Card.Id
             };
         }
 
@@ -194,7 +196,7 @@ namespace MemoBll.Logic
             List<StatisticsDTO> statisticsDTOs = new List<StatisticsDTO>();
             foreach (var s in statistics)
             {
-                statisticsDTOs.Add(ConvertToStatisticDTO(s));
+                statisticsDTOs.Add(ConvertToStatisticsDTO(s));
             }
 
             return statisticsDTOs;

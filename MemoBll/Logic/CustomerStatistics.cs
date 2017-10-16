@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MemoBll.Interfaces;
 using MemoDAL;
@@ -22,30 +23,78 @@ namespace MemoBll.Logic
             unitOfWork = uow;
         }
 
-        public IEnumerable<Statistics> GetStatistics(string userId, int deckId)
+        public Statistics GetStatistics(string userLogin, int cardId)
         {
-            List<Statistics> result = new List<Statistics>();
-            var cards = unitOfWork.Decks.Get(deckId).Cards;
-            foreach (var card in cards)
+            var stats = unitOfWork.Statistics.GetAll()
+                .FirstOrDefault(s => s.User.UserName == userLogin && s.Card.Id == cardId);
+            return stats ?? new Statistics
             {
-                result.Add(unitOfWork.Statistics.GetAll()
-                    .FirstOrDefault(s => s.User.Id == userId && s.Card.Id == card.Id));
-            }
-
-            return result;
+                Card = unitOfWork.Cards.Get(cardId),
+                CardStatus = 0,
+                User = unitOfWork.Users.FindByName(userLogin)
+            };
         }
 
-        public void SaveStatistics(Statistics statisticsToSave)
+        public IEnumerable<Statistics> GetDeckStatistics(string userLogin, int deckId)
         {
-            var statistics = unitOfWork.Statistics.Get(statisticsToSave.Id);
-            if (statistics == null)
+            var cards = unitOfWork.Decks.Get(deckId)?.Cards;
+            return cards?.Select(card => GetStatistics(userLogin, card.Id))
+                ?? throw new ArgumentNullException();
+        }
+
+        public IEnumerable<Statistics> GetCourseStatistics(string userLogin, int courseId)
+        {
+            var decks = unitOfWork.Courses.Get(courseId)
+                ?.Decks
+                ?? throw new ArgumentNullException();
+            var cards = decks
+                .Select(d => d.Cards).Aggregate((acc, c) => acc.Concat(c).ToList());
+
+            return cards.Select(card => GetStatistics(userLogin, card.Id));
+        }
+
+        public void CreateStatistics(Statistics statistics)
+        {
+            unitOfWork.Statistics.Create(statistics);
+            unitOfWork.Save();
+        }
+
+        public void CreateDeckStatistics(string userLogin, int deckId)
+        {
+            var user = unitOfWork.Users.FindByName(userLogin);
+            var cards = unitOfWork.Decks.Get(deckId)
+                ?.Cards
+                ?? throw new ArgumentNullException();
+            cards.ToList().ForEach(card =>
             {
-                unitOfWork.Statistics.Create(statisticsToSave);
-            }
-            else
-            {
-                unitOfWork.Statistics.Update(statisticsToSave);
-            }
+                var statistics = new Statistics
+                {
+                    Card = card,
+                    CardStatus = 0,
+                    User = user
+                };
+                CreateStatistics(statistics);
+            });
+        }
+
+        public void CreateCourseStatistics(string userLogin, int courseId)
+        {
+            var decks = unitOfWork.Courses.Get(courseId)
+                ?.Decks
+                ?? throw new ArgumentNullException();
+            decks.ToList().ForEach(deck => CreateDeckStatistics(userLogin, deck.Id));
+        }
+
+        public void UpdateStatistics(Statistics statistics)
+        {
+            unitOfWork.Statistics.Update(statistics);
+            unitOfWork.Save();
+        }
+
+        public void DeleteStatistics(int statisticsId)
+        {
+            unitOfWork.Statistics.Delete(statisticsId);
+            unitOfWork.Save();
         }
     }
 }

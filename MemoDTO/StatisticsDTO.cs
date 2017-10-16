@@ -2,8 +2,9 @@
 {
     public class StatisticsDTO
     {
+        public int Id { get; set; }
         public int CardStatus { get; set; }
-        public UserDTO User { get; set; }
-        public CardDTO Card { get; set; }
+        public string UserLogin { get; set; }
+        public int CardId { get; set; }
     }
 }

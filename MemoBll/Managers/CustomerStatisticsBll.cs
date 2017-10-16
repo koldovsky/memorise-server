@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using MemoBll.Interfaces;
 using MemoBll.Logic;
 using MemoDAL;
@@ -15,10 +17,10 @@ namespace MemoBll.Managers
 
         public CustomerStatisticsBll()
         {
-            this.statistics = new CustomerStatistics(
-                new UnitOfWork(new MemoContext()));
+            var uow = new UnitOfWork(new MemoContext());
+            this.statistics = new CustomerStatistics(uow);
             this.converterToDto = new ConverterToDTO();
-            this.converterFromDto = new ConverterFromDTO();
+            this.converterFromDto = new ConverterFromDTO(uow);
         }
 
         public CustomerStatisticsBll(
@@ -32,17 +34,62 @@ namespace MemoBll.Managers
 
         }
 
-        public IEnumerable<StatisticsDTO> GetStatistics(
+        public StatisticsDTO GetStatistics(
             string userId, int cardId)
         {
-            var statisticsList = statistics.GetStatistics(userId, cardId);
-            return converterToDto.ConvertToStatisticsListDTO(statisticsList);
+            var stats = statistics.GetStatistics(userId, cardId);
+            return converterToDto.ConvertToStatisticsDTO(stats);
         }
 
-        public void SaveStatistics(StatisticsDTO statisticsDto)
+        public IEnumerable<StatisticsDTO> GetDeckStatistics(
+            string userLogin,
+            int deckId)
         {
-            var statisticsToSave = converterFromDto.ConvertToStatistics(statisticsDto);
-            statistics.SaveStatistics(statisticsToSave);
+            var deckStatistics = statistics
+                .GetDeckStatistics(userLogin, deckId);
+            return deckStatistics
+                ?.Select(s => converterToDto.ConvertToStatisticsDTO(s))
+                ?? throw new ArgumentNullException();
+        }
+
+        public IEnumerable<StatisticsDTO> GetCourseStatistics(
+            string userLogin,
+            int courseId)
+        {
+            var courseStatistics = statistics
+                .GetCourseStatistics(userLogin, courseId);
+            return courseStatistics
+                ?.Select(s => converterToDto.ConvertToStatisticsDTO(s))
+                ?? throw new ArgumentNullException();
+        }
+
+        public void CreateStatistics(StatisticsDTO statisticsDto)
+        {
+            var statisticsToCreate = converterFromDto
+                .ConvertToStatistics(statisticsDto);
+            statistics.CreateStatistics(statisticsToCreate);
+        }
+
+        public void CreateDeckStatistics(string userLogin, int deckId)
+        {
+            statistics.CreateDeckStatistics(userLogin, deckId);
+        }
+
+        public void CreateCourseStatistics(string userLogin, int courseId)
+        {
+            statistics.CreateCourseStatistics(userLogin, courseId);
+        }
+
+        public void UpdateStatistics(StatisticsDTO statisticsDto)
+        {
+            var statisticsToSave = converterFromDto
+                .ConvertToStatistics(statisticsDto);
+            statistics.UpdateStatistics(statisticsToSave);
+        }
+
+        public void DeleteStatistics(int statisticsId)
+        {
+            statistics.DeleteStatistics(statisticsId);
         }
     }
 }

@@ -1,8 +1,5 @@
 ﻿using System;
-using MemoBll;
 using MemoBll.Managers;
-using MemoDTO;
-using System.Collections.Generic;
 using System.Web.Http;
 
 namespace MemoRise.Controllers
@@ -31,7 +28,7 @@ namespace MemoRise.Controllers
         }
 
         //[HttpGet]
-        //[Route("UserProfile/GetCoursesByUser/{userEmaile}")]
+        //[Route("UserProfile/GetCoursesByUser/{userEmail}")]
         //public List<CourseDTO> GetCoursesByUser(string userEmail)
         //{
         //    return userProfile.GetCoursesByUser(userEmail);

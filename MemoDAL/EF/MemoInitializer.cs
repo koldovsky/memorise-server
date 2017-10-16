@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
+using System.Linq.Expressions;
 using MemoDAL.Entities;
 
 namespace MemoDAL.EF
@@ -44,7 +46,7 @@ namespace MemoDAL.EF
             #region Categories
 
             // CATEGORY
-            IList<Category> categories = new List<Category>()
+            IList<Category> categories = new List<Category>
             {
                 new Category{Name = ".Net", Linking = "_Net"},
                 new Category{Name = "Java", Linking = "Java"},
@@ -52,17 +54,14 @@ namespace MemoDAL.EF
                 new Category{Name = "Python", Linking = "Python"},
                 new Category{Name = "Ruby", Linking = "Ruby"}
             };
-            foreach (var cat in categories)
-            {
-                context.Categories.Add(cat);
-            }
+            context.Categories.AddRange(categories);
 
             #endregion
 
             #region Decks
 
             // DECK
-            IList<Deck> decks = new List<Deck>()
+            IList<Deck> decks = new List<Deck>
             {
                 new Deck{Name = "Arrays", Linking = "Arrays", Price = 0, Category = categories[0]},
                 new Deck{Name = "Generics", Linking = "Generics", Price = 0, Category = categories[0]},
@@ -77,17 +76,14 @@ namespace MemoDAL.EF
                 new Deck{Name = "Binding", Linking = "Binding", Price = 0, Category = categories[0]},
                 new Deck{Name = "CSS", Linking = "CSS", Price = 0, Category = categories[2]}
             };
-            foreach (var deck in decks)
-            {
-                context.Decks.Add(deck);
-            }
-
+            context.Decks.AddRange(decks);
+            
             #endregion
 
             #region Courses
 
             // COURSE
-            IList<Course> courses = new List<Course>()
+            IList<Course> courses = new List<Course>
             {
                 new Course{Name = "C#", Linking = "cSharp", Description = "C# course description",Price = 0,Category = categories[0]},
                 new Course{Name = "ASP.MVC", Linking = "ASP_MVC", Description = "ASP.MVC course description",Price = 0,Category = categories[0]},
@@ -115,11 +111,8 @@ namespace MemoDAL.EF
             {
                 courses[4].Decks.Add(decks[i]);
             }
-            foreach (var course in courses)
-            {
-                context.Courses.Add(course);
-            }
-
+            context.Courses.AddRange(courses);
+            
             #endregion
 
             #region User Courses
@@ -132,24 +125,21 @@ namespace MemoDAL.EF
             #region Card Types
 
             // CARDTYPE
-            IList<CardType> cardTypes = new List<CardType>()
+            IList<CardType> cardTypes = new List<CardType>
             {
                 new CardType{Name = "One answer"},
                 new CardType{Name = "Few answers"},
                 new CardType{Name = "Words input"},
                 new CardType{Name = "Code input"}
             };
-            foreach (var cardType in cardTypes)
-            {
-                context.CardTypes.Add(cardType);
-            }
-
+            context.CardTypes.AddRange(cardTypes);
+            
             #endregion
 
             #region Cards
 
             // CARD
-            IList<Card> cards = new List<Card>()
+            IList<Card> cards = new List<Card>
             {
                 #region Arrays
 
@@ -238,17 +228,14 @@ namespace MemoDAL.EF
 
                 #endregion
             };
-            foreach (var card in cards)
-            {
-                context.Cards.Add(card);
-            }
+            context.Cards.AddRange(cards);
 
             #endregion
 
             #region Answers
 
             // ANSWER
-            IList<Answer> answers = new List<Answer>()
+            IList<Answer> answers = new List<Answer>
             {
                 #region Arrays 1
 
@@ -646,10 +633,7 @@ namespace MemoDAL.EF
 
                 #endregion
             };
-            foreach (var answer in answers)
-            {
-                context.Answers.Add(answer);
-            }
+            context.Answers.AddRange(answers);
 
             #endregion
 

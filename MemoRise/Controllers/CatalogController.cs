@@ -23,8 +23,8 @@ namespace MemoRise.Controllers
             }
             catch (ArgumentNullException ex)
             {
-                var message = $"Categories collection is empty.";
-                return this.BadRequest(ex.Message);
+                var message = "Categories collection is empty.";
+                return this.BadRequest(message + ex.Message);
             }
             catch (Exception ex)
             {
