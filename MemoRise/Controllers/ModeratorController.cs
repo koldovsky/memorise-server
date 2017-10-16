@@ -112,7 +112,7 @@ namespace MemoRise.Controllers
 
                 moderation.UpdateCourse(course);
 
-                return Ok(course);
+                return Ok(courseDto);
             }
             catch (Exception ex)
             {
@@ -236,7 +236,7 @@ namespace MemoRise.Controllers
 
                 moderation.UpdateDeck(deck);
 
-                return Ok(deck);
+                return Ok(deckDto);
             }
             catch (Exception ex)
             {
