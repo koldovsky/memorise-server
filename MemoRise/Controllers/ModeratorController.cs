@@ -99,7 +99,8 @@ namespace MemoRise.Controllers
                 course.Decks = decks;
 
                 moderation.UpdateCourse(course);
-                return Ok();
+
+                return Ok(course);
             }
             catch (Exception ex)
             {
@@ -129,7 +130,7 @@ namespace MemoRise.Controllers
         {
             try
             {
-                var course = moderation.FindCourseByName(courseName);
+                var course = moderation.FindCourseDtoByName(courseName);
                 return Ok(course);
             }
             catch (Exception ex)
@@ -191,8 +192,18 @@ namespace MemoRise.Controllers
             try
             {
                 Deck deck = converter.ConvertToDeck(deckDto);
+                Category category = moderation.FindCategoryByName(deckDto.CategoryName);
+                deck.Category = category;
+
+                List<Card> cards = new List<Card>();
+                deckDto.CardIds.ForEach(x => cards.Add(moderation.FindCardById(x)));
+
+                List<Course> courses = new List<Course>();
+                deckDto.CourseNames.ForEach(x => courses.Add(moderation.FindCourseByName(x)));
+
                 moderation.UpdateDeck(deck);
-                return Ok();
+
+                return Ok(deck);
             }
             catch (Exception ex)
             {

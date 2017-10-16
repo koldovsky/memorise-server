@@ -183,10 +183,14 @@ namespace MemoBll.Managers
         {
             moderation.RemoveCourse(courseId);
         }
-        public CourseDTO FindCourseByName(string courseName)
+        public CourseDTO FindCourseDtoByName(string courseName)
         {
             Course course = moderation.FindCourseByName(courseName);
             return converterToDto.ConvertToCourseDTO(course);
+        }
+        public Course FindCourseByName(string courseName)
+        {
+            return moderation.FindCourseByName(courseName);
         }
 
         #endregion
@@ -236,6 +240,21 @@ namespace MemoBll.Managers
         public void RemoveCard(int cardId)
         {
             moderation.RemoveCard(cardId);
+        }
+
+        public Card FindCardById(string cardId)
+        {
+            int id;
+            int.TryParse(cardId, out id);
+            if(id != 0)
+            {
+                return moderation.FindCardById(id);
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
+            
         }
 
         #endregion
