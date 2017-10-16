@@ -74,6 +74,7 @@
     <Compile Include="Entities\UserProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AnswerRepository.cs" />
+    <Compile Include="Repositories\AuthRepository.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\CardRepository.cs" />
     <Compile Include="Repositories\CardTypeRepository.cs" />

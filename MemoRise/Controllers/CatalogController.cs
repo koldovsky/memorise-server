@@ -51,7 +51,7 @@ namespace MemoRise.Controllers
                 return this.BadRequest(ex.Message);
             }
         }
-
+        [Authorize]
         [HttpGet]
         public IHttpActionResult GetDecks()
         {
