@@ -30,7 +30,7 @@ namespace MemoRise.Controllers
             {
                 Category category = converter.ConvertToCategory(categoryDto);
                 moderation.CreateCategory(category);
-                return Ok(moderation.FindCategoryByNameDTO(categoryDto.Name));
+                return Ok(moderation.FindCategoryDTOByName(categoryDto.Name));
             }
             catch (Exception ex)
             {
@@ -85,7 +85,7 @@ namespace MemoRise.Controllers
                 course.Category = moderation
                     .FindCategoryByName(courseDto.CategoryName);
                 moderation.CreateCourse(course);
-                return Ok(moderation.FindCourseByName(courseDto.Name));
+                return Ok(moderation.FindCourseDtoByName(courseDto.Name));
             }
             catch (Exception ex)
             {
@@ -210,7 +210,7 @@ namespace MemoRise.Controllers
                 deck.Category = moderation
                     .FindCategoryByName(deckDto.CategoryName);
                 moderation.CreateDeck(deck);
-                return Ok(moderation.FindDeckByName(deckDto.Name));
+                return Ok(moderation.FindDeckDTOByName(deckDto.Name));
             }
             catch (Exception ex)
             {
