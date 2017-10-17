@@ -158,6 +158,7 @@ namespace MemoBll.Managers
         {
             Category category = moderation.FindCategoryByName(categoryName);
             return converterToDto.ConvertToCategoryDTO(category);
+
         }
 
         public Category FindCategoryByName(string categoryName)
