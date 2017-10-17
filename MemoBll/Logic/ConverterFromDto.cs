@@ -4,13 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MemoBll.Interfaces;
+using MemoDAL;
+using MemoDAL.EF;
 using MemoDAL.Entities;
 using MemoDTO;
+using Microsoft.AspNet.Identity;
 
 namespace MemoBll.Logic
 {
-    public class ConverterFromDto : IConverterFromDto
+    public class ConverterFromDTO : IConverterFromDTO
     {
+        private IUnitOfWork unitOfWork;
+
+        public ConverterFromDTO()
+        {
+            unitOfWork = new UnitOfWork(new MemoContext());
+        }
+
+        public ConverterFromDTO(IUnitOfWork uow)
+        {
+            unitOfWork = uow;
+        }
+
         public Answer ConvertToAnswer(AnswerDTO answerDTO)
         {
             return new Answer
@@ -141,9 +156,15 @@ namespace MemoBll.Logic
             throw new NotImplementedException();
         }
 
-        public Statistics ConvertToStatistic(StatisticDTO statistic)
+        public Statistics ConvertToStatistics(StatisticsDTO statistics)
         {
-            throw new NotImplementedException();
+            return new Statistics
+            {
+                Id = statistics.Id,
+                CardStatus = statistics.CardStatus,
+                User = unitOfWork.Users.FindByName(statistics.UserLogin),
+                Card = unitOfWork.Cards.Get(statistics.CardId)
+            };
         }
 
         public UserCourse ConvertToUserCourse(UserCourseDTO userCourse)

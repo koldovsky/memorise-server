@@ -25,7 +25,6 @@ namespace MemoDAL.Repositories
             return Context.Set<T>().Find(id);
         }
 
-        
         public void Create(T obj)
         {
             Context.Set<T>().Add(obj);
@@ -34,7 +33,6 @@ namespace MemoDAL.Repositories
         public void Update(T obj)
         {
             Context.Entry(obj).State = EntityState.Modified;
-            //Context.Set<T>().AddOrUpdate(obj);
         }
 
         public void Delete(int id)

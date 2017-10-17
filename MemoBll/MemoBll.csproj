@@ -11,6 +11,8 @@
     <AssemblyName>MemoBll</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,8 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IConverterFromDto.cs" />
-    <Compile Include="Logic\ConverterFromDto.cs" />
+    <Compile Include="Interfaces\IConverterFromDTO.cs" />
+    <Compile Include="Interfaces\ICustomerStatistics.cs" />
+    <Compile Include="Logic\ConverterFromDTO.cs" />
     <Compile Include="Logic\CourseDetails.cs" />
     <Compile Include="Interfaces\ICourseDetails.cs" />
     <Compile Include="Interfaces\IModeration.cs" />
@@ -59,10 +62,11 @@
     <Compile Include="Managers\CourseDetailsBll.cs" />
     <Compile Include="CustomerAccount.cs" />
     <Compile Include="Logic\CustomerCourse.cs" />
-    <Compile Include="CustomerStatistic.cs" />
+    <Compile Include="Logic\CustomerStatistics.cs" />
     <Compile Include="Interfaces\IConverterToDTO.cs" />
     <Compile Include="Interfaces\IAdministration.cs" />
     <Compile Include="Logic\Moderation.cs" />
+    <Compile Include="Managers\CustomerStatisticsBll.cs" />
     <Compile Include="Managers\ModerationBll.cs" />
     <Compile Include="Logic\Quiz.cs" />
     <Compile Include="QuizReview.cs" />
@@ -84,5 +88,15 @@
       <Name>MemoDTO</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\StyleCop.MSBuild.5.0.0\build\StyleCop.MSBuild.targets" Condition="Exists('..\packages\StyleCop.MSBuild.5.0.0\build\StyleCop.MSBuild.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\StyleCop.MSBuild.5.0.0\build\StyleCop.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\StyleCop.MSBuild.5.0.0\build\StyleCop.MSBuild.targets'))" />
+  </Target>
 </Project>

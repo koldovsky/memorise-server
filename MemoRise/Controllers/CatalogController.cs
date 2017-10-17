@@ -1,10 +1,9 @@
-﻿using System.Web.Http;
-using MemoBll;
-using MemoDTO;
+﻿using System;
 using System.Collections.Generic;
-using System;
-using MemoBll.Managers;
 using System.Linq;
+using System.Web.Http;
+using MemoBll.Managers;
+using MemoDTO;
 using MemoRise.Helpers;
 using System.Configuration;
 using FlickrNet;
@@ -16,16 +15,16 @@ namespace MemoRise.Controllers
 {
     public class CatalogController : ApiController
     {
-        CatalogBll catalog = new CatalogBll();
+        private CatalogBll catalog = new CatalogBll();
 
         [HttpGet]
         public IHttpActionResult GetCategories()
         {
             try
             {
-                List<CategoryDTO> categories = catalog.GetAllCategories()
+                List<CategoryDTO> categories = this.catalog.GetAllCategories()
                                                .ToList();
-                return Ok(categories);
+                return this.Ok(categories);
             }
             catch (ArgumentNullException ex)
             {
@@ -78,7 +77,7 @@ namespace MemoRise.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return this.BadRequest(ex.Message);
             }
         }
 
@@ -147,7 +146,6 @@ namespace MemoRise.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Customer")]
         public IHttpActionResult GetDecks()
         {
             try

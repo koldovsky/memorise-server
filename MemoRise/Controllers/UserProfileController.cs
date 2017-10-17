@@ -32,7 +32,7 @@ namespace MemoRise.Controllers
         }
 
         //[HttpGet]
-        //[Route("UserProfile/GetCoursesByUser/{userEmaile}")]
+        //[Route("UserProfile/GetCoursesByUser/{userEmail}")]
         //public List<CourseDTO> GetCoursesByUser(string userEmail)
         //{
         //    return userProfile.GetCoursesByUser(userEmail);

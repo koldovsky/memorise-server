@@ -49,11 +49,11 @@ namespace MemoBll.Logic
 		//	unitOfWork.Save();
 		//}
 
-		public IEnumerable<Statistics> GetDeckStatistics(int deckId)
-		{
-			return unitOfWork.Statistics
-				.GetAll().Where(x => x.Deck.Id == deckId);
-		}
+		//public IEnumerable<Statistics> GetDeckStatistics(int deckId)
+		//{
+		//	return unitOfWork.Statistics
+		//		.GetAll().Where(x => x.Deck.Id == deckId);
+		//}
 
 		public Course GetCourse(int courseId)
 		{
@@ -67,11 +67,11 @@ namespace MemoBll.Logic
 		//		.Where(x => x.Deck.Id == deckId && x.User.Id == userId);
 		//}
 
-		public void DeleteStatistics(int statisticsId)
-		{
-			unitOfWork.Statistics.Delete(statisticsId);
-			unitOfWork.Save();
-		}
+		//public void DeleteStatistics(int statisticsId)
+		//{
+		//	unitOfWork.Statistics.Delete(statisticsId);
+		//	unitOfWork.Save();
+		//}
 
 		//public IEnumerable<User> GetAllUsersOnRole(string roleName)
 		//{

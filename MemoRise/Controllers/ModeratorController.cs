@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using MemoDTO;
 using MemoBll.Managers;
@@ -11,14 +7,12 @@ using MemoDAL.Entities;
 
 namespace MemoRise.Controllers
 {
-
     public class ModeratorController : ApiController
     {
         ModerationBll moderation = new ModerationBll();
-        ConverterFromDto converter = new ConverterFromDto();
+        ConverterFromDTO converter = new ConverterFromDTO();
 
         [HttpPost]
-        [Authorize]
         public IHttpActionResult CreateCategory(CategoryDTO categoryDto)
         {
             if (!ModelState.IsValid)
@@ -71,7 +65,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         public IHttpActionResult CreateCourse(CourseDTO courseDto)
         {
             if (!ModelState.IsValid)
@@ -94,7 +88,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpPut]
-        //[Authorize]
+        [Authorize]
         public IHttpActionResult UpdateCourse(CourseWithDecksDTO courseDto)
         {
             try
@@ -121,7 +115,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpDelete]
-        //[Authorize]
+        [Authorize]
         [Route("Moderator/DeleteCourse/{courseId}")]
         public IHttpActionResult DeleteCourse(int courseId)
         {

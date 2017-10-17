@@ -58,35 +58,35 @@ namespace MemoBll.Managers
 
         #region ForStatistics
 
-        public int GetDeckStatistics(int deckId)
-        {
-            var deckStatistics = moderation.GetDeckStatistics(deckId).ToList();
-            int result = 0;
-            if (deckStatistics.Count > 0)
-            {
-                double totalDeckPercent = 0.0;
-                foreach (Statistics statistic in deckStatistics)
-                {
-                    totalDeckPercent += statistic.SuccessPercent;
-                }
-                result = Convert.ToInt32(
-                    Math.Round(totalDeckPercent / deckStatistics.Count));
-            }
+        //public int GetDeckStatistics(int deckId)
+        //{
+        //    var deckStatistics = moderation.GetDeckStatistics(deckId).ToList();
+        //    int result = 0;
+        //    if (deckStatistics.Count > 0)
+        //    {
+        //        double totalDeckPercent = 0.0;
+        //        foreach (Statistics statistic in deckStatistics)
+        //        {
+        //            totalDeckPercent += statistic.SuccessPercent;
+        //        }
+        //        result = Convert.ToInt32(
+        //            Math.Round(totalDeckPercent / deckStatistics.Count));
+        //    }
 
-            return result;
-        }
+        //    return result;
+        //}
 
-        public int GetStatistics(string deckName, int userId)
-        {
-            Statistics statistics = moderation.GetStatistics(deckName, userId);
+        //public int GetStatistics(string deckName, int userId)
+        //{
+        //    Statistics statistics = moderation.GetStatistics(deckName, userId);
 
-            return statistics != null ? statistics.SuccessPercent : 0;
-        }
+        //    return statistics != null ? statistics.SuccessPercent : 0;
+        //}
 
-        public void DeleteStatistics(int statisticsId)
-        {
-            moderation.DeleteStatistics(statisticsId);
-        }
+        //public void DeleteStatistics(int statisticsId)
+        //{
+        //    moderation.DeleteStatistics(statisticsId);
+        //}
 
         #endregion
 
