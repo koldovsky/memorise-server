@@ -21,11 +21,16 @@ namespace MemoRise.Controllers
         [Authorize]
         public IHttpActionResult CreateCategory(CategoryDTO categoryDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             try
             {
-                Category course = converter.ConvertToCategory(categoryDto);
-                moderation.CreateCategory(course);
-                return Ok();
+                Category category = converter.ConvertToCategory(categoryDto);
+                moderation.CreateCategory(category);
+                return Ok(moderation.FindCategoryDTOByName(categoryDto.Name));
             }
             catch (Exception ex)
             {
@@ -57,7 +62,7 @@ namespace MemoRise.Controllers
             try
             {
                 moderation.RemoveCategory(categoryId);
-                return Ok();
+                return Ok(categoryId);
             }
             catch (Exception ex)
             {
@@ -69,11 +74,18 @@ namespace MemoRise.Controllers
         //[Authorize]
         public IHttpActionResult CreateCourse(CourseDTO courseDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             try
             {
                 Course course = converter.ConvertToCourse(courseDto);
+                course.Category = moderation
+                    .FindCategoryByName(courseDto.CategoryName);
                 moderation.CreateCourse(course);
-                return Ok();
+                return Ok(moderation.FindCourseDtoByName(courseDto.Name));
             }
             catch (Exception ex)
             {
@@ -100,7 +112,7 @@ namespace MemoRise.Controllers
 
                 moderation.UpdateCourse(course);
 
-                return Ok(course);
+                return Ok(courseDto);
             }
             catch (Exception ex)
             {
@@ -116,7 +128,7 @@ namespace MemoRise.Controllers
             try
             {
                 moderation.RemoveCourse(courseId);
-                return Ok();
+                return Ok(courseId);
             }
             catch (Exception ex)
             {
@@ -133,6 +145,11 @@ namespace MemoRise.Controllers
                 var course = moderation.FindCourseDtoByName(courseName);
                 return Ok(course);
             }
+            catch (NullReferenceException ex)
+            {
+                return Ok(new CourseDTO { Name = "unique" });
+            }
+
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -147,6 +164,10 @@ namespace MemoRise.Controllers
             {
                 var deck = moderation.FindDeckDTOByName(deckName);
                 return Ok(deck);
+            }
+            catch (NullReferenceException ex)
+            {
+                return Ok(new DeckDTO { Name = "unique" });
             }
             catch (Exception ex)
             {
@@ -163,6 +184,10 @@ namespace MemoRise.Controllers
                 var category = moderation.FindCategoryDTOByName(categoryName);
                 return Ok(category);
             }
+            catch (NullReferenceException ex)
+            {
+                return Ok(new CategoryDTO { Name = "unique" });
+            }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -173,11 +198,19 @@ namespace MemoRise.Controllers
         [Authorize]
         public IHttpActionResult CreateDeck(DeckDTO deckDto)
         {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             try
             {
                 Deck deck = converter.ConvertToDeck(deckDto);
+                deck.Category = moderation
+                    .FindCategoryByName(deckDto.CategoryName);
                 moderation.CreateDeck(deck);
-                return Ok();
+                return Ok(moderation.FindDeckDTOByName(deckDto.Name));
             }
             catch (Exception ex)
             {
@@ -203,7 +236,7 @@ namespace MemoRise.Controllers
 
                 moderation.UpdateDeck(deck);
 
-                return Ok(deck);
+                return Ok(deckDto);
             }
             catch (Exception ex)
             {
@@ -219,7 +252,7 @@ namespace MemoRise.Controllers
             try
             {
                 moderation.RemoveDeck(deckId);
-                return Ok();
+                return Ok(deckId);
             }
             catch (Exception ex)
             {
@@ -227,8 +260,29 @@ namespace MemoRise.Controllers
             }
         }
 
+        //[HttpGet]
+        //[Authorize]
+        //public IHttpActionResult GetCardsType()
+        //{
+        //    try
+        //    {
+        //        List<CardTypeDTO> cardsType = moderation.
+        //                                       .ToList();
+        //        return Ok(categories);
+        //    }
+        //    catch (ArgumentNullException ex)
+        //    {
+        //        var message = $"Categories collection is empty.";
+        //        return BadRequest(ex.Message);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
+
         [HttpPost]
-        [Authorize()]
+        [Authorize]
         public IHttpActionResult CreateCard(CardDTO cardDto)
         {
             try

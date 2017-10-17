@@ -202,7 +202,7 @@ namespace MemoDAL.EF
                 {
                     Question = "Which of the following statements is valid about generic procedures in C#.NET?",
                     Deck = decks[1],
-                    CardType  = cardTypes[0]
+                    CardType  = cardTypes[1]
                 },
                 new Card
                 {

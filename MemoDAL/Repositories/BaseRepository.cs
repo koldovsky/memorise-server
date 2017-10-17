@@ -1,6 +1,7 @@
 ﻿using MemoDAL.EF;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 
 namespace MemoDAL.Repositories
 {
@@ -33,6 +34,7 @@ namespace MemoDAL.Repositories
         public void Update(T obj)
         {
             Context.Entry(obj).State = EntityState.Modified;
+            //Context.Set<T>().AddOrUpdate(obj);
         }
 
         public void Delete(int id)

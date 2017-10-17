@@ -13,10 +13,16 @@ namespace MemoBll.Logic
         public DeckDTO ConvertToDeckDTO(Deck deck)
         {
             List<string> cardIds = new List<string>();
-            deck.Cards.ToList().ForEach(x => cardIds.Add(x.Id.ToString()));
+            if (deck.Cards.Count > 0)
+            {
+                deck.Cards.ToList().ForEach(x => cardIds.Add(x.Id.ToString()));
+            }
 
             List<string> courseNames = new List<string>();
+            if (deck.Courses.Count > 0)
+            { 
             deck.Courses.ToList().ForEach(x => courseNames.Add(x.Name));
+            }
 
             return new DeckDTO
             {
@@ -28,7 +34,8 @@ namespace MemoBll.Logic
                 Photo = deck.Photo,
                 CategoryName = deck.Category.Name,
                 CardIds = cardIds,
-                CourseNames = courseNames
+                CourseNames = courseNames,
+                Description = deck.Description
             };
         }
 
@@ -45,13 +52,15 @@ namespace MemoBll.Logic
 
         public CourseDTO ConvertToCourseDTO(Course course)
         {
-            return new CourseDTO
-            {
+        return new CourseDTO
+        {
+                Id = course.Id,
                 Name = course.Name,
                 Linking = course.Linking,
                 Price = course.Price,
-                Description = course.Description
-            };
+                Description = course.Description,
+                CategoryName = course.Category.Name
+        };
         }
 
         public List<CourseDTO> ConvertToCourseListDTO(IEnumerable<Course> courses)
@@ -82,7 +91,11 @@ namespace MemoBll.Logic
 
         public CategoryDTO ConvertToCategoryDTO(Category category)
         {
-            return new CategoryDTO { Name = category.Name, Linking = category.Linking };
+            return new CategoryDTO {
+                Id =category.Id,
+                Name = category.Name,
+                Linking = category.Linking
+            };
         }
 
         public CardTypeDTO ConvertToCardTypeDTO(CardType cardtype)

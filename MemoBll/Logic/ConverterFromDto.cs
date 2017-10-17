@@ -92,6 +92,7 @@ namespace MemoBll.Logic
                 Description = courseDTO.Description,
                 Linking = courseDTO.Linking,
                 Price = courseDTO.Price
+               
             };
         }
 
@@ -120,8 +121,9 @@ namespace MemoBll.Logic
                   Id = deckDTO.Id,
                   Name = deckDTO.Name,
                   Linking = deckDTO.Linking,
-                  Price = deckDTO.Price
-            };
+                  Price = deckDTO.Price,
+                  Description = deckDTO.Description
+    };
         }
 
         public List<Deck> ConvertToDeckList(IEnumerable<DeckDTO> decks)
