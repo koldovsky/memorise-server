@@ -167,26 +167,25 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
-        //[Route("Catalog/GetDecksByPage/{page}/{pageSize}/{sort}/{searchString}")]
         public IHttpActionResult GetDecksByPage([FromBody]SearchDataModel searchDataModel)
         {
             int totalCount = 0;
             try
             {
-                IEnumerable<DeckDTO> decks;
-                if (searchDataModel.Page == 0 && searchDataModel.PageSize == 0)
+                IEnumerable<DeckDTO> decks = catalog.GetAllDecks();
+                if (!string.IsNullOrEmpty(searchDataModel.SearchString))
                 {
-                    decks = catalog.GetAllDecks().ToList();
+                    decks = decks.Where(deck => deck.Name.ToLower().Contains(searchDataModel.SearchString.ToLower()));
+                }
+                totalCount = decks.Count();
+                decks = searchDataModel.Sort ? decks.OrderByDescending(name => name.Name) : decks.OrderBy(name => name.Name);
+                
+                if (searchDataModel.Page == 1 && searchDataModel.PageSize == 0)
+                {
+                    decks = decks.ToList();
                 }
                 else
                 {
-                    decks = catalog.GetAllDecks();
-                    if (!string.IsNullOrEmpty(searchDataModel.SearchString))
-                    {
-                        decks = decks.Where(deck => deck.Name.ToLower().Contains(searchDataModel.SearchString.ToLower()));
-                    }
-                    totalCount = decks.Count();
-                    decks = searchDataModel.Sort ? decks.OrderByDescending(name => name.Name) : decks.OrderBy(name => name.Name);
                     decks = decks.Skip((searchDataModel.Page - 1) * searchDataModel.PageSize)
                                  .Take(searchDataModel.PageSize)
                                  .ToList();
