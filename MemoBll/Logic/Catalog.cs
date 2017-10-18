@@ -44,19 +44,19 @@ namespace MemoBll.Logic
 				.Decks;
 		}
 
-		public IEnumerable<Deck> GetAllDecksByCategory(string categoryName)
+		public IEnumerable<Deck> GetAllDecksByCategory(string categoryLinking)
 		{
             var category = unitOfWork.Categories
                         .GetAll()
-                        .FirstOrDefault(x => x.Linking == categoryName);
+                        .FirstOrDefault(x => x.Linking == categoryLinking);
             return category?.Decks;	
 		}
 
-        public IEnumerable<Course> GetAllCoursesByCategory(string categoryName)
+        public IEnumerable<Course> GetAllCoursesByCategory(string categoryLinking)
         {
             var category = unitOfWork.Categories
             .GetAll()
-            .FirstOrDefault(x => x.Linking == categoryName);
+            .FirstOrDefault(x => x.Linking == categoryLinking);
             return category?.Courses;
         }
 
@@ -66,5 +66,12 @@ namespace MemoBll.Logic
 				.GetAll()
 				.FirstOrDefault(x => x.Linking == courseLinking);
 		}
-	}
+
+        public Deck GetDeck(string linking)
+        {
+            return unitOfWork.Decks
+                .GetAll()
+                .FirstOrDefault(x => x.Linking == linking);
+        }
+    }
 }

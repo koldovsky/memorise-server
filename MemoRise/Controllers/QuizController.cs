@@ -1,11 +1,15 @@
 ﻿using System.Web.Http;
-using MemoBll;
 using MemoDTO;
 using System.Collections.Generic;
 using System;
 using System.Net;
 using System.Net.Http;
 using MemoBll.Managers;
+using Microsoft.CSharp;
+using System.CodeDom.Compiler;
+using System.Data;
+using System.Linq;
+using System.Reflection;
 
 namespace MemoRise.Controllers
 {
@@ -58,6 +62,29 @@ namespace MemoRise.Controllers
         }
 
         [HttpGet]
+        [Route("Quiz/GetCardsByDeckArray/{deckLink}")]
+        public HttpResponseMessage GetCardsByDeckArray(string deckLink)   
+        {
+            var arrayOfLinks = deckLink.Split(',');
+            try
+            {
+                List<CardDTO> cards = quiz.GetCardsByDeckArray(arrayOfLinks);
+                return Request.CreateResponse(HttpStatusCode.OK, cards);
+            }
+            catch (ArgumentNullException ex)
+            {
+                var message = $"Deck with name = {deckLink} not found. {ex.Message}";
+                HttpError err = new HttpError(message);
+                return Request.CreateResponse(HttpStatusCode.NotFound, err);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+
+            }
+        }
+
+        [HttpGet]
         [Route("Quiz/IsAnswerCorrect/{cardId:int}/{answerText}")]
         public IHttpActionResult IsAnswerCorrect(int cardId, string answerText)
         {
@@ -70,6 +97,66 @@ namespace MemoRise.Controllers
             {
                 var message = $"Card with id = {cardId} not found. {ex.Message}";
                 return BadRequest(message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public IHttpActionResult CodeAnswer(CodeAnswerDTO codeAnswerDTO)
+        {
+            try
+            {
+                var provider = new CSharpCodeProvider();
+                var cp = new CompilerParameters
+                {
+                    GenerateInMemory = true,
+                };
+
+                string code = codeAnswerDTO.CodeAnswerText;
+                var compileResult = provider.CompileAssemblyFromSource(cp, code);
+
+                if(compileResult.Errors.Count > 0)
+                {
+                    codeAnswerDTO.CodeAnswerText = "ERROR\r\n";
+                    compileResult.Errors.Cast<CompilerError>().ToList()
+                    .ForEach(error => codeAnswerDTO.CodeAnswerText += error.ErrorText + "\r\n");
+                }
+                else
+                {
+                    codeAnswerDTO.CodeAnswerText = "Compile succeeded \r\n";
+
+                    var calcType = compileResult.CompiledAssembly.GetType("Calculator");
+                    var calc = Activator.CreateInstance(calcType);
+
+                    int actualResult = (int)calcType.InvokeMember("Sum", BindingFlags.InvokeMethod, null, calc, new object[] { 0, 0 });
+                    int expectedResult = 0;
+                    int actualResult2 = (int)calcType.InvokeMember("Sum", BindingFlags.InvokeMethod, null, calc, new object[] { -5, 7 });
+                    int expectedResult2 = 2;
+                    int actualResult3 = (int)calcType.InvokeMember("Sum", BindingFlags.InvokeMethod, null, calc, new object[] { 10, 130 });
+                    int expectedResult3 = 140;
+                    int actualResult4 = (int)calcType.InvokeMember("Sum", BindingFlags.InvokeMethod, null, calc, new object[] { 4, -54 });
+                    int expectedResult4 = -50;
+                    int actualResult5 = (int)calcType.InvokeMember("Sum", BindingFlags.InvokeMethod, null, calc, new object[] { -4, -54 });
+                    int expectedResult5 = -58;
+
+                    if (actualResult == expectedResult &&
+                        actualResult2 == expectedResult2 &&
+                        actualResult3 == expectedResult3 &&
+                        actualResult4 == expectedResult4 &&
+                        actualResult5 == expectedResult5)
+                    {
+                        codeAnswerDTO.CodeAnswerText += "Right";
+                    }
+                    else
+                    {
+                        codeAnswerDTO.CodeAnswerText += "Wrong";
+                    }
+                }
+
+                return Ok(codeAnswerDTO);
             }
             catch (Exception ex)
             {

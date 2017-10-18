@@ -41,6 +41,13 @@ namespace MemoBll.Managers
              return converterToDto.ConvertToCardListDTO(cards);
         }
 
+        public List<CardDTO> GetCardsByDeckArray(string[] deckLink)   
+        {
+            List<Card> cards = quiz.GetCardsByDeckArray(deckLink).ToList();
+
+            return converterToDto.ConvertToCardListDTO(cards);
+        }
+
         public List<CardDTO> GetCardsByCourse(string courseLink)
         {
             List<Card> cards = quiz.GetCardsByCourse(courseLink).ToList();

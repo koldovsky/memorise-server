@@ -59,15 +59,14 @@ namespace MemoBll.Logic
         public IEnumerable<Statistics> GetDeckStatistics(int deckId)
         {
             return unitOfWork.Statistics
-                .GetAll().Where(x => x.Deck.Id == deckId);
+                .GetAll().Where(x => x.Card.Deck.Id == deckId);
         }
-
         
         public Statistics GetStatistics(string deckName, int userId)
         {
             return unitOfWork.Statistics
                 .GetAll()
-                .FirstOrDefault(x => x.Deck.Name == deckName
+                .FirstOrDefault(x => x.Card.Deck.Name == deckName
                 && x.User.UserProfile.Id == userId);
         }
 
@@ -97,7 +96,7 @@ namespace MemoBll.Logic
         public IEnumerable<User> GetAllUsersByDeck(string deckName)
         {
             IEnumerable<Statistics> statistics = unitOfWork.Statistics
-                .GetAll().Where(x => x.Deck.Name == deckName);
+                .GetAll().Where(x => x.Card.Deck.Name == deckName);
             List<User> users = new List<User>();
             foreach (var item in statistics)
             {
@@ -129,6 +128,13 @@ namespace MemoBll.Logic
             unitOfWork.Save();
         }
 
+        public Deck FindDeckByName(string deckName)
+        {
+            return unitOfWork.Decks.GetAll()
+                .Where(c => c.Name.ToLower() == deckName.ToLower())
+                .FirstOrDefault();
+        }
+
         #endregion
 
         #region ForCard
@@ -151,6 +157,11 @@ namespace MemoBll.Logic
             unitOfWork.Save();
         }
 
+        public Card FindCardById(int cardId)
+        {
+            return unitOfWork.Cards.Get(cardId);
+        }
+
         #endregion
 
         #region ForCategory
@@ -169,8 +180,32 @@ namespace MemoBll.Logic
 
         public void RemoveCategory(int categoryId)
         {
+            Category category = unitOfWork.Categories.Get(categoryId);
+            if (category.Decks.Count>0)
+            {
+                foreach( var deck in category.Decks.ToList())
+                {
+                    RemoveDeck(deck.Id);
+                }
+                
+            }
+            if (category.Courses.Count > 0)
+            {
+                foreach (var course in category.Courses.ToList())
+                {
+                    RemoveCourse(course.Id);
+                }
+                
+            }
             unitOfWork.Categories.Delete(categoryId);
             unitOfWork.Save();
+        }
+
+        public Category FindCategoryByName(string categoryName)
+        {
+            return unitOfWork.Categories.GetAll()
+                .Where(c => c.Name.ToLower() == categoryName.ToLower())
+                .FirstOrDefault();
         }
 
         #endregion
@@ -193,6 +228,13 @@ namespace MemoBll.Logic
         {
             unitOfWork.Courses.Delete(courseId);
             unitOfWork.Save();
+        }
+
+        public Course FindCourseByName (string courseName)
+        {
+            return unitOfWork.Courses.GetAll()
+                .Where(c => c.Name.ToLower() == courseName.ToLower())
+                .FirstOrDefault();
         }
 
         #endregion

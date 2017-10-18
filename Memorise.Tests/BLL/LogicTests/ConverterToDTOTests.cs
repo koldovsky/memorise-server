@@ -22,7 +22,7 @@ namespace Memorise.Tests.BLL.LogicTests
                 Categories.Add(new Category { Id = i, Name = $"Category{i}" });
                 Courses.Add(new Course { Id = i, Name = $"Course{i}" });
                 Decks.Add(new Deck { Id = i, Name = $"Decks{i}" });
-                Statistics.Add(new Statistics { Id = i, SuccessPercent = i });
+                //Statistics.Add(new Statistics { Id = i, SuccessPercent = i });
                 Answers.Add(new Answer
                 {
                     Id = i,
@@ -49,14 +49,14 @@ namespace Memorise.Tests.BLL.LogicTests
             Categories[0].Courses.Add(Courses[0]);
             Categories[2].Courses.Add(Courses[1]);
 
-            Statistics[0].Deck = Decks[0];
-            Statistics[0].User = Users[0];
+            //Statistics[0].Deck = Decks[0];
+            //Statistics[0].User = Users[0];
 
-            Statistics[1].Deck = Decks[0];
-            Statistics[1].User = Users[2];
+            //Statistics[1].Deck = Decks[0];
+            //Statistics[1].User = Users[2];
 
-            Statistics[2].Deck = Decks[1];
-            Statistics[2].User = Users[0];
+            //Statistics[2].Deck = Decks[1];
+            //Statistics[2].User = Users[0];
         }
     }
 }

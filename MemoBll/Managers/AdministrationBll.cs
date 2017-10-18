@@ -57,71 +57,71 @@ namespace MemoBll.Managers
 
 		#endregion
 
-		#region ForStatistics
+		//#region ForStatistics
 
-		public int GetDeckStatistics(int deckId)
-		{
-			List<Statistics> deckStatistics = administration.GetDeckStatistics(deckId).ToList();
+		//public int GetDeckStatistics(int deckId)
+		//{
+		//	List<Statistics> deckStatistics = administration.GetDeckStatistics(deckId).ToList();
 
-			if (deckStatistics != null && deckStatistics.Count > 0)
-			{
-				double totalDeckPercent = 0.0;
-				double averageDeckPercent = 0.0;
+		//	if (deckStatistics != null && deckStatistics.Count > 0)
+		//	{
+		//		double totalDeckPercent = 0.0;
+		//		double averageDeckPercent = 0.0;
 
-				foreach (Statistics statistic in deckStatistics)
-				{
-					totalDeckPercent += statistic.SuccessPercent;
-				}
-				averageDeckPercent = Math.Round(totalDeckPercent / deckStatistics.Count);
+		//		foreach (Statistics statistic in deckStatistics)
+		//		{
+		//			totalDeckPercent += statistic.SuccessPercent;
+		//		}
+		//		averageDeckPercent = Math.Round(totalDeckPercent / deckStatistics.Count);
 
-				return Convert.ToInt32(averageDeckPercent);
-			}
-			else
-			{
-				throw new ArgumentNullException();
-			}
-		}
+		//		return Convert.ToInt32(averageDeckPercent);
+		//	}
+		//	else
+		//	{
+		//		throw new ArgumentNullException();
+		//	}
+		//}
 
-		public int GetCourseStatistics(int courseId)
-		{
-			Course course = administration.GetCourse(courseId);
-			if (course != null)
-			{
-				double totalCoursePercent = 0.0;
-				double averageCoursePercent = 0.0;
-				foreach (Deck deck in course.Decks)
-				{
-					totalCoursePercent += GetDeckStatistics(deck.Id);
-				}
-				averageCoursePercent = Math.Round(totalCoursePercent / course.Decks.Count);
-				return Convert.ToInt32(averageCoursePercent);
-			}
-			else
-			{
-				throw new ArgumentNullException();
-			}
-		}
+		//public int GetCourseStatistics(int courseId)
+		//{
+		//	Course course = administration.GetCourse(courseId);
+		//	if (course != null)
+		//	{
+		//		double totalCoursePercent = 0.0;
+		//		double averageCoursePercent = 0.0;
+		//		foreach (Deck deck in course.Decks)
+		//		{
+		//			totalCoursePercent += GetDeckStatistics(deck.Id);
+		//		}
+		//		averageCoursePercent = Math.Round(totalCoursePercent / course.Decks.Count);
+		//		return Convert.ToInt32(averageCoursePercent);
+		//	}
+		//	else
+		//	{
+		//		throw new ArgumentNullException();
+		//	}
+		//}
 
-		public int GetStatistics(int deckId, int userId)
-		{
-			List<Statistics> statistics =
-				administration.GetStatistics(deckId, userId).ToList();
-			if (statistics != null && statistics.Count >= 1)
-			{
-				return statistics[0].SuccessPercent;
-			}
-			else
-			{
-				throw new Exception();
-			}
-		}
+		//public int GetStatistics(int deckId, int userId)
+		//{
+		//	List<Statistics> statistics =
+		//		administration.GetStatistics(deckId, userId).ToList();
+		//	if (statistics != null && statistics.Count >= 1)
+		//	{
+		//		return statistics[0].SuccessPercent;
+		//	}
+		//	else
+		//	{
+		//		throw new Exception();
+		//	}
+		//}
 
-		public void DeleteStatistics(int statisticsId)
-		{
-			administration.DeleteStatistics(statisticsId);
-		}
+		//public void DeleteStatistics(int statisticsId)
+		//{
+		//	administration.DeleteStatistics(statisticsId);
+		//}
 
-		#endregion
+		//#endregion
 
 		#region ForUsers
 

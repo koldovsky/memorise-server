@@ -9,7 +9,5 @@ namespace MemoBll.Interfaces
         User GetUserByLogin(string userLogin);
         User GetUserByEmail(string userEmail);
         bool UpdateUserProfileEmail(string Id, string userEmail);
-        //bool UpdateUserProfileLogin(string Id, string userLogin);
-
     }
 }

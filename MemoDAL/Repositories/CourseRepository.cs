@@ -18,8 +18,10 @@ namespace MemoDAL.Repositories
             int previousNumbersOfCourses,
             int numbersOfCoursesOnPage)
         {
-            return MemoContext.Courses.OrderBy(course => course.Id)
-                .Skip(previousNumbersOfCourses).Take(numbersOfCoursesOnPage)
+            return MemoContext.Courses
+                .OrderBy(course => course.Id)
+                .Skip(previousNumbersOfCourses)
+                .Take(numbersOfCoursesOnPage)
                 .ToList();
         }
 

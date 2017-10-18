@@ -58,35 +58,35 @@ namespace MemoBll.Managers
 
         #region ForStatistics
 
-        public int GetDeckStatistics(int deckId)
-        {
-            var deckStatistics = moderation.GetDeckStatistics(deckId).ToList();
-            int result = 0;
-            if (deckStatistics.Count > 0)
-            {
-                double totalDeckPercent = 0.0;
-                foreach (Statistics statistic in deckStatistics)
-                {
-                    totalDeckPercent += statistic.SuccessPercent;
-                }
-                result = Convert.ToInt32(
-                    Math.Round(totalDeckPercent / deckStatistics.Count));
-            }
+        //public int GetDeckStatistics(int deckId)
+        //{
+        //    var deckStatistics = moderation.GetDeckStatistics(deckId).ToList();
+        //    int result = 0;
+        //    if (deckStatistics.Count > 0)
+        //    {
+        //        double totalDeckPercent = 0.0;
+        //        foreach (Statistics statistic in deckStatistics)
+        //        {
+        //            totalDeckPercent += statistic.SuccessPercent;
+        //        }
+        //        result = Convert.ToInt32(
+        //            Math.Round(totalDeckPercent / deckStatistics.Count));
+        //    }
 
-            return result;
-        }
+        //    return result;
+        //}
 
-        public int GetStatistics(string deckName, int userId)
-        {
-            Statistics statistics = moderation.GetStatistics(deckName, userId);
+        //public int GetStatistics(string deckName, int userId)
+        //{
+        //    Statistics statistics = moderation.GetStatistics(deckName, userId);
 
-            return statistics != null ? statistics.SuccessPercent : 0;
-        }
+        //    return statistics != null ? statistics.SuccessPercent : 0;
+        //}
 
-        public void DeleteStatistics(int statisticsId)
-        {
-            moderation.DeleteStatistics(statisticsId);
-        }
+        //public void DeleteStatistics(int statisticsId)
+        //{
+        //    moderation.DeleteStatistics(statisticsId);
+        //}
 
         #endregion
 
@@ -154,6 +154,18 @@ namespace MemoBll.Managers
             moderation.RemoveCategory(categoryId);
         }
 
+        public CategoryDTO FindCategoryDTOByName(string categoryName)
+        {
+            Category category = moderation.FindCategoryByName(categoryName);
+            return converterToDto.ConvertToCategoryDTO(category);
+
+        }
+
+        public Category FindCategoryByName(string categoryName)
+        {
+            return moderation.FindCategoryByName(categoryName);
+        }
+
         #endregion
 
         #region ForCourses
@@ -171,6 +183,15 @@ namespace MemoBll.Managers
         public void RemoveCourse(int courseId)
         {
             moderation.RemoveCourse(courseId);
+        }
+        public CourseDTO FindCourseDtoByName(string courseName)
+        {
+            Course course = moderation.FindCourseByName(courseName);
+            return converterToDto.ConvertToCourseDTO(course);
+        }
+        public Course FindCourseByName(string courseName)
+        {
+            return moderation.FindCourseByName(courseName);
         }
 
         #endregion
@@ -192,6 +213,17 @@ namespace MemoBll.Managers
             moderation.RemoveDeck(deckId);
         }
 
+        public DeckDTO FindDeckDTOByName(string deckName)
+        {
+            Deck deck = moderation.FindDeckByName(deckName);
+            return converterToDto.ConvertToDeckDTO(deck);
+        }
+
+        public Deck FindDeckByName(string deckName)
+        {
+            return moderation.FindDeckByName(deckName);
+        }
+
         #endregion
 
         #region ForCards
@@ -209,6 +241,21 @@ namespace MemoBll.Managers
         public void RemoveCard(int cardId)
         {
             moderation.RemoveCard(cardId);
+        }
+
+        public Card FindCardById(string cardId)
+        {
+            int id;
+            int.TryParse(cardId, out id);
+            if(id != 0)
+            {
+                return moderation.FindCardById(id);
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
+            
         }
 
         #endregion

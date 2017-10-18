@@ -82,30 +82,30 @@ namespace Memorise.Tests.BLL.LogicTests
                 new Statistics
                 {
                     Id = 1,
-                    Deck = new Deck { Id = 1, Name = "deck1" },
-                    SuccessPercent = 20,
+                    //Deck = new Deck { Id = 1, Name = "deck1" },
+                    //SuccessPercent = 20,
                     User = this.users[0]
                 });
             this.statistics.Add(
                 new Statistics
                 {
                     Id = 2,
-                    Deck = new Deck { Id = 2, Name = "deck2" },
-                    SuccessPercent = 80,
+                    //Deck = new Deck { Id = 2, Name = "deck2" },
+                    //SuccessPercent = 80,
                     User = this.users[1]
                 });
             this.statistics.Add(
                 new Statistics
                 {
                     Id = 3,
-                    Deck = new Deck { Id = 3, Name = "deck3" },
-                    SuccessPercent = 30,
+                    //Deck = new Deck { Id = 3, Name = "deck3" },
+                    //SuccessPercent = 30,
                     User = this.users[2]
                 });
             this.statistics.Add(new Statistics
             {
                 Id = 4,
-                Deck = new Deck { Id = 4, Name = "C#" },
+                //Deck = new Deck { Id = 4, Name = "C#" },
                 User = new User { UserProfile = new MemoDAL.Entities.UserProfile { Id = 4 } }
             });
         }

@@ -24,17 +24,21 @@ namespace MemoBll.Interfaces
         void CreateCategory(Category category);
         void UpdateCategory(Category category);
         void RemoveCategory(int categoryId);
+        Category FindCategoryByName(string categoryName);
 
         void CreateCourse(Course course);
         void UpdateCourse(Course course);
         void RemoveCourse(int courseId);
+        Course FindCourseByName(string courseName);
 
         void CreateDeck(Deck deck);
         void UpdateDeck(Deck deck);
         void RemoveDeck(int deckId);
+        Deck FindDeckByName(string deckName);
 
         void CreateCard(Card card);
         void UpdateCard(Card card);
         void RemoveCard(int cardId);
+        Card FindCardById(int cardId);
     }
 }
