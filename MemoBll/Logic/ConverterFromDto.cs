@@ -108,6 +108,21 @@ namespace MemoBll.Logic
             };
         }
 
+        public Course ConvertToCourse(CourseWithDecksDTO courseWithDecksDTO)
+        {
+            return new Course
+            {
+                Id = courseWithDecksDTO.Id,
+                Name = courseWithDecksDTO.Name,
+                Description = courseWithDecksDTO.Description,
+                Linking = courseWithDecksDTO.Linking,
+                Price = courseWithDecksDTO.Price,
+                Decks = ConvertToDeckList(courseWithDecksDTO.Decks),
+                Category = ConvertToCategory(courseWithDecksDTO.Category),
+                Photo = courseWithDecksDTO.Photo
+            };
+        }
+
         public List<Course> ConvertToCourseList(IEnumerable<CourseDTO> courses)
         {
             throw new NotImplementedException();

@@ -15,5 +15,6 @@ namespace MemoDTO
 		public string Photo { get; set; }
         public int Price { get; set; }
 		public IEnumerable<DeckDTO> Decks { get; set; }
+        public CategoryDTO Category { get; set; }
     }
 }

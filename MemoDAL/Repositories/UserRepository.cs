@@ -18,7 +18,7 @@ namespace MemoDAL.Repositories
         public IEnumerable<User> GetAll()
         {
             return this.GetAll();
-        //return Context.Set<T>(); //.ToList();
+        
         }
 
     }

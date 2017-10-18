@@ -155,6 +155,15 @@ namespace MemoBll.Managers
         }
 
         #endregion
+        #region ForCategories
+
+        public CategoryDTO FindCategoryByName(string categoryName)
+        {
+            Category category = moderation.FindCategoryByName(categoryName);
+            return converterToDto.ConvertToCategoryDTO(category);
+        }
+
+        #endregion
 
         #region ForCourses
 
@@ -171,6 +180,11 @@ namespace MemoBll.Managers
         public void RemoveCourse(int courseId)
         {
             moderation.RemoveCourse(courseId);
+        }
+        public CourseDTO FindCourseByName(string courseName)
+        {
+            Course course = moderation.FindCourseByName(courseName);
+            return converterToDto.ConvertToCourseDTO(course);
         }
 
         #endregion
@@ -190,6 +204,12 @@ namespace MemoBll.Managers
         public void RemoveDeck(int deckId)
         {
             moderation.RemoveDeck(deckId);
+        }
+
+        public DeckDTO FindDeckByName(string deckName)
+        {
+            Deck deck = moderation.FindDeckByName(deckName);
+            return converterToDto.ConvertToDeckDTO(deck);
         }
 
         #endregion

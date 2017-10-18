@@ -128,6 +128,13 @@ namespace MemoBll.Logic
             unitOfWork.Save();
         }
 
+        public Deck FindDeckByName(string deckName)
+        {
+            return unitOfWork.Decks.GetAll()
+                .Where(c => c.Name.ToLower() == deckName.ToLower())
+                .FirstOrDefault();
+        }
+
         #endregion
 
         #region ForCard
@@ -172,6 +179,13 @@ namespace MemoBll.Logic
             unitOfWork.Save();
         }
 
+        public Category FindCategoryByName(string categoryName)
+        {
+            return unitOfWork.Categories.GetAll()
+                .Where(c => c.Name.ToLower() == categoryName.ToLower())
+                .FirstOrDefault();
+        }
+
         #endregion
 
         #region ForCourse
@@ -192,6 +206,13 @@ namespace MemoBll.Logic
         {
             unitOfWork.Courses.Delete(courseId);
             unitOfWork.Save();
+        }
+
+        public Course FindCourseByName (string courseName)
+        {
+            return unitOfWork.Courses.GetAll()
+                .Where(c => c.Name.ToLower() == courseName.ToLower())
+                .FirstOrDefault();
         }
 
         #endregion
