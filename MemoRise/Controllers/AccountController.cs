@@ -102,13 +102,11 @@ namespace MemoRise.Controllers
         {
             get { return Request.GetOwinContext().Authentication; }
         }
-
-        // GET api/Account/ExternalLogin
+        
         [HttpGet]
         [OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
         [AllowAnonymous]
-        //[Route("GetExternalLogin", Name = "GetExternalLogin")]
         [Route("Account/GetExternalLogin/{provider}")]
         public async Task<IHttpActionResult> GetExternalLogin(string provider, string error = null)
         {
@@ -341,11 +339,9 @@ namespace MemoRise.Controllers
 
             return tokenResponse;
         }
-
-        // POST api/Account/RegisterExternal
+        
         [HttpPost]
         [AllowAnonymous]
-        //[Route("RegisterExternal")]
         public async Task<IHttpActionResult> RegisterExternal([FromBody] RegisterExternalBindingModel model)
         {
 
@@ -366,7 +362,6 @@ namespace MemoRise.Controllers
 
             if (hasRegistered)
             {
-                //return BadRequest("External user is already registered");
                 var accessTokenResponseLog = GenerateLocalAccessTokenResponse(model.UserName);
                 return Ok(accessTokenResponseLog);
             }
@@ -376,31 +371,9 @@ namespace MemoRise.Controllers
                 IsBlocked = false
             };
             user = new User() { UserName = model.UserName, Email = model.Email, UserProfile = userProfile };
-            //User userLocal = new User() {UserName = model.UserName};
+            
+            IdentityResult result = await _repo.CreateAsync(user);
 
-            //UserProfile userProfile = new UserProfile
-            //{
-            //    IsBlocked = false
-            //};
-            //var userLocal = new User()
-            //{
-
-            //    UserName = model.UserName,
-            //    Email = "some@gmail.com",
-            //    UserProfile = userProfile
-
-            //};
-            IdentityResult result;
-            try
-            {
-                result = await _repo.CreateAsync(user);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-            //IdentityResult result = await _repo.CreateAsync(user);
             if (result.Succeeded)
             {
                 result = unitOfWork.Users.AddToRole(user.Id, "Customer");
