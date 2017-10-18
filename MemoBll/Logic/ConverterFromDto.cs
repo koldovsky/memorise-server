@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MemoBll.Interfaces;
 using MemoDAL;
 using MemoDAL.EF;
@@ -152,9 +150,26 @@ namespace MemoBll.Logic
             };
         }
 
-        public UserCourse ConvertToUserCourse(UserCourseDTO userCourse)
+        public SubscribedCourse ConvertToSubscribedCourse(SubscribedCourseDTO subscribedCourse)
         {
-            throw new NotImplementedException();
+            return new SubscribedCourse
+            {
+                Id = subscribedCourse.Id,
+                Rating = subscribedCourse.Rating,
+                User = ConvertToUser(subscribedCourse.User),
+                Course = ConvertToCourse(subscribedCourse.Course)
+            };
+        }
+
+        public SubscribedDeck ConvertToSubscribedDeck(SubscribedDeckDTO userDeck)
+        {
+            return new SubscribedDeck
+            {
+                Id = userDeck.Id,
+                Rating = userDeck.Rating,
+                User = ConvertToUser(userDeck.User),
+                Deck = ConvertToDeck(userDeck.Deck)
+            };
         }
 
         /// <summary>

@@ -82,25 +82,25 @@ namespace MemoBll.Logic
 
         public IEnumerable<User> GetAllUsersByCourse(int courseId)
         {
-            IEnumerable<UserCourse> userCourses = unitOfWork.UserCourses
+            IEnumerable<SubscribedCourse> subscribedCourses = unitOfWork.SubscribedCourses
                 .GetAll().Where(x => x.Course.Id == courseId);
             List<User> users = new List<User>();
-            foreach (UserCourse userCourse in userCourses)
+            foreach (var subscribedCourse in subscribedCourses)
             {
-                users.Add(userCourse.User);
+                users.Add(subscribedCourse.User);
             }
 
             return users;
         }
 
-        public IEnumerable<User> GetAllUsersByDeck(string deckName)
+        public IEnumerable<User> GetAllUsersByDeck(int deckid)
         {
-            IEnumerable<Statistics> statistics = unitOfWork.Statistics
-                .GetAll().Where(x => x.Card.Deck.Name == deckName);
+            IEnumerable<SubscribedDeck> subscribedDecks = unitOfWork.SubscribedDecks
+                .GetAll().Where(x => x.Deck.Id == deckid);
             List<User> users = new List<User>();
-            foreach (var item in statistics)
+            foreach (var subscribedDeck in subscribedDecks)
             {
-                users.Add(item.User);
+                users.Add(subscribedDeck.User);
             }
 
             return users;

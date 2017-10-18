@@ -104,9 +104,9 @@ namespace MemoBll.Managers
             return usersDto;
         }
 
-        public List<UserDTO> GetAllUsersByDeck(string deckName)
+        public List<UserDTO> GetAllUsersByDeck(int deckId)
         {
-            List<User> users = moderation.GetAllUsersByDeck(deckName).ToList();
+            List<User> users = moderation.GetAllUsersByDeck(deckId).ToList();
             List<UserDTO> usersDto = new List<UserDTO>();
             foreach (var user in users)
             {

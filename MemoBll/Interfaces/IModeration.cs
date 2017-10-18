@@ -15,7 +15,7 @@ namespace MemoBll.Interfaces
         Statistics GetStatistics(string deckName, int userId);
         void DeleteStatistics(int statisticsId);
         IEnumerable<User> GetAllUsersByCourse(int courseId);
-        IEnumerable<User> GetAllUsersByDeck(string deckName);
+        IEnumerable<User> GetAllUsersByDeck(int deckId);
 
         void CreateAnswer(Answer answer);
         void UpdateAnswer(Answer answer);

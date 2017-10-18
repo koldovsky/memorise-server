@@ -56,8 +56,9 @@
     <Compile Include="ReportDTO.cs" />
     <Compile Include="RoleDTO.cs" />
     <Compile Include="StatisticsDTO.cs" />
+    <Compile Include="SubscribedDeckDTO.cs" />
     <Compile Include="UserDTO.cs" />
-    <Compile Include="UserCourseDTO.cs" />
+    <Compile Include="SubscribedCourseDTO.cs" />
     <Compile Include="UserLoginDTO.cs" />
     <Compile Include="UserRoleDTO.cs" />
   </ItemGroup>
