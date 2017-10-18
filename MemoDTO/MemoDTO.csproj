@@ -47,6 +47,7 @@
     <Compile Include="CardDTO.cs" />
     <Compile Include="CardTypeDTO.cs" />
     <Compile Include="CategoryDTO.cs" />
+    <Compile Include="CodeAnswerDTO.cs" />
     <Compile Include="CommentDTO.cs" />
     <Compile Include="CourseDTO.cs" />
     <Compile Include="CourseWithDecksDTO.cs" />
