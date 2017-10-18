@@ -81,7 +81,7 @@ namespace MemoRise.Controllers
             try
             {
                 List<CourseDTO> courses = catalog.GetAllCourses().ToList();
-                PhotoUrlLoader.LoadCoursesPhotos(courses);
+                //PhotoUrlLoader.LoadCoursesPhotos(courses);
                 return Ok(courses);
             }
             catch (ArgumentNullException ex)
@@ -139,7 +139,7 @@ namespace MemoRise.Controllers
             try
             {
                 List<DeckDTO> decks = catalog.GetAllDecks().ToList();
-                PhotoUrlLoader.LoadDecksPhotos(decks);
+                //PhotoUrlLoader.LoadDecksPhotos(decks);
 
                 return Ok(decks);
             }

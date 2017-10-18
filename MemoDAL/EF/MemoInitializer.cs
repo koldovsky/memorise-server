@@ -258,6 +258,25 @@ namespace MemoDAL.EF
                      CardType = cardTypes[2],
                      Deck = decks[12]
                 },
+                //new Card
+                //{
+                //     Question = @"Your goal in this kata is to implement an difference function, which subtracts one list from another.
+
+                //                It should remove all values from list a, which are present in list b.
+
+                //                Kata.ArrayDiff(new int[] {1, 2}, new int[] {1}) => new int[] {2}
+                //                If a value is present in b, all of its occurrences must be removed from the other:
+
+                //                Kata.ArrayDiff(new int[] { 1, 2, 2, 2, 3 }, new int[] { 2 }) => new int[] { 1, 3 }",
+                //     CardType = cardTypes[3],
+                //     Deck = decks[12]
+                //},
+                new Card
+                {
+                     Question = @"Return sum a and b",
+                     CardType = cardTypes[3],
+                     Deck = decks[12]
+                },
 
                 #endregion
 
@@ -711,7 +730,30 @@ namespace MemoDAL.EF
                     IsCorrect = true,
                     Card = cards[15]
                 },
-
+                //new Answer
+                //{
+                //    Text = @"public int[] ArrayDiff(int[] a, int[] b)
+                //                        {
+                //                            // Your brilliant solution goes here
+                //                            // It's possible to pass random tests in about a second ;)
+                //                        }",
+                //    IsCorrect = true,
+                //    Card = cards[16]
+                //},
+                new Answer
+                {
+                    Text = @"
+                            public class Calculator
+                            {
+                                public int Sum(int a, int b)
+                                {
+                                    //Type your code here
+                                }
+                            }
+                    ",
+                    IsCorrect = true,
+                    Card = cards[16]
+                },
                 #endregion
             };
             context.Answers.AddRange(answers);
