@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Interfaces\IConverterFromDTO.cs" />
     <Compile Include="Interfaces\ICustomerStatistics.cs" />
+    <Compile Include="Interfaces\IDecoderBase64.cs" />
     <Compile Include="Logic\ConverterFromDTO.cs" />
     <Compile Include="Logic\CourseDetails.cs" />
     <Compile Include="Interfaces\ICourseDetails.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Logic\Catalog.cs" />
     <Compile Include="Interfaces\ICatalog.cs" />
     <Compile Include="Logic\Administration.cs" />
+    <Compile Include="Logic\DecoderBase64.cs" />
     <Compile Include="Managers\AdministrationBll.cs" />
     <Compile Include="Logic\CardEditor.cs" />
     <Compile Include="Managers\CatalogBll.cs" />
