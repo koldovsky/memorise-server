@@ -169,6 +169,11 @@ namespace MemoBll.Logic
             return unitOfWork.Cards.Get(cardId);
         }
 
+        public IEnumerable<CardType> GetAllCardTypes()
+        {
+            return unitOfWork.CardTypes.GetAll();
+        }
+
         #endregion
 
         #region ForCategory

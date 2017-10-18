@@ -103,6 +103,17 @@ namespace MemoBll.Logic
             return new CardTypeDTO { Name = cardtype.Name };
         }
 
+        public List<CardTypeDTO> ConvertToCardTypeListDTO(IEnumerable<CardType> cardTypes)
+        {
+            List<CardTypeDTO> cardTypeDTOs = new List<CardTypeDTO>();
+            foreach (var cardType in cardTypes)
+            {
+                cardTypeDTOs.Add(ConvertToCardTypeDTO(cardType));
+            }
+
+            return cardTypeDTOs;
+        }
+
         public AnswerDTO ConvertToAnswerDTO(Answer answer)
         {
             return new AnswerDTO
@@ -174,6 +185,8 @@ namespace MemoBll.Logic
 
             return cardDTOs;
         }
+       
+        
 
         public CommentDTO ConvertToCommentDTO(Comment comment)
         {
@@ -253,5 +266,7 @@ namespace MemoBll.Logic
                 IsBlocked = user.UserProfile.IsBlocked
             };
         }
+
+       
     }
 }

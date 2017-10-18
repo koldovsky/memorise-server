@@ -6,7 +6,7 @@ using MemoBll.Logic;
 using MemoDAL.Entities;
 using System.Collections.Generic;
 using System.Text;
-
+using System.Linq;
 
 namespace MemoRise.Controllers
 {
@@ -356,26 +356,27 @@ namespace MemoRise.Controllers
             }
         }
 
-        //[HttpGet]
-        //[Authorize]
-        //public IHttpActionResult GetCardsType()
-        //{
-        //    try
-        //    {
-        //        List<CardTypeDTO> cardsType = moderation.
-        //                                       .ToList();
-        //        return Ok(categories);
-        //    }
-        //    catch (ArgumentNullException ex)
-        //    {
-        //        var message = $"Categories collection is empty.";
-        //        return BadRequest(ex.Message);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
+        [HttpGet]
+        [Authorize]
+        public IHttpActionResult GetCardsType()
+        {
+            try
+            {
+                List<CardTypeDTO> cardTypes = moderation.GetAllCardTypes()
+                    .ToList();
+                                               
+                return Ok(cardTypes);
+            }
+            catch (ArgumentNullException ex)
+            {
+                var message = $"CardsType collection is empty.";
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         #endregion
 
         #region Answers
