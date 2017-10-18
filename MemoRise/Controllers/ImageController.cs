@@ -1,8 +1,12 @@
-﻿using FlickrNet;
+﻿using Imgur.API.Endpoints.Impl;
+using Imgur.API.Models;
+using MemoBll.Logic;
+using MemoBll.Managers;
+using MemoDAL;
 using MemoRise.Helpers;
 using System;
-using System.Configuration;
 using System.IO;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
@@ -13,26 +17,27 @@ namespace MemoRise.Controllers
     /// </summary>
     public class ImageController : ApiController
     {
-        private Flickr flickr;
+        private ImageEndpoint uploader;
+        Moderation moderation = new Moderation();
 
         public ImageController()
         {
-            this.flickr = FlickrManager.GetInstance();
+            this.uploader = UploadManager.GetInstance();
+            this.moderation = new Moderation();
         }
 
         [HttpPost]
-        [Route("memo/images/course/{linking}")]
+        [Route("Image/UploadPhotoForCourse/{linking}")]
         public IHttpActionResult UploadPhotoForCourse(string linking)
         {
             try
             {
-                var photo = UploadPhoto(SaveFile(), linking);
+                var photoLink = UploadPhoto(SaveFile(), linking);
+                var updatedCourse = moderation.FindCourseByLinking(linking);
+                updatedCourse.Photo = photoLink;
+                moderation.UpdateCourse(updatedCourse);
 
-                this.flickr.PhotosetsAddPhoto(
-                    ConfigurationManager.AppSettings["flickrCourseGalleryId"],
-                    photo.PhotoId);
-
-                return this.Ok(photo.OriginalUrl);
+                return this.Ok(photoLink);
             }
             catch (ArgumentNullException ex)
             {
@@ -42,18 +47,17 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
-        [Route("memo/images/deck/{linking}")]
+        [Route("Image/UploadPhotoForDeck/{linking}")]
         public IHttpActionResult UploadPhotoForDeck(string linking)
         {
             try
             {
-                var photo = UploadPhoto("", linking);
+                var photoLink = UploadPhoto(SaveFile(), linking);
+                var updatedDeck = moderation.FindDeckByLinking(linking);
+                updatedDeck.Photo = photoLink;
+                moderation.UpdateDeck(updatedDeck);
 
-                this.flickr.PhotosetsAddPhoto(
-                    ConfigurationManager.AppSettings["flickrDeckGalleryId"],
-                    photo.PhotoId);
-
-                return this.Ok(photo.OriginalUrl);
+                return this.Ok(photoLink);
             }
             catch (ArgumentNullException ex)
             {
@@ -63,18 +67,13 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
-        [Route("memo/images/category/{linking}")]
+        [Route("Image/UploadPhotoForCategory/{linking}")]
         public IHttpActionResult UploadPhotoForCategory(string linking)
         {
             try
             {
-                var photo = UploadPhoto("", linking);
-
-                this.flickr.PhotosetsAddPhoto(
-                    ConfigurationManager.AppSettings["flickrCategoryGalleryId"],
-                    photo.PhotoId);
-
-                return this.Ok(photo.OriginalUrl);
+                var photoLink = UploadPhoto(SaveFile(), linking);
+                return this.Ok(photoLink);
             }
             catch (ArgumentNullException ex)
             {
@@ -86,31 +85,38 @@ namespace MemoRise.Controllers
         public string SaveFile()
         {
             var file =
-                HttpContext.Current.Request.Files[0]
+                HttpContext.Current.Request.Files?[0]
                 ?? throw new ArgumentNullException();
+
+            var savePath = HttpContext.Current.Server.MapPath("~/uploads");
 
             if (file.ContentLength > 0)
             {
                 var fileName = Path.GetFileName(file.FileName);
 
                 var path = Path.Combine(
-                    HttpContext.Current.Server.MapPath("~/uploads"),
+                    savePath,
                     fileName
                 );
-
+                
+                if (!Directory.Exists(savePath))
+                {
+                    DirectoryInfo di = Directory.CreateDirectory(savePath);
+                }
                 file.SaveAs(path);
             }
 
-            return Path.Combine("/uploads", file.FileName);
+            return Path.Combine(savePath, file.FileName);
         }
 
-        public PhotoInfo UploadPhoto(string localPath, string title)
+        public string UploadPhoto(string localPath, string title)
         {
-            Flickr flickr = FlickrManager.GetAuthInstance();
-            string FileuploadedID = flickr.UploadPicture(
-                @localPath,
-                title);
-            return flickr.PhotosGetInfo(FileuploadedID);
+            IImage image;
+            using (var fileStream = new FileStream(localPath, FileMode.Open))
+            {
+                image = uploader.UploadImageStreamAsync(fileStream).GetAwaiter().GetResult();
+            }
+            return image.Link;
         }
     }
 }

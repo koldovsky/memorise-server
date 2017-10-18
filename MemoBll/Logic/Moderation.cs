@@ -135,6 +135,13 @@ namespace MemoBll.Logic
                 .FirstOrDefault();
         }
 
+        public Deck FindDeckByLinking(string deckLinking)
+        {
+            return unitOfWork.Decks.GetAll()
+                .Where(c => c.Linking.ToLower() == deckLinking.ToLower())
+                .FirstOrDefault();
+        }
+
         #endregion
 
         #region ForCard
@@ -208,6 +215,13 @@ namespace MemoBll.Logic
                 .FirstOrDefault();
         }
 
+        public Category FindCategoryByLinking(string categoryLinking)
+        {
+            return unitOfWork.Categories.GetAll()
+                .Where(c => c.Linking.ToLower() == categoryLinking.ToLower())
+                .FirstOrDefault();
+        }
+
         #endregion
 
         #region ForCourse
@@ -234,6 +248,13 @@ namespace MemoBll.Logic
         {
             return unitOfWork.Courses.GetAll()
                 .Where(c => c.Name.ToLower() == courseName.ToLower())
+                .FirstOrDefault();
+        }
+
+        public Course FindCourseByLinking(string courseLinking)
+        {
+            return unitOfWork.Courses.GetAll()
+                .Where(c => c.Linking.ToLower() == courseLinking.ToLower())
                 .FirstOrDefault();
         }
 

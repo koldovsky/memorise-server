@@ -11,6 +11,7 @@ namespace MemoBll.Interfaces
         double GetDeckPrice(int deckId);
         IEnumerable<Deck> GetAllNewDecks(DateTime fromDate);
         Course GetCourseByName(string name);
+        Course GetCourseByLinking(string linking);
         Course GetCourseById(int id);
     }
 }

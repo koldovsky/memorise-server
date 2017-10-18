@@ -1,15 +1,11 @@
-﻿using System;
+﻿using MemoBll.Managers;
+using MemoDTO;
+using MemoRise.Helpers;
+using MemoRise.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using MemoBll.Managers;
-using MemoDTO;
-using MemoRise.Helpers;
-using System.Configuration;
-using FlickrNet;
-using PagedList;
-using PagedList.Mvc;
-using MemoRise.Models;
 
 namespace MemoRise.Controllers
 {
@@ -204,7 +200,6 @@ namespace MemoRise.Controllers
                 {
                     throw new Exception("Courses aren't found by this category!");
                 }
-                PhotoUrlLoader.LoadCoursesPhotos(courses);
 
                 return Ok(courses.ToList());
             }
@@ -232,7 +227,6 @@ namespace MemoRise.Controllers
                 {
                     throw new Exception("Decks aren't found by this category!");
                 }
-                PhotoUrlLoader.LoadDecksPhotos(decks);
 
                 return Ok(decks.ToList());
             }
@@ -257,7 +251,6 @@ namespace MemoRise.Controllers
             {
                 List<DeckDTO> decks = catalog.GetAllDecksByCourse(courseName)
                                      .ToList();
-                PhotoUrlLoader.LoadDecksPhotos(decks);
                 return Ok(decks);
             }
             catch (ArgumentNullException ex)
@@ -303,7 +296,6 @@ namespace MemoRise.Controllers
 
                 CourseWithDecksDTO course = catalog
                                            .GetCourseWithDecksDTO(courseName);
-                PhotoUrlLoader.LoadCourseAndDecksPhotos(course);
 
                 return Ok(course);
             }
