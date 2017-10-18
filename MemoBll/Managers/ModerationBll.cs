@@ -258,6 +258,12 @@ namespace MemoBll.Managers
             
         }
 
+        public IEnumerable<CardTypeDTO> GetAllCardTypes()
+        {
+            var cardTypes = moderation.GetAllCardTypes();
+            return converterToDto.ConvertToCardTypeListDTO(cardTypes);
+        }
+
         #endregion
     }
 }

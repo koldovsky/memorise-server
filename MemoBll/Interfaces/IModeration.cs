@@ -40,5 +40,7 @@ namespace MemoBll.Interfaces
         void UpdateCard(Card card);
         void RemoveCard(int cardId);
         Card FindCardById(int cardId);
+        IEnumerable<CardType> GetAllCardTypes();
+
     }
 }
