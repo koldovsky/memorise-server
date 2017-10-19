@@ -45,7 +45,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IConverterFromDTO.cs" />
-    <Compile Include="Interfaces\ICustomerStatistics.cs" />
     <Compile Include="Interfaces\IDecoderBase64.cs" />
     <Compile Include="Interfaces\IUserStatistics.cs" />
     <Compile Include="Interfaces\IUserSubscriptions.cs" />
