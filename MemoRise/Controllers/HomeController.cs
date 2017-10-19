@@ -8,7 +8,15 @@ namespace MemoRise.Controllers
 {
     public class HomeController : Controller
     {
-        UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
+        IUnitOfWork unitOfWork;
+        public HomeController()
+        {
+            unitOfWork = new UnitOfWork(new MemoContext());
+        }
+        public HomeController(IUnitOfWork unitOfWork)
+        {
+            this.unitOfWork = unitOfWork;
+        }
 
         public async System.Threading.Tasks.Task<ActionResult> Index()
         {

@@ -105,6 +105,7 @@ namespace MemoBll.Logic
                 Description = courseDTO.Description,
                 Linking = courseDTO.Linking,
                 Price = courseDTO.Price
+               
             };
         }
 
@@ -117,8 +118,6 @@ namespace MemoBll.Logic
                 Description = courseWithDecksDTO.Description,
                 Linking = courseWithDecksDTO.Linking,
                 Price = courseWithDecksDTO.Price,
-                Decks = ConvertToDeckList(courseWithDecksDTO.Decks),
-                Category = ConvertToCategory(courseWithDecksDTO.Category),
                 Photo = courseWithDecksDTO.Photo
             };
         }
@@ -135,8 +134,9 @@ namespace MemoBll.Logic
                   Id = deckDTO.Id,
                   Name = deckDTO.Name,
                   Linking = deckDTO.Linking,
-                  Price = deckDTO.Price
-            };
+                  Price = deckDTO.Price,
+                  Description = deckDTO.Description
+    };
         }
 
         public List<Deck> ConvertToDeckList(IEnumerable<DeckDTO> decks)

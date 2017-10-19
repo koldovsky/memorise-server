@@ -57,6 +57,29 @@ namespace MemoRise.Controllers
         }
 
         [HttpGet]
+        [Route("Quiz/GetCardsByDeckArray/{deckLink}")]
+        public HttpResponseMessage GetCardsByDeckArray(string deckLink)   
+        {
+            var arrayOfLinks = deckLink.Split(',');
+            try
+            {
+                List<CardDTO> cards = quiz.GetCardsByDeckArray(arrayOfLinks);
+                return Request.CreateResponse(HttpStatusCode.OK, cards);
+            }
+            catch (ArgumentNullException ex)
+            {
+                var message = $"Deck with name = {deckLink} not found. {ex.Message}";
+                HttpError err = new HttpError(message);
+                return Request.CreateResponse(HttpStatusCode.NotFound, err);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+
+            }
+        }
+
+        [HttpGet]
         [Route("Quiz/IsAnswerCorrect/{cardId:int}/{answerText}")]
         public IHttpActionResult IsAnswerCorrect(int cardId, string answerText)
         {

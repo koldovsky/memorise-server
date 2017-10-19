@@ -1,5 +1,8 @@
 ﻿using System;
+using MemoBll;
 using MemoBll.Managers;
+using MemoDTO;
+using System.Collections.Generic;
 using System.Web.Http;
 
 namespace MemoRise.Controllers
@@ -9,6 +12,7 @@ namespace MemoRise.Controllers
         UserProfileBll userProfile = new UserProfileBll();
 
         [HttpGet]
+        //[Authorize(Roles = "Customer")]
         [Route("UserProfile/GetUserByLogin/{userLogin}")]
         public IHttpActionResult GetUserByLogin(string userLogin)
         {
@@ -16,10 +20,10 @@ namespace MemoRise.Controllers
             {
                 return Ok(userProfile.GetUserByLogin(userLogin));
             }
-            catch (ArgumentNullException)
+            catch (ArgumentNullException ex)
             {
-                var message = "Could not find such user.";
-                return BadRequest(message);
+                var message = $"Could not find such user.";
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {

@@ -66,5 +66,12 @@ namespace MemoBll.Logic
 				.GetAll()
 				.FirstOrDefault(x => x.Linking == courseLinking);
 		}
-	}
+
+        public Deck GetDeck(string linking)
+        {
+            return unitOfWork.Decks
+                .GetAll()
+                .FirstOrDefault(x => x.Linking == linking);
+        }
+    }
 }
