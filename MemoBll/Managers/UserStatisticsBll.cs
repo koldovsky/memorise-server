@@ -9,22 +9,22 @@ using MemoDTO;
 
 namespace MemoBll.Managers
 {
-    public class CustomerStatisticsBll
+    public class UserStatisticsBll
     {
-        ICustomerStatistics statistics;
+        IUserStatistics statistics;
         IConverterToDTO converterToDto;
         IConverterFromDTO converterFromDto;
 
-        public CustomerStatisticsBll()
+        public UserStatisticsBll()
         {
             var uow = new UnitOfWork(new MemoContext());
-            this.statistics = new CustomerStatistics(uow);
+            this.statistics = new UserStatistics(uow);
             this.converterToDto = new ConverterToDTO();
             this.converterFromDto = new ConverterFromDTO(uow);
         }
 
-        public CustomerStatisticsBll(
-            ICustomerStatistics statistics,
+        public UserStatisticsBll(
+            IUserStatistics statistics,
             IConverterToDTO converterToDto,
             IConverterFromDTO converterFromDto)
         {
@@ -42,22 +42,22 @@ namespace MemoBll.Managers
         }
 
         public IEnumerable<StatisticsDTO> GetDeckStatistics(
-            string userLogin,
+            string userName,
             int deckId)
         {
             var deckStatistics = statistics
-                .GetDeckStatistics(userLogin, deckId);
+                .GetDeckStatistics(userName, deckId);
             return deckStatistics
                 ?.Select(s => converterToDto.ConvertToStatisticsDTO(s))
                 ?? throw new ArgumentNullException();
         }
 
         public IEnumerable<StatisticsDTO> GetCourseStatistics(
-            string userLogin,
+            string userName,
             int courseId)
         {
             var courseStatistics = statistics
-                .GetCourseStatistics(userLogin, courseId);
+                .GetCourseStatistics(userName, courseId);
             return courseStatistics
                 ?.Select(s => converterToDto.ConvertToStatisticsDTO(s))
                 ?? throw new ArgumentNullException();
@@ -70,14 +70,14 @@ namespace MemoBll.Managers
             statistics.CreateStatistics(statisticsToCreate);
         }
 
-        public void CreateDeckStatistics(string userLogin, int deckId)
+        public void CreateDeckStatistics(string userName, int deckId)
         {
-            statistics.CreateDeckStatistics(userLogin, deckId);
+            statistics.CreateDeckStatistics(userName, deckId);
         }
 
-        public void CreateCourseStatistics(string userLogin, int courseId)
+        public void CreateCourseStatistics(string userName, int courseId)
         {
-            statistics.CreateCourseStatistics(userLogin, courseId);
+            statistics.CreateCourseStatistics(userName, courseId);
         }
 
         public void UpdateStatistics(StatisticsDTO statisticsDto)

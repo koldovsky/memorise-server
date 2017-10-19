@@ -23,8 +23,9 @@ namespace MemoDAL
 			this.reports = new ReportRepository(dbContext);
 			this.roles = new RoleRepository(new RoleStore<Role>(dbContext));
 			this.statistics = new StatisticsRepository(dbContext);
-			this.userCourses = new UserCourseRepository(dbContext);
+			this.subscribedCourses = new SubscribedCourseRepository(dbContext);
 			this.users = new UserRepository(new UserStore<User>(dbContext));
+            this.subscribedDecks = new SubscribedDeckRepository(dbContext);
 		}
 
 		#region Fields
@@ -40,8 +41,9 @@ namespace MemoDAL
 		private IReportRepository reports;
 		private RoleManager<Role> roles;
 		private IStatisticsRepository statistics;
-		private IUserCourseRepository userCourses;
+		private ISubscribedCourseRepository subscribedCourses;
 		private UserRepository users;
+	    private ISubscribedDeckRepository subscribedDecks;
 		private bool disposed = false;
 
 		#endregion
@@ -98,15 +100,20 @@ namespace MemoDAL
 			get { return statistics; }
 		}
 
-		public IUserCourseRepository UserCourses
+		public ISubscribedCourseRepository SubscribedCourses
 		{
-			get { return userCourses; }
+			get { return subscribedCourses; }
 		}
 
 		public UserRepository Users
 		{
 			get { return users; }
 		}
+
+	    public ISubscribedDeckRepository SubscribedDecks
+	    {
+            get { return subscribedDecks; }
+	    }
 
 		#endregion
 
@@ -115,7 +122,7 @@ namespace MemoDAL
             dbContext.SaveChanges();
 		}
 
-		protected virtual void Dispose(bool disposing)
+	    protected virtual void Dispose(bool disposing)
 		{
 			if (!this.disposed)
 			{

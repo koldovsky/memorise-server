@@ -9,40 +9,41 @@ using Microsoft.AspNet.Identity;
 
 namespace MemoBll.Logic
 {
-    class CustomerStatistics: ICustomerStatistics
+    class UserStatistics: IUserStatistics
     {
         IUnitOfWork unitOfWork;
 
-        public CustomerStatistics()
+        public UserStatistics()
         {
             unitOfWork = new UnitOfWork(new MemoContext());
         }
 
-        public CustomerStatistics(IUnitOfWork uow)
+        public UserStatistics(IUnitOfWork uow)
         {
             unitOfWork = uow;
         }
 
-        public Statistics GetStatistics(string userLogin, int cardId)
+        public Statistics GetStatistics(string userName, int cardId)
         {
             var stats = unitOfWork.Statistics.GetAll()
-                .FirstOrDefault(s => s.User.UserName == userLogin && s.Card.Id == cardId);
+                .FirstOrDefault(s => s.User.UserName == userName && s.Card.Id == cardId);
             return stats ?? new Statistics
             {
                 Card = unitOfWork.Cards.Get(cardId),
                 CardStatus = 0,
-                User = unitOfWork.Users.FindByName(userLogin)
+                User = unitOfWork.Users.FindByName(userName)
             };
         }
 
-        public IEnumerable<Statistics> GetDeckStatistics(string userLogin, int deckId)
+        public IEnumerable<Statistics> GetDeckStatistics(string userName, int deckId)
         {
-            var cards = unitOfWork.Decks.Get(deckId)?.Cards;
-            return cards?.Select(card => GetStatistics(userLogin, card.Id))
+            var cards = unitOfWork.Decks.Get(deckId)
+                ?.Cards 
                 ?? throw new ArgumentNullException();
+            return cards.Select(card => GetStatistics(userName, card.Id));
         }
 
-        public IEnumerable<Statistics> GetCourseStatistics(string userLogin, int courseId)
+        public IEnumerable<Statistics> GetCourseStatistics(string userName, int courseId)
         {
             var decks = unitOfWork.Courses.Get(courseId)
                 ?.Decks
@@ -50,7 +51,7 @@ namespace MemoBll.Logic
             var cards = decks
                 .Select(d => d.Cards).Aggregate((acc, c) => acc.Concat(c).ToList());
 
-            return cards.Select(card => GetStatistics(userLogin, card.Id));
+            return cards.Select(card => GetStatistics(userName, card.Id));
         }
 
         public void CreateStatistics(Statistics statistics)
@@ -59,9 +60,9 @@ namespace MemoBll.Logic
             unitOfWork.Save();
         }
 
-        public void CreateDeckStatistics(string userLogin, int deckId)
+        public void CreateDeckStatistics(string userName, int deckId)
         {
-            var user = unitOfWork.Users.FindByName(userLogin);
+            var user = unitOfWork.Users.FindByName(userName);
             var cards = unitOfWork.Decks.Get(deckId)
                 ?.Cards
                 ?? throw new ArgumentNullException();
@@ -77,12 +78,12 @@ namespace MemoBll.Logic
             });
         }
 
-        public void CreateCourseStatistics(string userLogin, int courseId)
+        public void CreateCourseStatistics(string userName, int courseId)
         {
             var decks = unitOfWork.Courses.Get(courseId)
                 ?.Decks
                 ?? throw new ArgumentNullException();
-            decks.ToList().ForEach(deck => CreateDeckStatistics(userLogin, deck.Id));
+            decks.ToList().ForEach(deck => CreateDeckStatistics(userName, deck.Id));
         }
 
         public void UpdateStatistics(Statistics statistics)

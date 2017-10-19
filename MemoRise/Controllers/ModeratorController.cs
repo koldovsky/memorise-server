@@ -14,6 +14,7 @@ namespace MemoRise.Controllers
         ConverterFromDTO converter = new ConverterFromDTO();
 
         [HttpPost]
+        [Authorize]
         public IHttpActionResult CreateCategory(CategoryDTO categoryDto)
         {
             if (!ModelState.IsValid)
