@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using MemoDAL;
 using MemoDAL.EF;
 using Microsoft.AspNet.Identity;
@@ -12,7 +8,15 @@ namespace MemoRise.Controllers
 {
     public class HomeController : Controller
     {
-        UnitOfWork unitOfWork = new UnitOfWork(new MemoContext());
+        IUnitOfWork unitOfWork;
+        public HomeController()
+        {
+            unitOfWork = new UnitOfWork(new MemoContext());
+        }
+        public HomeController(IUnitOfWork unitOfWork)
+        {
+            this.unitOfWork = unitOfWork;
+        }
 
         public async System.Threading.Tasks.Task<ActionResult> Index()
         {

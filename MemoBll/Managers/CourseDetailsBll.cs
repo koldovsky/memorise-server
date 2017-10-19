@@ -71,5 +71,15 @@ namespace MemoBll.Managers
 
             return courseDto;
         }
+
+        public CourseDTO GetCourseByLinking(string linking)
+        {
+            Course course = courseDetails.GetCourseByLinking(linking);
+            var courseDto = course != null
+                ? converterToDto.ConvertToCourseDTO(course)
+                : throw new ArgumentNullException();
+
+            return courseDto;
+        }
     }
 }

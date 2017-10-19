@@ -1,9 +1,14 @@
-﻿using System;
-using System.Configuration;
-using System.Linq;
-using System.Web.Http;
-using FlickrNet;
+﻿using Imgur.API.Endpoints.Impl;
+using Imgur.API.Models;
+using MemoBll.Logic;
+using MemoBll.Managers;
+using MemoDAL;
 using MemoRise.Helpers;
+using System;
+using System.IO;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Http;
 
 namespace MemoRise.Controllers
 {
@@ -12,25 +17,27 @@ namespace MemoRise.Controllers
     /// </summary>
     public class ImageController : ApiController
     {
-        private Flickr flickr;
+        private ImageEndpoint uploader;
+        Moderation moderation = new Moderation();
 
         public ImageController()
         {
-            this.flickr = FlickrManager.GetInstance();
+            this.uploader = UploadManager.GetInstance();
+            this.moderation = new Moderation();
         }
 
-        [HttpGet]
-        [Route("memo/images/course/{name}")]
-        public IHttpActionResult GetPhotoForCourseByName(string name)
+        [HttpPost]
+        [Route("Image/UploadPhotoForCourse/{linking}")]
+        public IHttpActionResult UploadPhotoForCourse(string linking)
         {
             try
             {
-                var photo = this.flickr.PhotosetsGetPhotos(
-                ConfigurationManager.AppSettings["flickrGalleryId"],
-                PhotoSearchExtras.OriginalUrl)
-                .First(ph => ph.Title == name);
+                var photoLink = UploadPhoto(SaveFile(), linking);
+                var updatedCourse = moderation.FindCourseByLinking(linking);
+                updatedCourse.Photo = photoLink;
+                moderation.UpdateCourse(updatedCourse);
 
-                return this.Ok(photo.OriginalUrl);
+                return this.Ok(photoLink);
             }
             catch (ArgumentNullException ex)
             {
@@ -40,30 +47,76 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Moderator")]
-        [Route("memo/images/upload")]
-        public IHttpActionResult UploadPhoto()
+        [Route("Image/UploadPhotoForDeck/{linking}")]
+        public IHttpActionResult UploadPhotoForDeck(string linking)
         {
             try
             {
-                // To implement upload with FlickrNet library you'll need to use syntax:
+                var photoLink = UploadPhoto(SaveFile(), linking);
+                var updatedDeck = moderation.FindDeckByLinking(linking);
+                updatedDeck.Photo = photoLink;
+                moderation.UpdateDeck(updatedDeck);
 
-                // OAuthAccessToken accessToken = new OAuthAccessToken();
-                // accessToken.FullName = "your app name"; -> here "Memorise"
-                // accessToken.Token = "get it from Flickr Website for your login";
-                // accessToken.TokenSecret = "get it from Flickr Website for your login";
-                // accessToken.UserId = "get it from Flickr Website for your login";
-                // accessToken.Username = "get it from Flickr Website for your login";
-                // FlickrManager.OAuthToken = accessToken;
-                // Flickr flickr = FlickrManager.GetAuthInstance();
-                // string FileuploadedID = flickr.UploadPicture(@url, title, description, tags, true, false, false);
-                // PhotoInfo oPhotoInfo = flickr.PhotosGetInfo(FileuploadedID);
-                return this.Ok();
+                return this.Ok(photoLink);
             }
             catch (ArgumentNullException ex)
             {
-                return this.BadRequest(ex.Message);
+                var message = $"Photo not found. {ex.Message}";
+                return this.BadRequest(message);
             }
+        }
+
+        [HttpPost]
+        [Route("Image/UploadPhotoForCategory/{linking}")]
+        public IHttpActionResult UploadPhotoForCategory(string linking)
+        {
+            try
+            {
+                var photoLink = UploadPhoto(SaveFile(), linking);
+                return this.Ok(photoLink);
+            }
+            catch (ArgumentNullException ex)
+            {
+                var message = $"Photo not found. {ex.Message}";
+                return this.BadRequest(message);
+            }
+        }
+
+        public string SaveFile()
+        {
+            var file =
+                HttpContext.Current.Request.Files?[0]
+                ?? throw new ArgumentNullException();
+
+            var savePath = HttpContext.Current.Server.MapPath("~/uploads");
+
+            if (file.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(file.FileName);
+
+                var path = Path.Combine(
+                    savePath,
+                    fileName
+                );
+                
+                if (!Directory.Exists(savePath))
+                {
+                    DirectoryInfo di = Directory.CreateDirectory(savePath);
+                }
+                file.SaveAs(path);
+            }
+
+            return Path.Combine(savePath, file.FileName);
+        }
+
+        public string UploadPhoto(string localPath, string title)
+        {
+            IImage image;
+            using (var fileStream = new FileStream(localPath, FileMode.Open))
+            {
+                image = uploader.UploadImageStreamAsync(fileStream).GetAwaiter().GetResult();
+            }
+            return image.Link;
         }
     }
 }

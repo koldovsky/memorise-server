@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using MemoBll;
 using MemoBll.Logic;
 using MemoDAL;
 using MemoDAL.Entities;

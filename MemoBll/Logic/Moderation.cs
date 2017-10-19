@@ -59,15 +59,14 @@ namespace MemoBll.Logic
         public IEnumerable<Statistics> GetDeckStatistics(int deckId)
         {
             return unitOfWork.Statistics
-                .GetAll().Where(x => x.Deck.Id == deckId);
+                .GetAll().Where(x => x.Card.Deck.Id == deckId);
         }
-
         
         public Statistics GetStatistics(string deckName, int userId)
         {
             return unitOfWork.Statistics
                 .GetAll()
-                .FirstOrDefault(x => x.Deck.Name == deckName
+                .FirstOrDefault(x => x.Card.Deck.Name == deckName
                 && x.User.UserProfile.Id == userId);
         }
 
@@ -83,25 +82,25 @@ namespace MemoBll.Logic
 
         public IEnumerable<User> GetAllUsersByCourse(int courseId)
         {
-            IEnumerable<UserCourse> userCourses = unitOfWork.UserCourses
+            IEnumerable<SubscribedCourse> subscribedCourses = unitOfWork.SubscribedCourses
                 .GetAll().Where(x => x.Course.Id == courseId);
             List<User> users = new List<User>();
-            foreach (UserCourse userCourse in userCourses)
+            foreach (var subscribedCourse in subscribedCourses)
             {
-                users.Add(userCourse.User);
+                users.Add(subscribedCourse.User);
             }
 
             return users;
         }
 
-        public IEnumerable<User> GetAllUsersByDeck(string deckName)
+        public IEnumerable<User> GetAllUsersByDeck(int deckid)
         {
-            IEnumerable<Statistics> statistics = unitOfWork.Statistics
-                .GetAll().Where(x => x.Deck.Name == deckName);
+            IEnumerable<SubscribedDeck> subscribedDecks = unitOfWork.SubscribedDecks
+                .GetAll().Where(x => x.Deck.Id == deckid);
             List<User> users = new List<User>();
-            foreach (var item in statistics)
+            foreach (var subscribedDeck in subscribedDecks)
             {
-                users.Add(item.User);
+                users.Add(subscribedDeck.User);
             }
 
             return users;
@@ -129,6 +128,20 @@ namespace MemoBll.Logic
             unitOfWork.Save();
         }
 
+        public Deck FindDeckByName(string deckName)
+        {
+            return unitOfWork.Decks.GetAll()
+                .Where(c => c.Name.ToLower() == deckName.ToLower())
+                .FirstOrDefault();
+        }
+
+        public Deck FindDeckByLinking(string deckLinking)
+        {
+            return unitOfWork.Decks.GetAll()
+                .Where(c => c.Linking.ToLower() == deckLinking.ToLower())
+                .FirstOrDefault();
+        }
+
         #endregion
 
         #region ForCard
@@ -151,6 +164,16 @@ namespace MemoBll.Logic
             unitOfWork.Save();
         }
 
+        public Card FindCardById(int cardId)
+        {
+            return unitOfWork.Cards.Get(cardId);
+        }
+
+        public IEnumerable<CardType> GetAllCardTypes()
+        {
+            return unitOfWork.CardTypes.GetAll();
+        }
+
         #endregion
 
         #region ForCategory
@@ -169,8 +192,39 @@ namespace MemoBll.Logic
 
         public void RemoveCategory(int categoryId)
         {
+            Category category = unitOfWork.Categories.Get(categoryId);
+            if (category.Decks.Count>0)
+            {
+                foreach( var deck in category.Decks.ToList())
+                {
+                    RemoveDeck(deck.Id);
+                }
+                
+            }
+            if (category.Courses.Count > 0)
+            {
+                foreach (var course in category.Courses.ToList())
+                {
+                    RemoveCourse(course.Id);
+                }
+                
+            }
             unitOfWork.Categories.Delete(categoryId);
             unitOfWork.Save();
+        }
+
+        public Category FindCategoryByName(string categoryName)
+        {
+            return unitOfWork.Categories.GetAll()
+                .Where(c => c.Name.ToLower() == categoryName.ToLower())
+                .FirstOrDefault();
+        }
+
+        public Category FindCategoryByLinking(string categoryLinking)
+        {
+            return unitOfWork.Categories.GetAll()
+                .Where(c => c.Linking.ToLower() == categoryLinking.ToLower())
+                .FirstOrDefault();
         }
 
         #endregion
@@ -193,6 +247,20 @@ namespace MemoBll.Logic
         {
             unitOfWork.Courses.Delete(courseId);
             unitOfWork.Save();
+        }
+
+        public Course FindCourseByName (string courseName)
+        {
+            return unitOfWork.Courses.GetAll()
+                .Where(c => c.Name.ToLower() == courseName.ToLower())
+                .FirstOrDefault();
+        }
+
+        public Course FindCourseByLinking(string courseLinking)
+        {
+            return unitOfWork.Courses.GetAll()
+                .Where(c => c.Linking.ToLower() == courseLinking.ToLower())
+                .FirstOrDefault();
         }
 
         #endregion

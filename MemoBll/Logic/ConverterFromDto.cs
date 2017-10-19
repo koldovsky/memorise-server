@@ -1,16 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MemoBll.Interfaces;
+using MemoDAL;
+using MemoDAL.EF;
 using MemoDAL.Entities;
 using MemoDTO;
+using Microsoft.AspNet.Identity;
 
 namespace MemoBll.Logic
 {
-    public class ConverterFromDto : IConverterFromDto
+    public class ConverterFromDTO : IConverterFromDTO
     {
+        private IUnitOfWork unitOfWork;
+
+        public ConverterFromDTO()
+        {
+            unitOfWork = new UnitOfWork(new MemoContext());
+        }
+
+        public ConverterFromDTO(IUnitOfWork uow)
+        {
+            unitOfWork = uow;
+        }
+
         public Answer ConvertToAnswer(AnswerDTO answerDTO)
         {
             return new Answer
@@ -92,6 +105,20 @@ namespace MemoBll.Logic
                 Description = courseDTO.Description,
                 Linking = courseDTO.Linking,
                 Price = courseDTO.Price
+               
+            };
+        }
+
+        public Course ConvertToCourse(CourseWithDecksDTO courseWithDecksDTO)
+        {
+            return new Course
+            {
+                Id = courseWithDecksDTO.Id,
+                Name = courseWithDecksDTO.Name,
+                Description = courseWithDecksDTO.Description,
+                Linking = courseWithDecksDTO.Linking,
+                Price = courseWithDecksDTO.Price,
+                Photo = courseWithDecksDTO.Photo
             };
         }
 
@@ -107,8 +134,9 @@ namespace MemoBll.Logic
                   Id = deckDTO.Id,
                   Name = deckDTO.Name,
                   Linking = deckDTO.Linking,
-                  Price = deckDTO.Price
-            };
+                  Price = deckDTO.Price,
+                  Description = deckDTO.Description
+    };
         }
 
         public List<Deck> ConvertToDeckList(IEnumerable<DeckDTO> decks)
@@ -126,14 +154,37 @@ namespace MemoBll.Logic
             throw new NotImplementedException();
         }
 
-        public Statistics ConvertToStatistic(StatisticDTO statistic)
+        public Statistics ConvertToStatistics(StatisticsDTO statistics)
         {
-            throw new NotImplementedException();
+            return new Statistics
+            {
+                Id = statistics.Id,
+                CardStatus = statistics.CardStatus,
+                User = unitOfWork.Users.FindByName(statistics.UserLogin),
+                Card = unitOfWork.Cards.Get(statistics.CardId)
+            };
         }
 
-        public UserCourse ConvertToUserCourse(UserCourseDTO userCourse)
+        public SubscribedCourse ConvertToSubscribedCourse(SubscribedCourseDTO subscribedCourse)
         {
-            throw new NotImplementedException();
+            return new SubscribedCourse
+            {
+                Id = subscribedCourse.Id,
+                Rating = subscribedCourse.Rating,
+                User = ConvertToUser(subscribedCourse.User),
+                Course = ConvertToCourse(subscribedCourse.Course)
+            };
+        }
+
+        public SubscribedDeck ConvertToSubscribedDeck(SubscribedDeckDTO userDeck)
+        {
+            return new SubscribedDeck
+            {
+                Id = userDeck.Id,
+                Rating = userDeck.Rating,
+                User = ConvertToUser(userDeck.User),
+                Deck = ConvertToDeck(userDeck.Deck)
+            };
         }
 
         /// <summary>

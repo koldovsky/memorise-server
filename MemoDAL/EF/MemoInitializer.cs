@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
+using System.Linq.Expressions;
 using MemoDAL.Entities;
 
 namespace MemoDAL.EF
@@ -8,6 +10,7 @@ namespace MemoDAL.EF
     {
         protected override void Seed(MemoContext context)
         {
+            
             #region Roles
 
             // ROLE
@@ -44,7 +47,7 @@ namespace MemoDAL.EF
             #region Categories
 
             // CATEGORY
-            IList<Category> categories = new List<Category>()
+            IList<Category> categories = new List<Category>
             {
                 new Category{Name = ".Net", Linking = "_Net"},
                 new Category{Name = "Java", Linking = "Java"},
@@ -52,17 +55,14 @@ namespace MemoDAL.EF
                 new Category{Name = "Python", Linking = "Python"},
                 new Category{Name = "Ruby", Linking = "Ruby"}
             };
-            foreach (var cat in categories)
-            {
-                context.Categories.Add(cat);
-            }
+            context.Categories.AddRange(categories);
 
             #endregion
 
             #region Decks
 
             // DECK
-            IList<Deck> decks = new List<Deck>()
+            IList<Deck> decks = new List<Deck>
             {
                 new Deck{Name = "Arrays", Linking = "Arrays", Price = 0, Category = categories[0]},
                 new Deck{Name = "Generics", Linking = "Generics", Price = 0, Category = categories[0]},
@@ -75,19 +75,17 @@ namespace MemoDAL.EF
                 new Deck{Name = "Routing", Linking = "Routing", Price = 0, Category = categories[0]},
                 new Deck{Name = "XAML", Linking = "XAML", Price = 0, Category = categories[0]},
                 new Deck{Name = "Binding", Linking = "Binding", Price = 0, Category = categories[0]},
-                new Deck{Name = "CSS", Linking = "CSS", Price = 0, Category = categories[2]}
+                new Deck{Name = "CSS", Linking = "CSS", Price = 0, Category = categories[2]},
+                new Deck{Name = "Base knowledge", Linking="BaseKnowledge", Price=12, Category = categories[0] }
             };
-            foreach (var deck in decks)
-            {
-                context.Decks.Add(deck);
-            }
-
+            context.Decks.AddRange(decks);
+            
             #endregion
 
             #region Courses
 
             // COURSE
-            IList<Course> courses = new List<Course>()
+            IList<Course> courses = new List<Course>
             {
                 new Course{Name = "C#", Linking = "cSharp", Description = "C# course description",Price = 0,Category = categories[0]},
                 new Course{Name = "ASP.MVC", Linking = "ASP_MVC", Description = "ASP.MVC course description",Price = 0,Category = categories[0]},
@@ -99,6 +97,8 @@ namespace MemoDAL.EF
             {
                 courses[0].Decks.Add(decks[i]);
             }
+            courses[0].Decks.Add(decks[12]);
+
             for (int i = 3; i < 6; i++)
             {
                 courses[1].Decks.Add(decks[i]);
@@ -115,11 +115,8 @@ namespace MemoDAL.EF
             {
                 courses[4].Decks.Add(decks[i]);
             }
-            foreach (var course in courses)
-            {
-                context.Courses.Add(course);
-            }
-
+            context.Courses.AddRange(courses);
+            
             #endregion
 
             #region User Courses
@@ -132,24 +129,21 @@ namespace MemoDAL.EF
             #region Card Types
 
             // CARDTYPE
-            IList<CardType> cardTypes = new List<CardType>()
+            IList<CardType> cardTypes = new List<CardType>
             {
                 new CardType{Name = "One answer"},
                 new CardType{Name = "Few answers"},
                 new CardType{Name = "Words input"},
                 new CardType{Name = "Code input"}
             };
-            foreach (var cardType in cardTypes)
-            {
-                context.CardTypes.Add(cardType);
-            }
-
+            context.CardTypes.AddRange(cardTypes);
+            
             #endregion
 
             #region Cards
 
             // CARD
-            IList<Card> cards = new List<Card>()
+            IList<Card> cards = new List<Card>
             {
                 #region Arrays
 
@@ -198,7 +192,7 @@ namespace MemoDAL.EF
                 {
                     Question = "Which of the following statements is valid about generic procedures in C#.NET?",
                     Deck = decks[1],
-                    CardType  = cardTypes[0]
+                    CardType  = cardTypes[1]
                 },
                 new Card
                 {
@@ -237,18 +231,64 @@ namespace MemoDAL.EF
                 },
 
                 #endregion
+
+                #region Base knowledge
+
+                new Card
+                {
+                     Question = "What key word is used in class declaration to prevent the class from being inherited from other classes?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "What operator is used for checking the object with type and this will return a Boolean value?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "What is name of the compiler for C#?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "What is the base type for all other types in C#?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                //new Card
+                //{
+                //     Question = @"Your goal in this kata is to implement an difference function, which subtracts one list from another.
+
+                //                It should remove all values from list a, which are present in list b.
+
+                //                Kata.ArrayDiff(new int[] {1, 2}, new int[] {1}) => new int[] {2}
+                //                If a value is present in b, all of its occurrences must be removed from the other:
+
+                //                Kata.ArrayDiff(new int[] { 1, 2, 2, 2, 3 }, new int[] { 2 }) => new int[] { 1, 3 }",
+                //     CardType = cardTypes[3],
+                //     Deck = decks[12]
+                //},
+                new Card
+                {
+                     Question = @"Return sum a and b",
+                     CardType = cardTypes[3],
+                     Deck = decks[12]
+                },
+
+                #endregion
+
             };
-            foreach (var card in cards)
-            {
-                context.Cards.Add(card);
-            }
+            context.Cards.AddRange(cards);
 
             #endregion
 
             #region Answers
 
             // ANSWER
-            IList<Answer> answers = new List<Answer>()
+            IList<Answer> answers = new List<Answer>
             {
                 #region Arrays 1
 
@@ -642,14 +682,81 @@ namespace MemoDAL.EF
                     Text = "None of the above.",
                     IsCorrect = false,
                     Card = cards[11]
-                }
+                },
 
                 #endregion
+
+                #region For Base knowledge
+
+                new Answer
+                {
+                    Text = "sealed",
+                    IsCorrect = true,
+                    Card = cards[12]
+                },
+                new Answer
+                {
+                    Text = "is",
+                    IsCorrect = true,
+                    Card = cards[13]
+                },
+                new Answer
+                {
+                    Text = "CSC",
+                    IsCorrect = true,
+                    Card = cards[14]
+                },
+                new Answer
+                {
+                    Text = "csc",
+                    IsCorrect = true,
+                    Card = cards[14]
+                },
+                new Answer
+                {
+                    Text = "object",
+                    IsCorrect = true,
+                    Card = cards[15]
+                },
+                new Answer
+                {
+                    Text = "System.Object",
+                    IsCorrect = true,
+                    Card = cards[15]
+                },
+                new Answer
+                {
+                    Text = "Object",
+                    IsCorrect = true,
+                    Card = cards[15]
+                },
+                //new Answer
+                //{
+                //    Text = @"public int[] ArrayDiff(int[] a, int[] b)
+                //                        {
+                //                            // Your brilliant solution goes here
+                //                            // It's possible to pass random tests in about a second ;)
+                //                        }",
+                //    IsCorrect = true,
+                //    Card = cards[16]
+                //},
+                new Answer
+                {
+                    Text = @"
+                            public class Calculator
+                            {
+                                public int Sum(int a, int b)
+                                {
+                                    //Type your code here
+                                }
+                            }
+                    ",
+                    IsCorrect = true,
+                    Card = cards[16]
+                },
+                #endregion
             };
-            foreach (var answer in answers)
-            {
-                context.Answers.Add(answer);
-            }
+            context.Answers.AddRange(answers);
 
             #endregion
 

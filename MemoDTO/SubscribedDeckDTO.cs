@@ -1,10 +1,9 @@
 ﻿namespace MemoDTO
 {
-
-    public class StatisticDTO
-
+    public class SubscribedDeckDTO
     {
-        public int SuccessPercent { get; set; }
+        public int Id { get; set; }
+        public int Rating { get; set; }
         public UserDTO User { get; set; }
         public DeckDTO Deck { get; set; }
     }
