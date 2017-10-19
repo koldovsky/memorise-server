@@ -25,9 +25,9 @@ namespace MemoBll.Logic
         public IEnumerable<Course> GetCoursesByUser(string userEmail)
         {
             List<Course> courses = new List<Course>();
-            IEnumerable<UserCourse> userCourses = unitOfWork.UserCourses
+            IEnumerable<SubscribedCourse> userCourses = unitOfWork.SubscribedCourses
                 .GetAll().Where(x => x.User.Email == userEmail);
-            foreach (UserCourse userCourse in userCourses)
+            foreach (SubscribedCourse userCourse in userCourses)
             {
                 courses.Add(userCourse.Course);
             }
