@@ -19,6 +19,7 @@ namespace MemoRise.Controllers
         #region Categories
 
         [HttpPost]
+        [Authorize]
         public IHttpActionResult CreateCategory(CategoryDTO categoryDto)
         {
             categoryDto = decoder.DecodeCategory(categoryDto);
