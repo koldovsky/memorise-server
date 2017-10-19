@@ -37,37 +37,31 @@ namespace MemoRise.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("Catalog/GetCategoriesByPage/{page}/{pageSize}/{sort}")]
-        public IHttpActionResult GetCategoriesByPage(int page, int pageSize, bool sort) 
+        [HttpPost]
+        public IHttpActionResult GetCategoriesByPage([FromBody]SearchDataModel searchDataModel) 
         {
+            int totalCount = 0;
             try
             {
-                List<CategoryDTO> categories;
-                if (page == 0 && pageSize == 0)
+                IEnumerable<CategoryDTO> categories = catalog.GetAllCategories();
+                if (!string.IsNullOrEmpty(searchDataModel.SearchString))
                 {
-                    categories = catalog.GetAllCategories().ToList();
+                    categories = categories.Where(category => category.Name.ToLower().Contains(searchDataModel.SearchString.ToLower()));
+                }
+                totalCount = categories.Count();
+                categories = searchDataModel.Sort ? categories.OrderByDescending(name => name.Name) : categories.OrderBy(name => name.Name);
+
+                if (searchDataModel.Page == 1 && searchDataModel.PageSize == 0)
+                {
+                    categories = categories.ToList();
                 }
                 else
                 {
-                    if (!sort)
-                    {
-                        categories = catalog.GetAllCategories()
-                            .OrderBy(name => name.Name)
-                            .Skip((page - 1) * pageSize)
-                            .Take(pageSize)
-                            .ToList();
-                    }
-                    else
-                    {
-                        categories = catalog.GetAllCategories()
-                            .OrderByDescending(name => name.Name)
-                            .Skip((page - 1) * pageSize)
-                            .Take(pageSize)
-                            .ToList();
-                    }
+                    categories = categories.Skip((searchDataModel.Page - 1) * searchDataModel.PageSize)
+                                 .Take(searchDataModel.PageSize)
+                                 .ToList();
                 }
-                var temp = new { items = categories, totalCount = categories.Count };
+                var temp = new { items = categories, totalCount = totalCount };
                 return Ok(temp);
             }
             catch (ArgumentNullException ex)
@@ -87,7 +81,7 @@ namespace MemoRise.Controllers
             try
             {
                 List<CourseDTO> courses = catalog.GetAllCourses().ToList();
-                PhotoUrlLoader.LoadCoursesPhotos(courses);
+                //PhotoUrlLoader.LoadCoursesPhotos(courses);
                 return Ok(courses);
             }
             catch (ArgumentNullException ex)
@@ -101,37 +95,31 @@ namespace MemoRise.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("Catalog/GetCoursesByPage/{page}/{pageSize}/{sort}")]
-        public IHttpActionResult GetCoursesByPage(int page, int pageSize, bool sort)
+        [HttpPost]
+        public IHttpActionResult GetCoursesByPage([FromBody]SearchDataModel searchDataModel)    
         {
+            int totalCount = 0;
             try
             {
-                List<CourseDTO> courses;
-                if (page == 0 && pageSize == 0)
+                IEnumerable<CourseDTO> courses = catalog.GetAllCourses();
+                if (!string.IsNullOrEmpty(searchDataModel.SearchString))
                 {
-                    courses = catalog.GetAllCourses().ToList();
+                    courses = courses.Where(course => course.Name.ToLower().Contains(searchDataModel.SearchString.ToLower()));
+                }
+                totalCount = courses.Count();
+                courses = searchDataModel.Sort ? courses.OrderByDescending(name => name.Name) : courses.OrderBy(name => name.Name);
+
+                if (searchDataModel.Page == 1 && searchDataModel.PageSize == 0)
+                {
+                    courses = courses.ToList();
                 }
                 else
                 {
-                    if (!sort)
-                    {
-                        courses = catalog.GetAllCourses()
-                            .OrderBy(name => name.Name)
-                            .Skip((page - 1) * pageSize)
-                            .Take(pageSize)
-                            .ToList();
-                    }
-                    else
-                    {
-                        courses = catalog.GetAllCourses()
-                            .OrderByDescending(name => name.Name)
-                            .Skip((page - 1) * pageSize)
-                            .Take(pageSize)
-                            .ToList();
-                    }
+                    courses = courses.Skip((searchDataModel.Page - 1) * searchDataModel.PageSize)
+                                 .Take(searchDataModel.PageSize)
+                                 .ToList();
                 }
-                var temp = new { items = courses, totalCount = courses.Count };
+                var temp = new { items = courses, totalCount = totalCount };
                 return Ok(temp);
             }
             catch (ArgumentNullException ex)
@@ -144,14 +132,14 @@ namespace MemoRise.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        [Authorize]
         [HttpGet]
         public IHttpActionResult GetDecks()
         {
             try
             {
                 List<DeckDTO> decks = catalog.GetAllDecks().ToList();
-                PhotoUrlLoader.LoadDecksPhotos(decks);
+                //PhotoUrlLoader.LoadDecksPhotos(decks);
 
                 return Ok(decks);
             }
@@ -167,26 +155,25 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
-        //[Route("Catalog/GetDecksByPage/{page}/{pageSize}/{sort}/{searchString}")]
         public IHttpActionResult GetDecksByPage([FromBody]SearchDataModel searchDataModel)
         {
             int totalCount = 0;
             try
             {
-                IEnumerable<DeckDTO> decks;
-                if (searchDataModel.Page == 0 && searchDataModel.PageSize == 0)
+                IEnumerable<DeckDTO> decks = catalog.GetAllDecks();
+                if (!string.IsNullOrEmpty(searchDataModel.SearchString))
                 {
-                    decks = catalog.GetAllDecks().ToList();
+                    decks = decks.Where(deck => deck.Name.ToLower().Contains(searchDataModel.SearchString.ToLower()));
+                }
+                totalCount = decks.Count();
+                decks = searchDataModel.Sort ? decks.OrderByDescending(name => name.Name) : decks.OrderBy(name => name.Name);
+                
+                if (searchDataModel.Page == 1 && searchDataModel.PageSize == 0)
+                {
+                    decks = decks.ToList();
                 }
                 else
                 {
-                    decks = catalog.GetAllDecks();
-                    if (!string.IsNullOrEmpty(searchDataModel.SearchString))
-                    {
-                        decks = decks.Where(deck => deck.Name.ToLower().Contains(searchDataModel.SearchString.ToLower()));
-                    }
-                    totalCount = decks.Count();
-                    decks = searchDataModel.Sort ? decks.OrderByDescending(name => name.Name) : decks.OrderBy(name => name.Name);
                     decks = decks.Skip((searchDataModel.Page - 1) * searchDataModel.PageSize)
                                  .Take(searchDataModel.PageSize)
                                  .ToList();

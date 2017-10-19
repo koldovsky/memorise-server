@@ -13,6 +13,7 @@ namespace MemoBll.Interfaces
         CourseWithDecksDTO ConvertToCourseWithDecksDTO(Course course);
         CategoryDTO ConvertToCategoryDTO(Category category);
         CardTypeDTO ConvertToCardTypeDTO(CardType cardtype);
+        List<CardTypeDTO> ConvertToCardTypeListDTO(IEnumerable<CardType> cardTypes);
         AnswerDTO ConvertToAnswerDTO(Answer answer);
         List<AnswerDTO> ConvertToAnswerListDTO(IEnumerable<Answer> answers);
         RoleDTO ConvertToRoleDTO(Role role);
