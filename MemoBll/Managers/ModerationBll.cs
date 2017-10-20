@@ -11,17 +11,17 @@ namespace MemoBll.Managers
 	public class ModerationBll
     {
         IModeration moderation;
-        IConverterToDTO converterToDto;
+        IConverterToDto converterToDto;
 
         public ModerationBll()
         {
             moderation = new Moderation();
-            converterToDto = new ConverterToDTO();
+            converterToDto = new ConverterToDto();
         }
 
         public ModerationBll(
             IModeration moderation, 
-            IConverterToDTO converterToDto)
+            IConverterToDto converterToDto)
         {
             this.moderation = moderation;
             this.converterToDto = converterToDto;
@@ -98,7 +98,7 @@ namespace MemoBll.Managers
             List<UserDTO> usersDto = new List<UserDTO>();
             foreach (var user in users)
             {
-                usersDto.Add(converterToDto.ConvertToUserDTO(user));
+                usersDto.Add(converterToDto.ConvertToUserDto(user));
             }
 
             return usersDto;
@@ -110,7 +110,7 @@ namespace MemoBll.Managers
             List<UserDTO> usersDto = new List<UserDTO>();
             foreach (var user in users)
             {
-                usersDto.Add(converterToDto.ConvertToUserDTO(user));
+                usersDto.Add(converterToDto.ConvertToUserDto(user));
             }
 
             return usersDto;
@@ -157,7 +157,7 @@ namespace MemoBll.Managers
         public CategoryDTO FindCategoryDTOByName(string categoryName)
         {
             Category category = moderation.FindCategoryByName(categoryName);
-            return converterToDto.ConvertToCategoryDTO(category);
+            return converterToDto.ConvertToCategoryDto(category);
 
         }
 
@@ -187,7 +187,7 @@ namespace MemoBll.Managers
         public CourseDTO FindCourseDtoByName(string courseName)
         {
             Course course = moderation.FindCourseByName(courseName);
-            return converterToDto.ConvertToCourseDTO(course);
+            return converterToDto.ConvertToCourseDto(course);
         }
         public Course FindCourseByName(string courseName)
         {
@@ -216,7 +216,7 @@ namespace MemoBll.Managers
         public DeckDTO FindDeckDTOByName(string deckName)
         {
             Deck deck = moderation.FindDeckByName(deckName);
-            return converterToDto.ConvertToDeckDTO(deck);
+            return converterToDto.ConvertToDeckDto(deck);
         }
 
         public Deck FindDeckByName(string deckName)
@@ -261,7 +261,7 @@ namespace MemoBll.Managers
         public IEnumerable<CardTypeDTO> GetAllCardTypes()
         {
             var cardTypes = moderation.GetAllCardTypes();
-            return converterToDto.ConvertToCardTypeListDTO(cardTypes);
+            return converterToDto.ConvertToCardTypeListDto(cardTypes);
         }
 
         #endregion

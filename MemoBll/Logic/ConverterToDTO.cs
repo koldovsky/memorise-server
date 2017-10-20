@@ -4,13 +4,11 @@ using MemoDTO;
 using System.Collections.Generic;
 using System.Linq;
 
-
-
 namespace MemoBll.Logic
 {
-	public class ConverterToDTO : IConverterToDTO
+	public class ConverterToDto : IConverterToDto
     {
-        public DeckDTO ConvertToDeckDTO(Deck deck)
+        public DeckDTO ConvertToDeckDto(Deck deck)
         {
             List<string> cardIds = new List<string>();
             if (deck.Cards.Count > 0)
@@ -39,18 +37,18 @@ namespace MemoBll.Logic
             };
         }
 
-        public List<DeckDTO> ConvertToDeckListDTO(IEnumerable<Deck> decks)
+        public List<DeckDTO> ConvertToDeckListDto(IEnumerable<Deck> decks)
         {
             List<DeckDTO> deckDTOs = new List<DeckDTO>();
             foreach (Deck deck in decks)
             {
-                deckDTOs.Add(ConvertToDeckDTO(deck));
+                deckDTOs.Add(ConvertToDeckDto(deck));
             }
 
             return deckDTOs;
         }
 
-        public CourseDTO ConvertToCourseDTO(Course course)
+        public CourseDTO ConvertToCourseDto(Course course)
         {
             return new CourseDTO
             {
@@ -58,23 +56,24 @@ namespace MemoBll.Logic
                 Name = course.Name,
                 Linking = course.Linking,
                 Price = course.Price,
+                Photo = course.Photo,
                 Description = course.Description,
                 CategoryName = course.Category.Name
         };
         }
 
-        public List<CourseDTO> ConvertToCourseListDTO(IEnumerable<Course> courses)
+        public List<CourseDTO> ConvertToCourseListDto(IEnumerable<Course> courses)
         {
             List<CourseDTO> courseDTOs = new List<CourseDTO>();
             foreach (var course in courses)
             {
-                courseDTOs.Add(ConvertToCourseDTO(course));
+                courseDTOs.Add(ConvertToCourseDto(course));
             }
 
             return courseDTOs;
         }
         
-        public CourseWithDecksDTO ConvertToCourseWithDecksDTO(Course course)
+        public CourseWithDecksDTO ConvertToCourseWithDecksDto(Course course)
         {
             return new CourseWithDecksDTO
             {
@@ -83,13 +82,13 @@ namespace MemoBll.Logic
                 Linking = course.Linking,
                 Price = course.Price,
                 Description = course.Description,
-                Decks = ConvertToDeckListDTO(course.Decks),
-                Category = ConvertToCategoryDTO(course.Category),
+                Decks = ConvertToDeckListDto(course.Decks),
+                Category = ConvertToCategoryDto(course.Category),
                 Photo = course.Photo
             };
         }
 
-        public CategoryDTO ConvertToCategoryDTO(Category category)
+        public CategoryDTO ConvertToCategoryDto(Category category)
         {
             return new CategoryDTO {
                 Id =category.Id,
@@ -98,23 +97,23 @@ namespace MemoBll.Logic
             };
         }
 
-        public CardTypeDTO ConvertToCardTypeDTO(CardType cardtype)
+        public CardTypeDTO ConvertToCardTypeDto(CardType cardtype)
         {
             return new CardTypeDTO { Name = cardtype.Name };
         }
 
-        public List<CardTypeDTO> ConvertToCardTypeListDTO(IEnumerable<CardType> cardTypes)
+        public List<CardTypeDTO> ConvertToCardTypeListDto(IEnumerable<CardType> cardTypes)
         {
             List<CardTypeDTO> cardTypeDTOs = new List<CardTypeDTO>();
             foreach (var cardType in cardTypes)
             {
-                cardTypeDTOs.Add(ConvertToCardTypeDTO(cardType));
+                cardTypeDTOs.Add(ConvertToCardTypeDto(cardType));
             }
 
             return cardTypeDTOs;
         }
 
-        public AnswerDTO ConvertToAnswerDTO(Answer answer)
+        public AnswerDTO ConvertToAnswerDto(Answer answer)
         {
             return new AnswerDTO
             {
@@ -124,12 +123,12 @@ namespace MemoBll.Logic
             };
         }
 
-        public List<AnswerDTO> ConvertToAnswerListDTO(IEnumerable<Answer> answers)
+        public List<AnswerDTO> ConvertToAnswerListDto(IEnumerable<Answer> answers)
         {
             List<AnswerDTO> answerDTOs = new List<AnswerDTO>();
             foreach (Answer answer in answers)
             {
-                answerDTOs.Add(ConvertToAnswerDTO(answer));
+                answerDTOs.Add(ConvertToAnswerDto(answer));
             }
 
             return answerDTOs;
@@ -151,76 +150,74 @@ namespace MemoBll.Logic
         //    };
         //}
 
-        public List<UserDTO> ConvertToUserListDTO(IEnumerable<User> users)
+        public List<UserDTO> ConvertToUserListDto(IEnumerable<User> users)
         {
             List<UserDTO> userDTOs = new List<UserDTO>();
             foreach (User user in users)
             {
-                userDTOs.Add(ConvertToUserDTO(user));
+                userDTOs.Add(ConvertToUserDto(user));
             }
 
             return userDTOs;
         }
 
-        public CardDTO ConvertToCardDTO(Card card)
+        public CardDTO ConvertToCardDto(Card card)
         {
             return new CardDTO
             {
                 Id = card.Id,
                 Question = card.Question,
-                CardType = ConvertToCardTypeDTO(card.CardType),
-                Deck = ConvertToDeckDTO(card.Deck),
-                Answers = ConvertToAnswerListDTO(card.Answers),
-                Comments = ConvertToCommentListDTO(card.Comments)
+                CardType = ConvertToCardTypeDto(card.CardType),
+                Deck = ConvertToDeckDto(card.Deck),
+                Answers = ConvertToAnswerListDto(card.Answers),
+                Comments = ConvertToCommentListDto(card.Comments)
             };
         }
 
-        public List<CardDTO> ConvertToCardListDTO(IEnumerable<Card> cards)
+        public List<CardDTO> ConvertToCardListDto(IEnumerable<Card> cards)
         {
             List<CardDTO> cardDTOs = new List<CardDTO>();
             foreach (var card in cards)
             {
-                cardDTOs.Add(ConvertToCardDTO(card));
+                cardDTOs.Add(ConvertToCardDto(card));
             }
 
             return cardDTOs;
         }
-       
-        
 
-        public CommentDTO ConvertToCommentDTO(Comment comment)
+        public CommentDTO ConvertToCommentDto(Comment comment)
         {
             return new CommentDTO
             {
                 Message = comment.Message,
-                Course = ConvertToCourseDTO(comment.Course),
-                User = ConvertToUserDTO(comment.User)
+                Course = ConvertToCourseDto(comment.Course),
+                User = ConvertToUserDto(comment.User)
             };
         }
 
-        public List<CommentDTO> ConvertToCommentListDTO(IEnumerable<Comment> comments)
+        public List<CommentDTO> ConvertToCommentListDto(IEnumerable<Comment> comments)
         {
             List<CommentDTO> commentDTOs = new List<CommentDTO>();
             foreach (Comment comment in comments)
             {
-                commentDTOs.Add(ConvertToCommentDTO(comment));
+                commentDTOs.Add(ConvertToCommentDto(comment));
             }
 
             return commentDTOs;
         }
 
-        public ReportDTO ConvertToReportDTO(Report report)
+        public ReportDTO ConvertToReportDto(Report report)
         {
             return new ReportDTO
             {
                 Date = report.Date,
                 Description = report.Description,
                 Reason = report.Reason,
-                Sender = ConvertToUserDTO(report.Sender)
+                Sender = ConvertToUserDto(report.Sender)
             };
         }
 
-        public StatisticsDTO ConvertToStatisticsDTO(Statistics statistic)
+        public StatisticsDTO ConvertToStatisticsDto(Statistics statistic)
         {
             return new StatisticsDTO
             {
@@ -231,45 +228,45 @@ namespace MemoBll.Logic
             };
         }
 
-        public List<StatisticsDTO> ConvertToStatisticsListDTO(IEnumerable<Statistics> statistics)
+        public List<StatisticsDTO> ConvertToStatisticsListDto(IEnumerable<Statistics> statistics)
         {
             List<StatisticsDTO> statisticsDTOs = new List<StatisticsDTO>();
             foreach (var s in statistics)
             {
-                statisticsDTOs.Add(ConvertToStatisticsDTO(s));
+                statisticsDTOs.Add(ConvertToStatisticsDto(s));
             }
 
             return statisticsDTOs;
         }
 
-        public SubscribedCourseDTO ConvertToSubscribedCourseDTO(SubscribedCourse subscribedCourse)
+        public SubscribedCourseDTO ConvertToSubscribedCourseDto(SubscribedCourse subscribedCourse)
         {
             return new SubscribedCourseDTO
             {
                 Id = subscribedCourse.Id,
                 Rating = subscribedCourse.Rating,
-                Course = ConvertToCourseDTO(subscribedCourse.Course),
-                User = ConvertToUserDTO(subscribedCourse.User)
+                Course = ConvertToCourseDto(subscribedCourse.Course),
+                User = ConvertToUserDto(subscribedCourse.User)
             };
         }
 
-        public SubscribedDeckDTO ConvertToSubscribedDeckDTO(SubscribedDeck subscribedDeck)
+        public SubscribedDeckDTO ConvertToSubscribedDeckDto(SubscribedDeck subscribedDeck)
         {
             return new SubscribedDeckDTO
             {
                 Id = subscribedDeck.Id,
                 Rating = subscribedDeck.Rating,
-                User = ConvertToUserDTO(subscribedDeck.User),
-                Deck = ConvertToDeckDTO(subscribedDeck.Deck)
+                User = ConvertToUserDto(subscribedDeck.User),
+                Deck = ConvertToDeckDto(subscribedDeck.Deck)
             };
         }
 
-        public RoleDTO ConvertToRoleDTO(Role role)
+        public RoleDTO ConvertToRoleDto(Role role)
         {
             throw new System.NotImplementedException();
         }
 
-        public UserDTO ConvertToUserDTO(User user)
+        public UserDTO ConvertToUserDto(User user)
         {
             return new UserDTO
             {
@@ -278,7 +275,5 @@ namespace MemoBll.Logic
                 IsBlocked = user.UserProfile.IsBlocked
             };
         }
-
-       
     }
 }

@@ -9,7 +9,7 @@ namespace MemoBll.Logic
 {
 	public class Catalog : ICatalog
 	{
-		IUnitOfWork unitOfWork;
+		private IUnitOfWork unitOfWork;
 
 		public Catalog()
 		{

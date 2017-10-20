@@ -39,9 +39,9 @@ namespace Memorise.Tests.BLL.ManagersTests
             userProfile
                 .Setup(exuser => exuser.GetUserByLogin(It.IsIn(users.Select(u => u.UserName))))
                 .Returns(users[0]);
-            Mock<IConverterToDTO> converter = new Mock<IConverterToDTO>(MockBehavior.Strict);
+            Mock<IConverterToDto> converter = new Mock<IConverterToDto>(MockBehavior.Strict);
             converter
-                .Setup(c => c.ConvertToUserDTO(It.IsIn<User>(users)))
+                .Setup(c => c.ConvertToUserDto(It.IsIn<User>(users)))
                 .Returns(new UserDTO());
             var sut = new UserProfileBll(
                 userProfile.Object,
@@ -52,7 +52,7 @@ namespace Memorise.Tests.BLL.ManagersTests
             userProfile.Verify(
                 up => up.GetUserByLogin(expected.UserName), Times.Once);
             converter.Verify(
-                c => c.ConvertToUserDTO(
+                c => c.ConvertToUserDto(
                     It.IsAny<User>()),
                 Times.Once);
         }
@@ -64,9 +64,9 @@ namespace Memorise.Tests.BLL.ManagersTests
             userProfile
                 .Setup(exuser => exuser.GetCoursesByUser(It.IsIn(users.Select(u => u.Email))))
                 .Returns(courses);
-            Mock<IConverterToDTO> converter = new Mock<IConverterToDTO>(MockBehavior.Loose);
+            Mock<IConverterToDto> converter = new Mock<IConverterToDto>(MockBehavior.Loose);
             converter
-                .Setup(c => c.ConvertToCourseListDTO(It.IsIn<IEnumerable<Course>>(courses)))
+                .Setup(c => c.ConvertToCourseListDto(It.IsIn<IEnumerable<Course>>(courses)))
                 .Returns(new List<CourseDTO>());
             var sut = new UserProfileBll(
                 userProfile.Object,
@@ -76,7 +76,7 @@ namespace Memorise.Tests.BLL.ManagersTests
             userProfile.Verify(
                 up => up.GetCoursesByUser(expected.Email), Times.Once);
             converter.Verify(
-                c => c.ConvertToCourseListDTO(
+                c => c.ConvertToCourseListDto(
                     It.IsAny<IEnumerable<Course>>()),
                 Times.Once);
         }
@@ -88,9 +88,9 @@ namespace Memorise.Tests.BLL.ManagersTests
             userProfile
                 .Setup(exuser => exuser.GetUserByEmail(It.IsIn(users.Select(u => u.Email))))
                 .Returns(users[0]);
-            Mock<IConverterToDTO> converter = new Mock<IConverterToDTO>(MockBehavior.Loose);
+            Mock<IConverterToDto> converter = new Mock<IConverterToDto>(MockBehavior.Loose);
             converter
-                .Setup(c => c.ConvertToUserDTO(It.IsIn<User>(users)))
+                .Setup(c => c.ConvertToUserDto(It.IsIn<User>(users)))
                 .Returns(new UserDTO());
             var sut = new UserProfileBll(
                 userProfile.Object,
@@ -100,7 +100,7 @@ namespace Memorise.Tests.BLL.ManagersTests
             userProfile.Verify(
                 up => up.GetUserByEmail(expected.Email), Times.Once);
             converter.Verify(
-                c => c.ConvertToUserDTO(
+                c => c.ConvertToUserDto(
                     It.IsAny<User>()),
                 Times.Once);
         }
@@ -115,9 +115,9 @@ namespace Memorise.Tests.BLL.ManagersTests
                         It.IsIn(users.Select(u => u.Id)),
                         It.IsIn(users.Select(u => u.Email))))
                 .Returns(updated);
-            Mock<IConverterToDTO> converter = new Mock<IConverterToDTO>(MockBehavior.Strict);
+            Mock<IConverterToDto> converter = new Mock<IConverterToDto>(MockBehavior.Strict);
             converter
-                .Setup(c => c.ConvertToUserDTO(It.IsIn<User>(users)))
+                .Setup(c => c.ConvertToUserDto(It.IsIn<User>(users)))
                 .Returns(new UserDTO());
             var sut = new UserProfileBll(userProfile.Object);
             var userCurrent = users[0];

@@ -12,21 +12,21 @@ namespace MemoBll.Managers
     public class UserStatisticsBll
     {
         IUserStatistics statistics;
-        IConverterToDTO converterToDto;
-        IConverterFromDTO converterFromDto;
+        IConverterToDto converterToDto;
+        IConverterFromDto converterFromDto;
 
         public UserStatisticsBll()
         {
             var uow = new UnitOfWork(new MemoContext());
             this.statistics = new UserStatistics(uow);
-            this.converterToDto = new ConverterToDTO();
-            this.converterFromDto = new ConverterFromDTO(uow);
+            this.converterToDto = new ConverterToDto();
+            this.converterFromDto = new ConverterFromDto(uow);
         }
 
         public UserStatisticsBll(
             IUserStatistics statistics,
-            IConverterToDTO converterToDto,
-            IConverterFromDTO converterFromDto)
+            IConverterToDto converterToDto,
+            IConverterFromDto converterFromDto)
         {
             this.statistics = statistics;
             this.converterToDto = converterToDto;
@@ -38,7 +38,7 @@ namespace MemoBll.Managers
             string userId, int cardId)
         {
             var stats = statistics.GetStatistics(userId, cardId);
-            return converterToDto.ConvertToStatisticsDTO(stats);
+            return converterToDto.ConvertToStatisticsDto(stats);
         }
 
         public IEnumerable<StatisticsDTO> GetDeckStatistics(
@@ -48,7 +48,7 @@ namespace MemoBll.Managers
             var deckStatistics = statistics
                 .GetDeckStatistics(userName, deckId);
             return deckStatistics
-                ?.Select(s => converterToDto.ConvertToStatisticsDTO(s))
+                ?.Select(s => converterToDto.ConvertToStatisticsDto(s))
                 ?? throw new ArgumentNullException();
         }
 
@@ -59,7 +59,7 @@ namespace MemoBll.Managers
             var courseStatistics = statistics
                 .GetCourseStatistics(userName, courseId);
             return courseStatistics
-                ?.Select(s => converterToDto.ConvertToStatisticsDTO(s))
+                ?.Select(s => converterToDto.ConvertToStatisticsDto(s))
                 ?? throw new ArgumentNullException();
         }
 

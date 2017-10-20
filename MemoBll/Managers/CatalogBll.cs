@@ -9,15 +9,15 @@ namespace MemoBll.Managers
 	public class CatalogBll
     {
         ICatalog catalog;
-        IConverterToDTO converterToDto;
+        IConverterToDto converterToDto;
 
         public CatalogBll()
         {
 			this.catalog = new Catalog();
-            this.converterToDto = new ConverterToDTO();
+            this.converterToDto = new ConverterToDto();
         }
 
-        public CatalogBll(ICatalog catalog, IConverterToDTO converter)
+        public CatalogBll(ICatalog catalog, IConverterToDto converter)
         {
 			this.catalog = catalog;
             this.converterToDto = converter;
@@ -26,49 +26,49 @@ namespace MemoBll.Managers
         public IEnumerable<CategoryDTO> GetAllCategories()
         {
 			return catalog.GetAllCategories()
-				.Select(c => converterToDto.ConvertToCategoryDTO(c));
+				.Select(c => converterToDto.ConvertToCategoryDto(c));
         }
 
         public IEnumerable<CourseDTO> GetAllCourses()
         {
             return catalog.GetAllCourses()
-				.Select(c => converterToDto.ConvertToCourseDTO(c));
+				.Select(c => converterToDto.ConvertToCourseDto(c));
 
         }
 
         public IEnumerable<DeckDTO> GetAllDecks()
         {
             return catalog.GetAllDecks()
-				.Select(d => converterToDto.ConvertToDeckDTO(d));
+				.Select(d => converterToDto.ConvertToDeckDto(d));
         }
 
         public IEnumerable<DeckDTO> GetAllDecksByCourse(string courseName)
         {
             return catalog.GetAllDecksByCourse(courseName)
-				.Select(d => converterToDto.ConvertToDeckDTO(d));
+				.Select(d => converterToDto.ConvertToDeckDto(d));
         }
 
         public IEnumerable<DeckDTO> GetAllDecksByCategory(string categoryName)
         {
 			return catalog.GetAllDecksByCategory(categoryName)
-				.Select(d => converterToDto.ConvertToDeckDTO(d));
+				.Select(d => converterToDto.ConvertToDeckDto(d));
         }
 
         public IEnumerable<CourseDTO> GetAllCoursesByCategory(string categoryLinking)
         {
             return catalog.GetAllCoursesByCategory(categoryLinking)
-				.Select(c => converterToDto.ConvertToCourseDTO(c));
+				.Select(c => converterToDto.ConvertToCourseDto(c));
         }
 
         public CourseWithDecksDTO GetCourseWithDecksDTO(string courseName)
         {
-			return converterToDto.ConvertToCourseWithDecksDTO(
+			return converterToDto.ConvertToCourseWithDecksDto(
 				catalog.GetCourse(courseName));
         }
 
         public DeckDTO GetDeckDTO(string linking)
         {
-            return converterToDto.ConvertToDeckDTO(catalog.GetDeck(linking));
+            return converterToDto.ConvertToDeckDto(catalog.GetDeck(linking));
         }
     }
 }

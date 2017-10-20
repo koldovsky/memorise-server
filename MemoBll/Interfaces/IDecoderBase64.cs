@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace MemoBll.Interfaces
 {
-    interface IDecoderBase64
+    public interface IDecoderBase64
     {
         CategoryDTO DecodeCategory(CategoryDTO category);
-        CourseDTO DecodeCourse(CourseDTO course);
-        CourseWithDecksDTO DecodeCourseWithDecks(CourseWithDecksDTO course);
-        DeckDTO DecodeDeck(DeckDTO deck);
-       
 
+        CourseDTO DecodeCourse(CourseDTO course);
+
+        CourseWithDecksDTO DecodeCourseWithDecks(CourseWithDecksDTO course);
+
+        DeckDTO DecodeDeck(DeckDTO deck);
     }
 }

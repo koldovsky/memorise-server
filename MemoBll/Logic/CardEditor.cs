@@ -6,7 +6,7 @@ namespace MemoBll.Logic
 {
 	public class CardEditor
     {
-        IUnitOfWork unitOfWork;
+        private IUnitOfWork unitOfWork;
 
         public CardEditor()
         {
