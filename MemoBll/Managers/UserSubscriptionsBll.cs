@@ -34,28 +34,28 @@ namespace MemoBll.Managers
 
         public IEnumerable<CourseDTO> GetSubscribedCourses(string userName)
         {
-            var courses = userSubscriptions.GetCoursesSubscriptions(userName)
+            var courses = userSubscriptions.GetCourseSubscriptions(userName)
                 .Select(x => x.Course);
             return courses.Select(x => converterToDto.ConvertToCourseDTO(x));
         }
 
         public IEnumerable<DeckDTO> GetSubscribedDecks(string userName)
         {
-            var decks = userSubscriptions.GetDecksSubscriptions(userName)
+            var decks = userSubscriptions.GetDeckSubscriptions(userName)
                 .Select(x => x.Deck);
             return decks.Select(x => converterToDto.ConvertToDeckDTO(x));
         }
 
-        public IEnumerable<SubscribedCourseDTO> GetCoursesSubscriptions(string userName)
+        public IEnumerable<CourseSubscriptionDTO> GetCourseSubscriptions(string userName)
         {
-            var subscriptions = userSubscriptions.GetCoursesSubscriptions(userName);
+            var subscriptions = userSubscriptions.GetCourseSubscriptions(userName);
             return subscriptions
                 .Select(x => converterToDto.ConvertToSubscribedCourseDTO(x));
         }
 
-        public IEnumerable<SubscribedDeckDTO> GetDecksSubscriptions(string userName)
+        public IEnumerable<DeckSubscriptionDTO> GetDeckSubscriptions(string userName)
         {
-            var subscriptions = userSubscriptions.GetDecksSubscriptions(userName);
+            var subscriptions = userSubscriptions.GetDeckSubscriptions(userName);
             return subscriptions
                 .Select(x => converterToDto.ConvertToSubscribedDeckDTO(x));
         }
@@ -70,17 +70,17 @@ namespace MemoBll.Managers
             userSubscriptions.CreateDeckSubscription(userName, deckId);
         }
 
-        public void UpdateCourseSubscription(SubscribedCourseDTO subscribedCourse)
+        public void UpdateCourseSubscription(CourseSubscriptionDTO courseSubscription)
         {
             var subscription = converterFromDto
-                .ConvertToSubscribedCourse(subscribedCourse);
+                .ConvertToCourseSubscription(courseSubscription);
             userSubscriptions.UpdateCourseSubscription(subscription);
         }
 
-        public void UpdateDeckSubscribtion(SubscribedDeckDTO subscribedDeck)
+        public void UpdateDeckSubscribtion(DeckSubscriptionDTO deckSubscription)
         {
             var subscription = converterFromDto
-                .ConvertToSubscribedDeck(subscribedDeck);
+                .ConvertToDeckSubscription(deckSubscription);
             userSubscriptions.UpdateDeckSubscribtion(subscription);
         }
 

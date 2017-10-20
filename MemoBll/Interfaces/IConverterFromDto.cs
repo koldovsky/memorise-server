@@ -23,8 +23,8 @@ namespace MemoBll.Interfaces
         List<Comment> ConvertToCommentList(IEnumerable<CommentDTO> comments);
         Report ConvertToReport(ReportDTO report);
         Statistics ConvertToStatistics(StatisticsDTO statistics);
-        SubscribedCourse ConvertToSubscribedCourse(SubscribedCourseDTO subscribedCourse);
-        SubscribedDeck ConvertToSubscribedDeck(SubscribedDeckDTO subscribedDeck);
+        CourseSubscription ConvertToCourseSubscription(CourseSubscriptionDTO courseSubscription);
+        DeckSubscription ConvertToDeckSubscription(DeckSubscriptionDTO deckSubscription);
     }
 }
 

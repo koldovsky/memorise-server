@@ -1,6 +1,6 @@
 ﻿namespace MemoDTO
 {
-    public class SubscribedDeckDTO
+    public class DeckSubscriptionDTO
     {
         public int Id { get; set; }
         public int Rating { get; set; }

@@ -50,13 +50,13 @@ namespace MemoRise.Controllers
         }
 
         [HttpGet]
-        [Route("UserSubscriptions/GetCoursesSubscriptions/{userName}")]
-        public IHttpActionResult GetCoursesSubscriptions(string userName)
+        [Route("UserSubscriptions/GetCourseSubscriptions/{userName}")]
+        public IHttpActionResult GetCourseSubscriptions(string userName)
         {
             try
             {
                 var subscriptions = userSubscriptions
-                    .GetCoursesSubscriptions(userName);
+                    .GetCourseSubscriptions(userName);
                 return Ok(subscriptions);
             }
             catch (ArgumentNullException ex)
@@ -70,13 +70,13 @@ namespace MemoRise.Controllers
         }
 
         [HttpGet]
-        [Route("UserSubscriptions/GetDecksSubscriptions/{userName}")]
-        public IHttpActionResult GetDecksSubscriptions(string userName)
+        [Route("UserSubscriptions/GetDeckSubscriptions/{userName}")]
+        public IHttpActionResult GetDeckSubscriptions(string userName)
         {
             try
             {
                 var subscriptions = userSubscriptions
-                    .GetDecksSubscriptions(userName);
+                    .GetDeckSubscriptions(userName);
                 return Ok(subscriptions);
             }
             catch (ArgumentNullException ex)
@@ -90,8 +90,8 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
-        [Route("UserSubscriptions/CreateCourseSubscriptions/{userName}/{courseId}")]
-        public IHttpActionResult CreateCourseSubscriptions(string userName, int courseId)
+        [Route("UserSubscriptions/CreateCourseSubscription/{userName}/{courseId}")]
+        public IHttpActionResult CreateCourseSubscription(string userName, int courseId)
         {
             try
             {
@@ -109,8 +109,8 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
-        [Route("UserSubscriptions/CreateDeckSubscriptions/{userName}/{deckId}")]
-        public IHttpActionResult CreateDeckSubscriptions(string userName, int deckId)
+        [Route("UserSubscriptions/CreateDeckSubscription/{userName}/{deckId}")]
+        public IHttpActionResult CreateDeckSubscription(string userName, int deckId)
         {
             try
             {
@@ -128,12 +128,12 @@ namespace MemoRise.Controllers
         }
 
         [HttpPut]
-        public IHttpActionResult UpdateCourseSubscriptions(
-            SubscribedCourseDTO subscribedCourse)
+        public IHttpActionResult UpdateCourseSubscription(
+            CourseSubscriptionDTO courseSubscription)
         {
             try
             {
-                userSubscriptions.UpdateCourseSubscription(subscribedCourse);
+                userSubscriptions.UpdateCourseSubscription(courseSubscription);
                 return Ok();
             }
             catch (ArgumentNullException ex)
@@ -147,12 +147,12 @@ namespace MemoRise.Controllers
         }
 
         [HttpPut]
-        public IHttpActionResult UpdateDeckSubscriptions(
-            SubscribedDeckDTO subscribedDeck)
+        public IHttpActionResult UpdateDeckSubscription(
+            DeckSubscriptionDTO deckSubscription)
         {
             try
             {
-                userSubscriptions.UpdateDeckSubscribtion(subscribedDeck);
+                userSubscriptions.UpdateDeckSubscribtion(deckSubscription);
                 return Ok();
             }
             catch (ArgumentNullException ex)
@@ -166,8 +166,8 @@ namespace MemoRise.Controllers
         }
 
         [HttpDelete]
-        [Route("UserSubscriptions/CreateCourseSubscriptions/{subscriptionId}")]
-        public IHttpActionResult DeleteCourseSubscriptions(int subscriptionId)
+        [Route("UserSubscriptions/DeleteCourseSubscription/{subscriptionId}")]
+        public IHttpActionResult DeleteCourseSubscription(int subscriptionId)
         {
             try
             {
@@ -185,8 +185,8 @@ namespace MemoRise.Controllers
         }
 
         [HttpDelete]
-        [Route("UserSubscriptions/CreateDeckSubscriptions/{subscriptionId}")]
-        public IHttpActionResult DeleteDeckSubscriptions(int subscriptionId)
+        [Route("UserSubscriptions/DeleteDeckSubscription/{subscriptionId}")]
+        public IHttpActionResult DeleteDeckSubscription(int subscriptionId)
         {
             try
             {

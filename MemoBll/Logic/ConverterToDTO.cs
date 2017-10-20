@@ -229,9 +229,9 @@ namespace MemoBll.Logic
             return statisticsDTOs;
         }
 
-        public SubscribedCourseDTO ConvertToSubscribedCourseDTO(SubscribedCourse subscribedCourse)
+        public CourseSubscriptionDTO ConvertToSubscribedCourseDTO(CourseSubscription subscribedCourse)
         {
-            return new SubscribedCourseDTO
+            return new CourseSubscriptionDTO
             {
                 Id = subscribedCourse.Id,
                 Rating = subscribedCourse.Rating,
@@ -240,9 +240,9 @@ namespace MemoBll.Logic
             };
         }
 
-        public SubscribedDeckDTO ConvertToSubscribedDeckDTO(SubscribedDeck subscribedDeck)
+        public DeckSubscriptionDTO ConvertToSubscribedDeckDTO(DeckSubscription subscribedDeck)
         {
-            return new SubscribedDeckDTO
+            return new DeckSubscriptionDTO
             {
                 Id = subscribedDeck.Id,
                 Rating = subscribedDeck.Rating,

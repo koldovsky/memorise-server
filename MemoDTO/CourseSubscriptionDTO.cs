@@ -1,6 +1,6 @@
 ﻿namespace MemoDTO
 {
-    public class SubscribedCourseDTO
+    public class CourseSubscriptionDTO
     {
         public int Id { get; set; }
         public int Rating { get; set; }

@@ -165,25 +165,25 @@ namespace MemoBll.Logic
             };
         }
 
-        public SubscribedCourse ConvertToSubscribedCourse(SubscribedCourseDTO subscribedCourse)
+        public CourseSubscription ConvertToCourseSubscription(CourseSubscriptionDTO courseSubscription)
         {
-            return new SubscribedCourse
+            return new CourseSubscription
             {
-                Id = subscribedCourse.Id,
-                Rating = subscribedCourse.Rating,
-                User = ConvertToUser(subscribedCourse.User),
-                Course = ConvertToCourse(subscribedCourse.Course)
+                Id = courseSubscription.Id,
+                Rating = courseSubscription.Rating,
+                User = ConvertToUser(courseSubscription.User),
+                Course = ConvertToCourse(courseSubscription.Course)
             };
         }
 
-        public SubscribedDeck ConvertToSubscribedDeck(SubscribedDeckDTO userDeck)
+        public DeckSubscription ConvertToDeckSubscription(DeckSubscriptionDTO deckSubscription)
         {
-            return new SubscribedDeck
+            return new DeckSubscription
             {
-                Id = userDeck.Id,
-                Rating = userDeck.Rating,
-                User = ConvertToUser(userDeck.User),
-                Deck = ConvertToDeck(userDeck.Deck)
+                Id = deckSubscription.Id,
+                Rating = deckSubscription.Rating,
+                User = ConvertToUser(deckSubscription.User),
+                Deck = ConvertToDeck(deckSubscription.Deck)
             };
         }
 

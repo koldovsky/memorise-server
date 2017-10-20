@@ -23,9 +23,9 @@ namespace MemoDAL
 			this.reports = new ReportRepository(dbContext);
 			this.roles = new RoleRepository(new RoleStore<Role>(dbContext));
 			this.statistics = new StatisticsRepository(dbContext);
-			this.subscribedCourses = new SubscribedCourseRepository(dbContext);
+			this.courseSubscriptions = new CourseSubscriptionsRepository(dbContext);
 			this.users = new UserRepository(new UserStore<User>(dbContext));
-            this.subscribedDecks = new SubscribedDeckRepository(dbContext);
+            this.deckSubscriptions = new DeckSubscriptionsRepository(dbContext);
 		}
 
 		#region Fields
@@ -41,9 +41,9 @@ namespace MemoDAL
 		private IReportRepository reports;
 		private RoleManager<Role> roles;
 		private IStatisticsRepository statistics;
-		private ISubscribedCourseRepository subscribedCourses;
+		private ICourseSubscriptionRepository courseSubscriptions;
 		private UserRepository users;
-	    private ISubscribedDeckRepository subscribedDecks;
+	    private IDeckSubscriptionRepository deckSubscriptions;
 		private bool disposed = false;
 
 		#endregion
@@ -100,9 +100,9 @@ namespace MemoDAL
 			get { return statistics; }
 		}
 
-		public ISubscribedCourseRepository SubscribedCourses
+		public ICourseSubscriptionRepository CourseSubscriptions
 		{
-			get { return subscribedCourses; }
+			get { return courseSubscriptions; }
 		}
 
 		public UserRepository Users
@@ -110,9 +110,9 @@ namespace MemoDAL
 			get { return users; }
 		}
 
-	    public ISubscribedDeckRepository SubscribedDecks
+	    public IDeckSubscriptionRepository DeckSubscriptions
 	    {
-            get { return subscribedDecks; }
+            get { return deckSubscriptions; }
 	    }
 
 		#endregion

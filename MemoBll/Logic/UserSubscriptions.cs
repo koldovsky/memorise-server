@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MemoBll.Interfaces;
 using MemoDAL.Entities;
@@ -36,32 +37,46 @@ namespace MemoBll.Logic
         //        .Select(subscription => subscription.Deck);
         //}
 
-        public IEnumerable<SubscribedCourse> GetCoursesSubscriptions(string userName)
+        public IEnumerable<CourseSubscription> GetCourseSubscriptions(
+            string userName)
         {
-            return unitOfWork.SubscribedCourses.GetAll()
+            return unitOfWork.CourseSubscriptions.GetAll()
                 .Where(subscription => subscription.User.UserName == userName);
         }
 
-        public IEnumerable<SubscribedDeck> GetDecksSubscriptions(string userName)
+        public IEnumerable<DeckSubscription> GetDeckSubscriptions(
+            string userName)
         {
-            return unitOfWork.SubscribedDecks.GetAll()
+            return unitOfWork.DeckSubscriptions.GetAll()
                 .Where(subscription => subscription.User.UserName == userName);
         }
 
         public void CreateCourseSubscription(string userName, int courseId)
         {
-            unitOfWork.SubscribedCourses.Create(new SubscribedCourse
+            var user = unitOfWork.Users.FindByName(userName);
+            var course = unitOfWork.Courses.Get(courseId);
+            var decks = course
+                ?.Decks.ToList()
+                ?? throw new ArgumentNullException();
+            unitOfWork.CourseSubscriptions.Create(new CourseSubscription
             {
                 Rating = -1,
-                User = unitOfWork.Users.FindByName(userName),
-                Course = unitOfWork.Courses.Get(courseId)
+                User = user,
+                Course = course
             });
+            decks.ForEach(deck => unitOfWork.DeckSubscriptions
+                .Create(new DeckSubscription
+            {
+                Rating = -1,
+                User = user,
+                Deck = deck
+            }));
             unitOfWork.Save();
         }
 
         public void CreateDeckSubscription(string userName, int deckId)
         {
-            unitOfWork.SubscribedDecks.Create(new SubscribedDeck
+            unitOfWork.DeckSubscriptions.Create(new DeckSubscription
             {
                 Rating = -1,
                 User = unitOfWork.Users.FindByName(userName),
@@ -70,27 +85,27 @@ namespace MemoBll.Logic
             unitOfWork.Save();
         }
 
-        public void UpdateCourseSubscription(SubscribedCourse course)
+        public void UpdateCourseSubscription(CourseSubscription course)
         {
-            unitOfWork.SubscribedCourses.Update(course);
+            unitOfWork.CourseSubscriptions.Update(course);
             unitOfWork.Save();
         }
 
-        public void UpdateDeckSubscribtion(SubscribedDeck deck)
+        public void UpdateDeckSubscribtion(DeckSubscription deck)
         {
-            unitOfWork.SubscribedDecks.Update(deck);
+            unitOfWork.DeckSubscriptions.Update(deck);
             unitOfWork.Save();
         }
 
         public void DeleteCourseSubsription(int subscriptionId)
         {
-            unitOfWork.SubscribedCourses.Delete(subscriptionId);
+            unitOfWork.CourseSubscriptions.Delete(subscriptionId);
             unitOfWork.Save();
         }
 
         public void DeleteDeckSubscription(int subscriptionId)
         {
-            unitOfWork.SubscribedDecks.Delete(subscriptionId);
+            unitOfWork.DeckSubscriptions.Delete(subscriptionId);
             unitOfWork.Save();
         }
     }

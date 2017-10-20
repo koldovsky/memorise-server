@@ -1,9 +1,9 @@
 ﻿namespace MemoDAL.Entities
 {
-    public class SubscribedDeck: BaseEntity
+    public class CourseSubscription: BaseEntity
     {
         public int Rating { get; set; }
         public virtual User User { get; set; }
-        public virtual Deck Deck { get; set; }
+        public virtual Course Course { get; set; }
     }
 }
