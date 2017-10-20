@@ -18,7 +18,7 @@ namespace MemoRise.Controllers
     public class ImageController : ApiController
     {
         private ImageEndpoint uploader;
-        Moderation moderation = new Moderation();
+        private Moderation moderation;
 
         public ImageController()
         {
@@ -96,13 +96,13 @@ namespace MemoRise.Controllers
 
                 var path = Path.Combine(
                     savePath,
-                    fileName
-                );
-                
+                    fileName);
+
                 if (!Directory.Exists(savePath))
                 {
                     DirectoryInfo di = Directory.CreateDirectory(savePath);
                 }
+
                 file.SaveAs(path);
             }
 
@@ -116,6 +116,7 @@ namespace MemoRise.Controllers
             {
                 image = uploader.UploadImageStreamAsync(fileStream).GetAwaiter().GetResult();
             }
+
             return image.Link;
         }
     }

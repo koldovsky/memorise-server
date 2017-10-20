@@ -8,8 +8,8 @@ namespace MemoBll.Managers
 {
 	public class CatalogBll
     {
-        ICatalog catalog;
-        IConverterToDto converterToDto;
+        private ICatalog catalog;
+        private IConverterToDto converterToDto;
 
         public CatalogBll()
         {
@@ -33,7 +33,6 @@ namespace MemoBll.Managers
         {
             return catalog.GetAllCourses()
 				.Select(c => converterToDto.ConvertToCourseDto(c));
-
         }
 
         public IEnumerable<DeckDTO> GetAllDecks()

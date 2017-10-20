@@ -8,10 +8,10 @@ using System.Linq;
 
 namespace MemoBll.Managers
 {
-	public class ModerationBll
+    public class ModerationBll
     {
-        IModeration moderation;
-        IConverterToDto converterToDto;
+        private IModeration moderation;
+        private IConverterToDto converterToDto;
 
         public ModerationBll()
         {
@@ -20,7 +20,7 @@ namespace MemoBll.Managers
         }
 
         public ModerationBll(
-            IModeration moderation, 
+            IModeration moderation,
             IConverterToDto converterToDto)
         {
             this.moderation = moderation;
@@ -58,35 +58,35 @@ namespace MemoBll.Managers
 
         #region ForStatistics
 
-        //public int GetDeckStatistics(int deckId)
-        //{
-        //    var deckStatistics = moderation.GetDeckStatistics(deckId).ToList();
-        //    int result = 0;
-        //    if (deckStatistics.Count > 0)
-        //    {
-        //        double totalDeckPercent = 0.0;
-        //        foreach (Statistics statistic in deckStatistics)
-        //        {
-        //            totalDeckPercent += statistic.SuccessPercent;
-        //        }
-        //        result = Convert.ToInt32(
-        //            Math.Round(totalDeckPercent / deckStatistics.Count));
-        //    }
+        ////public int GetDeckStatistics(int deckId)
+        ////{
+        ////    var deckStatistics = moderation.GetDeckStatistics(deckId).ToList();
+        ////    int result = 0;
+        ////    if (deckStatistics.Count > 0)
+        ////    {
+        ////        double totalDeckPercent = 0.0;
+        ////        foreach (Statistics statistic in deckStatistics)
+        ////        {
+        ////            totalDeckPercent += statistic.SuccessPercent;
+        ////        }
+        ////        result = Convert.ToInt32(
+        ////            Math.Round(totalDeckPercent / deckStatistics.Count));
+        ////    }
 
-        //    return result;
-        //}
+        ////    return result;
+        ////}
 
-        //public int GetStatistics(string deckName, int userId)
-        //{
-        //    Statistics statistics = moderation.GetStatistics(deckName, userId);
+        ////public int GetStatistics(string deckName, int userId)
+        ////{
+        ////    Statistics statistics = moderation.GetStatistics(deckName, userId);
 
-        //    return statistics != null ? statistics.SuccessPercent : 0;
-        //}
+        ////    return statistics != null ? statistics.SuccessPercent : 0;
+        ////}
 
-        //public void DeleteStatistics(int statisticsId)
-        //{
-        //    moderation.DeleteStatistics(statisticsId);
-        //}
+        ////public void DeleteStatistics(int statisticsId)
+        ////{
+        ////    moderation.DeleteStatistics(statisticsId);
+        ////}
 
         #endregion
 
@@ -158,7 +158,6 @@ namespace MemoBll.Managers
         {
             Category category = moderation.FindCategoryByName(categoryName);
             return converterToDto.ConvertToCategoryDto(category);
-
         }
 
         public Category FindCategoryByName(string categoryName)
@@ -184,11 +183,13 @@ namespace MemoBll.Managers
         {
             moderation.RemoveCourse(courseId);
         }
+
         public CourseDTO FindCourseDtoByName(string courseName)
         {
             Course course = moderation.FindCourseByName(courseName);
             return converterToDto.ConvertToCourseDto(course);
         }
+
         public Course FindCourseByName(string courseName)
         {
             return moderation.FindCourseByName(courseName);
@@ -247,7 +248,7 @@ namespace MemoBll.Managers
         {
             int id;
             int.TryParse(cardId, out id);
-            if(id != 0)
+            if (id != 0)
             {
                 return moderation.FindCardById(id);
             }
@@ -255,7 +256,6 @@ namespace MemoBll.Managers
             {
                 throw new ArgumentNullException();
             }
-            
         }
 
         public IEnumerable<CardTypeDTO> GetAllCardTypes()

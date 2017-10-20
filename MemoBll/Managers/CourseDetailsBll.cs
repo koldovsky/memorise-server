@@ -12,8 +12,8 @@ namespace MemoBll.Managers
 {
 	public class CourseDetailsBll
     {
-        ICourseDetails courseDetails;
-        IConverterToDto converterToDto;
+        private ICourseDetails courseDetails;
+        private IConverterToDto converterToDto;
 
         public CourseDetailsBll()
         {
