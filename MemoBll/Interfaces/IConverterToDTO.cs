@@ -26,7 +26,7 @@ namespace MemoBll.Interfaces
         ReportDTO ConvertToReportDTO(Report report);
         StatisticsDTO ConvertToStatisticsDTO(Statistics statistics);
         List<StatisticsDTO> ConvertToStatisticsListDTO(IEnumerable<Statistics> statistics);
-        CourseSubscriptionDTO ConvertToSubscribedCourseDTO(CourseSubscription subscribedCourse);
-        DeckSubscriptionDTO ConvertToSubscribedDeckDTO(DeckSubscription subscribedDeck);
+        CourseSubscriptionDTO ConvertToCourseSubscriptionDTO(CourseSubscription subscription);
+        DeckSubscriptionDTO ConvertToDeckSubscriptionDTO(DeckSubscription subscription);
     }
 }

@@ -46,11 +46,11 @@ namespace MemoBll.Logic
             return new Card()
             {
                 Id = cardDTO.Id,
-                Question = cardDTO.Question == null ? "" : cardDTO.Question,
-                CardType = ConvertToCardType(cardDTO.CardType == null ? new CardTypeDTO() : cardDTO.CardType),
-                Deck = ConvertToDeck(cardDTO.Deck == null ? new DeckDTO() : cardDTO.Deck),
-                Answers = ConvertToAnswerList(cardDTO.Answers == null ? new List<AnswerDTO>() : cardDTO.Answers),
-                Comments = ConvertToCommentList(cardDTO.Comments == null ? new List<CommentDTO>() : cardDTO.Comments)
+                Question = cardDTO.Question ?? "",
+                CardType = ConvertToCardType(cardDTO.CardType ?? new CardTypeDTO()),
+                Deck = ConvertToDeck(cardDTO.Deck ?? new DeckDTO()),
+                Answers = ConvertToAnswerList(cardDTO.Answers ?? new List<AnswerDTO>()),
+                Comments = ConvertToCommentList(cardDTO.Comments ?? new List<CommentDTO>())
             };
         }
 
@@ -84,8 +84,8 @@ namespace MemoBll.Logic
             {
                 Id = commentDTO.Id,
                 Message = commentDTO.Message,
-                Course = ConvertToCourse(commentDTO.Course == null ? new CourseDTO() : commentDTO.Course),
-                User = ConvertToUser(commentDTO.User == null ? new UserDTO() : commentDTO.User)
+                Course = ConvertToCourse(commentDTO.Course ?? new CourseDTO()),
+                User = ConvertToUser(commentDTO.User ?? new UserDTO())
             };
         }
 
@@ -171,8 +171,8 @@ namespace MemoBll.Logic
             {
                 Id = courseSubscription.Id,
                 Rating = courseSubscription.Rating,
-                User = ConvertToUser(courseSubscription.User),
-                Course = ConvertToCourse(courseSubscription.Course)
+                User = unitOfWork.Users.FindByName(courseSubscription.UserLogin),
+                Course = unitOfWork.Courses.Get(courseSubscription.CourseId)
             };
         }
 
@@ -182,8 +182,8 @@ namespace MemoBll.Logic
             {
                 Id = deckSubscription.Id,
                 Rating = deckSubscription.Rating,
-                User = ConvertToUser(deckSubscription.User),
-                Deck = ConvertToDeck(deckSubscription.Deck)
+                User = unitOfWork.Users.FindByName(deckSubscription.UserLogin),
+                Deck = unitOfWork.Decks.Get(deckSubscription.DeckId)
             };
         }
 

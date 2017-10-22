@@ -42,54 +42,72 @@ namespace MemoBll.Managers
         }
 
         public IEnumerable<StatisticsDTO> GetDeckStatistics(
-            string userName,
+            string userLogin,
             int deckId)
         {
             var deckStatistics = statistics
-                .GetDeckStatistics(userName, deckId);
+                .GetDeckStatistics(userLogin, deckId);
             return deckStatistics
                 ?.Select(s => converterToDto.ConvertToStatisticsDTO(s))
                 ?? throw new ArgumentNullException();
         }
 
         public IEnumerable<StatisticsDTO> GetCourseStatistics(
-            string userName,
+            string userLogin,
             int courseId)
         {
             var courseStatistics = statistics
-                .GetCourseStatistics(userName, courseId);
+                .GetCourseStatistics(userLogin, courseId);
             return courseStatistics
                 ?.Select(s => converterToDto.ConvertToStatisticsDTO(s))
                 ?? throw new ArgumentNullException();
         }
 
-        public void CreateStatistics(StatisticsDTO statisticsDto)
+        public StatisticsDTO CreateStatistics(StatisticsDTO statisticsDto)
         {
             var statisticsToCreate = converterFromDto
                 .ConvertToStatistics(statisticsDto);
-            statistics.CreateStatistics(statisticsToCreate);
+            var createdStatistics = statistics
+                .CreateStatistics(statisticsToCreate);
+
+            return converterToDto.ConvertToStatisticsDTO(createdStatistics);
         }
 
-        public void CreateDeckStatistics(string userName, int deckId)
+        public IEnumerable<StatisticsDTO> CreateDeckStatistics(
+            string userLogin,
+            int deckId)
         {
-            statistics.CreateDeckStatistics(userName, deckId);
+            var createdStatistics = statistics
+                .CreateDeckStatistics(userLogin, deckId);
+
+            return createdStatistics
+                .Select(x => converterToDto.ConvertToStatisticsDTO(x));
         }
 
-        public void CreateCourseStatistics(string userName, int courseId)
+        public IEnumerable<StatisticsDTO> CreateCourseStatistics(
+            string userLogin, 
+            int courseId)
         {
-            statistics.CreateCourseStatistics(userName, courseId);
+           var createdStatistics = statistics
+                .CreateCourseStatistics(userLogin, courseId);
+
+            return createdStatistics
+                .Select(x => converterToDto.ConvertToStatisticsDTO(x));
         }
 
-        public void UpdateStatistics(StatisticsDTO statisticsDto)
+        public StatisticsDTO UpdateStatistics(StatisticsDTO statisticsDto)
         {
             var statisticsToSave = converterFromDto
                 .ConvertToStatistics(statisticsDto);
-            statistics.UpdateStatistics(statisticsToSave);
+            var updatedStatistics = statistics.UpdateStatistics(statisticsToSave);
+
+            return converterToDto.ConvertToStatisticsDTO(updatedStatistics);
         }
 
-        public void DeleteStatistics(int statisticsId)
+        public StatisticsDTO DeleteStatistics(int statisticsId)
         {
-            statistics.DeleteStatistics(statisticsId);
+            var deletedStatistics = statistics.DeleteStatistics(statisticsId);
+            return converterToDto.ConvertToStatisticsDTO(deletedStatistics);
         }
     }
 }

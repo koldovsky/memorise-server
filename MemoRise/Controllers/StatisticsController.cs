@@ -10,13 +10,13 @@ namespace MemoRise.Controllers
         UserStatisticsBll statistics = new UserStatisticsBll();
 
         [HttpGet]
-        [Route("Statistics/GetStatistics/{userName}/{cardId}")]
-        public IHttpActionResult GetStatistics(string userName, int cardId)
+        [Route("Statistics/GetStatistics/{userLogin}/{cardId}")]
+        public IHttpActionResult GetStatistics(string userLogin, int cardId)
         {
             try
             {
-                var statisticsList = statistics.GetStatistics(userName, cardId);
-                return Ok(statisticsList);
+                var response = statistics.GetStatistics(userLogin, cardId);
+                return Ok(response);
             }
             catch (ArgumentNullException ex)
             {
@@ -29,14 +29,16 @@ namespace MemoRise.Controllers
         }
 
         [HttpGet]
-        [Route("Statistics/GetDeckStatistics/{userName}/{deckId}")]
-        public IHttpActionResult GetDeckStatistics(string userName, int deckId)
+        [Route("Statistics/GetDeckStatistics/{userLogin}/{deckId}")]
+        public IHttpActionResult GetDeckStatistics(
+            string userLogin, 
+            int deckId)
         {
             try
             {
-                var statisticsList = statistics
-                    .GetDeckStatistics(userName, deckId);
-                return Ok(statisticsList);
+                var response = statistics
+                    .GetDeckStatistics(userLogin, deckId);
+                return Ok(response);
             }
             catch (ArgumentNullException ex)
             {
@@ -49,13 +51,15 @@ namespace MemoRise.Controllers
         }
 
         [HttpGet]
-        [Route("Statistics/GetCourseStatistics/{userName}/{courseId}")]
-        public IHttpActionResult GetCourseStatistics(string userName, int courseId)
+        [Route("Statistics/GetCourseStatistics/{userLogin}/{courseId}")]
+        public IHttpActionResult GetCourseStatistics(
+            string userLogin, 
+            int courseId)
         {
             try
             {
-                var statisticsList = statistics.GetCourseStatistics(userName, courseId);
-                return Ok(statisticsList);
+                var response = statistics.GetCourseStatistics(userLogin, courseId);
+                return Ok(response);
             }
             catch (ArgumentNullException ex)
             {
@@ -72,8 +76,8 @@ namespace MemoRise.Controllers
         {
             try
             {
-                statistics.CreateStatistics(statisticsDto);
-                return Ok();
+                var response = statistics.CreateStatistics(statisticsDto);
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -82,13 +86,15 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
-        [Route("Statistics/CreateDeckStatistics/{userName}/{deckId}")]
-        public IHttpActionResult CreateDeckStatistics(string userName, int deckId)
+        public IHttpActionResult CreateDeckStatistics(
+            SubscriptionStatisticsDTO statisticsDto)
         {
             try
             {
-                statistics.CreateDeckStatistics(userName, deckId);
-                return Ok();
+                var response = statistics.CreateDeckStatistics(
+                    statisticsDto.UserLogin,
+                    statisticsDto.ItemId);
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -97,13 +103,15 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
-        [Route("Statistics/CreateCourseStatistics/{userName}/{courseId}")]
-        public IHttpActionResult CreateCourseStatistics(string userName, int courseId)
+        public IHttpActionResult CreateCourseStatistics(
+            SubscriptionStatisticsDTO statisticsDto)
         {
             try
             {
-                statistics.CreateCourseStatistics(userName, courseId);
-                return Ok();
+                var response = statistics.CreateCourseStatistics(
+                    statisticsDto.UserLogin, 
+                    statisticsDto.ItemId);
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -116,8 +124,8 @@ namespace MemoRise.Controllers
         {
             try
             {
-                statistics.UpdateStatistics(statisticsDto);
-                return Ok();
+                var response = statistics.UpdateStatistics(statisticsDto);
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -131,8 +139,8 @@ namespace MemoRise.Controllers
         {
             try
             {
-                statistics.DeleteStatistics(statisticsId);
-                return Ok();
+                var response = statistics.DeleteStatistics(statisticsId);
+                return Ok(response);
             }
             catch (Exception ex)
             {

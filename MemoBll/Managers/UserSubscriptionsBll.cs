@@ -17,9 +17,9 @@ namespace MemoBll.Managers
         public UserSubscriptionsBll()
         {
             var uow = new UnitOfWork(new MemoContext());
-            this.userSubscriptions = new UserSubscriptions(uow);
-            this.converterToDto = new ConverterToDTO();
-            this.converterFromDto = new ConverterFromDTO(uow);
+            userSubscriptions = new UserSubscriptions(uow);
+            converterToDto = new ConverterToDTO();
+            converterFromDto = new ConverterFromDTO(uow);
         }
 
         public UserSubscriptionsBll(
@@ -32,66 +32,92 @@ namespace MemoBll.Managers
             this.converterFromDto = converterFromDto;
         }
 
-        public IEnumerable<CourseDTO> GetSubscribedCourses(string userName)
+        public IEnumerable<CourseDTO> GetSubscribedCourses(string userLogin)
         {
-            var courses = userSubscriptions.GetCourseSubscriptions(userName)
+            var courses = userSubscriptions.GetCourseSubscriptions(userLogin)
                 .Select(x => x.Course);
             return courses.Select(x => converterToDto.ConvertToCourseDTO(x));
         }
 
-        public IEnumerable<DeckDTO> GetSubscribedDecks(string userName)
+        public IEnumerable<DeckDTO> GetSubscribedDecks(string userLogin)
         {
-            var decks = userSubscriptions.GetDeckSubscriptions(userName)
+            var decks = userSubscriptions.GetDeckSubscriptions(userLogin)
                 .Select(x => x.Deck);
             return decks.Select(x => converterToDto.ConvertToDeckDTO(x));
         }
 
-        public IEnumerable<CourseSubscriptionDTO> GetCourseSubscriptions(string userName)
+        public IEnumerable<CourseSubscriptionDTO> GetCourseSubscriptions(
+            string userLogin)
         {
-            var subscriptions = userSubscriptions.GetCourseSubscriptions(userName);
+            var subscriptions = userSubscriptions.GetCourseSubscriptions(userLogin);
             return subscriptions
-                .Select(x => converterToDto.ConvertToSubscribedCourseDTO(x));
+                .Select(x => converterToDto.ConvertToCourseSubscriptionDTO(x));
         }
 
-        public IEnumerable<DeckSubscriptionDTO> GetDeckSubscriptions(string userName)
+        public IEnumerable<DeckSubscriptionDTO> GetDeckSubscriptions(
+            string userLogin)
         {
-            var subscriptions = userSubscriptions.GetDeckSubscriptions(userName);
+            var subscriptions = userSubscriptions
+                .GetDeckSubscriptions(userLogin);
             return subscriptions
-                .Select(x => converterToDto.ConvertToSubscribedDeckDTO(x));
+                .Select(x => converterToDto.ConvertToDeckSubscriptionDTO(x));
         }
 
-        public void CreateCourseSubscription(string userName, int courseId)
+        public CourseSubscriptionDTO CreateCourseSubscription(
+            string userLogin, 
+            int courseId)
         {
-            userSubscriptions.CreateCourseSubscription(userName, courseId);
+            var subscription = userSubscriptions
+                .CreateCourseSubscription(userLogin, courseId);
+            return converterToDto.ConvertToCourseSubscriptionDTO(subscription);
         }
 
-        public void CreateDeckSubscription(string userName, int deckId)
+        public DeckSubscriptionDTO CreateDeckSubscription(
+            string userLogin, 
+            int deckId)
         {
-            userSubscriptions.CreateDeckSubscription(userName, deckId);
+            var subscription = userSubscriptions
+                .CreateDeckSubscription(userLogin, deckId);
+
+            return converterToDto.ConvertToDeckSubscriptionDTO(subscription);
         }
 
-        public void UpdateCourseSubscription(CourseSubscriptionDTO courseSubscription)
+        public CourseSubscriptionDTO UpdateCourseSubscription(
+            CourseSubscriptionDTO courseSubscription)
         {
             var subscription = converterFromDto
                 .ConvertToCourseSubscription(courseSubscription);
-            userSubscriptions.UpdateCourseSubscription(subscription);
+            subscription = userSubscriptions
+                .UpdateCourseSubscription(subscription);
+
+            return converterToDto.ConvertToCourseSubscriptionDTO(subscription);
         }
 
-        public void UpdateDeckSubscribtion(DeckSubscriptionDTO deckSubscription)
+        public DeckSubscriptionDTO UpdateDeckSubscribtion(
+            DeckSubscriptionDTO deckSubscription)
         {
             var subscription = converterFromDto
                 .ConvertToDeckSubscription(deckSubscription);
-            userSubscriptions.UpdateDeckSubscribtion(subscription);
+            subscription = userSubscriptions
+                .UpdateDeckSubscribtion(subscription);
+
+            return converterToDto.ConvertToDeckSubscriptionDTO(subscription);
         }
 
-        public void DeleteCourseSubsription(int subscriptionId)
+        public CourseSubscriptionDTO DeleteCourseSubsription(int subscriptionId)
         {
-            userSubscriptions.DeleteCourseSubsription(subscriptionId);
+            var subscription = userSubscriptions
+                .DeleteCourseSubsription(subscriptionId);
+
+            return converterToDto.ConvertToCourseSubscriptionDTO(subscription);
         }
 
-        public void DeleteDeckSubscription(int subscriptionId)
+        public DeckSubscriptionDTO DeleteDeckSubscription(int subscriptionId)
         {
-            userSubscriptions.DeleteDeckSubscription(subscriptionId);
+            var subscription = userSubscriptions
+                .DeleteDeckSubscription(subscriptionId);
+
+            return converterToDto.ConvertToDeckSubscriptionDTO(subscription);
         }
     }
 }

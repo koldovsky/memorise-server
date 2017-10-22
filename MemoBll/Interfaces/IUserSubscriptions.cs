@@ -7,13 +7,13 @@ namespace MemoBll.Interfaces
     {
         //IEnumerable<Course> GetSubscribedCourses(string userName);
         //IEnumerable<Deck> GetSubscribedDecks(string userName);
-        IEnumerable<CourseSubscription> GetCourseSubscriptions(string userName);
-        IEnumerable<DeckSubscription> GetDeckSubscriptions(string userName);
-        void CreateCourseSubscription(string userName, int courseId);
-        void CreateDeckSubscription(string userName, int deckId);
-        void UpdateCourseSubscription(CourseSubscription course);
-        void UpdateDeckSubscribtion(DeckSubscription deck);
-        void DeleteCourseSubsription(int subscriptionId);
-        void DeleteDeckSubscription(int subscriptionId);
+        IEnumerable<CourseSubscription> GetCourseSubscriptions(string userLogin);
+        IEnumerable<DeckSubscription> GetDeckSubscriptions(string userLogin);
+        CourseSubscription CreateCourseSubscription(string userLogin, int courseId);
+        DeckSubscription CreateDeckSubscription(string userLogin, int deckId);
+        CourseSubscription UpdateCourseSubscription(CourseSubscription course);
+        DeckSubscription UpdateDeckSubscribtion(DeckSubscription deck);
+        CourseSubscription DeleteCourseSubsription(int subscriptionId);
+        DeckSubscription DeleteDeckSubscription(int subscriptionId);
     }
 }

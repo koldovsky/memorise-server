@@ -5,19 +5,20 @@ using MemoDTO;
 
 namespace MemoRise.Controllers
 {
-    public class UserSubscriptionsController: ApiController
+    //[Authorize]
+    public class SubscriptionsController : ApiController
     {
         private UserSubscriptionsBll userSubscriptions = new UserSubscriptionsBll();
 
         [HttpGet]
-        [Route("UserSubscriptions/GetSubscribedCourses/{userName}")]
-        public IHttpActionResult GetSubscribedCourses(string userName)
+        [Route("Subscriptions/GetSubscribedCourses/{userLogin}")]
+        public IHttpActionResult GetSubscribedCourses(string userLogin)
         {
             try
             {
-                var courses = userSubscriptions
-                    .GetSubscribedCourses(userName);
-                return Ok(courses);
+                var response = userSubscriptions
+                    .GetSubscribedCourses(userLogin);
+                return Ok(response);
             }
             catch (ArgumentNullException ex)
             {
@@ -30,14 +31,14 @@ namespace MemoRise.Controllers
         }
 
         [HttpGet]
-        [Route("UserSubscriptions/GetSubscribedDecks/{userName}")]
-        public IHttpActionResult GetSubscribedDecks(string userName)
+        [Route("Subscriptions/GetSubscribedDecks/{userLogin}")]
+        public IHttpActionResult GetSubscribedDecks(string userLogin)
         {
             try
             {
-                var decks = userSubscriptions
-                    .GetSubscribedDecks(userName);
-                return Ok(decks);
+                var response = userSubscriptions
+                    .GetSubscribedDecks(userLogin);
+                return Ok(response);
             }
             catch (ArgumentNullException ex)
             {
@@ -50,14 +51,14 @@ namespace MemoRise.Controllers
         }
 
         [HttpGet]
-        [Route("UserSubscriptions/GetCourseSubscriptions/{userName}")]
-        public IHttpActionResult GetCourseSubscriptions(string userName)
+        [Route("Subscriptions/GetCourseSubscriptions/{userLogin}")]
+        public IHttpActionResult GetCourseSubscriptions(string userLogin)
         {
             try
             {
-                var subscriptions = userSubscriptions
-                    .GetCourseSubscriptions(userName);
-                return Ok(subscriptions);
+                var response = userSubscriptions
+                    .GetCourseSubscriptions(userLogin);
+                return Ok(response);
             }
             catch (ArgumentNullException ex)
             {
@@ -70,14 +71,14 @@ namespace MemoRise.Controllers
         }
 
         [HttpGet]
-        [Route("UserSubscriptions/GetDeckSubscriptions/{userName}")]
-        public IHttpActionResult GetDeckSubscriptions(string userName)
+        [Route("Subscriptions/GetDeckSubscriptions/{userLogin}")]
+        public IHttpActionResult GetDeckSubscriptions(string userLogin)
         {
             try
             {
-                var subscriptions = userSubscriptions
-                    .GetDeckSubscriptions(userName);
-                return Ok(subscriptions);
+                var response = userSubscriptions
+                    .GetDeckSubscriptions(userLogin);
+                return Ok(response);
             }
             catch (ArgumentNullException ex)
             {
@@ -90,13 +91,16 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
-        [Route("UserSubscriptions/CreateCourseSubscription/{userName}/{courseId}")]
-        public IHttpActionResult CreateCourseSubscription(string userName, int courseId)
+        public IHttpActionResult CreateCourseSubscription(
+            CourseSubscriptionDTO subscription)
         {
             try
             {
-                userSubscriptions.CreateCourseSubscription(userName, courseId);
-                return Ok();
+                var response = userSubscriptions
+                    .CreateCourseSubscription(
+                    subscription.UserLogin, 
+                    subscription.CourseId);
+                return Ok(response);
             }
             catch (ArgumentNullException ex)
             {
@@ -109,13 +113,15 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
-        [Route("UserSubscriptions/CreateDeckSubscription/{userName}/{deckId}")]
-        public IHttpActionResult CreateDeckSubscription(string userName, int deckId)
+        public IHttpActionResult CreateDeckSubscription(
+            DeckSubscriptionDTO subscription)
         {
             try
             {
-                userSubscriptions.CreateDeckSubscription(userName, deckId);
-                return Ok();
+                var response = userSubscriptions.CreateDeckSubscription(
+                    subscription.UserLogin,
+                    subscription.DeckId);
+                return Ok(response);
             }
             catch (ArgumentNullException ex)
             {
@@ -133,8 +139,9 @@ namespace MemoRise.Controllers
         {
             try
             {
-                userSubscriptions.UpdateCourseSubscription(courseSubscription);
-                return Ok();
+                var response = userSubscriptions
+                    .UpdateCourseSubscription(courseSubscription);
+                return Ok(response);
             }
             catch (ArgumentNullException ex)
             {
@@ -152,8 +159,9 @@ namespace MemoRise.Controllers
         {
             try
             {
-                userSubscriptions.UpdateDeckSubscribtion(deckSubscription);
-                return Ok();
+                var response = userSubscriptions
+                    .UpdateDeckSubscribtion(deckSubscription);
+                return Ok(response);
             }
             catch (ArgumentNullException ex)
             {
@@ -165,14 +173,15 @@ namespace MemoRise.Controllers
             }
         }
 
-        [HttpDelete]
-        [Route("UserSubscriptions/DeleteCourseSubscription/{subscriptionId}")]
+        [Authorize]
+        [Route("Subscriptions/DeleteCourseSubscription/{subscriptionId}")]
         public IHttpActionResult DeleteCourseSubscription(int subscriptionId)
         {
             try
             {
-                userSubscriptions.DeleteCourseSubsription(subscriptionId);
-                return Ok();
+                var response = userSubscriptions
+                    .DeleteCourseSubsription(subscriptionId);
+                return Ok(response);
             }
             catch (ArgumentNullException ex)
             {
@@ -185,13 +194,14 @@ namespace MemoRise.Controllers
         }
 
         [HttpDelete]
-        [Route("UserSubscriptions/DeleteDeckSubscription/{subscriptionId}")]
+        [Route("Subscriptions/DeleteDeckSubscription/{subscriptionId}")]
         public IHttpActionResult DeleteDeckSubscription(int subscriptionId)
         {
             try
             {
-                userSubscriptions.DeleteDeckSubscription(subscriptionId);
-                return Ok();
+                var response = userSubscriptions
+                    .DeleteDeckSubscription(subscriptionId);
+                return Ok(response);
             }
             catch (ArgumentNullException ex)
             {

@@ -9,7 +9,7 @@ using Microsoft.AspNet.Identity;
 
 namespace MemoBll.Logic
 {
-    class UserStatistics: IUserStatistics
+    class UserStatistics : IUserStatistics
     {
         IUnitOfWork unitOfWork;
 
@@ -38,7 +38,7 @@ namespace MemoBll.Logic
         public IEnumerable<Statistics> GetDeckStatistics(string userName, int deckId)
         {
             var cards = unitOfWork.Decks.Get(deckId)
-                ?.Cards 
+                ?.Cards
                 ?? throw new ArgumentNullException();
             return cards.Select(card => GetStatistics(userName, card.Id));
         }
@@ -54,18 +54,21 @@ namespace MemoBll.Logic
             return cards.Select(card => GetStatistics(userName, card.Id));
         }
 
-        public void CreateStatistics(Statistics statistics)
+        public Statistics CreateStatistics(Statistics statistics)
         {
             unitOfWork.Statistics.Create(statistics);
             unitOfWork.Save();
+
+            return statistics;
         }
 
-        public void CreateDeckStatistics(string userName, int deckId)
+        public IEnumerable<Statistics> CreateDeckStatistics(string userName, int deckId)
         {
             var user = unitOfWork.Users.FindByName(userName);
             var cards = unitOfWork.Decks.Get(deckId)
                 ?.Cards
                 ?? throw new ArgumentNullException();
+            var createdStatistics = new List<Statistics>();
             cards.ToList().ForEach(card =>
             {
                 var statistics = new Statistics
@@ -74,28 +77,39 @@ namespace MemoBll.Logic
                     CardStatus = 0,
                     User = user
                 };
-                CreateStatistics(statistics);
+                createdStatistics.Add(CreateStatistics(statistics));
             });
+
+            return createdStatistics;
         }
 
-        public void CreateCourseStatistics(string userName, int courseId)
+        public IEnumerable<Statistics> CreateCourseStatistics(string userName, int courseId)
         {
             var decks = unitOfWork.Courses.Get(courseId)
                 ?.Decks
                 ?? throw new ArgumentNullException();
-            decks.ToList().ForEach(deck => CreateDeckStatistics(userName, deck.Id));
+            var createdStatistics = new List<Statistics>();
+            decks.ToList().ForEach(deck =>
+            createdStatistics.AddRange(CreateDeckStatistics(userName, deck.Id)));
+
+            return createdStatistics;
         }
 
-        public void UpdateStatistics(Statistics statistics)
+        public Statistics UpdateStatistics(Statistics statistics)
         {
             unitOfWork.Statistics.Update(statistics);
             unitOfWork.Save();
+
+            return statistics;
         }
 
-        public void DeleteStatistics(int statisticsId)
+        public Statistics DeleteStatistics(int statisticsId)
         {
+            var statistics = unitOfWork.Statistics.Get(statisticsId);
             unitOfWork.Statistics.Delete(statisticsId);
             unitOfWork.Save();
+
+            return statistics;
         }
     }
 }
