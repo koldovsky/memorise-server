@@ -1,9 +1,6 @@
 ﻿using MemoBll.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using MemoDTO;
 
 namespace MemoBll.Logic
@@ -50,6 +47,23 @@ namespace MemoBll.Logic
             deck.Description = Encoding.UTF8.GetString(
                               Convert.FromBase64String(deck.Description));
             return deck;
+        }
+
+        public UserDTO DecodeUser(UserDTO user)
+        {
+            user.Login = Encoding.UTF8.GetString(
+                Convert.FromBase64String(user.Login));
+            user.FirstName = Encoding.UTF8.GetString(
+                Convert.FromBase64String(user.FirstName));
+            user.LastName = Encoding.UTF8.GetString(
+                Convert.FromBase64String(user.LastName));
+            user.Gender = Encoding.UTF8.GetString(
+                Convert.FromBase64String(user.Gender));
+            user.Country = Encoding.UTF8.GetString(
+                Convert.FromBase64String(user.Country));
+            user.City = Encoding.UTF8.GetString(
+                Convert.FromBase64String(user.City));
+            return user;
         }
     }
 }

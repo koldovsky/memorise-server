@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Claims;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Threading.Tasks;
 using Microsoft.Owin.Security.Facebook;
 using Claim = System.Security.Claims.Claim;
 

@@ -186,21 +186,57 @@ namespace MemoBll.Logic
                 Deck = ConvertToDeck(userDeck.Deck)
             };
         }
-
-        /// <summary>
-        /// It is EmptyUser
-        /// </summary>
-        /// <param name="userDTO"></param>
-        /// <returns></returns>
+        
         public User ConvertToUser(UserDTO userDTO)
         {
-            User user = new User();
+            UserProfile userProfileDetails = new UserProfile()
+            {
+                IsBlocked = userDTO.IsBlocked,
+                FirstName = userDTO.FirstName,
+                LastName = userDTO.LastName,
+                Gender = userDTO.Gender,
+                Country = userDTO.Country,
+                City = userDTO.City
+            };
+            User user = new User()
+            {
+                Id = userDTO.Id,
+                UserName = userDTO.Login,
+                Email = userDTO.Email,
+                UserProfile = userProfileDetails
+            };
             return user;
+        }
+
+        public UserProfile ConvertToUserProfile(UserDTO userDTO)
+        {
+            User user = new User()
+            {
+                Id = userDTO.Id,
+                UserName = userDTO.Login,
+                Email = userDTO.Email
+            };
+            UserProfile userProfileDetails = new UserProfile()
+            {
+                IsBlocked = userDTO.IsBlocked,
+                FirstName = userDTO.FirstName,
+                LastName = userDTO.LastName,
+                Gender = userDTO.Gender,
+                Country = userDTO.Country,
+                City = userDTO.City,
+                User = user
+            };
+            return userProfileDetails;
         }
 
         public List<User> ConvertToUserList(IEnumerable<UserDTO> users)
         {
-            throw new NotImplementedException();
+            List<User> listedUsers = new List<User>();
+            foreach (UserDTO user in users)
+            {
+                listedUsers.Add(ConvertToUser(user));
+            }
+            return listedUsers;
         }
     }
 }

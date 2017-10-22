@@ -16,6 +16,7 @@ namespace MemoBll.Interfaces
         List<Answer> ConvertToAnswerList(IEnumerable<AnswerDTO> answers);
         Role ConvertToRole(RoleDTO role);
         User ConvertToUser(UserDTO user);
+        UserProfile ConvertToUserProfile(UserDTO user);
         List<User> ConvertToUserList(IEnumerable<UserDTO> users);
         Card ConvertToCard(CardDTO card);
         List<Card> ConvertToCardList(IEnumerable<CardDTO> cards);

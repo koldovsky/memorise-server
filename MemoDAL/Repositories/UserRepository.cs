@@ -1,6 +1,5 @@
 ﻿using MemoDAL.Entities;
 using Microsoft.AspNet.Identity;
-using System.Collections.Generic;
 
 namespace MemoDAL.Repositories
 {
@@ -13,14 +12,5 @@ namespace MemoDAL.Repositories
         {
             this.store = store;
         }
-            
-        
-        public IEnumerable<User> GetAll()
-        {
-            return this.GetAll();
-        
-        }
-
     }
-
 }

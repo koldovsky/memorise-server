@@ -63,8 +63,7 @@ namespace MemoRise
             OAuthBearerOptions = new OAuthBearerAuthenticationOptions();
 
             app.UseOAuthBearerAuthentication(OAuthBearerOptions);
-
-            //Configure Facebook External Login
+            
             FacebookAuthOptions = new FacebookAuthenticationOptions()
             {
                 AppId = "332333880510904",

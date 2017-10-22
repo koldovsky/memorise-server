@@ -84,6 +84,7 @@
     <Compile Include="Repositories\CourseRepository.cs" />
     <Compile Include="Repositories\DeckRepository.cs" />
     <Compile Include="Repositories\Interfaces\IAnswerRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IAuthRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICategoryRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICardTypeRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICardRepository.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Repositories\Interfaces\ISubscribedCourseRepository.cs" />
     <Compile Include="Repositories\Interfaces\ISubscribedDeckRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IUserProfileRepository.cs" />
     <Compile Include="Repositories\ReportRepository.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Repositories\StatisticsRepository.cs" />
