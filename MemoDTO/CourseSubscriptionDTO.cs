@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public int Rating { get; set; }
-        public UserDTO User { get; set; }
-        public CourseDTO Course { get; set; }
+        public string UserLogin { get; set; }
+        public int CourseId { get; set; }
     }
 }

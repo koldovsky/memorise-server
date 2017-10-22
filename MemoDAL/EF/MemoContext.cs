@@ -25,15 +25,11 @@ namespace MemoDAL.EF
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
             modelBuilder.Entity<User>()
                 .HasRequired(x => x.UserProfile)
                 .WithRequiredPrincipal(x => x.User);
 
             base.OnModelCreating(modelBuilder);
-
-
         }
-
     }
 }
