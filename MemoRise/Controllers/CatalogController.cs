@@ -38,7 +38,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult GetCategoriesByPage([FromBody]SearchDataModel searchDataModel) 
+        public IHttpActionResult GetCategoriesByPage([FromBody]SearchDataModel searchDataModel)
         {
             int totalCount = 0;
             try
@@ -96,7 +96,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult GetCoursesByPage([FromBody]SearchDataModel searchDataModel)    
+        public IHttpActionResult GetCoursesByPage([FromBody]SearchDataModel searchDataModel)
         {
             int totalCount = 0;
             try
@@ -167,7 +167,7 @@ namespace MemoRise.Controllers
                 }
                 totalCount = decks.Count();
                 decks = searchDataModel.Sort ? decks.OrderByDescending(name => name.Name) : decks.OrderBy(name => name.Name);
-                
+
                 if (searchDataModel.Page == 1 && searchDataModel.PageSize == 0)
                 {
                     decks = decks.ToList();
@@ -295,11 +295,11 @@ namespace MemoRise.Controllers
         }
 
         [HttpGet]
-		[Route("Catalog/GetCourse/{courseName}")]
-		public IHttpActionResult GetCourse(string courseName)
-		{
-			try
-			{
+        [Route("Catalog/GetCourse/{courseName}")]
+        public IHttpActionResult GetCourse(string courseName)
+        {
+            try
+            {
 
                 CourseWithDecksDTO course = catalog
                                            .GetCourseWithDecksDTO(courseName);
@@ -318,30 +318,5 @@ namespace MemoRise.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        //[HttpGet]
-        //[Route("Catalog/GetDeckBySearch/{searchString}")]
-        //public IHttpActionResult GetDeckBySearch(string searchString)           
-        //{
-        //    try
-        //    {
-        //        List<DeckDTO> deck = catalog
-        //            .GetAllDecks()
-        //            .Where(decks => decks.Name.ToLower().Contains(searchString.ToLower()))
-        //            .ToList();
-
-        //        return Ok(deck);
-        //    }
-        //    catch (ArgumentNullException ex)
-        //    {
-        //        var message = $"Course with name = {searchString} " +
-        //                      $"not found. {ex.Message}";
-        //        return BadRequest(message);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
     }
 }
