@@ -8,9 +8,9 @@ using System.Linq;
 
 namespace MemoBll.Logic
 {
-	public class Moderation : IModeration
+    public class Moderation : IModeration
     {
-        IUnitOfWork unitOfWork;
+        private IUnitOfWork unitOfWork;
 
         public Moderation()
         {
@@ -61,7 +61,7 @@ namespace MemoBll.Logic
             return unitOfWork.Statistics
                 .GetAll().Where(x => x.Card.Deck.Id == deckId);
         }
-        
+
         public Statistics GetStatistics(string deckName, int userId)
         {
             return unitOfWork.Statistics
@@ -144,6 +144,13 @@ namespace MemoBll.Logic
                 .FirstOrDefault();
         }
 
+        public Deck FindDeckByLinking(string deckLinking)
+        {
+            return unitOfWork.Decks.GetAll()
+                .Where(c => c.Linking.ToLower() == deckLinking.ToLower())
+                .FirstOrDefault();
+        }
+
         #endregion
 
         #region ForCard
@@ -216,31 +223,38 @@ namespace MemoBll.Logic
         public void RemoveCategory(int categoryId)
         {
             Category category = unitOfWork.Categories.Get(categoryId);
-            if (category.Decks.Count>0)
+            if (category.Decks.Count > 0)
             {
-                foreach( var deck in category.Decks.ToList())
+                foreach (var deck in category.Decks.ToList())
                 {
                     RemoveDeck(deck.Id);
                 }
-                
             }
+
             if (category.Courses.Count > 0)
             {
                 foreach (var course in category.Courses.ToList())
                 {
                     RemoveCourse(course.Id);
                 }
-                
             }
+
             unitOfWork.Categories.Delete(categoryId);
             unitOfWork.Save();
         }
 
         public Category FindCategoryByName(string categoryName)
         {
-            return unitOfWork.Categories.GetAll()
-                .Where(c => c.Name.ToLower() == categoryName.ToLower())
-                .FirstOrDefault();
+            return unitOfWork.Categories
+                .GetAll()
+                .FirstOrDefault(c => c.Name.ToLower() == categoryName.ToLower());
+        }
+
+        public Category FindCategoryByLinking(string categoryLinking)
+        {
+            return unitOfWork.Categories
+                .GetAll()
+                .FirstOrDefault(c => c.Linking.ToLower() == categoryLinking.ToLower());
         }
 
         #endregion
@@ -265,10 +279,17 @@ namespace MemoBll.Logic
             unitOfWork.Save();
         }
 
-        public Course FindCourseByName (string courseName)
+        public Course FindCourseByName(string courseName)
         {
             return unitOfWork.Courses.GetAll()
                 .Where(c => c.Name.ToLower() == courseName.ToLower())
+                .FirstOrDefault();
+        }
+
+        public Course FindCourseByLinking(string courseLinking)
+        {
+            return unitOfWork.Courses.GetAll()
+                .Where(c => c.Linking.ToLower() == courseLinking.ToLower())
                 .FirstOrDefault();
         }
 
@@ -295,10 +316,10 @@ namespace MemoBll.Logic
             unitOfWork.Save();
         }
 
-        //public Statistics GetStatistics(string deckName, int userId)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        ////public Statistics GetStatistics(string deckName, int userId)
+        ////{
+        ////    throw new NotImplementedException();
+        ////}
 
         #endregion
        

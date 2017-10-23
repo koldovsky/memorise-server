@@ -16,7 +16,7 @@ namespace Memorise.Tests.BLL.ManagersTests
         private static IList<Course> courses = new List<Course>();
         private static IList<Deck> decks = new List<Deck>();
         private Mock<ICatalog> catalog = new Mock<ICatalog>(MockBehavior.Strict);
-        private Mock<IConverterToDTO> converter = new Mock<IConverterToDTO>(MockBehavior.Strict);
+        private Mock<IConverterToDto> converter = new Mock<IConverterToDto>(MockBehavior.Strict);
 
         public CatalogBllTests()
         {
@@ -59,16 +59,16 @@ namespace Memorise.Tests.BLL.ManagersTests
                 .Returns(courses[0]);
 
             this.converter
-                .Setup(c => c.ConvertToCategoryDTO(It.IsIn<Category>(categories)))
+                .Setup(c => c.ConvertToCategoryDto(It.IsIn<Category>(categories)))
                 .Returns(new CategoryDTO());
             this.converter
-                .Setup(c => c.ConvertToDeckDTO(It.IsIn<Deck>(decks)))
+                .Setup(c => c.ConvertToDeckDto(It.IsIn<Deck>(decks)))
                 .Returns(new DeckDTO());
             this.converter
-                .Setup(c => c.ConvertToCourseDTO(It.IsIn<Course>(courses)))
+                .Setup(c => c.ConvertToCourseDto(It.IsIn<Course>(courses)))
                 .Returns(new CourseDTO());
             this.converter
-                .Setup(c => c.ConvertToCourseWithDecksDTO(It.IsIn<Course>(courses)))
+                .Setup(c => c.ConvertToCourseWithDecksDto(It.IsIn<Course>(courses)))
                 .Returns(new CourseWithDecksDTO());
         }
 
@@ -173,7 +173,7 @@ namespace Memorise.Tests.BLL.ManagersTests
 
                 this.catalog.Verify(cat => cat.GetCourse(course.Name), Times.AtLeastOnce());
                 this.converter.Verify(
-                    conv => conv.ConvertToCourseWithDecksDTO(It.IsAny<Course>()),
+                    conv => conv.ConvertToCourseWithDecksDto(It.IsAny<Course>()),
                     Times.AtLeastOnce());
                 Assert.That(actual, Is.InstanceOf(typeof(CourseWithDecksDTO)));
             }

@@ -48,7 +48,7 @@
     <Compile Include="Interfaces\IDecoderBase64.cs" />
     <Compile Include="Interfaces\IUserStatistics.cs" />
     <Compile Include="Interfaces\IUserSubscriptions.cs" />
-    <Compile Include="Logic\ConverterFromDTO.cs" />
+    <Compile Include="Logic\ConverterFromDto.cs" />
     <Compile Include="Logic\CourseDetails.cs" />
     <Compile Include="Interfaces\ICourseDetails.cs" />
     <Compile Include="Interfaces\IModeration.cs" />
@@ -62,7 +62,7 @@
     <Compile Include="Managers\AdministrationBll.cs" />
     <Compile Include="Logic\CardEditor.cs" />
     <Compile Include="Managers\CatalogBll.cs" />
-    <Compile Include="Logic\ConverterToDTO.cs" />
+    <Compile Include="Logic\ConverterToDto.cs" />
     <Compile Include="Managers\CourseDetailsBll.cs" />
     <Compile Include="Logic\UserStatistics.cs" />
     <Compile Include="Interfaces\IConverterToDTO.cs" />

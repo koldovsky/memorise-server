@@ -13,7 +13,7 @@ namespace MemoRise.Controllers
     public class ModeratorController : ApiController
     {
         ModerationBll moderation = new ModerationBll();
-        ConverterFromDTO converter = new ConverterFromDTO();
+        ConverterFromDto converter = new ConverterFromDto();
         DecoderBase64 decoder = new DecoderBase64();
         ConverterToDTO converterToDTO = new ConverterToDTO();
 
