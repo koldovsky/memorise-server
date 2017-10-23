@@ -59,19 +59,19 @@ namespace MemoDAL.EF
             // DECK
             IList<Deck> decks = new List<Deck>
             {
-                new Deck{Name = "Arrays", Linking = "Arrays", Price = 0, Category = categories[0]},
-                new Deck{Name = "Generics", Linking = "Generics", Price = 0, Category = categories[0]},
-                new Deck{Name = "LINQ", Linking = "LINQ", Price = 0, Category = categories[0]},
-                new Deck{Name = "Database First", Linking = "Database_First", Price = 0, Category = categories[0]},
-                new Deck{Name = "Model First", Linking = "Model_First", Price = 0, Category = categories[0]},
-                new Deck{Name = "Code First", Linking = "Code_First", Price = 0, Category = categories[0]},
-                new Deck{Name = "Web API", Linking = "Web_API", Price = 0, Category = categories[0]},
-                new Deck{Name = "IIS", Linking = "IIS", Price = 0, Category = categories[0]},
-                new Deck{Name = "Routing", Linking = "Routing", Price = 0, Category = categories[0]},
-                new Deck{Name = "XAML", Linking = "XAML", Price = 0, Category = categories[0]},
-                new Deck{Name = "Binding", Linking = "Binding", Price = 0, Category = categories[0]},
-                new Deck{Name = "CSS", Linking = "CSS", Price = 0, Category = categories[2]},
-                new Deck{Name = "Base knowledge", Linking="BaseKnowledge", Price=12, Category = categories[0] }
+                new Deck{Name = "Arrays", Linking = "Arrays", Description = "Deck description", Price = 0, Category = categories[0]},
+                new Deck{Name = "Generics", Linking = "Generics", Description = "Deck description", Price = 0, Category = categories[0]},
+                new Deck{Name = "LINQ", Linking = "LINQ", Description = "Deck description", Price = 0, Category = categories[0]},
+                new Deck{Name = "Database First", Linking = "DatabaseFirst", Description = "Deck description", Price = 0, Category = categories[0]},
+                new Deck{Name = "Model First", Linking = "ModelFirst", Description = "Deck description", Price = 0, Category = categories[0]},
+                new Deck{Name = "Code First", Linking = "CodeFirst", Description = "Deck description", Price = 0, Category = categories[0]},
+                new Deck{Name = "Web API", Linking = "WebAPI", Description = "Deck description", Price = 0, Category = categories[0]},
+                new Deck{Name = "IIS", Linking = "IIS", Description = "Deck description", Price = 0, Category = categories[0]},
+                new Deck{Name = "Routing", Linking = "Routing", Description = "Deck description", Price = 0, Category = categories[0]},
+                new Deck{Name = "XAML", Linking = "XAML", Description = "Deck description", Price = 0, Category = categories[0]},
+                new Deck{Name = "Binding", Linking = "Binding", Description = "Deck description", Price = 0, Category = categories[0]},
+                new Deck{Name = "CSS", Linking = "CSS", Description = "Deck description", Price = 0, Category = categories[2]},
+                new Deck{Name = "Base knowledge", Linking="BaseKnowledge", Description = "Deck description", Price=12, Category = categories[0] }
             };
             context.Decks.AddRange(decks);
             
@@ -83,7 +83,7 @@ namespace MemoDAL.EF
             IList<Course> courses = new List<Course>
             {
                 new Course{Name = "C#", Linking = "cSharp", Description = "C# course description",Price = 0,Category = categories[0]},
-                new Course{Name = "ASP.MVC", Linking = "ASP_MVC", Description = "ASP.MVC course description",Price = 0,Category = categories[0]},
+                new Course{Name = "ASP.MVC", Linking = "ASPMVC", Description = "ASP.MVC course description",Price = 0,Category = categories[0]},
                 new Course{Name = "EntityFramework",Linking = "EF", Description = "EntityFramework course description",Price=100,Category = categories[0]},
                 new Course{Name = "WPF", Linking = "WPF", Description = "WPF course description",Price = 0,Category = categories[0]},
                 new Course{Name = "JQUERY", Linking = "JQ", Description = "JQUERY course description", Price = 0, Category = categories[2]}
