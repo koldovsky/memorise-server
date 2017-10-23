@@ -13,15 +13,15 @@ namespace MemoBll.Managers
 	public class QuizBll
     {
         IQuiz quiz;
-        IConverterToDTO converterToDto;
+        IConverterToDto converterToDto;
 
         public QuizBll()
         {
             this.quiz = new Quiz(new UnitOfWork(new MemoContext()));
-            this.converterToDto = new ConverterToDTO();
+            this.converterToDto = new ConverterToDto();
         }
 
-        public QuizBll(IQuiz quiz, IConverterToDTO converterToDto)
+        public QuizBll(IQuiz quiz, IConverterToDto converterToDto)
         {
             this.quiz = quiz;
             this.converterToDto = converterToDto;
@@ -31,28 +31,28 @@ namespace MemoBll.Managers
         {
             var answers = quiz.GetAllAnswersInCard(cardId).ToList();
 
-            return converterToDto.ConvertToAnswerListDTO(answers);
+            return converterToDto.ConvertToAnswerListDto(answers);
         }
         
         public List<CardDTO> GetCardsByDeck(string deckLink)   
         {
              List<Card> cards = quiz.GetCardsByDeck(deckLink).ToList();
              
-             return converterToDto.ConvertToCardListDTO(cards);
+             return converterToDto.ConvertToCardListDto(cards);
         }
 
         public List<CardDTO> GetCardsByDeckArray(string[] deckLink)   
         {
             List<Card> cards = quiz.GetCardsByDeckArray(deckLink).ToList();
 
-            return converterToDto.ConvertToCardListDTO(cards);
+            return converterToDto.ConvertToCardListDto(cards);
         }
 
         public List<CardDTO> GetCardsByCourse(string courseLink)
         {
             List<Card> cards = quiz.GetCardsByCourse(courseLink).ToList();
 
-            return converterToDto.ConvertToCardListDTO(cards);
+            return converterToDto.ConvertToCardListDto(cards);
         }
 
         public bool IsAnswerCorrect(int cardId, string answerText)

@@ -49,6 +49,12 @@ namespace MemoBll.Logic
                 .FirstOrDefault(x => x.Name == name) ?? throw new ArgumentNullException();
         }
 
+        public Course GetCourseByLinking(string linking)
+        {
+            return unitOfWork.Courses.GetAll()
+                .FirstOrDefault(x => x.Linking == linking) ?? throw new ArgumentNullException();
+        }
+
         public Course GetCourseById(int id)
         {
             return unitOfWork.Courses.Get(id) ?? throw new ArgumentNullException();

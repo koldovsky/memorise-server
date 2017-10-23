@@ -13,8 +13,8 @@ namespace MemoRise.Controllers
     public class ModeratorController : ApiController
     {
         ModerationBll moderation = new ModerationBll();
-        ConverterFromDTO converter = new ConverterFromDTO();
-        DecoderBase64 decoder = new DecoderBase64();
+        ConverterFromDto converter = new ConverterFromDto();
+        ConverterToDto converterToDTO = new ConverterToDto();
 
         #region Categories
 
@@ -22,11 +22,7 @@ namespace MemoRise.Controllers
         [Authorize]
         public IHttpActionResult CreateCategory(CategoryDTO categoryDto)
         {
-            categoryDto = decoder.DecodeCategory(categoryDto);
-
-            ModelState.Clear();
-            this.Validate(categoryDto);
-
+            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -48,10 +44,10 @@ namespace MemoRise.Controllers
         [Authorize]
         public IHttpActionResult UpdateCategory(CategoryDTO categoryDto)
         {
-            categoryDto = decoder.DecodeCategory(categoryDto);
-
-            ModelState.Clear();
-            this.Validate(categoryDto);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
             try
             {
@@ -110,11 +106,7 @@ namespace MemoRise.Controllers
         [Authorize]
         public IHttpActionResult CreateCourse(CourseDTO courseDto)
         {
-            courseDto = decoder.DecodeCourse(courseDto);
-
-            ModelState.Clear();
-            this.Validate(courseDto);
-
+          
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -138,28 +130,14 @@ namespace MemoRise.Controllers
         [Authorize]
         public IHttpActionResult UpdateCourse(CourseWithDecksDTO courseDto)
         {
-            courseDto = decoder.DecodeCourseWithDecks(courseDto);
-
-            ModelState.Clear();
-            this.Validate(courseDto);
-
+           
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             try
             {
-                Course course = converter.ConvertToCourse(courseDto);
-                Category category = moderation.FindCategoryByName(courseDto.CategoryName);
-                course.Category = category;
-
-                List<Deck> decks = new List<Deck>();
-                for(int i = 0; i < courseDto.DeckNames.Length; i++)
-                {
-                    decks.Add(moderation.FindDeckByName(courseDto.DeckNames[i]));
-                }
-                course.Decks = decks;
-
+                Course course = moderation.FindCourseAndUpdateValues(courseDto);
                 moderation.UpdateCourse(course);
 
                 return Ok(courseDto);
@@ -239,10 +217,10 @@ namespace MemoRise.Controllers
         [Authorize]
         public IHttpActionResult CreateDeck(DeckDTO deckDto)
         {
-            deckDto = decoder.DecodeDeck(deckDto);
+            //deckDto = decoder.DecodeDeck(deckDto);
 
-            ModelState.Clear();
-            this.Validate(deckDto);
+            //ModelState.Clear();
+            //this.Validate(deckDto);
 
             if (!ModelState.IsValid)
             {
@@ -313,11 +291,23 @@ namespace MemoRise.Controllers
         [Authorize]
         public IHttpActionResult CreateCard(CardDTO cardDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             try
             {
                 Card card = converter.ConvertToCard(cardDto);
+                card.Deck = moderation.FindDeckByName(cardDto.DeckName);
+                card.CardType = moderation.FindCardTypeByName(cardDto.CardTypeName);
+                card.Answers = new List<Answer>();
+                foreach(var answer in cardDto.Answers)
+                {
+                    card.Answers.Add(moderation.CreateAnswer(converter.ConvertToAnswer(answer)));
+                }
                 moderation.CreateCard(card);
-                return Ok();
+                return Ok(converterToDTO.ConvertToCardDto(card));
             }
             catch (Exception ex)
             {
@@ -329,6 +319,11 @@ namespace MemoRise.Controllers
         [Authorize()]
         public IHttpActionResult UpdateCard(CardDTO cardDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             try
             {
                 Card card = converter.ConvertToCard(cardDto);
@@ -349,7 +344,7 @@ namespace MemoRise.Controllers
             try
             {
                 moderation.RemoveCard(cardId);
-                return Ok();
+                return Ok(cardId);
             }
             catch (Exception ex)
             {
@@ -379,56 +374,6 @@ namespace MemoRise.Controllers
             }
         }
         #endregion
-
-        #region Answers
-
-        [HttpPost]
-        [Authorize()]
-        public IHttpActionResult CreateAnswer(AnswerDTO answerDto)
-        {
-            try
-            {
-                Answer answer = converter.ConvertToAnswer(answerDto);
-                moderation.CreateAnswer(answer);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPut]
-        [Authorize()]
-        public IHttpActionResult UpdateAnswer(AnswerDTO answerDto)
-        {
-            try
-            {
-                Answer answer = converter.ConvertToAnswer(answerDto);
-                moderation.UpdateAnswer(answer);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpDelete]
-        [Authorize()]
-        [Route("Moderator/DeleteAnswer/{answerId}")]
-        public IHttpActionResult DeleteAnswer(int answerId)
-        {
-            try
-            {
-                moderation.RemoveAnswer(answerId);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-#endregion
+       
     }
 }

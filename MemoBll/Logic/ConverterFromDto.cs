@@ -10,16 +10,16 @@ using Microsoft.AspNet.Identity;
 
 namespace MemoBll.Logic
 {
-    public class ConverterFromDTO : IConverterFromDTO
+    public class ConverterFromDto : IConverterFromDto
     {
         private IUnitOfWork unitOfWork;
 
-        public ConverterFromDTO()
+        public ConverterFromDto()
         {
             unitOfWork = new UnitOfWork(new MemoContext());
         }
 
-        public ConverterFromDTO(IUnitOfWork uow)
+        public ConverterFromDto(IUnitOfWork uow)
         {
             unitOfWork = uow;
         }
@@ -46,7 +46,7 @@ namespace MemoBll.Logic
             return new Card()
             {
                 Id = cardDTO.Id,
-                Question = cardDTO.Question == null ? "" : cardDTO.Question,
+                Question = cardDTO.Question ?? string.Empty,
                 CardType = ConvertToCardType(cardDTO.CardType == null ? new CardTypeDTO() : cardDTO.CardType),
                 Deck = ConvertToDeck(cardDTO.Deck == null ? new DeckDTO() : cardDTO.Deck),
                 Answers = ConvertToAnswerList(cardDTO.Answers == null ? new List<AnswerDTO>() : cardDTO.Answers),
@@ -105,20 +105,19 @@ namespace MemoBll.Logic
                 Description = courseDTO.Description,
                 Linking = courseDTO.Linking,
                 Price = courseDTO.Price
-               
             };
         }
 
-        public Course ConvertToCourse(CourseWithDecksDTO courseWithDecksDTO)
+        public Course ConvertToCourse(CourseWithDecksDTO courseWithDecksDto)
         {
             return new Course
             {
-                Id = courseWithDecksDTO.Id,
-                Name = courseWithDecksDTO.Name,
-                Description = courseWithDecksDTO.Description,
-                Linking = courseWithDecksDTO.Linking,
-                Price = courseWithDecksDTO.Price,
-                Photo = courseWithDecksDTO.Photo
+                Id = courseWithDecksDto.Id,
+                Name = courseWithDecksDto.Name,
+                Description = courseWithDecksDto.Description,
+                Linking = courseWithDecksDto.Linking,
+                Price = courseWithDecksDto.Price,
+                Photo = courseWithDecksDto.Photo
             };
         }
 

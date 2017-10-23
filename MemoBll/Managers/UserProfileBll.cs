@@ -13,15 +13,15 @@ namespace MemoBll.Managers
 	public class UserProfileBll
     {
         IUserProfile userProfile;
-        IConverterToDTO converterToDto;
+        IConverterToDto converterToDto;
 
         public UserProfileBll()
         {
             this.userProfile = new Logic.UserProfile(new UnitOfWork(new MemoContext()));
-            this.converterToDto = new ConverterToDTO();
+            this.converterToDto = new ConverterToDto();
         }
 
-        public UserProfileBll(IUserProfile userProfile, IConverterToDTO converterToDto)
+        public UserProfileBll(IUserProfile userProfile, IConverterToDto converterToDto)
         {
             this.userProfile = userProfile;
             this.converterToDto = converterToDto;
@@ -35,14 +35,14 @@ namespace MemoBll.Managers
         public List<CourseDTO> GetCoursesByUser(string userEmail)
         {
             List<Course> courses = userProfile.GetCoursesByUser(userEmail).ToList();
-            return converterToDto.ConvertToCourseListDTO(courses);
+            return converterToDto.ConvertToCourseListDto(courses);
         }
 
         public UserDTO GetUserByLogin(string userLogin)
         {
             User user = userProfile.GetUserByLogin(userLogin);
             return user != null
-                ? converterToDto.ConvertToUserDTO(user)
+                ? converterToDto.ConvertToUserDto(user)
                 : throw new ArgumentNullException();
         }
 
@@ -50,7 +50,7 @@ namespace MemoBll.Managers
         {
             User user = userProfile.GetUserByEmail(userEmail);
             return user != null
-                ? converterToDto.ConvertToUserDTO(user)
+                ? converterToDto.ConvertToUserDto(user)
                 : throw new ArgumentNullException();
         }
 

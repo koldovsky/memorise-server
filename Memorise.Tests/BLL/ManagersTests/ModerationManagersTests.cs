@@ -57,10 +57,10 @@ namespace Memorise.Tests.BLL.ManagersTests
             moderation.Setup(m => m.GetAllUsersByCourse(VALID_COURSE_ID))
                       .Returns(this.users);
 
-            Mock<IConverterToDTO> converter = new Mock<IConverterToDTO>(
+            Mock<IConverterToDto> converter = new Mock<IConverterToDto>(
                                               MockBehavior.Strict);
 
-            converter.Setup(c => c.ConvertToUserDTO(It.IsIn<User>(this.users)))
+            converter.Setup(c => c.ConvertToUserDto(It.IsIn<User>(this.users)))
                      .Returns(new UserDTO());
 
             var systemUnderTest = 
@@ -71,7 +71,7 @@ namespace Memorise.Tests.BLL.ManagersTests
             moderation.Verify(
                 m => m.GetAllUsersByCourse(VALID_COURSE_ID), Times.Once);
             converter.Verify(
-                c => c.ConvertToUserDTO(
+                c => c.ConvertToUserDto(
                     It.IsAny<User>()),
                 Times.Exactly(this.users.Count));
         }
@@ -141,7 +141,7 @@ namespace Memorise.Tests.BLL.ManagersTests
             var id = 1;
             var name = "DataBase";
             moderationMock.Setup(temp => temp.GetStatistics(name, id)).Returns(list[0]);
-            ModerationBll getStat = new ModerationBll(moderationMock.Object, new ConverterToDTO());
+            ModerationBll getStat = new ModerationBll(moderationMock.Object, new ConverterToDto());
             //var actual = getStat.GetStatistics(name, id);
 
             //Assert.AreEqual(30, actual);
