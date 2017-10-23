@@ -43,13 +43,13 @@ namespace MemoDTO
             ErrorMessageResourceName = "ONLY_ALPHANUMERIC")]
         public string Linking { get; set; }
 
-        [Required]
-        [StringLength(ValidationItems.MAX_LENGTH_INPUT,
-             ErrorMessageResourceType = typeof(Resources.ErrorMessages),
-             ErrorMessageResourceName = "TOO_LONG")]
-        [RegularExpression(ValidationItems.INPUT_REGEX,
-             ErrorMessageResourceType = typeof(Resources.ErrorMessages),
-             ErrorMessageResourceName = "INCORRECT_INPUT")]
+        //[Required]
+        //[StringLength(ValidationItems.MAX_LENGTH_INPUT,
+        //     ErrorMessageResourceType = typeof(Resources.ErrorMessages),
+        //     ErrorMessageResourceName = "TOO_LONG")]
+        //[RegularExpression(ValidationItems.INPUT_REGEX,
+        //     ErrorMessageResourceType = typeof(Resources.ErrorMessages),
+        //     ErrorMessageResourceName = "INCORRECT_INPUT")]
         public string CategoryName { get; set; }
 
         public List<string> CardIds { get; set; }

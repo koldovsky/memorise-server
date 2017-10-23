@@ -11,21 +11,21 @@ namespace MemoBll.Managers
     public class UserSubscriptionsBll
     {
         IUserSubscriptions userSubscriptions;
-        IConverterToDTO converterToDto;
-        private IConverterFromDTO converterFromDto;
+        IConverterToDto converterToDto;
+        private IConverterFromDto converterFromDto;
 
         public UserSubscriptionsBll()
         {
             var uow = new UnitOfWork(new MemoContext());
             this.userSubscriptions = new UserSubscriptions(uow);
-            this.converterToDto = new ConverterToDTO();
-            this.converterFromDto = new ConverterFromDTO(uow);
+            this.converterToDto = new ConverterToDto();
+            this.converterFromDto = new ConverterFromDto(uow);
         }
 
         public UserSubscriptionsBll(
             IUserSubscriptions userSubscriptions,
-            IConverterToDTO converterToDto,
-            IConverterFromDTO converterFromDto)
+            IConverterToDto converterToDto,
+            IConverterFromDto converterFromDto)
         {
             this.userSubscriptions = userSubscriptions;
             this.converterToDto = converterToDto;
@@ -36,28 +36,28 @@ namespace MemoBll.Managers
         {
             var courses = userSubscriptions.GetCoursesSubscriptions(userName)
                 .Select(x => x.Course);
-            return courses.Select(x => converterToDto.ConvertToCourseDTO(x));
+            return courses.Select(x => converterToDto.ConvertToCourseDto(x));
         }
 
         public IEnumerable<DeckDTO> GetSubscribedDecks(string userName)
         {
             var decks = userSubscriptions.GetDecksSubscriptions(userName)
                 .Select(x => x.Deck);
-            return decks.Select(x => converterToDto.ConvertToDeckDTO(x));
+            return decks.Select(x => converterToDto.ConvertToDeckDto(x));
         }
 
         public IEnumerable<SubscribedCourseDTO> GetCoursesSubscriptions(string userName)
         {
             var subscriptions = userSubscriptions.GetCoursesSubscriptions(userName);
             return subscriptions
-                .Select(x => converterToDto.ConvertToSubscribedCourseDTO(x));
+                .Select(x => converterToDto.ConvertToSubscribedCourseDto(x));
         }
 
         public IEnumerable<SubscribedDeckDTO> GetDecksSubscriptions(string userName)
         {
             var subscriptions = userSubscriptions.GetDecksSubscriptions(userName);
             return subscriptions
-                .Select(x => converterToDto.ConvertToSubscribedDeckDTO(x));
+                .Select(x => converterToDto.ConvertToSubscribedDeckDto(x));
         }
 
         public void CreateCourseSubscription(string userName, int courseId)

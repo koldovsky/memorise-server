@@ -10,9 +10,6 @@ namespace MemoDAL.EF
     {
         protected override void Seed(MemoContext context)
         {
-            
-            #region Roles
-
             // ROLE
             //IList<Role> roles = new List<Role>()
             //{
@@ -41,8 +38,6 @@ namespace MemoDAL.EF
             //{
             //    context.Users.Add(user);
             //}
-
-            #endregion
 
             #region Categories
 
