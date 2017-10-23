@@ -84,8 +84,10 @@ namespace MemoBll.Logic
                 Price = course.Price,
                 Description = course.Description,
                 Decks = ConvertToDeckListDTO(course.Decks),
-                Category = ConvertToCategoryDTO(course.Category),
-                Photo = course.Photo
+                //Category = ConvertToCategoryDTO(course.Category),
+                CategoryName= course.Category.Name,
+                Photo = course.Photo,
+                DeckNames = course.Decks.Select(x => x.Name).ToArray()
             };
         }
 

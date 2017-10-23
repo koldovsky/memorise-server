@@ -120,9 +120,9 @@ namespace MemoBll.Managers
 
         #region ForAnswers
 
-        public void CreateAnswer(Answer answer)
+        public Answer CreateAnswer(Answer answer)
         {
-            moderation.CreateAnswer(answer);
+           return moderation.CreateAnswer(answer);
         }
 
         public void UpdateAnswer(Answer answer)
@@ -258,12 +258,20 @@ namespace MemoBll.Managers
             
         }
 
+        #endregion
+
+        #region CardType
+
         public IEnumerable<CardTypeDTO> GetAllCardTypes()
         {
             var cardTypes = moderation.GetAllCardTypes();
             return converterToDto.ConvertToCardTypeListDTO(cardTypes);
         }
 
+        public CardType FindCardTypeByName(string cardTypeName)
+        {
+            return moderation.FindCardTypeByName(cardTypeName);
+        }
         #endregion
     }
 }

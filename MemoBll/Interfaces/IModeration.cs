@@ -17,7 +17,7 @@ namespace MemoBll.Interfaces
         IEnumerable<User> GetAllUsersByCourse(int courseId);
         IEnumerable<User> GetAllUsersByDeck(int deckId);
 
-        void CreateAnswer(Answer answer);
+        Answer CreateAnswer(Answer answer);
         void UpdateAnswer(Answer answer);
         void RemoveAnswer(int answerId);
 
@@ -40,7 +40,9 @@ namespace MemoBll.Interfaces
         void UpdateCard(Card card);
         void RemoveCard(int cardId);
         Card FindCardById(int cardId);
+
         IEnumerable<CardType> GetAllCardTypes();
+        CardType FindCardTypeByName(string cardTypeName);
 
     }
 }

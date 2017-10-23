@@ -124,6 +124,15 @@ namespace MemoBll.Logic
 
         public void RemoveDeck(int deckId)
         {
+            Deck deck = unitOfWork.Decks.Get(deckId);
+            if (deck.Cards.Count > 0)
+            {
+                foreach (var card in deck.Cards.ToList())
+                {
+                    RemoveCard(card.Id);
+                }
+
+            }
             unitOfWork.Decks.Delete(deckId);
             unitOfWork.Save();
         }
@@ -153,6 +162,15 @@ namespace MemoBll.Logic
 
         public void RemoveCard(int cardId)
         {
+            Card card = unitOfWork.Cards.Get(cardId);
+            if (card.Answers.Count > 0)
+            {
+                foreach (var answer in card.Answers.ToList())
+                {
+                    RemoveAnswer(answer.Id);
+                }
+
+            }
             unitOfWork.Cards.Delete(cardId);
             unitOfWork.Save();
         }
@@ -162,9 +180,21 @@ namespace MemoBll.Logic
             return unitOfWork.Cards.Get(cardId);
         }
 
+
+        #endregion
+
+        #region CardType
+
         public IEnumerable<CardType> GetAllCardTypes()
         {
             return unitOfWork.CardTypes.GetAll();
+        }
+
+        public CardType FindCardTypeByName(string cardTypeName)
+        {
+            return unitOfWork.CardTypes.GetAll()
+                .Where(c => c.Name.ToLower() == cardTypeName.ToLower())
+                .FirstOrDefault();
         }
 
         #endregion
@@ -246,10 +276,11 @@ namespace MemoBll.Logic
 
         #region ForAnswer
 
-        public void CreateAnswer(Answer answer)
+        public Answer CreateAnswer(Answer answer)
         {
             unitOfWork.Answers.Create(answer);
             unitOfWork.Save();
+            return answer;
         }
 
         public void UpdateAnswer(Answer answer)
@@ -270,5 +301,6 @@ namespace MemoBll.Logic
         //}
 
         #endregion
+       
     }
 }
