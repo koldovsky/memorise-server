@@ -162,12 +162,13 @@ namespace MemoRise.Controllers
                     codeAnswerDTO.CodeAnswerText = "ERROR\r\n";
                     compileResult.Errors.Cast<CompilerError>().ToList()
                     .ForEach(error => codeAnswerDTO.CodeAnswerText += error.ErrorText + "\r\n");
+                    codeAnswerDTO.IsRight = false;
                 }
                 else
                 {
                     codeAnswerDTO.CodeAnswerText = "Compile succeeded \r\n";
 
-                    var calcType = compileResult.CompiledAssembly.GetType("Calculator");
+                    var calcType = compileResult.CompiledAssembly.GetType("Quiz");
                     var calc = Activator.CreateInstance(calcType);
 
                     int actualResult = (int)calcType.InvokeMember("Sum", BindingFlags.InvokeMethod, null, calc, new object[] { 0, 0 });
@@ -188,13 +189,14 @@ namespace MemoRise.Controllers
                         actualResult5 == expectedResult5)
                     {
                         codeAnswerDTO.CodeAnswerText += "Right";
+                        codeAnswerDTO.IsRight = true;
                     }
                     else
                     {
                         codeAnswerDTO.CodeAnswerText += "Wrong";
+                        codeAnswerDTO.IsRight = false;
                     }
                 }
-
                 return Ok(codeAnswerDTO);
             }
             catch (Exception ex)
