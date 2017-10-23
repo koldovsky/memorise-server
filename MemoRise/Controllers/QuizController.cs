@@ -63,12 +63,12 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult GetSearchCardsByDeckLinking([FromBody]SearchDataModel searchDataModel, string deckLinking)  
+        public IHttpActionResult GetSearchCardsByDeckLinking([FromBody]SearchDataModel searchDataModel)  
         {
             int totalCount = 0;
             try
             {
-                IEnumerable<CardDTO> cards = quiz.GetCardsByDeck(deckLinking);
+                IEnumerable<CardDTO> cards = quiz.GetCardsByDeck(searchDataModel.DeckLinking);
                 if (!string.IsNullOrEmpty(searchDataModel.SearchString))
                 {
                     cards = cards.Where(card => card.Question.ToLower().Contains(searchDataModel.SearchString.ToLower()));
