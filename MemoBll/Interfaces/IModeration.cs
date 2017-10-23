@@ -53,6 +53,8 @@ namespace MemoBll.Interfaces
 
         void RemoveDeck(int deckId);
 
+        Course GetCourse(int id);
+
         Deck FindDeckByName(string deckName);
 
         void CreateCard(Card card);

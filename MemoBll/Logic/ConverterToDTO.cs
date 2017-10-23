@@ -82,7 +82,7 @@ namespace MemoBll.Logic
                 Linking = course.Linking,
                 Price = course.Price,
                 Description = course.Description,
-                Decks = ConvertToDeckListDTO(course.Decks),
+                Decks = ConvertToDeckListDto(course.Decks),
                 //Category = ConvertToCategoryDTO(course.Category),
                 CategoryName= course.Category.Name,
                 Photo = course.Photo,

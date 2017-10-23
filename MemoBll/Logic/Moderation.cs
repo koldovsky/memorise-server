@@ -293,6 +293,13 @@ namespace MemoBll.Logic
                 .FirstOrDefault();
         }
 
+        public Course GetCourse(int id)
+        {
+            return unitOfWork.Courses
+                .GetAll()
+                .FirstOrDefault(x => x.Id == id);
+        }
+
         #endregion
 
         #region ForAnswer

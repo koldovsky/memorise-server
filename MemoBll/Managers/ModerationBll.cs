@@ -183,6 +183,10 @@ namespace MemoBll.Managers
         {
             moderation.RemoveCourse(courseId);
         }
+        public Course GetCourse(int id)
+        {
+           return  moderation.GetCourse(id);
+        }
 
         public CourseDTO FindCourseDtoByName(string courseName)
         {
@@ -195,6 +199,26 @@ namespace MemoBll.Managers
             return moderation.FindCourseByName(courseName);
         }
 
+        public Course FindCourseAndUpdateValues(CourseWithDecksDTO courseDto)
+        {
+            Course course = moderation.GetCourse (courseDto.Id);
+            course.Name = courseDto.Name;
+            course.Linking = courseDto.Linking;
+            course.Description = courseDto.Description;
+            course.Price = courseDto.Price;
+            course.Photo = courseDto.Photo;
+
+            Category category = moderation.FindCategoryByName(courseDto.CategoryName);
+            course.Category = category;
+
+            List<Deck> decks = new List<Deck>();
+            for (int i = 0; i < courseDto.DeckNames.Length; i++)
+            {
+                decks.Add(moderation.FindDeckByName(courseDto.DeckNames[i]));
+            }
+            course.Decks = decks;
+            return course;
+        }
         #endregion
 
         #region ForDecks
