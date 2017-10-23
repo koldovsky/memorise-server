@@ -32,11 +32,11 @@ namespace MemoBll.Managers
             this.converterFromDto = converterFromDto;
         }
 
-        public IEnumerable<CourseDTO> GetSubscribedCourses(string userLogin)
+        public IEnumerable<CourseWithDecksDTO> GetSubscribedCourses(string userLogin)
         {
             var courses = userSubscriptions.GetCourseSubscriptions(userLogin)
                 .Select(x => x.Course);
-            return courses.Select(x => converterToDto.ConvertToCourseDTO(x));
+            return courses.Select(x => converterToDto.ConvertToCourseWithDecksDTO(x));
         }
 
         public IEnumerable<DeckDTO> GetSubscribedDecks(string userLogin)
