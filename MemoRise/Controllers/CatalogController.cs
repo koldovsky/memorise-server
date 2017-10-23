@@ -303,7 +303,7 @@ namespace MemoRise.Controllers
 
                 CourseWithDecksDTO course = catalog
                                            .GetCourseWithDecksDTO(courseName);
-                PhotoUrlLoader.LoadCourseAndDecksPhotos(course);
+                // PhotoUrlLoader.LoadCourseAndDecksPhotos(course);
 
                 return Ok(course);
             }

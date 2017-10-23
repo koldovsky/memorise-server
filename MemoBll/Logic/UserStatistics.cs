@@ -27,12 +27,13 @@ namespace MemoBll.Logic
         {
             var stats = unitOfWork.Statistics.GetAll()
                 .FirstOrDefault(s => s.User.UserName == userName && s.Card.Id == cardId);
-            return stats ?? new Statistics
-            {
-                Card = unitOfWork.Cards.Get(cardId),
-                CardStatus = 0,
-                User = unitOfWork.Users.FindByName(userName)
-            };
+            return stats;
+            //    ?? new Statistics
+            //{
+            //    Card = unitOfWork.Cards.Get(cardId),
+            //    CardStatus = 0,
+            //    User = unitOfWork.Users.FindByName(userName)
+            //};
         }
 
         public IEnumerable<Statistics> GetDeckStatistics(string userName, int deckId)
@@ -54,10 +55,20 @@ namespace MemoBll.Logic
             return cards.Select(card => GetStatistics(userName, card.Id));
         }
 
-        public Statistics CreateStatistics(Statistics statistics)
+        public Statistics CreateStatistics(string userLogin, int cardId)
         {
-            unitOfWork.Statistics.Create(statistics);
-            unitOfWork.Save();
+            var statistics = GetStatistics(userLogin, cardId);
+            if (statistics == null)
+            {
+                statistics = new Statistics
+                {
+                    Card = unitOfWork.Cards.Get(cardId),
+                    CardStatus = 0,
+                    User = unitOfWork.Users.FindByName(userLogin)
+                };
+                unitOfWork.Statistics.Create(statistics);
+                unitOfWork.Save();
+            }
 
             return statistics;
         }
@@ -68,19 +79,8 @@ namespace MemoBll.Logic
             var cards = unitOfWork.Decks.Get(deckId)
                 ?.Cards
                 ?? throw new ArgumentNullException();
-            var createdStatistics = new List<Statistics>();
-            cards.ToList().ForEach(card =>
-            {
-                var statistics = new Statistics
-                {
-                    Card = card,
-                    CardStatus = 0,
-                    User = user
-                };
-                createdStatistics.Add(CreateStatistics(statistics));
-            });
 
-            return createdStatistics;
+            return cards.Select(card => CreateStatistics(userName, card.Id));
         }
 
         public IEnumerable<Statistics> CreateCourseStatistics(string userName, int courseId)
@@ -88,11 +88,9 @@ namespace MemoBll.Logic
             var decks = unitOfWork.Courses.Get(courseId)
                 ?.Decks
                 ?? throw new ArgumentNullException();
-            var createdStatistics = new List<Statistics>();
-            decks.ToList().ForEach(deck =>
-            createdStatistics.AddRange(CreateDeckStatistics(userName, deck.Id)));
 
-            return createdStatistics;
+            return decks.Select(deck => CreateDeckStatistics(userName, deck.Id))
+                .Aggregate((acc, x) => acc.Concat(x));
         }
 
         public Statistics UpdateStatistics(Statistics statistics)

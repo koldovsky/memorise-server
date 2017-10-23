@@ -72,11 +72,14 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult CreateStatistics(StatisticsDTO statisticsDto)
+        public IHttpActionResult CreateStatistics(
+            SubscriptionStatisticsDTO statisticsDto)
         {
             try
             {
-                var response = statistics.CreateStatistics(statisticsDto);
+                var response = statistics.CreateStatistics(
+                    statisticsDto.UserLogin,
+                    statisticsDto.ItemId);
                 return Ok(response);
             }
             catch (Exception ex)

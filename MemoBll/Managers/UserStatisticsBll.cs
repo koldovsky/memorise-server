@@ -63,12 +63,10 @@ namespace MemoBll.Managers
                 ?? throw new ArgumentNullException();
         }
 
-        public StatisticsDTO CreateStatistics(StatisticsDTO statisticsDto)
+        public StatisticsDTO CreateStatistics(string userLogin, int cardId)
         {
-            var statisticsToCreate = converterFromDto
-                .ConvertToStatistics(statisticsDto);
             var createdStatistics = statistics
-                .CreateStatistics(statisticsToCreate);
+                .CreateStatistics(userLogin, cardId);
 
             return converterToDto.ConvertToStatisticsDTO(createdStatistics);
         }

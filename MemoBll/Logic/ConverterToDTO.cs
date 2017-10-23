@@ -226,8 +226,8 @@ namespace MemoBll.Logic
             {
                 Id = statistic.Id,
                 CardStatus = statistic.CardStatus,
-                UserLogin = statistic.User.UserName,
-                CardId = statistic.Card.Id
+                UserLogin = statistic.User?.UserName,
+                CardId = statistic.CardId
             };
         }
 
@@ -248,8 +248,8 @@ namespace MemoBll.Logic
             {
                 Id = subscription.Id,
                 Rating = subscription.Rating,
-                UserLogin = subscription.User.UserName,
-                CourseId = subscription.Course.Id
+                UserLogin = subscription.User?.UserName,
+                CourseId = subscription.CourseId
             };
         }
 
@@ -259,8 +259,8 @@ namespace MemoBll.Logic
             {
                 Id = subscription.Id,
                 Rating = subscription.Rating,
-                UserLogin = subscription.User.UserName,
-                DeckId = subscription.Deck.Id
+                UserLogin = subscription.User?.UserName,
+                DeckId = subscription.DeckId
             };
         }
 
