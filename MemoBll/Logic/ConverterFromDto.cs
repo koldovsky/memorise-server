@@ -105,20 +105,19 @@ namespace MemoBll.Logic
                 Description = courseDTO.Description,
                 Linking = courseDTO.Linking,
                 Price = courseDTO.Price
-               
             };
         }
 
-        public Course ConvertToCourse(CourseWithDecksDTO courseWithDecksDTO)
+        public Course ConvertToCourse(CourseWithDecksDTO courseWithDecksDto)
         {
             return new Course
             {
-                Id = courseWithDecksDTO.Id,
-                Name = courseWithDecksDTO.Name,
-                Description = courseWithDecksDTO.Description,
-                Linking = courseWithDecksDTO.Linking,
-                Price = courseWithDecksDTO.Price,
-                Photo = courseWithDecksDTO.Photo
+                Id = courseWithDecksDto.Id,
+                Name = courseWithDecksDto.Name,
+                Description = courseWithDecksDto.Description,
+                Linking = courseWithDecksDto.Linking,
+                Price = courseWithDecksDto.Price,
+                Photo = courseWithDecksDto.Photo
             };
         }
 

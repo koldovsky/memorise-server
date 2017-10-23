@@ -1,15 +1,11 @@
-﻿using System;
+﻿using MemoBll.Managers;
+using MemoDTO;
+using MemoRise.Helpers;
+using MemoRise.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using MemoBll.Managers;
-using MemoDTO;
-using MemoRise.Helpers;
-using System.Configuration;
-using FlickrNet;
-using PagedList;
-using PagedList.Mvc;
-using MemoRise.Models;
 
 namespace MemoRise.Controllers
 {
@@ -38,7 +34,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult GetCategoriesByPage([FromBody]SearchDataModel searchDataModel) 
+        public IHttpActionResult GetCategoriesByPage([FromBody]SearchDataModel searchDataModel)
         {
             int totalCount = 0;
             try
@@ -81,7 +77,7 @@ namespace MemoRise.Controllers
             try
             {
                 List<CourseDTO> courses = catalog.GetAllCourses().ToList();
-                //PhotoUrlLoader.LoadCoursesPhotos(courses);
+                
                 return Ok(courses);
             }
             catch (ArgumentNullException ex)
@@ -96,7 +92,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult GetCoursesByPage([FromBody]SearchDataModel searchDataModel)    
+        public IHttpActionResult GetCoursesByPage([FromBody]SearchDataModel searchDataModel)
         {
             int totalCount = 0;
             try
@@ -132,14 +128,13 @@ namespace MemoRise.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         public IHttpActionResult GetDecks()
         {
             try
             {
                 List<DeckDTO> decks = catalog.GetAllDecks().ToList();
-                //PhotoUrlLoader.LoadDecksPhotos(decks);
 
                 return Ok(decks);
             }
@@ -167,7 +162,7 @@ namespace MemoRise.Controllers
                 }
                 totalCount = decks.Count();
                 decks = searchDataModel.Sort ? decks.OrderByDescending(name => name.Name) : decks.OrderBy(name => name.Name);
-                
+
                 if (searchDataModel.Page == 1 && searchDataModel.PageSize == 0)
                 {
                     decks = decks.ToList();
@@ -204,7 +199,6 @@ namespace MemoRise.Controllers
                 {
                     throw new Exception("Courses aren't found by this category!");
                 }
-                PhotoUrlLoader.LoadCoursesPhotos(courses);
 
                 return Ok(courses.ToList());
             }
@@ -232,7 +226,6 @@ namespace MemoRise.Controllers
                 {
                     throw new Exception("Decks aren't found by this category!");
                 }
-                PhotoUrlLoader.LoadDecksPhotos(decks);
 
                 return Ok(decks.ToList());
             }
@@ -257,7 +250,6 @@ namespace MemoRise.Controllers
             {
                 List<DeckDTO> decks = catalog.GetAllDecksByCourse(courseName)
                                      .ToList();
-                PhotoUrlLoader.LoadDecksPhotos(decks);
                 return Ok(decks);
             }
             catch (ArgumentNullException ex)
@@ -295,15 +287,14 @@ namespace MemoRise.Controllers
         }
 
         [HttpGet]
-		[Route("Catalog/GetCourse/{courseName}")]
-		public IHttpActionResult GetCourse(string courseName)
-		{
-			try
-			{
+        [Route("Catalog/GetCourse/{courseName}")]
+        public IHttpActionResult GetCourse(string courseName)
+        {
+            try
+            {
 
                 CourseWithDecksDTO course = catalog
                                            .GetCourseWithDecksDTO(courseName);
-                // PhotoUrlLoader.LoadCourseAndDecksPhotos(course);
 
                 return Ok(course);
             }
@@ -318,30 +309,5 @@ namespace MemoRise.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        //[HttpGet]
-        //[Route("Catalog/GetDeckBySearch/{searchString}")]
-        //public IHttpActionResult GetDeckBySearch(string searchString)           
-        //{
-        //    try
-        //    {
-        //        List<DeckDTO> deck = catalog
-        //            .GetAllDecks()
-        //            .Where(decks => decks.Name.ToLower().Contains(searchString.ToLower()))
-        //            .ToList();
-
-        //        return Ok(deck);
-        //    }
-        //    catch (ArgumentNullException ex)
-        //    {
-        //        var message = $"Course with name = {searchString} " +
-        //                      $"not found. {ex.Message}";
-        //        return BadRequest(message);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
     }
 }

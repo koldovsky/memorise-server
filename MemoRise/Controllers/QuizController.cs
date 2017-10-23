@@ -10,6 +10,7 @@ using System.CodeDom.Compiler;
 using System.Data;
 using System.Linq;
 using System.Reflection;
+using MemoRise.Models;
 
 namespace MemoRise.Controllers
 {
@@ -57,13 +58,51 @@ namespace MemoRise.Controllers
             catch (Exception ex)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
-               
+
+            }
+        }
+
+        [HttpPost]
+        public IHttpActionResult GetSearchCardsByDeckLinking([FromBody]SearchDataModel searchDataModel)  
+        {
+            int totalCount = 0;
+            try
+            {
+                IEnumerable<CardDTO> cards = quiz.GetCardsByDeck(searchDataModel.DeckLinking);
+                if (!string.IsNullOrEmpty(searchDataModel.SearchString))
+                {
+                    cards = cards.Where(card => card.Question.ToLower().Contains(searchDataModel.SearchString.ToLower()));
+                }
+                totalCount = cards.Count();
+                cards = searchDataModel.Sort ? cards.OrderByDescending(name => name.CardType.Name) : cards.OrderBy(name => name.CardType.Name);
+
+                if (searchDataModel.Page == 1 && searchDataModel.PageSize == 0)
+                {
+                    cards = cards.ToList();
+                }
+                else
+                {
+                    cards = cards.Skip((searchDataModel.Page - 1) * searchDataModel.PageSize)
+                                 .Take(searchDataModel.PageSize)
+                                 .ToList();
+                }
+                var temp = new { items = cards, totalCount = totalCount };
+                return Ok(temp);
+            }
+            catch (ArgumentNullException ex)
+            {
+                var message = $"Cards collection is empty. {ex.Message}";
+                return BadRequest(message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
 
         [HttpGet]
         [Route("Quiz/GetCardsByDeckArray/{deckLink}")]
-        public HttpResponseMessage GetCardsByDeckArray(string deckLink)   
+        public HttpResponseMessage GetCardsByDeckArray(string deckLink)
         {
             var arrayOfLinks = deckLink.Split(',');
             try
@@ -118,17 +157,18 @@ namespace MemoRise.Controllers
                 string code = codeAnswerDTO.CodeAnswerText;
                 var compileResult = provider.CompileAssemblyFromSource(cp, code);
 
-                if(compileResult.Errors.Count > 0)
+                if (compileResult.Errors.Count > 0)
                 {
                     codeAnswerDTO.CodeAnswerText = "ERROR\r\n";
                     compileResult.Errors.Cast<CompilerError>().ToList()
                     .ForEach(error => codeAnswerDTO.CodeAnswerText += error.ErrorText + "\r\n");
+                    codeAnswerDTO.IsRight = false;
                 }
                 else
                 {
                     codeAnswerDTO.CodeAnswerText = "Compile succeeded \r\n";
 
-                    var calcType = compileResult.CompiledAssembly.GetType("Calculator");
+                    var calcType = compileResult.CompiledAssembly.GetType("Quiz");
                     var calc = Activator.CreateInstance(calcType);
 
                     int actualResult = (int)calcType.InvokeMember("Sum", BindingFlags.InvokeMethod, null, calc, new object[] { 0, 0 });
@@ -149,13 +189,14 @@ namespace MemoRise.Controllers
                         actualResult5 == expectedResult5)
                     {
                         codeAnswerDTO.CodeAnswerText += "Right";
+                        codeAnswerDTO.IsRight = true;
                     }
                     else
                     {
                         codeAnswerDTO.CodeAnswerText += "Wrong";
+                        codeAnswerDTO.IsRight = false;
                     }
                 }
-
                 return Ok(codeAnswerDTO);
             }
             catch (Exception ex)

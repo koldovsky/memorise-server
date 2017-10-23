@@ -28,7 +28,7 @@ namespace MemoDAL
             this.deckSubscriptions = new DeckSubscriptionsRepository(dbContext);
 		}
 
-		#region Fields
+        #region Fields
 
 		private MemoContext dbContext;
 		private IAnswerRepository answers;
@@ -46,98 +46,98 @@ namespace MemoDAL
 	    private IDeckSubscriptionRepository deckSubscriptions;
 		private bool disposed = false;
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public IAnswerRepository Answers
-		{
-			get { return answers; }
-		}
+        public IAnswerRepository Answers
+        {
+            get { return answers; }
+        }
 
-		public ICardRepository Cards
-		{
-			get { return cards; }
-		}
+        public ICardRepository Cards
+        {
+            get { return cards; }
+        }
 
-		public ICardTypeRepository CardTypes
-		{
-			get { return cardTypes; }
-		}
+        public ICardTypeRepository CardTypes
+        {
+            get { return cardTypes; }
+        }
 
-		public ICategoryRepository Categories
-		{
-			get { return categories; }
-		}
+        public ICategoryRepository Categories
+        {
+            get { return categories; }
+        }
 
-		public ICommentRepository Comments
-		{
-			get { return comments; }
-		}
+        public ICommentRepository Comments
+        {
+            get { return comments; }
+        }
 
-		public ICourseRepository Courses
-		{
-			get { return courses; }
-		}
+        public ICourseRepository Courses
+        {
+            get { return courses; }
+        }
 
-		public IDeckRepository Decks
-		{
-			get { return decks; }
-		}
+        public IDeckRepository Decks
+        {
+            get { return decks; }
+        }
 
-		public IReportRepository Reports
-		{
-			get { return reports; }
-		}
+        public IReportRepository Reports
+        {
+            get { return reports; }
+        }
 
-		public RoleManager<Role> Roles
-		{
-			get { return roles; }
-		}
+        public RoleManager<Role> Roles
+        {
+            get { return roles; }
+        }
 
-		public IStatisticsRepository Statistics
-		{
-			get { return statistics; }
-		}
+        public IStatisticsRepository Statistics
+        {
+            get { return statistics; }
+        }
 
 		public ICourseSubscriptionRepository CourseSubscriptions
 		{
 			get { return courseSubscriptions; }
 		}
 
-		public UserRepository Users
-		{
-			get { return users; }
-		}
+        public UserRepository Users
+        {
+            get { return users; }
+        }
 
 	    public IDeckSubscriptionRepository DeckSubscriptions
 	    {
             get { return deckSubscriptions; }
 	    }
 
-		#endregion
+        #endregion
 
-		public void Save()
-		{
+        public void Save()
+        {
             dbContext.SaveChanges();
-		}
+        }
 
-	    protected virtual void Dispose(bool disposing)
-		{
-			if (!this.disposed)
-			{
-				if (disposing)
-				{
-					dbContext.Dispose();
-				}
-				this.disposed = true;
-			}
-		}
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    dbContext.Dispose();
+                }
+                this.disposed = true;
+            }
+        }
 
-		public void Dispose()
-		{
-			Dispose(true);
-			GC.SuppressFinalize(this);
-		}
-	}
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+    }
 }
