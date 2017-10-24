@@ -4,8 +4,6 @@ using MemoDTO;
 using System.Collections.Generic;
 using System.Linq;
 
-
-
 namespace MemoBll.Logic
 {
 	public class ConverterToDTO : IConverterToDTO
@@ -58,6 +56,7 @@ namespace MemoBll.Logic
                 Name = course.Name,
                 Linking = course.Linking,
                 Price = course.Price,
+                Photo = course.Photo,
                 Description = course.Description,
                 CategoryName = course.Category.Name
         };
@@ -84,8 +83,10 @@ namespace MemoBll.Logic
                 Price = course.Price,
                 Description = course.Description,
                 Decks = ConvertToDeckListDTO(course.Decks),
-                Category = ConvertToCategoryDTO(course.Category),
-                Photo = course.Photo
+                //Category = ConvertToCategoryDTO(course.Category),
+                CategoryName= course.Category.Name,
+                Photo = course.Photo,
+                DeckNames = course.Decks.Select(x => x.Name).ToArray()
             };
         }
 
@@ -185,8 +186,6 @@ namespace MemoBll.Logic
 
             return cardDTOs;
         }
-       
-        
 
         public CommentDTO ConvertToCommentDTO(Comment comment)
         {
@@ -226,8 +225,8 @@ namespace MemoBll.Logic
             {
                 Id = statistic.Id,
                 CardStatus = statistic.CardStatus,
-                UserLogin = statistic.User.UserName,
-                CardId = statistic.Card.Id
+                UserLogin = statistic.User?.UserName,
+                CardId = statistic.CardId
             };
         }
 
@@ -242,25 +241,25 @@ namespace MemoBll.Logic
             return statisticsDTOs;
         }
 
-        public SubscribedCourseDTO ConvertToSubscribedCourseDTO(SubscribedCourse subscribedCourse)
+        public CourseSubscriptionDTO ConvertToCourseSubscriptionDTO(CourseSubscription subscription)
         {
-            return new SubscribedCourseDTO
+            return new CourseSubscriptionDTO
             {
-                Id = subscribedCourse.Id,
-                Rating = subscribedCourse.Rating,
-                Course = ConvertToCourseDTO(subscribedCourse.Course),
-                User = ConvertToUserDTO(subscribedCourse.User)
+                Id = subscription.Id,
+                Rating = subscription.Rating,
+                UserLogin = subscription.User?.UserName,
+                CourseId = subscription.CourseId
             };
         }
 
-        public SubscribedDeckDTO ConvertToSubscribedDeckDTO(SubscribedDeck subscribedDeck)
+        public DeckSubscriptionDTO ConvertToDeckSubscriptionDTO(DeckSubscription subscription)
         {
-            return new SubscribedDeckDTO
+            return new DeckSubscriptionDTO
             {
-                Id = subscribedDeck.Id,
-                Rating = subscribedDeck.Rating,
-                User = ConvertToUserDTO(subscribedDeck.User),
-                Deck = ConvertToDeckDTO(subscribedDeck.Deck)
+                Id = subscription.Id,
+                Rating = subscription.Rating,
+                UserLogin = subscription.User?.UserName,
+                DeckId = subscription.DeckId
             };
         }
 
@@ -278,7 +277,5 @@ namespace MemoBll.Logic
                 IsBlocked = user.UserProfile.IsBlocked
             };
         }
-
-       
     }
 }

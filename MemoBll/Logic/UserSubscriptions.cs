@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MemoBll.Interfaces;
 using MemoDAL.Entities;
@@ -8,7 +9,7 @@ using Microsoft.AspNet.Identity;
 
 namespace MemoBll.Logic
 {
-    public class UserSubscriptions: IUserSubscriptions
+    public class UserSubscriptions : IUserSubscriptions
     {
         IUnitOfWork unitOfWork;
 
@@ -22,76 +23,100 @@ namespace MemoBll.Logic
             this.unitOfWork = unitOfWork;
         }
 
-        //public IEnumerable<Course> GetSubscribedCourses(string userName)
-        //{
-        //    return unitOfWork.SubscribedCourses.GetAll()
-        //        .Where(subscription => subscription.User.UserName == userName)
-        //        .Select(subscription => subscription.Course);
-        //}
-
-        //public IEnumerable<Deck> GetSubscribedDecks(string userName)
-        //{
-        //    return unitOfWork.SubscribedDecks.GetAll()
-        //        .Where(subscription => subscription.User.UserName == userName)
-        //        .Select(subscription => subscription.Deck);
-        //}
-
-        public IEnumerable<SubscribedCourse> GetCoursesSubscriptions(string userName)
+        public IEnumerable<CourseSubscription> GetCourseSubscriptions(
+            string userLogin)
         {
-            return unitOfWork.SubscribedCourses.GetAll()
-                .Where(subscription => subscription.User.UserName == userName);
+            return unitOfWork.CourseSubscriptions.GetAll()
+                .Where(subscription => subscription.User.UserName == userLogin);
         }
 
-        public IEnumerable<SubscribedDeck> GetDecksSubscriptions(string userName)
+        public IEnumerable<DeckSubscription> GetDeckSubscriptions(
+            string userLogin)
         {
-            return unitOfWork.SubscribedDecks.GetAll()
-                .Where(subscription => subscription.User.UserName == userName);
+            return unitOfWork.DeckSubscriptions.GetAll()
+                .Where(subscription => subscription.User.UserName == userLogin);
         }
 
-        public void CreateCourseSubscription(string userName, int courseId)
+        public CourseSubscription CreateCourseSubscription(string userLogin, int courseId)
         {
-            unitOfWork.SubscribedCourses.Create(new SubscribedCourse
+            var subscription = unitOfWork.CourseSubscriptions.GetAll()
+                .FirstOrDefault(x => x.User.UserName == userLogin
+                && x.CourseId == courseId);
+            if (subscription == null)
             {
-                Rating = -1,
-                User = unitOfWork.Users.FindByName(userName),
-                Course = unitOfWork.Courses.Get(courseId)
-            });
-            unitOfWork.Save();
+                var course = unitOfWork.Courses.Get(courseId);
+                //var decks = course
+                //    ?.Decks.ToList()
+                //    ?? throw new ArgumentNullException();
+                subscription = new CourseSubscription
+                {
+                    Rating = -1,
+                    User = unitOfWork.Users.FindByName(userLogin),
+                    Course = course
+                };
+                unitOfWork.CourseSubscriptions.Create(subscription);
+                //decks.ForEach(deck =>
+                //{
+                //    CreateDeckSubscription(userLogin, deck.Id);
+                //});
+                unitOfWork.Save();
+            }
+
+            return subscription;
         }
 
-        public void CreateDeckSubscription(string userName, int deckId)
+        public DeckSubscription CreateDeckSubscription(string userLogin, int deckId)
         {
-            unitOfWork.SubscribedDecks.Create(new SubscribedDeck
+            var subscription = unitOfWork.DeckSubscriptions.GetAll()
+                .FirstOrDefault(x => x.User.UserName == userLogin
+                                     && x.DeckId == deckId);
+            if (subscription == null)
             {
-                Rating = -1,
-                User = unitOfWork.Users.FindByName(userName),
-                Deck = unitOfWork.Decks.Get(deckId)
-            });
-            unitOfWork.Save();
+                subscription = new DeckSubscription
+                {
+                    Rating = -1,
+                    User = unitOfWork.Users.FindByName(userLogin),
+                    Deck = unitOfWork.Decks.Get(deckId)
+                };
+                unitOfWork.DeckSubscriptions.Create(subscription);
+                unitOfWork.Save();
+            }
+
+            return subscription;
         }
 
-        public void UpdateCourseSubscription(SubscribedCourse course)
+        public CourseSubscription UpdateCourseSubscription(CourseSubscription subscription)
         {
-            unitOfWork.SubscribedCourses.Update(course);
+            unitOfWork.CourseSubscriptions.Update(subscription);
             unitOfWork.Save();
+
+            return subscription;
         }
 
-        public void UpdateDeckSubscribtion(SubscribedDeck deck)
+        public DeckSubscription UpdateDeckSubscribtion(DeckSubscription subscription)
         {
-            unitOfWork.SubscribedDecks.Update(deck);
+            unitOfWork.DeckSubscriptions.Update(subscription);
             unitOfWork.Save();
+
+            return subscription;
         }
 
-        public void DeleteCourseSubsription(int subscriptionId)
+        public CourseSubscription DeleteCourseSubsription(int subscriptionId)
         {
-            unitOfWork.SubscribedCourses.Delete(subscriptionId);
+            var subscription = unitOfWork.CourseSubscriptions.Get(subscriptionId);
+            unitOfWork.CourseSubscriptions.Delete(subscriptionId);
             unitOfWork.Save();
+
+            return subscription;
         }
 
-        public void DeleteDeckSubscription(int subscriptionId)
+        public DeckSubscription DeleteDeckSubscription(int subscriptionId)
         {
-            unitOfWork.SubscribedDecks.Delete(subscriptionId);
+            var subscription = unitOfWork.DeckSubscriptions.Get(subscriptionId);
+            unitOfWork.DeckSubscriptions.Delete(subscriptionId);
             unitOfWork.Save();
+
+            return subscription;
         }
     }
 }

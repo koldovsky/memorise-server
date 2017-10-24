@@ -23,12 +23,12 @@ namespace MemoDAL
 			this.reports = new ReportRepository(dbContext);
 			this.roles = new RoleRepository(new RoleStore<Role>(dbContext));
 			this.statistics = new StatisticsRepository(dbContext);
-			this.subscribedCourses = new SubscribedCourseRepository(dbContext);
+			this.courseSubscriptions = new CourseSubscriptionsRepository(dbContext);
 			this.users = new UserRepository(new UserStore<User>(dbContext));
-            this.subscribedDecks = new SubscribedDeckRepository(dbContext);
+            this.deckSubscriptions = new DeckSubscriptionsRepository(dbContext);
 		}
 
-		#region Fields
+        #region Fields
 
 		private MemoContext dbContext;
 		private IAnswerRepository answers;
@@ -41,103 +41,103 @@ namespace MemoDAL
 		private IReportRepository reports;
 		private RoleManager<Role> roles;
 		private IStatisticsRepository statistics;
-		private ISubscribedCourseRepository subscribedCourses;
+		private ICourseSubscriptionRepository courseSubscriptions;
 		private UserRepository users;
-	    private ISubscribedDeckRepository subscribedDecks;
+	    private IDeckSubscriptionRepository deckSubscriptions;
 		private bool disposed = false;
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public IAnswerRepository Answers
+        public IAnswerRepository Answers
+        {
+            get { return answers; }
+        }
+
+        public ICardRepository Cards
+        {
+            get { return cards; }
+        }
+
+        public ICardTypeRepository CardTypes
+        {
+            get { return cardTypes; }
+        }
+
+        public ICategoryRepository Categories
+        {
+            get { return categories; }
+        }
+
+        public ICommentRepository Comments
+        {
+            get { return comments; }
+        }
+
+        public ICourseRepository Courses
+        {
+            get { return courses; }
+        }
+
+        public IDeckRepository Decks
+        {
+            get { return decks; }
+        }
+
+        public IReportRepository Reports
+        {
+            get { return reports; }
+        }
+
+        public RoleManager<Role> Roles
+        {
+            get { return roles; }
+        }
+
+        public IStatisticsRepository Statistics
+        {
+            get { return statistics; }
+        }
+
+		public ICourseSubscriptionRepository CourseSubscriptions
 		{
-			get { return answers; }
+			get { return courseSubscriptions; }
 		}
 
-		public ICardRepository Cards
-		{
-			get { return cards; }
-		}
+        public UserRepository Users
+        {
+            get { return users; }
+        }
 
-		public ICardTypeRepository CardTypes
-		{
-			get { return cardTypes; }
-		}
-
-		public ICategoryRepository Categories
-		{
-			get { return categories; }
-		}
-
-		public ICommentRepository Comments
-		{
-			get { return comments; }
-		}
-
-		public ICourseRepository Courses
-		{
-			get { return courses; }
-		}
-
-		public IDeckRepository Decks
-		{
-			get { return decks; }
-		}
-
-		public IReportRepository Reports
-		{
-			get { return reports; }
-		}
-
-		public RoleManager<Role> Roles
-		{
-			get { return roles; }
-		}
-
-		public IStatisticsRepository Statistics
-		{
-			get { return statistics; }
-		}
-
-		public ISubscribedCourseRepository SubscribedCourses
-		{
-			get { return subscribedCourses; }
-		}
-
-		public UserRepository Users
-		{
-			get { return users; }
-		}
-
-	    public ISubscribedDeckRepository SubscribedDecks
+	    public IDeckSubscriptionRepository DeckSubscriptions
 	    {
-            get { return subscribedDecks; }
+            get { return deckSubscriptions; }
 	    }
 
-		#endregion
+        #endregion
 
-		public void Save()
-		{
+        public void Save()
+        {
             dbContext.SaveChanges();
-		}
+        }
 
-	    protected virtual void Dispose(bool disposing)
-		{
-			if (!this.disposed)
-			{
-				if (disposing)
-				{
-					dbContext.Dispose();
-				}
-				this.disposed = true;
-			}
-		}
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    dbContext.Dispose();
+                }
+                this.disposed = true;
+            }
+        }
 
-		public void Dispose()
-		{
-			Dispose(true);
-			GC.SuppressFinalize(this);
-		}
-	}
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+    }
 }
