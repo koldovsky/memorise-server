@@ -165,15 +165,22 @@ namespace MemoBll.Logic
 
         public CardDTO ConvertToCardDto(Card card)
         {
-            return new CardDTO
+            if(card != null)
             {
-                Id = card.Id,
-                Question = card.Question,
-                CardType = ConvertToCardTypeDto(card.CardType),
-                Deck = ConvertToDeckDto(card.Deck),
-                Answers = ConvertToAnswerListDto(card.Answers),
-                Comments = ConvertToCommentListDto(card.Comments)
-            };
+                return new CardDTO
+                {
+                    Id = card.Id,
+                    Question = card.Question,
+                    CardType = ConvertToCardTypeDto(card.CardType),
+                    Deck = ConvertToDeckDto(card.Deck),
+                    Answers = ConvertToAnswerListDto(card.Answers),
+                    Comments = ConvertToCommentListDto(card.Comments)
+                };
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public List<CardDTO> ConvertToCardListDto(IEnumerable<Card> cards)

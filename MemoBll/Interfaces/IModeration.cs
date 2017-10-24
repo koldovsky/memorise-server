@@ -65,6 +65,8 @@ namespace MemoBll.Interfaces
 
         Card FindCardById(int cardId);
 
+        Card GetCardById(int cardId);
+
         IEnumerable<CardType> GetAllCardTypes();
         CardType FindCardTypeByName(string cardTypeName);
 
