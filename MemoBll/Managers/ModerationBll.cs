@@ -282,6 +282,11 @@ namespace MemoBll.Managers
             }
         }
 
+        public CardDTO GetCardById(int cardId)
+        {
+            return converterToDTO.ConvertToCardDTO(moderation.GetCardById(cardId));
+        }
+
         #endregion
 
         #region CardType

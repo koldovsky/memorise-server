@@ -187,6 +187,17 @@ namespace MemoBll.Logic
             return unitOfWork.Cards.Get(cardId);
         }
 
+        public Card GetCardById(int cardId)
+        {
+            if(unitOfWork.Cards.Get(cardId) == null)
+            {
+                throw new ArgumentNullException();
+            }
+            else
+            {
+                return unitOfWork.Cards.Get(cardId);
+            }
+        }
 
         #endregion
 
