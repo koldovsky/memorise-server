@@ -212,9 +212,9 @@ namespace MemoBll.Managers
             course.Category = category;
 
             course.Decks.Clear();
-            for (int i = 0; i < courseDto.DeckNames.Length; i++)
+            for (int i = 0; i < courseDTO.DeckNames.Length; i++)
             {
-                course.Decks.Add(moderation.FindDeckByName(courseDto.DeckNames[i]));
+                course.Decks.Add(moderation.FindDeckByName(courseDTO.DeckNames[i]));
             }
             
             return course;
