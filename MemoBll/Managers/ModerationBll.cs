@@ -211,12 +211,12 @@ namespace MemoBll.Managers
             Category category = moderation.FindCategoryByName(courseDto.CategoryName);
             course.Category = category;
 
-            List<Deck> decks = new List<Deck>();
+            course.Decks.Clear();
             for (int i = 0; i < courseDto.DeckNames.Length; i++)
             {
-                decks.Add(moderation.FindDeckByName(courseDto.DeckNames[i]));
+                course.Decks.Add(moderation.FindDeckByName(courseDto.DeckNames[i]));
             }
-            course.Decks = decks;
+            
             return course;
         }
         #endregion
