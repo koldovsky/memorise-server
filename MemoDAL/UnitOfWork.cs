@@ -33,7 +33,6 @@ namespace MemoDAL
 
 		private MemoContext dbContext;
 		private IAnswerRepository answers;
-	    private IAuthRepository auth;
         private ICardRepository cards;
 		private ICardTypeRepository cardTypes;
 		private ICategoryRepository categories;
@@ -57,11 +56,6 @@ namespace MemoDAL
 		{
 			get { return answers; }
 		}
-
-	    public IAuthRepository Auth
-	    {
-	        get { return auth; }
-	    }
 
         public ICardRepository Cards
 		{

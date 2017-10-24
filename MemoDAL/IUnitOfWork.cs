@@ -9,7 +9,6 @@ namespace MemoDAL
     public interface IUnitOfWork : IDisposable
     {
         IAnswerRepository Answers { get; }
-        IAuthRepository Auth { get; }
         ICardRepository Cards { get; }
         ICardTypeRepository CardTypes { get; }
         ICategoryRepository Categories { get; }

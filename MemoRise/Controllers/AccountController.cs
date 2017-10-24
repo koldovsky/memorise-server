@@ -346,6 +346,7 @@ namespace MemoRise.Controllers
         [AllowAnonymous]
         public async Task<IHttpActionResult> RegisterExternal([FromBody] RegisterExternalBindingModel model)
         {
+            //User.Identity.GetUserId()
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
