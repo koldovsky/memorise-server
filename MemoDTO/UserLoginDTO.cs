@@ -4,17 +4,20 @@ namespace MemoDTO
 {
     public class UserLoginDTO
     {
-        [StringLength(30,ErrorMessage ="maximum length 30 characters" )]
+        [Required]
+        [StringLength(ValidationItems.MAX_LENGTH_INPUT,
+            ErrorMessageResourceType = typeof(Resources.ErrorMessages),
+            ErrorMessageResourceName = "TOO_LONG")]
         public string Login { get; set; }
-        
-        [StringLength(100, ErrorMessage = "The minimum lenngth must be at " +
-         "least 6 characters long.")]
+
+        [StringLength(ValidationItems.MAX_LENGTH_INPUT,
+            ErrorMessageResourceType = typeof(Resources.ErrorMessages),
+            ErrorMessageResourceName = "TOO_LONG")]
         public string Password { get; set; }
 
-        [RegularExpression(@"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*"
-+ "@"
-+ @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$",
-        ErrorMessage = "Wrong email")]
+        [RegularExpression(ValidationItems.EMAIL_PATTERN,
+            ErrorMessageResourceType = typeof(Resources.ErrorMessages),
+            ErrorMessageResourceName = "PATTERN_NOT_VALID")]
         public string Email { get; set; }
     }
 }

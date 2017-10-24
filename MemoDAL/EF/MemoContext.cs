@@ -28,10 +28,8 @@ namespace MemoDAL.EF
         public DbSet<Report> Reports { get; set; }
 
         public DbSet<Statistics> Statistics { get; set; }
-
-        public DbSet<SubscribedCourse> SubscribedCourses { get; set; }
-
-        public DbSet<SubscribedDeck> SubscribedDecks { get; set; }
+        public DbSet<CourseSubscription> SubscribedCourses { get; set; }
+        public DbSet<DeckSubscription> SubscribedDecks { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

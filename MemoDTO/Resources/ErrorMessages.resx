@@ -129,6 +129,9 @@
   <data name="ONLY_NUMBERS" xml:space="preserve">
     <value>Only numbers from 0 to 1000 are allowed!</value>
   </data>
+  <data name="PATTERN_NOT_VALID" xml:space="preserve">
+    <value>Incorrect email input!</value>
+  </data>
   <data name="REQUIRED" xml:space="preserve">
     <value>This field is required!</value>
   </data>

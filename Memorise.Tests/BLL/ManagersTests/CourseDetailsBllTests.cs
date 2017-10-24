@@ -45,12 +45,12 @@ namespace Memorise.Tests.BLL.ManagersTests
         public void GetAllPaidDecksTest()
         {
             Mock<ICourseDetails> courseDetails = new Mock<ICourseDetails>(MockBehavior.Strict);
-            Mock<IConverterToDto> converter = new Mock<IConverterToDto>(MockBehavior.Strict);
+            Mock<IConverterToDTO> converter = new Mock<IConverterToDTO>(MockBehavior.Strict);
             courseDetails
                 .Setup(cd => cd.GetAllPaidDecks())
                 .Returns(decks.Where(d => d.Price > 0).ToList());
             converter
-                .Setup(c => c.ConvertToDeckListDto(It.IsAny<IEnumerable<Deck>>()))
+                .Setup(c => c.ConvertToDeckListDTO(It.IsAny<IEnumerable<Deck>>()))
                 .Returns(new List<DeckDTO>());
 
             var sut = new CourseDetailsBll(
@@ -63,7 +63,7 @@ namespace Memorise.Tests.BLL.ManagersTests
             courseDetails.Verify(
                 cd => cd.GetAllPaidDecks(), Times.Once);
             converter.Verify(
-                c => c.ConvertToDeckListDto(
+                c => c.ConvertToDeckListDTO(
                     It.IsAny<IEnumerable<Deck>>()),
                 Times.Once);
         }
@@ -92,14 +92,14 @@ namespace Memorise.Tests.BLL.ManagersTests
         public void GetCourseByNameTest()
         {
             Mock<ICourseDetails> courseDetails = new Mock<ICourseDetails>(MockBehavior.Strict);
-            Mock<IConverterToDto> converter = new Mock<IConverterToDto>(MockBehavior.Strict);
+            Mock<IConverterToDTO> converter = new Mock<IConverterToDTO>(MockBehavior.Strict);
 
             courseDetails
                 .Setup(cd => cd.GetCourseByName(courses[0].Name))
                 .Returns(courses[0]);
 
             converter
-                .Setup(c => c.ConvertToCourseDto(It.IsIn<Course>(courses)))
+                .Setup(c => c.ConvertToCourseDTO(It.IsIn<Course>(courses)))
                 .Returns(new CourseDTO());
 
             var sut = new CourseDetailsBll(
@@ -112,7 +112,7 @@ namespace Memorise.Tests.BLL.ManagersTests
             courseDetails.Verify(
                 cd => cd.GetCourseByName(course.Name), Times.Once);
             converter.Verify(
-                c => c.ConvertToCourseDto(
+                c => c.ConvertToCourseDTO(
                     It.IsAny<Course>()),
                 Times.Once);
         }
@@ -121,14 +121,14 @@ namespace Memorise.Tests.BLL.ManagersTests
         public void GetCourseByIdTest()
         {
             Mock<ICourseDetails> courseDetails = new Mock<ICourseDetails>(MockBehavior.Strict);
-            Mock<IConverterToDto> converter = new Mock<IConverterToDto>(MockBehavior.Strict);
+            Mock<IConverterToDTO> converter = new Mock<IConverterToDTO>(MockBehavior.Strict);
 
             courseDetails
                 .Setup(cd => cd.GetCourseById(courses[0].Id))
                 .Returns(courses[0]);
 
             converter
-                .Setup(c => c.ConvertToCourseDto(It.IsIn<Course>(courses)))
+                .Setup(c => c.ConvertToCourseDTO(It.IsIn<Course>(courses)))
                 .Returns(new CourseDTO());
             var sut = new CourseDetailsBll(
                 courseDetails.Object,
@@ -140,7 +140,7 @@ namespace Memorise.Tests.BLL.ManagersTests
             courseDetails.Verify(
                 cd => cd.GetCourseById(course.Id), Times.Once);
             converter.Verify(
-                c => c.ConvertToCourseDto(
+                c => c.ConvertToCourseDTO(
                     It.IsAny<Course>()),
                 Times.Once);
         }

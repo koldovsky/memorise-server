@@ -6,9 +6,9 @@ using System.Linq;
 
 namespace MemoBll.Logic
 {
-	public class ConverterToDto : IConverterToDto
+	public class ConverterToDTO : IConverterToDTO
     {
-        public DeckDTO ConvertToDeckDto(Deck deck)
+        public DeckDTO ConvertToDeckDTO(Deck deck)
         {
             List<string> cardIds = new List<string>();
             if (deck.Cards.Count > 0)
@@ -37,18 +37,18 @@ namespace MemoBll.Logic
             };
         }
 
-        public List<DeckDTO> ConvertToDeckListDto(IEnumerable<Deck> decks)
+        public List<DeckDTO> ConvertToDeckListDTO(IEnumerable<Deck> decks)
         {
             List<DeckDTO> deckDTOs = new List<DeckDTO>();
             foreach (Deck deck in decks)
             {
-                deckDTOs.Add(ConvertToDeckDto(deck));
+                deckDTOs.Add(ConvertToDeckDTO(deck));
             }
 
             return deckDTOs;
         }
 
-        public CourseDTO ConvertToCourseDto(Course course)
+        public CourseDTO ConvertToCourseDTO(Course course)
         {
             return new CourseDTO
             {
@@ -62,18 +62,18 @@ namespace MemoBll.Logic
         };
         }
 
-        public List<CourseDTO> ConvertToCourseListDto(IEnumerable<Course> courses)
+        public List<CourseDTO> ConvertToCourseListDTO(IEnumerable<Course> courses)
         {
             List<CourseDTO> courseDTOs = new List<CourseDTO>();
             foreach (var course in courses)
             {
-                courseDTOs.Add(ConvertToCourseDto(course));
+                courseDTOs.Add(ConvertToCourseDTO(course));
             }
 
             return courseDTOs;
         }
         
-        public CourseWithDecksDTO ConvertToCourseWithDecksDto(Course course)
+        public CourseWithDecksDTO ConvertToCourseWithDecksDTO(Course course)
         {
             return new CourseWithDecksDTO
             {
@@ -82,7 +82,7 @@ namespace MemoBll.Logic
                 Linking = course.Linking,
                 Price = course.Price,
                 Description = course.Description,
-                Decks = ConvertToDeckListDto(course.Decks),
+                Decks = ConvertToDeckListDTO(course.Decks),
                 //Category = ConvertToCategoryDTO(course.Category),
                 CategoryName= course.Category.Name,
                 Photo = course.Photo,
@@ -90,7 +90,7 @@ namespace MemoBll.Logic
             };
         }
 
-        public CategoryDTO ConvertToCategoryDto(Category category)
+        public CategoryDTO ConvertToCategoryDTO(Category category)
         {
             return new CategoryDTO {
                 Id =category.Id,
@@ -99,23 +99,23 @@ namespace MemoBll.Logic
             };
         }
 
-        public CardTypeDTO ConvertToCardTypeDto(CardType cardtype)
+        public CardTypeDTO ConvertToCardTypeDTO(CardType cardtype)
         {
             return new CardTypeDTO { Name = cardtype.Name };
         }
 
-        public List<CardTypeDTO> ConvertToCardTypeListDto(IEnumerable<CardType> cardTypes)
+        public List<CardTypeDTO> ConvertToCardTypeListDTO(IEnumerable<CardType> cardTypes)
         {
             List<CardTypeDTO> cardTypeDTOs = new List<CardTypeDTO>();
             foreach (var cardType in cardTypes)
             {
-                cardTypeDTOs.Add(ConvertToCardTypeDto(cardType));
+                cardTypeDTOs.Add(ConvertToCardTypeDTO(cardType));
             }
 
             return cardTypeDTOs;
         }
 
-        public AnswerDTO ConvertToAnswerDto(Answer answer)
+        public AnswerDTO ConvertToAnswerDTO(Answer answer)
         {
             return new AnswerDTO
             {
@@ -125,12 +125,12 @@ namespace MemoBll.Logic
             };
         }
 
-        public List<AnswerDTO> ConvertToAnswerListDto(IEnumerable<Answer> answers)
+        public List<AnswerDTO> ConvertToAnswerListDTO(IEnumerable<Answer> answers)
         {
             List<AnswerDTO> answerDTOs = new List<AnswerDTO>();
             foreach (Answer answer in answers)
             {
-                answerDTOs.Add(ConvertToAnswerDto(answer));
+                answerDTOs.Add(ConvertToAnswerDTO(answer));
             }
 
             return answerDTOs;
@@ -152,128 +152,134 @@ namespace MemoBll.Logic
         //    };
         //}
 
-        public List<UserDTO> ConvertToUserListDto(IEnumerable<User> users)
+        public List<UserDTO> ConvertToUserListDTO(IEnumerable<User> users)
         {
             List<UserDTO> userDTOs = new List<UserDTO>();
             foreach (User user in users)
             {
-                userDTOs.Add(ConvertToUserDto(user));
+                userDTOs.Add(ConvertToUserDTO(user));
             }
 
             return userDTOs;
         }
 
-        public CardDTO ConvertToCardDto(Card card)
+        public CardDTO ConvertToCardDTO(Card card)
         {
             return new CardDTO
             {
                 Id = card.Id,
                 Question = card.Question,
-                CardType = ConvertToCardTypeDto(card.CardType),
-                Deck = ConvertToDeckDto(card.Deck),
-                Answers = ConvertToAnswerListDto(card.Answers),
-                Comments = ConvertToCommentListDto(card.Comments)
+                CardType = ConvertToCardTypeDTO(card.CardType),
+                Deck = ConvertToDeckDTO(card.Deck),
+                Answers = ConvertToAnswerListDTO(card.Answers),
+                Comments = ConvertToCommentListDTO(card.Comments)
             };
         }
 
-        public List<CardDTO> ConvertToCardListDto(IEnumerable<Card> cards)
+        public List<CardDTO> ConvertToCardListDTO(IEnumerable<Card> cards)
         {
             List<CardDTO> cardDTOs = new List<CardDTO>();
             foreach (var card in cards)
             {
-                cardDTOs.Add(ConvertToCardDto(card));
+                cardDTOs.Add(ConvertToCardDTO(card));
             }
 
             return cardDTOs;
         }
 
-        public CommentDTO ConvertToCommentDto(Comment comment)
+        public CommentDTO ConvertToCommentDTO(Comment comment)
         {
             return new CommentDTO
             {
                 Message = comment.Message,
-                Course = ConvertToCourseDto(comment.Course),
-                User = ConvertToUserDto(comment.User)
+                Course = ConvertToCourseDTO(comment.Course),
+                User = ConvertToUserDTO(comment.User)
             };
         }
 
-        public List<CommentDTO> ConvertToCommentListDto(IEnumerable<Comment> comments)
+        public List<CommentDTO> ConvertToCommentListDTO(IEnumerable<Comment> comments)
         {
             List<CommentDTO> commentDTOs = new List<CommentDTO>();
             foreach (Comment comment in comments)
             {
-                commentDTOs.Add(ConvertToCommentDto(comment));
+                commentDTOs.Add(ConvertToCommentDTO(comment));
             }
 
             return commentDTOs;
         }
 
-        public ReportDTO ConvertToReportDto(Report report)
+        public ReportDTO ConvertToReportDTO(Report report)
         {
             return new ReportDTO
             {
                 Date = report.Date,
                 Description = report.Description,
                 Reason = report.Reason,
-                Sender = ConvertToUserDto(report.Sender)
+                Sender = ConvertToUserDTO(report.Sender)
             };
         }
 
-        public StatisticsDTO ConvertToStatisticsDto(Statistics statistic)
+        public StatisticsDTO ConvertToStatisticsDTO(Statistics statistic)
         {
             return new StatisticsDTO
             {
                 Id = statistic.Id,
                 CardStatus = statistic.CardStatus,
-                UserLogin = statistic.User.UserName,
-                CardId = statistic.Card.Id
+                UserLogin = statistic.User?.UserName,
+                CardId = statistic.CardId
             };
         }
 
-        public List<StatisticsDTO> ConvertToStatisticsListDto(IEnumerable<Statistics> statistics)
+        public List<StatisticsDTO> ConvertToStatisticsListDTO(IEnumerable<Statistics> statistics)
         {
             List<StatisticsDTO> statisticsDTOs = new List<StatisticsDTO>();
             foreach (var s in statistics)
             {
-                statisticsDTOs.Add(ConvertToStatisticsDto(s));
+                statisticsDTOs.Add(ConvertToStatisticsDTO(s));
             }
 
             return statisticsDTOs;
         }
 
-        public SubscribedCourseDTO ConvertToSubscribedCourseDto(SubscribedCourse subscribedCourse)
+        public CourseSubscriptionDTO ConvertToCourseSubscriptionDTO(CourseSubscription subscription)
         {
-            return new SubscribedCourseDTO
+            return new CourseSubscriptionDTO
             {
-                Id = subscribedCourse.Id,
-                Rating = subscribedCourse.Rating,
-                Course = ConvertToCourseDto(subscribedCourse.Course),
-                User = ConvertToUserDto(subscribedCourse.User)
+                Id = subscription.Id,
+                Rating = subscription.Rating,
+                UserLogin = subscription.User?.UserName,
+                CourseId = subscription.CourseId
             };
         }
 
-        public SubscribedDeckDTO ConvertToSubscribedDeckDto(SubscribedDeck subscribedDeck)
+        public DeckSubscriptionDTO ConvertToDeckSubscriptionDTO(DeckSubscription subscription)
         {
-            return new SubscribedDeckDTO
+            return new DeckSubscriptionDTO
             {
-                Id = subscribedDeck.Id,
-                Rating = subscribedDeck.Rating,
-                User = ConvertToUserDto(subscribedDeck.User),
-                Deck = ConvertToDeckDto(subscribedDeck.Deck)
+                Id = subscription.Id,
+                Rating = subscription.Rating,
+                UserLogin = subscription.User?.UserName,
+                DeckId = subscription.DeckId
             };
         }
 
-        public RoleDTO ConvertToRoleDto(Role role)
+        public RoleDTO ConvertToRoleDTO(Role role)
         {
             throw new System.NotImplementedException();
         }
 
-        public UserDTO ConvertToUserDto(User user)
+        public UserDTO ConvertToUserDTO(User user)
         {
             return new UserDTO
             {
+                Id = user.Id,
                 Login = user.UserName,
                 Email = user.Email,
+                FirstName = user.UserProfile.FirstName,
+                LastName = user.UserProfile.LastName,
+                Gender = user.UserProfile.Gender,
+                Country = user.UserProfile.Country,
+                City = user.UserProfile.City,
                 IsBlocked = user.UserProfile.IsBlocked
             };
         }

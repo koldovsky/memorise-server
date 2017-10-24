@@ -17,7 +17,7 @@ namespace Memorise.Tests.BLL.LogicTests
         private List<Deck> decks = new List<Deck>();
         private List<User> users = new List<User>();
         private List<Statistics> statistics = new List<Statistics>();
-        private List<SubscribedCourse> userCourses = new List<SubscribedCourse>();
+        private List<CourseSubscription> userCourses = new List<CourseSubscription>();
         private Moderation moderation;
 
         public ModerationLogicTests()
@@ -72,7 +72,7 @@ namespace Memorise.Tests.BLL.LogicTests
                     }
                 });
             this.userCourses.Add(
-                new SubscribedCourse
+                new CourseSubscription
                 {
                     Id = 1,
                     Course = new Course { Id = 1, Name = "course1" },

@@ -10,16 +10,16 @@ using Microsoft.AspNet.Identity;
 
 namespace MemoBll.Logic
 {
-    public class ConverterFromDto : IConverterFromDto
+    public class ConverterFromDTO : IConverterFromDTO
     {
         private IUnitOfWork unitOfWork;
 
-        public ConverterFromDto()
+        public ConverterFromDTO()
         {
             unitOfWork = new UnitOfWork(new MemoContext());
         }
 
-        public ConverterFromDto(IUnitOfWork uow)
+        public ConverterFromDTO(IUnitOfWork uow)
         {
             unitOfWork = uow;
         }
@@ -46,11 +46,11 @@ namespace MemoBll.Logic
             return new Card()
             {
                 Id = cardDTO.Id,
-                Question = cardDTO.Question ?? string.Empty,
-                CardType = ConvertToCardType(cardDTO.CardType == null ? new CardTypeDTO() : cardDTO.CardType),
-                Deck = ConvertToDeck(cardDTO.Deck == null ? new DeckDTO() : cardDTO.Deck),
-                Answers = ConvertToAnswerList(cardDTO.Answers == null ? new List<AnswerDTO>() : cardDTO.Answers),
-                Comments = ConvertToCommentList(cardDTO.Comments == null ? new List<CommentDTO>() : cardDTO.Comments)
+                Question = cardDTO.Question ?? "",
+                CardType = ConvertToCardType(cardDTO.CardType ?? new CardTypeDTO()),
+                Deck = ConvertToDeck(cardDTO.Deck ?? new DeckDTO()),
+                Answers = ConvertToAnswerList(cardDTO.Answers ?? new List<AnswerDTO>()),
+                Comments = ConvertToCommentList(cardDTO.Comments ?? new List<CommentDTO>())
             };
         }
 
@@ -84,8 +84,8 @@ namespace MemoBll.Logic
             {
                 Id = commentDTO.Id,
                 Message = commentDTO.Message,
-                Course = ConvertToCourse(commentDTO.Course == null ? new CourseDTO() : commentDTO.Course),
-                User = ConvertToUser(commentDTO.User == null ? new UserDTO() : commentDTO.User)
+                Course = ConvertToCourse(commentDTO.Course ?? new CourseDTO()),
+                User = ConvertToUser(commentDTO.User ?? new UserDTO())
             };
         }
 
@@ -164,42 +164,78 @@ namespace MemoBll.Logic
             };
         }
 
-        public SubscribedCourse ConvertToSubscribedCourse(SubscribedCourseDTO subscribedCourse)
+        public CourseSubscription ConvertToCourseSubscription(CourseSubscriptionDTO courseSubscription)
         {
-            return new SubscribedCourse
+            return new CourseSubscription
             {
-                Id = subscribedCourse.Id,
-                Rating = subscribedCourse.Rating,
-                User = ConvertToUser(subscribedCourse.User),
-                Course = ConvertToCourse(subscribedCourse.Course)
+                Id = courseSubscription.Id,
+                Rating = courseSubscription.Rating,
+                User = unitOfWork.Users.FindByName(courseSubscription.UserLogin),
+                Course = unitOfWork.Courses.Get(courseSubscription.CourseId)
             };
         }
 
-        public SubscribedDeck ConvertToSubscribedDeck(SubscribedDeckDTO userDeck)
+        public DeckSubscription ConvertToDeckSubscription(DeckSubscriptionDTO deckSubscription)
         {
-            return new SubscribedDeck
+            return new DeckSubscription
             {
-                Id = userDeck.Id,
-                Rating = userDeck.Rating,
-                User = ConvertToUser(userDeck.User),
-                Deck = ConvertToDeck(userDeck.Deck)
+                Id = deckSubscription.Id,
+                Rating = deckSubscription.Rating,
+                User = unitOfWork.Users.FindByName(deckSubscription.UserLogin),
+                Deck = unitOfWork.Decks.Get(deckSubscription.DeckId)
             };
         }
-
-        /// <summary>
-        /// It is EmptyUser
-        /// </summary>
-        /// <param name="userDTO"></param>
-        /// <returns></returns>
+        
         public User ConvertToUser(UserDTO userDTO)
         {
-            User user = new User();
+            UserProfile userProfileDetails = new UserProfile()
+            {
+                IsBlocked = userDTO.IsBlocked,
+                FirstName = userDTO.FirstName,
+                LastName = userDTO.LastName,
+                Gender = userDTO.Gender,
+                Country = userDTO.Country,
+                City = userDTO.City
+            };
+            User user = new User()
+            {
+                Id = userDTO.Id,
+                UserName = userDTO.Login,
+                Email = userDTO.Email,
+                UserProfile = userProfileDetails
+            };
             return user;
+        }
+
+        public UserProfile ConvertToUserProfile(UserDTO userDTO)
+        {
+            User user = new User()
+            {
+                Id = userDTO.Id,
+                UserName = userDTO.Login,
+                Email = userDTO.Email
+            };
+            UserProfile userProfileDetails = new UserProfile()
+            {
+                IsBlocked = userDTO.IsBlocked,
+                FirstName = userDTO.FirstName,
+                LastName = userDTO.LastName,
+                Gender = userDTO.Gender,
+                Country = userDTO.Country,
+                City = userDTO.City,
+                User = user
+            };
+            return userProfileDetails;
         }
 
         public List<User> ConvertToUserList(IEnumerable<UserDTO> users)
         {
-            throw new NotImplementedException();
+            List<User> listedUsers = new List<User>();
+            foreach (UserDTO user in users)
+            {
+                listedUsers.Add(ConvertToUser(user));
+            }
+            return listedUsers;
         }
     }
 }
