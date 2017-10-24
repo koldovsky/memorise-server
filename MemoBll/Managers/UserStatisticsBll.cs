@@ -18,9 +18,9 @@ namespace MemoBll.Managers
         public UserStatisticsBll()
         {
             var uow = new UnitOfWork(new MemoContext());
-            this.statistics = new UserStatistics(uow);
-            this.converterToDTO = new ConverterToDTO();
-            this.converterFromDTO = new ConverterFromDTO(uow);
+            statistics = new UserStatistics(uow);
+            converterToDTO = new ConverterToDTO();
+            converterFromDTO = new ConverterFromDTO(uow);
         }
 
         public UserStatisticsBll(
@@ -38,7 +38,9 @@ namespace MemoBll.Managers
             string userId, int cardId)
         {
             var stats = statistics.GetStatistics(userId, cardId);
-            return converterToDTO.ConvertToStatisticsDTO(stats);
+            return stats != null
+                ? converterToDTO.ConvertToStatisticsDTO(stats)
+                : null;
         }
 
         public IEnumerable<StatisticsDTO> GetDeckStatistics(
@@ -48,7 +50,9 @@ namespace MemoBll.Managers
             var deckStatistics = statistics
                 .GetDeckStatistics(userLogin, deckId);
             return deckStatistics
-                ?.Select(s => converterToDTO.ConvertToStatisticsDTO(s))
+                ?.Select(s => s != null
+                    ? converterToDTO.ConvertToStatisticsDTO(s)
+                    : null)
                 ?? throw new ArgumentNullException();
         }
 
@@ -59,7 +63,9 @@ namespace MemoBll.Managers
             var courseStatistics = statistics
                 .GetCourseStatistics(userLogin, courseId);
             return courseStatistics
-                ?.Select(s => converterToDTO.ConvertToStatisticsDTO(s))
+                ?.Select(s => s != null
+                           ? converterToDTO.ConvertToStatisticsDTO(s)
+                           : null)
                 ?? throw new ArgumentNullException();
         }
 
@@ -83,11 +89,11 @@ namespace MemoBll.Managers
         }
 
         public IEnumerable<StatisticsDTO> CreateCourseStatistics(
-            string userLogin, 
+            string userLogin,
             int courseId)
         {
-           var createdStatistics = statistics
-                .CreateCourseStatistics(userLogin, courseId);
+            var createdStatistics = statistics
+                 .CreateCourseStatistics(userLogin, courseId);
 
             return createdStatistics
                 .Select(x => converterToDTO.ConvertToStatisticsDTO(x));
