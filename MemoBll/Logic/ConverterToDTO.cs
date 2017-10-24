@@ -171,10 +171,10 @@ namespace MemoBll.Logic
                 {
                     Id = card.Id,
                     Question = card.Question,
-                    CardType = ConvertToCardTypeDto(card.CardType),
-                    Deck = ConvertToDeckDto(card.Deck),
-                    Answers = ConvertToAnswerListDto(card.Answers),
-                    Comments = ConvertToCommentListDto(card.Comments)
+                    CardType = ConvertToCardTypeDTO(card.CardType),
+                    Deck = ConvertToDeckDTO(card.Deck),
+                    Answers = ConvertToAnswerListDTO(card.Answers),
+                    Comments = ConvertToCommentListDTO(card.Comments)
                 };
             }
             else

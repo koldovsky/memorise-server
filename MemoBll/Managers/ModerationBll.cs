@@ -284,7 +284,7 @@ namespace MemoBll.Managers
 
         public CardDTO GetCardById(int cardId)
         {
-            return converterToDto.ConvertToCardDto(moderation.GetCardById(cardId));
+            return converterToDTO.ConvertToCardDTO(moderation.GetCardById(cardId));
         }
 
         #endregion
