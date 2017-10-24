@@ -11,20 +11,20 @@ namespace MemoBll.Managers
 	public class AdministrationBll
 	{
 		private IAdministration administration;
-		private IConverterToDto converterToDto;
+		private IConverterToDTO converterToDTO;
 
 		public AdministrationBll()
 		{
 			this.administration = new Administration();
-			this.converterToDto = new ConverterToDto();
+			this.converterToDTO = new ConverterToDTO();
 		}
 
 		public AdministrationBll(
 			IAdministration administration,
-			IConverterToDto converterToDto)
+			IConverterToDTO converterToDTO)
 		{
 			this.administration = administration;
-			this.converterToDto = converterToDto;
+			this.converterToDTO = converterToDTO;
 		}
 
 		#region ForRoles
@@ -37,7 +37,7 @@ namespace MemoBll.Managers
 		public IEnumerable<RoleDTO> GetRoles(int userId)
 		{
 			return administration.GetRoles(userId)
-				.Select(role => converterToDto.ConvertToRoleDto(role));
+				.Select(role => converterToDTO.ConvertToRoleDTO(role));
 		}
 
 		public void CreateRole(Role role)
@@ -127,8 +127,8 @@ namespace MemoBll.Managers
 
 		public List<UserDTO> GetAllUsersOnRole(string roleName)
 		{
-			return converterToDto
-				.ConvertToUserListDto(
+			return converterToDTO
+				.ConvertToUserListDTO(
 				administration.GetAllUsersOnRole(roleName));
 		}
 

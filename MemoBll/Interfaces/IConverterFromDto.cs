@@ -4,7 +4,7 @@ using MemoDTO;
 
 namespace MemoBll.Interfaces
 {
-    public interface IConverterFromDto
+    public interface IConverterFromDTO
     {
         Deck ConvertToDeck(DeckDTO deck);
 
@@ -25,7 +25,7 @@ namespace MemoBll.Interfaces
         Role ConvertToRole(RoleDTO role);
 
         User ConvertToUser(UserDTO user);
-
+        UserProfile ConvertToUserProfile(UserDTO user);
         List<User> ConvertToUserList(IEnumerable<UserDTO> users);
 
         Card ConvertToCard(CardDTO card);
@@ -39,9 +39,7 @@ namespace MemoBll.Interfaces
         Report ConvertToReport(ReportDTO report);
 
         Statistics ConvertToStatistics(StatisticsDTO statistics);
-
-        SubscribedCourse ConvertToSubscribedCourse(SubscribedCourseDTO subscribedCourse);
-
-        SubscribedDeck ConvertToSubscribedDeck(SubscribedDeckDTO subscribedDeck);
+        CourseSubscription ConvertToCourseSubscription(CourseSubscriptionDTO courseSubscription);
+        DeckSubscription ConvertToDeckSubscription(DeckSubscriptionDTO deckSubscription);
     }
 }

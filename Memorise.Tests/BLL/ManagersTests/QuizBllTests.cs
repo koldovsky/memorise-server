@@ -14,7 +14,7 @@ namespace Memorise.Tests.BLL.ManagersTests
     public class QuizBllTests
     {
         private Mock<IQuiz> mockQuiz = new Mock<IQuiz>(MockBehavior.Strict);
-        private Mock<IConverterToDto> mockConverter = new Mock<IConverterToDto>(MockBehavior.Strict);
+        private Mock<IConverterToDTO> mockConverter = new Mock<IConverterToDTO>(MockBehavior.Strict);
         private List<Deck> decks = new List<Deck>();
         private List<Card> cards = new List<Card>();
         private List<Answer> answers = new List<Answer>();
@@ -52,7 +52,7 @@ namespace Memorise.Tests.BLL.ManagersTests
                 m => m.GetAllAnswersInCard(It.IsInRange<int>(1, 4, Range.Inclusive)))
                 .Returns(this.answers);
             this.mockConverter
-                .Setup(m => m.ConvertToAnswerListDto(this.answers))
+                .Setup(m => m.ConvertToAnswerListDTO(this.answers))
                 .Returns(this.answerDTOs);
             this.quiz = new QuizBll(this.mockQuiz.Object, this.mockConverter.Object);
             int expectedLength = this.answers.Count;
@@ -77,7 +77,7 @@ namespace Memorise.Tests.BLL.ManagersTests
             List<Answer> nullAnswers = null;
             int cargId = 0;
             this.mockQuiz.Setup(m => m.GetAllAnswersInCard(cargId)).Returns(nullAnswers);
-            this.mockConverter.Setup(m => m.ConvertToAnswerListDto(this.answers)).Returns(this.answerDTOs);
+            this.mockConverter.Setup(m => m.ConvertToAnswerListDTO(this.answers)).Returns(this.answerDTOs);
             this.quiz = new QuizBll(this.mockQuiz.Object, this.mockConverter.Object);
 
             // act, accert
@@ -92,7 +92,7 @@ namespace Memorise.Tests.BLL.ManagersTests
             string deckName = this.decks[0].Name;
             List<Card> expected = this.cards;
             this.mockQuiz.Setup(m => m.GetCardsByDeck(deckName)).Returns(this.cards);
-            this.mockConverter.Setup(m => m.ConvertToCardListDto(this.cards)).Returns(this.cardDTOs);
+            this.mockConverter.Setup(m => m.ConvertToCardListDTO(this.cards)).Returns(this.cardDTOs);
             this.quiz = new QuizBll(this.mockQuiz.Object, this.mockConverter.Object);
             int expectedLength = this.cards.Count;
             int expectedfirstId = this.cards[0].Id;

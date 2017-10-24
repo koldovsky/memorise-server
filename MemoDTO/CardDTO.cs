@@ -12,13 +12,13 @@ namespace MemoDTO
         }
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(ValidationItems.MAX_LENGTH_TEXTAREA,
-           ErrorMessageResourceType = typeof(Resources.ErrorMessages),
-           ErrorMessageResourceName = "TOO_LONG_AREA")]
-        [RegularExpression(ValidationItems.INPUT_REGEX,
-           ErrorMessageResourceType = typeof(Resources.ErrorMessages),
-           ErrorMessageResourceName = "INCORRECT_INPUT")]
+        //[Required]
+        //[StringLength(ValidationItems.MAX_LENGTH_TEXTAREA,
+        //   ErrorMessageResourceType = typeof(Resources.ErrorMessages),
+        //   ErrorMessageResourceName = "TOO_LONG_AREA")]
+        //[RegularExpression(ValidationItems.INPUT_REGEX,
+        //   ErrorMessageResourceType = typeof(Resources.ErrorMessages),
+        //   ErrorMessageResourceName = "INCORRECT_INPUT")]
         public string Question { get; set; }
 
         public string CardTypeName { get; set; }
