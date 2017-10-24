@@ -10,9 +10,6 @@ namespace MemoDAL.EF
     {
         protected override void Seed(MemoContext context)
         {
-            
-            #region Roles
-
             // ROLE
             //IList<Role> roles = new List<Role>()
             //{
@@ -42,8 +39,6 @@ namespace MemoDAL.EF
             //    context.Users.Add(user);
             //}
 
-            #endregion
-
             #region Categories
 
             // CATEGORY
@@ -64,19 +59,19 @@ namespace MemoDAL.EF
             // DECK
             IList<Deck> decks = new List<Deck>
             {
-                new Deck{Name = "Arrays", Linking = "Arrays", Price = 0, Category = categories[0]},
-                new Deck{Name = "Generics", Linking = "Generics", Price = 0, Category = categories[0]},
-                new Deck{Name = "LINQ", Linking = "LINQ", Price = 0, Category = categories[0]},
-                new Deck{Name = "Database First", Linking = "Database_First", Price = 0, Category = categories[0]},
-                new Deck{Name = "Model First", Linking = "Model_First", Price = 0, Category = categories[0]},
-                new Deck{Name = "Code First", Linking = "Code_First", Price = 0, Category = categories[0]},
-                new Deck{Name = "Web API", Linking = "Web_API", Price = 0, Category = categories[0]},
-                new Deck{Name = "IIS", Linking = "IIS", Price = 0, Category = categories[0]},
-                new Deck{Name = "Routing", Linking = "Routing", Price = 0, Category = categories[0]},
-                new Deck{Name = "XAML", Linking = "XAML", Price = 0, Category = categories[0]},
-                new Deck{Name = "Binding", Linking = "Binding", Price = 0, Category = categories[0]},
-                new Deck{Name = "CSS", Linking = "CSS", Price = 0, Category = categories[2]},
-                new Deck{Name = "Base knowledge", Linking="BaseKnowledge", Price=12, Category = categories[0] }
+                new Deck{Name = "Arrays", Linking = "Arrays", Description = "Deck description", Price = 0, Category = categories[0]},
+                new Deck{Name = "Generics", Linking = "Generics", Description = "Deck description", Price = 0, Category = categories[0]},
+                new Deck{Name = "LINQ", Linking = "LINQ", Description = "Deck description", Price = 0, Category = categories[0]},
+                new Deck{Name = "Database First", Linking = "DatabaseFirst", Description = "Deck description", Price = 0, Category = categories[0]},
+                new Deck{Name = "Model First", Linking = "ModelFirst", Description = "Deck description", Price = 0, Category = categories[0]},
+                new Deck{Name = "Code First", Linking = "CodeFirst", Description = "Deck description", Price = 0, Category = categories[0]},
+                new Deck{Name = "Web API", Linking = "WebAPI", Description = "Deck description", Price = 0, Category = categories[0]},
+                new Deck{Name = "IIS", Linking = "IIS", Description = "Deck description", Price = 0, Category = categories[0]},
+                new Deck{Name = "Routing", Linking = "Routing", Description = "Deck description", Price = 0, Category = categories[0]},
+                new Deck{Name = "XAML", Linking = "XAML", Description = "Deck description", Price = 0, Category = categories[0]},
+                new Deck{Name = "Binding", Linking = "Binding", Description = "Deck description", Price = 0, Category = categories[0]},
+                new Deck{Name = "CSS", Linking = "CSS", Description = "Deck description", Price = 0, Category = categories[2]},
+                new Deck{Name = "Base knowledge", Linking="BaseKnowledge", Description = "Deck description", Price=12, Category = categories[0] }
             };
             context.Decks.AddRange(decks);
             
@@ -88,7 +83,7 @@ namespace MemoDAL.EF
             IList<Course> courses = new List<Course>
             {
                 new Course{Name = "C#", Linking = "cSharp", Description = "C# course description",Price = 0,Category = categories[0]},
-                new Course{Name = "ASP.MVC", Linking = "ASP_MVC", Description = "ASP.MVC course description",Price = 0,Category = categories[0]},
+                new Course{Name = "ASP.MVC", Linking = "ASPMVC", Description = "ASP.MVC course description",Price = 0,Category = categories[0]},
                 new Course{Name = "EntityFramework",Linking = "EF", Description = "EntityFramework course description",Price=100,Category = categories[0]},
                 new Course{Name = "WPF", Linking = "WPF", Description = "WPF course description",Price = 0,Category = categories[0]},
                 new Course{Name = "JQUERY", Linking = "JQ", Description = "JQUERY course description", Price = 0, Category = categories[2]}
@@ -258,19 +253,12 @@ namespace MemoDAL.EF
                      CardType = cardTypes[2],
                      Deck = decks[12]
                 },
-                //new Card
-                //{
-                //     Question = @"Your goal in this kata is to implement an difference function, which subtracts one list from another.
-
-                //                It should remove all values from list a, which are present in list b.
-
-                //                Kata.ArrayDiff(new int[] {1, 2}, new int[] {1}) => new int[] {2}
-                //                If a value is present in b, all of its occurrences must be removed from the other:
-
-                //                Kata.ArrayDiff(new int[] { 1, 2, 2, 2, 3 }, new int[] { 2 }) => new int[] { 1, 3 }",
-                //     CardType = cardTypes[3],
-                //     Deck = decks[12]
-                //},
+                new Card
+                {
+                     Question = @"Return sum a and b",
+                     CardType = cardTypes[3],
+                     Deck = decks[12]
+                },
                 new Card
                 {
                      Question = @"Return sum a and b",
@@ -730,20 +718,10 @@ namespace MemoDAL.EF
                     IsCorrect = true,
                     Card = cards[15]
                 },
-                //new Answer
-                //{
-                //    Text = @"public int[] ArrayDiff(int[] a, int[] b)
-                //                        {
-                //                            // Your brilliant solution goes here
-                //                            // It's possible to pass random tests in about a second ;)
-                //                        }",
-                //    IsCorrect = true,
-                //    Card = cards[16]
-                //},
                 new Answer
                 {
                     Text = @"
-                            public class Calculator
+                            public class Quiz
                             {
                                 public int Sum(int a, int b)
                                 {
@@ -753,6 +731,20 @@ namespace MemoDAL.EF
                     ",
                     IsCorrect = true,
                     Card = cards[16]
+                },
+                new Answer
+                {
+                    Text = @"
+                            public class Quiz
+                            {
+                                public int Sum(int a, int b)
+                                {
+                                    //Type your code here
+                                }
+                            }
+                    ",
+                    IsCorrect = true,
+                    Card = cards[17]
                 },
                 #endregion
             };

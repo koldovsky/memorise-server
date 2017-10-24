@@ -12,28 +12,28 @@ namespace MemoBll.Managers
 {
 	public class CourseDetailsBll
     {
-        ICourseDetails courseDetails;
-        IConverterToDTO converterToDto;
+        private ICourseDetails courseDetails;
+        private IConverterToDTO converterToDTO;
 
         public CourseDetailsBll()
         {
             courseDetails = new CourseDetails(new UnitOfWork(new MemoContext()));
-            converterToDto = new ConverterToDTO();
+            converterToDTO = new ConverterToDTO();
         }
 
         public CourseDetailsBll(
             ICourseDetails courseDetails,
-            IConverterToDTO converterToDto)
+            IConverterToDTO converterToDTO)
         {
             this.courseDetails = courseDetails;
-            this.converterToDto = converterToDto;
+            this.converterToDTO = converterToDTO;
         }
 
         public IEnumerable<DeckDTO> GetAllPaidDecks()
         {
             List<Deck> decks = courseDetails.GetAllPaidDecks().ToList();
             return decks.Count > 0
-                ? converterToDto.ConvertToDeckListDTO(decks)
+                ? converterToDTO.ConvertToDeckListDTO(decks)
                 : throw new ArgumentNullException();
         }
 
@@ -55,21 +55,31 @@ namespace MemoBll.Managers
         public CourseDTO GetCourseByName(string name)
         {
             Course course = courseDetails.GetCourseByName(name);
-            var courseDto = course != null
-                ? converterToDto.ConvertToCourseDTO(course)
+            var courseDTO = course != null
+                ? converterToDTO.ConvertToCourseDTO(course)
                 : throw new ArgumentNullException();
 
-            return courseDto;
+            return courseDTO;
         }
 
         public CourseDTO GetCourseById(int id)
         {
             Course course = courseDetails.GetCourseById(id);
-            var courseDto = course != null
-                ? converterToDto.ConvertToCourseDTO(course)
+            var courseDTO = course != null
+                ? converterToDTO.ConvertToCourseDTO(course)
                 : throw new ArgumentNullException();
 
-            return courseDto;
+            return courseDTO;
+        }
+
+        public CourseDTO GetCourseByLinking(string linking)
+        {
+            Course course = courseDetails.GetCourseByLinking(linking);
+            var courseDTO = course != null
+                ? converterToDTO.ConvertToCourseDTO(course)
+                : throw new ArgumentNullException();
+
+            return courseDTO;
         }
     }
 }

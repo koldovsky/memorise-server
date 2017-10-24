@@ -7,6 +7,7 @@ namespace MemoBll.Interfaces
     {
         IEnumerable<Course> GetCoursesByUser(string userLogin);
         User GetUserByLogin(string userLogin);
+
         User GetUserByEmail(string userEmail);
         bool UpdateUserProfileEmail(string id, string userEmail);
         User GetUserById(string userId);

@@ -18,10 +18,10 @@ namespace MemoDAL
         IReportRepository Reports { get; }
         RoleManager<Role> Roles { get; }
         IStatisticsRepository Statistics { get; }
-        ISubscribedCourseRepository SubscribedCourses { get; }
+        ICourseSubscriptionRepository CourseSubscriptions { get; }
         UserRepository Users { get; }
         IUserProfileRepository UserProfiles { get; }
-        ISubscribedDeckRepository SubscribedDecks { get; }
+        IDeckSubscriptionRepository DeckSubscriptions { get; }
 
         void Save();
     }

@@ -14,28 +14,28 @@ namespace MemoBll.Managers
     public class UserProfileBll : IUserProfileBll
     {
         IUserProfile userProfile;
-        IConverterToDTO converterToDto;
-        IConverterFromDTO converterFromDto;
+        IConverterToDTO converterToDTO;
+        IConverterFromDTO converterFromDTO;
 
         public UserProfileBll()
         {
             userProfile = new UserProfileDetails(new UnitOfWork(new MemoContext()));
-            converterToDto = new ConverterToDTO();
-            converterFromDto = new ConverterFromDTO();
+            converterToDTO = new ConverterToDTO();
+            converterFromDTO = new ConverterFromDTO();
         }
 
         public UserProfileBll(IUserProfile userProfile, IConverterToDTO converterToDto,
             IConverterFromDTO converterFromDto)
         {
             this.userProfile = userProfile;
-            this.converterToDto = converterToDto;
-            this.converterFromDto = converterFromDto;
+            this.converterToDTO = converterToDto;
+            this.converterFromDTO = converterFromDto;
         }
 
-        public UserProfileBll(IUserProfile userProfile, IConverterToDTO converterToDto)
+        public UserProfileBll(IUserProfile userProfile, IConverterToDTO converterToDTO)
         {
             this.userProfile = userProfile;
-            this.converterToDto = converterToDto;
+            this.converterToDTO = converterToDTO;
         }
 
         public UserProfileBll(IUserProfile userProfile)
@@ -46,20 +46,20 @@ namespace MemoBll.Managers
         public List<CourseDTO> GetCoursesByUser(string userLogin)
         {
             List<Course> courses = userProfile.GetCoursesByUser(userLogin).ToList();
-            return converterToDto.ConvertToCourseListDTO(courses);
+            return converterToDTO.ConvertToCourseListDTO(courses);
         }
 
         public List<DeckDTO> GetDecksByUser(string userLogin)
         {
             List<Deck> decks = userProfile.GetDecksByUser(userLogin).ToList();
-            return converterToDto.ConvertToDeckListDTO(decks);
+            return converterToDTO.ConvertToDeckListDTO(decks);
         }
 
         public UserDTO GetUserById(string userId)
         {
             User user = userProfile.GetUserById(userId);
             return user != null
-                ? converterToDto.ConvertToUserDTO(user)
+                ? converterToDTO.ConvertToUserDTO(user)
                 : throw new ArgumentNullException();
         }
 
@@ -67,7 +67,7 @@ namespace MemoBll.Managers
         {
             User user = userProfile.GetUserByLogin(userLogin);
             return user != null
-                ? converterToDto.ConvertToUserDTO(user)
+                ? converterToDTO.ConvertToUserDTO(user)
                 : throw new ArgumentNullException();
         }
 
@@ -75,14 +75,14 @@ namespace MemoBll.Managers
         {
             User user = userProfile.GetUserByEmail(userEmail);
             return user != null
-                ? converterToDto.ConvertToUserDTO(user)
+                ? converterToDTO.ConvertToUserDTO(user)
                 : throw new ArgumentNullException();
         }
 
         public bool UpdateUserProfileById(UserDTO user)
         {
             return user != null
-                ? userProfile.UpdateUserProfileById(converterFromDto.ConvertToUserProfile(user))
+                ? userProfile.UpdateUserProfileById(converterFromDTO.ConvertToUserProfile(user))
                 : throw new ArgumentNullException();
         }
 
@@ -94,14 +94,14 @@ namespace MemoBll.Managers
         public bool UpdateUserById(UserDTO user)
         {
             return user != null
-                ? userProfile.UpdateUserById(converterFromDto.ConvertToUser(user))
+                ? userProfile.UpdateUserById(converterFromDTO.ConvertToUser(user))
                 : throw new ArgumentNullException();
         }
 
         public bool UpdateUserByLogin(string existingLogin, UserDTO newUserData)
         {
             return newUserData != null
-                ? userProfile.UpdateUserByLogin(existingLogin, converterFromDto.ConvertToUser(newUserData))
+                ? userProfile.UpdateUserByLogin(existingLogin, converterFromDTO.ConvertToUser(newUserData))
                 : throw new ArgumentNullException();
         }
     }
