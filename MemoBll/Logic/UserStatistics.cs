@@ -12,6 +12,7 @@ namespace MemoBll.Logic
     class UserStatistics : IUserStatistics
     {
         IUnitOfWork unitOfWork;
+        private string errorMessage = "";
 
         public UserStatistics()
         {
@@ -25,30 +26,27 @@ namespace MemoBll.Logic
 
         public Statistics GetStatistics(string userName, int cardId)
         {
+            //errorMessage = $"There is no statistics for user {userName} and card with Id {cardId}";
             var stats = unitOfWork.Statistics.GetAll()
                 .FirstOrDefault(s => s.User.UserName == userName && s.Card.Id == cardId);
-            return stats;
-            //    ?? new Statistics
-            //{
-            //    Card = unitOfWork.Cards.Get(cardId),
-            //    CardStatus = 0,
-            //    User = unitOfWork.Users.FindByName(userName)
-            //};
+            return stats; // ?? throw new ArgumentNullException(errorMessage);
         }
 
         public IEnumerable<Statistics> GetDeckStatistics(string userName, int deckId)
         {
+            errorMessage = $"Can not find deck with Id {deckId}";
             var cards = unitOfWork.Decks.Get(deckId)
                 ?.Cards
-                ?? throw new ArgumentNullException();
+                ?? throw new ArgumentNullException(errorMessage);
             return cards.Select(card => GetStatistics(userName, card.Id));
         }
 
         public IEnumerable<Statistics> GetCourseStatistics(string userName, int courseId)
         {
+            errorMessage = $"Can not find course with Id {courseId}";
             var decks = unitOfWork.Courses.Get(courseId)
                 ?.Decks
-                ?? throw new ArgumentNullException();
+                ?? throw new ArgumentNullException(errorMessage);
             var cards = decks
                 .Select(d => d.Cards).Aggregate((acc, c) => acc.Concat(c).ToList());
 
@@ -75,19 +73,20 @@ namespace MemoBll.Logic
 
         public IEnumerable<Statistics> CreateDeckStatistics(string userName, int deckId)
         {
-            var user = unitOfWork.Users.FindByName(userName);
+            errorMessage = $"Can not find deck with Id {deckId}";
             var cards = unitOfWork.Decks.Get(deckId)
                 ?.Cards
-                ?? throw new ArgumentNullException();
+                ?? throw new ArgumentNullException(errorMessage);
 
             return cards.Select(card => CreateStatistics(userName, card.Id));
         }
 
         public IEnumerable<Statistics> CreateCourseStatistics(string userName, int courseId)
         {
+            errorMessage = $"Can not find course with Id {courseId}";
             var decks = unitOfWork.Courses.Get(courseId)
                 ?.Decks
-                ?? throw new ArgumentNullException();
+                ?? throw new ArgumentNullException(errorMessage);
 
             return decks.Select(deck => CreateDeckStatistics(userName, deck.Id))
                 .Aggregate((acc, x) => acc.Concat(x));
