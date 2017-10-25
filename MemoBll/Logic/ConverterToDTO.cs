@@ -171,9 +171,8 @@ namespace MemoBll.Logic
 
         public CardDTO ConvertToCardDTO(Card card)
         {
-            if(card != null)
-            {
-                return new CardDTO
+            return card != null
+                ? new CardDTO
                 {
                     Id = card.Id,
                     Question = card.Question,
@@ -181,12 +180,8 @@ namespace MemoBll.Logic
                     Deck = ConvertToDeckDTO(card.Deck),
                     Answers = ConvertToAnswerListDTO(card.Answers),
                     Comments = ConvertToCommentListDTO(card.Comments)
-                };
-            }
-            else
-            {
-                return null;
-            }
+                }
+                : null;
         }
 
         public List<CardDTO> ConvertToCardListDTO(IEnumerable<Card> cards)
