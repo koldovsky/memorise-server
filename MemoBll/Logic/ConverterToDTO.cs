@@ -95,7 +95,13 @@ namespace MemoBll.Logic
             {
                 Id = category.Id,
                 Name = category.Name,
-                Linking = category.Linking
+                Linking = category.Linking,
+                DeckNames = category.Decks
+                .Where(x => x.Category.Id == category.Id)
+                .Select(x => x.Name).ToArray(),
+                CourseNames = category.Courses
+                .Where(x => x.Category.Id == category.Id)
+                .Select(x => x.Name).ToArray(),
             };
         }
 
@@ -165,15 +171,22 @@ namespace MemoBll.Logic
 
         public CardDTO ConvertToCardDTO(Card card)
         {
-            return new CardDTO
+            if(card != null)
             {
-                Id = card.Id,
-                Question = card.Question,
-                CardType = ConvertToCardTypeDTO(card.CardType),
-                Deck = ConvertToDeckDTO(card.Deck),
-                Answers = ConvertToAnswerListDTO(card.Answers),
-                Comments = ConvertToCommentListDTO(card.Comments)
-            };
+                return new CardDTO
+                {
+                    Id = card.Id,
+                    Question = card.Question,
+                    CardType = ConvertToCardTypeDTO(card.CardType),
+                    Deck = ConvertToDeckDTO(card.Deck),
+                    Answers = ConvertToAnswerListDTO(card.Answers),
+                    Comments = ConvertToCommentListDTO(card.Comments)
+                };
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public List<CardDTO> ConvertToCardListDTO(IEnumerable<Card> cards)

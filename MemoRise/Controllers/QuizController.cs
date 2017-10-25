@@ -1,9 +1,9 @@
-﻿using System.Web.Http;
-using MemoDTO;
+﻿using MemoDTO;
 using System.Collections.Generic;
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Web.Http;
 using MemoBll.Managers;
 using Microsoft.CSharp;
 using System.CodeDom.Compiler;
@@ -11,6 +11,7 @@ using System.Data;
 using System.Linq;
 using System.Reflection;
 using MemoRise.Models;
+using MemoRise.Helpers;
 
 namespace MemoRise.Controllers
 {
@@ -58,7 +59,6 @@ namespace MemoRise.Controllers
             catch (Exception ex)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
-
             }
         }
 
@@ -73,6 +73,7 @@ namespace MemoRise.Controllers
                 {
                     cards = cards.Where(card => card.Question.ToLower().Contains(searchDataModel.SearchString.ToLower()));
                 }
+
                 totalCount = cards.Count();
                 cards = searchDataModel.Sort ? cards.OrderByDescending(name => name.CardType.Name) : cards.OrderBy(name => name.CardType.Name);
 
@@ -86,6 +87,7 @@ namespace MemoRise.Controllers
                                  .Take(searchDataModel.PageSize)
                                  .ToList();
                 }
+
                 var temp = new { items = cards, totalCount = totalCount };
                 return Ok(temp);
             }
@@ -119,7 +121,6 @@ namespace MemoRise.Controllers
             catch (Exception ex)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
-
             }
         }
 
@@ -144,18 +145,18 @@ namespace MemoRise.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult CodeAnswer(CodeAnswerDTO codeAnswerDTO)
+        public IHttpActionResult CodeAnswerCheck(CodeAnswerDTO codeAnswerDTO)
         {
             try
             {
-                var provider = new CSharpCodeProvider();
-                var cp = new CompilerParameters
+                CSharpCodeProvider provider = new CSharpCodeProvider();
+                CompilerParameters cp = new CompilerParameters
                 {
                     GenerateInMemory = true,
                 };
 
                 string code = codeAnswerDTO.CodeAnswerText;
-                var compileResult = provider.CompileAssemblyFromSource(cp, code);
+                CompilerResults compileResult = provider.CompileAssemblyFromSource(cp, code);
 
                 if (compileResult.Errors.Count > 0)
                 {
@@ -167,26 +168,9 @@ namespace MemoRise.Controllers
                 else
                 {
                     codeAnswerDTO.CodeAnswerText = "Compile succeeded \r\n";
-
-                    var calcType = compileResult.CompiledAssembly.GetType("Quiz");
-                    var calc = Activator.CreateInstance(calcType);
-
-                    int actualResult = (int)calcType.InvokeMember("Sum", BindingFlags.InvokeMethod, null, calc, new object[] { 0, 0 });
-                    int expectedResult = 0;
-                    int actualResult2 = (int)calcType.InvokeMember("Sum", BindingFlags.InvokeMethod, null, calc, new object[] { -5, 7 });
-                    int expectedResult2 = 2;
-                    int actualResult3 = (int)calcType.InvokeMember("Sum", BindingFlags.InvokeMethod, null, calc, new object[] { 10, 130 });
-                    int expectedResult3 = 140;
-                    int actualResult4 = (int)calcType.InvokeMember("Sum", BindingFlags.InvokeMethod, null, calc, new object[] { 4, -54 });
-                    int expectedResult4 = -50;
-                    int actualResult5 = (int)calcType.InvokeMember("Sum", BindingFlags.InvokeMethod, null, calc, new object[] { -4, -54 });
-                    int expectedResult5 = -58;
-
-                    if (actualResult == expectedResult &&
-                        actualResult2 == expectedResult2 &&
-                        actualResult3 == expectedResult3 &&
-                        actualResult4 == expectedResult4 &&
-                        actualResult5 == expectedResult5)
+                    CodeAnswerTests codeAnswerTests = new CodeAnswerTests();
+                    bool isAnswerRight = codeAnswerTests.IsAnswerRight(codeAnswerDTO.CardId, compileResult);
+                    if (isAnswerRight)
                     {
                         codeAnswerDTO.CodeAnswerText += "Right";
                         codeAnswerDTO.IsRight = true;

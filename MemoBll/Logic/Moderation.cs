@@ -151,6 +151,13 @@ namespace MemoBll.Logic
                 .FirstOrDefault();
         }
 
+        public Deck GetDeck(int id)
+        {
+            return unitOfWork.Decks
+                .GetAll()
+                .FirstOrDefault(x => x.Id == id);
+        }
+
         #endregion
 
         #region ForCard
@@ -187,6 +194,17 @@ namespace MemoBll.Logic
             return unitOfWork.Cards.Get(cardId);
         }
 
+        public Card GetCardById(int cardId)
+        {
+            if(unitOfWork.Cards.Get(cardId) == null)
+            {
+                throw new ArgumentNullException();
+            }
+            else
+            {
+                return unitOfWork.Cards.Get(cardId);
+            }
+        }
 
         #endregion
 
@@ -241,6 +259,12 @@ namespace MemoBll.Logic
 
             unitOfWork.Categories.Delete(categoryId);
             unitOfWork.Save();
+        }
+        public  Category GetCategory(int id)
+        {
+            return unitOfWork.Categories
+               .GetAll()
+               .FirstOrDefault(x => x.Id == id);
         }
 
         public Category FindCategoryByName(string categoryName)
@@ -309,6 +333,12 @@ namespace MemoBll.Logic
             unitOfWork.Answers.Create(answer);
             unitOfWork.Save();
             return answer;
+        }
+        public Answer GetAnswer(int id)
+        {
+            return unitOfWork.Answers
+                .GetAll()
+                .FirstOrDefault(x => x.Id == id);
         }
 
         public void UpdateAnswer(Answer answer)
