@@ -211,12 +211,12 @@ namespace MemoBll.Managers
             Category category = moderation.FindCategoryByName(courseDTO.CategoryName);
             course.Category = category;
 
-            List<Deck> decks = new List<Deck>();
+            course.Decks.Clear();
             for (int i = 0; i < courseDTO.DeckNames.Length; i++)
             {
-                decks.Add(moderation.FindDeckByName(courseDTO.DeckNames[i]));
+                course.Decks.Add(moderation.FindDeckByName(courseDTO.DeckNames[i]));
             }
-            course.Decks = decks;
+            
             return course;
         }
         #endregion
@@ -280,6 +280,11 @@ namespace MemoBll.Managers
             {
                 throw new ArgumentNullException();
             }
+        }
+
+        public CardDTO GetCardById(int cardId)
+        {
+            return converterToDTO.ConvertToCardDTO(moderation.GetCardById(cardId));
         }
 
         #endregion
