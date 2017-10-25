@@ -159,7 +159,9 @@ namespace MemoBll.Logic
             {
                 Id = statistics.Id,
                 CardStatus = statistics.CardStatus,
+                UserId = unitOfWork.Users.FindByName(statistics.UserLogin).Id,
                 User = unitOfWork.Users.FindByName(statistics.UserLogin),
+                CardId = statistics.CardId,
                 Card = unitOfWork.Cards.Get(statistics.CardId)
             };
         }
@@ -170,7 +172,9 @@ namespace MemoBll.Logic
             {
                 Id = courseSubscription.Id,
                 Rating = courseSubscription.Rating,
+                UserId = unitOfWork.Users.FindByName(courseSubscription.UserLogin).Id,
                 User = unitOfWork.Users.FindByName(courseSubscription.UserLogin),
+                CourseId = courseSubscription.CourseId,
                 Course = unitOfWork.Courses.Get(courseSubscription.CourseId)
             };
         }
@@ -181,7 +185,9 @@ namespace MemoBll.Logic
             {
                 Id = deckSubscription.Id,
                 Rating = deckSubscription.Rating,
+                UserId = unitOfWork.Users.FindByName(deckSubscription.UserLogin).Id,
                 User = unitOfWork.Users.FindByName(deckSubscription.UserLogin),
+                DeckId = deckSubscription.DeckId,
                 Deck = unitOfWork.Decks.Get(deckSubscription.DeckId)
             };
         }
