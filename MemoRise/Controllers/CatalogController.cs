@@ -1,6 +1,5 @@
 ﻿using MemoBll.Managers;
 using MemoDTO;
-using MemoRise.Helpers;
 using MemoRise.Models;
 using System;
 using System.Collections.Generic;
@@ -42,10 +41,13 @@ namespace MemoRise.Controllers
                 IEnumerable<CategoryDTO> categories = catalog.GetAllCategories();
                 if (!string.IsNullOrEmpty(searchDataModel.SearchString))
                 {
-                    categories = categories.Where(category => category.Name.ToLower().Contains(searchDataModel.SearchString.ToLower()));
+                    categories = categories.Where(category => category.Name.ToLower()
+                        .Contains(searchDataModel.SearchString.ToLower()));
                 }
+
                 totalCount = categories.Count();
-                categories = searchDataModel.Sort ? categories.OrderByDescending(name => name.Name) : categories.OrderBy(name => name.Name);
+                categories = searchDataModel.Sort ? categories
+                    .OrderByDescending(name => name.Name) : categories.OrderBy(name => name.Name);
 
                 if (searchDataModel.Page == 1 && searchDataModel.PageSize == 0)
                 {
@@ -57,6 +59,7 @@ namespace MemoRise.Controllers
                                  .Take(searchDataModel.PageSize)
                                  .ToList();
                 }
+
                 var temp = new { items = categories, totalCount = totalCount };
                 return Ok(temp);
             }
@@ -100,10 +103,13 @@ namespace MemoRise.Controllers
                 IEnumerable<CourseDTO> courses = catalog.GetAllCourses();
                 if (!string.IsNullOrEmpty(searchDataModel.SearchString))
                 {
-                    courses = courses.Where(course => course.Name.ToLower().Contains(searchDataModel.SearchString.ToLower()));
+                    courses = courses.Where(course => course.Name.ToLower()
+                        .Contains(searchDataModel.SearchString.ToLower()));
                 }
+
                 totalCount = courses.Count();
-                courses = searchDataModel.Sort ? courses.OrderByDescending(name => name.Name) : courses.OrderBy(name => name.Name);
+                courses = searchDataModel.Sort ? courses
+                    .OrderByDescending(name => name.Name) : courses.OrderBy(name => name.Name);
 
                 if (searchDataModel.Page == 1 && searchDataModel.PageSize == 0)
                 {
@@ -115,6 +121,7 @@ namespace MemoRise.Controllers
                                  .Take(searchDataModel.PageSize)
                                  .ToList();
                 }
+
                 var temp = new { items = courses, totalCount = totalCount };
                 return Ok(temp);
             }
@@ -129,7 +136,6 @@ namespace MemoRise.Controllers
             }
         }
 
-        // [Authorize]
         [HttpGet]
         public IHttpActionResult GetDecks()
         {
@@ -159,10 +165,13 @@ namespace MemoRise.Controllers
                 IEnumerable<DeckDTO> decks = catalog.GetAllDecks();
                 if (!string.IsNullOrEmpty(searchDataModel.SearchString))
                 {
-                    decks = decks.Where(deck => deck.Name.ToLower().Contains(searchDataModel.SearchString.ToLower()));
+                    decks = decks.Where(deck => deck.Name.ToLower()
+                        .Contains(searchDataModel.SearchString.ToLower()));
                 }
+
                 totalCount = decks.Count();
-                decks = searchDataModel.Sort ? decks.OrderByDescending(name => name.Name) : decks.OrderBy(name => name.Name);
+                decks = searchDataModel.Sort ? decks
+                    .OrderByDescending(name => name.Name) : decks.OrderBy(name => name.Name);
 
                 if (searchDataModel.Page == 1 && searchDataModel.PageSize == 0)
                 {
@@ -174,6 +183,7 @@ namespace MemoRise.Controllers
                                  .Take(searchDataModel.PageSize)
                                  .ToList();
                 }
+
                 var temp = new { items = decks, totalCount = totalCount };
                 return Ok(temp);
             }
