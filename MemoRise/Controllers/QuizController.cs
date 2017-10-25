@@ -1,11 +1,17 @@
-﻿using System.Web.Http;
-using MemoBll;
-using MemoDTO;
+﻿using MemoDTO;
 using System.Collections.Generic;
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Web.Http;
 using MemoBll.Managers;
+using Microsoft.CSharp;
+using System.CodeDom.Compiler;
+using System.Data;
+using System.Linq;
+using System.Reflection;
+using MemoRise.Models;
+using MemoRise.Helpers;
 
 namespace MemoRise.Controllers
 {
@@ -53,7 +59,68 @@ namespace MemoRise.Controllers
             catch (Exception ex)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
-               
+            }
+        }
+
+        [HttpPost]
+        public IHttpActionResult GetSearchCardsByDeckLinking([FromBody]SearchDataModel searchDataModel)  
+        {
+            int totalCount = 0;
+            try
+            {
+                IEnumerable<CardDTO> cards = quiz.GetCardsByDeck(searchDataModel.DeckLinking);
+                if (!string.IsNullOrEmpty(searchDataModel.SearchString))
+                {
+                    cards = cards.Where(card => card.Question.ToLower().Contains(searchDataModel.SearchString.ToLower()));
+                }
+
+                totalCount = cards.Count();
+                cards = searchDataModel.Sort ? cards.OrderByDescending(name => name.CardType.Name) : cards.OrderBy(name => name.CardType.Name);
+
+                if (searchDataModel.Page == 1 && searchDataModel.PageSize == 0)
+                {
+                    cards = cards.ToList();
+                }
+                else
+                {
+                    cards = cards.Skip((searchDataModel.Page - 1) * searchDataModel.PageSize)
+                                 .Take(searchDataModel.PageSize)
+                                 .ToList();
+                }
+
+                var temp = new { items = cards, totalCount = totalCount };
+                return Ok(temp);
+            }
+            catch (ArgumentNullException ex)
+            {
+                var message = $"Cards collection is empty. {ex.Message}";
+                return BadRequest(message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("Quiz/GetCardsByDeckArray/{deckLink}")]
+        public HttpResponseMessage GetCardsByDeckArray(string deckLink)
+        {
+            var arrayOfLinks = deckLink.Split(',');
+            try
+            {
+                List<CardDTO> cards = quiz.GetCardsByDeckArray(arrayOfLinks);
+                return Request.CreateResponse(HttpStatusCode.OK, cards);
+            }
+            catch (ArgumentNullException ex)
+            {
+                var message = $"Deck with name = {deckLink} not found. {ex.Message}";
+                HttpError err = new HttpError(message);
+                return Request.CreateResponse(HttpStatusCode.NotFound, err);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
             }
         }
 
@@ -70,6 +137,51 @@ namespace MemoRise.Controllers
             {
                 var message = $"Card with id = {cardId} not found. {ex.Message}";
                 return BadRequest(message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public IHttpActionResult CodeAnswerCheck(CodeAnswerDTO codeAnswerDTO)
+        {
+            try
+            {
+                CSharpCodeProvider provider = new CSharpCodeProvider();
+                CompilerParameters cp = new CompilerParameters
+                {
+                    GenerateInMemory = true,
+                };
+
+                string code = codeAnswerDTO.CodeAnswerText;
+                CompilerResults compileResult = provider.CompileAssemblyFromSource(cp, code);
+
+                if (compileResult.Errors.Count > 0)
+                {
+                    codeAnswerDTO.CodeAnswerText = "ERROR\r\n";
+                    compileResult.Errors.Cast<CompilerError>().ToList()
+                    .ForEach(error => codeAnswerDTO.CodeAnswerText += error.ErrorText + "\r\n");
+                    codeAnswerDTO.IsRight = false;
+                }
+                else
+                {
+                    codeAnswerDTO.CodeAnswerText = "Compile succeeded \r\n";
+                    CodeAnswerTests codeAnswerTests = new CodeAnswerTests();
+                    bool isAnswerRight = codeAnswerTests.IsAnswerRight(codeAnswerDTO.CardId, compileResult);
+                    if (isAnswerRight)
+                    {
+                        codeAnswerDTO.CodeAnswerText += "Right";
+                        codeAnswerDTO.IsRight = true;
+                    }
+                    else
+                    {
+                        codeAnswerDTO.CodeAnswerText += "Wrong";
+                        codeAnswerDTO.IsRight = false;
+                    }
+                }
+                return Ok(codeAnswerDTO);
             }
             catch (Exception ex)
             {

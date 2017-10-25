@@ -8,23 +8,23 @@ using System.Linq;
 
 namespace MemoBll.Managers
 {
-	public class ModerationBll
+    public class ModerationBll
     {
-        IModeration moderation;
-        IConverterToDTO converterToDto;
+        private IModeration moderation;
+        private IConverterToDTO converterToDTO;
 
         public ModerationBll()
         {
             moderation = new Moderation();
-            converterToDto = new ConverterToDTO();
+            converterToDTO = new ConverterToDTO();
         }
 
         public ModerationBll(
-            IModeration moderation, 
-            IConverterToDTO converterToDto)
+            IModeration moderation,
+            IConverterToDTO converterToDTO)
         {
             this.moderation = moderation;
-            this.converterToDto = converterToDto;
+            this.converterToDTO = converterToDTO;
         }
 
         #region ForReports
@@ -58,35 +58,35 @@ namespace MemoBll.Managers
 
         #region ForStatistics
 
-        public int GetDeckStatistics(int deckId)
-        {
-            var deckStatistics = moderation.GetDeckStatistics(deckId).ToList();
-            int result = 0;
-            if (deckStatistics.Count > 0)
-            {
-                double totalDeckPercent = 0.0;
-                foreach (Statistics statistic in deckStatistics)
-                {
-                    totalDeckPercent += statistic.SuccessPercent;
-                }
-                result = Convert.ToInt32(
-                    Math.Round(totalDeckPercent / deckStatistics.Count));
-            }
+        ////public int GetDeckStatistics(int deckId)
+        ////{
+        ////    var deckStatistics = moderation.GetDeckStatistics(deckId).ToList();
+        ////    int result = 0;
+        ////    if (deckStatistics.Count > 0)
+        ////    {
+        ////        double totalDeckPercent = 0.0;
+        ////        foreach (Statistics statistic in deckStatistics)
+        ////        {
+        ////            totalDeckPercent += statistic.SuccessPercent;
+        ////        }
+        ////        result = Convert.ToInt32(
+        ////            Math.Round(totalDeckPercent / deckStatistics.Count));
+        ////    }
 
-            return result;
-        }
+        ////    return result;
+        ////}
 
-        public int GetStatistics(string deckName, int userId)
-        {
-            Statistics statistics = moderation.GetStatistics(deckName, userId);
+        ////public int GetStatistics(string deckName, int userId)
+        ////{
+        ////    Statistics statistics = moderation.GetStatistics(deckName, userId);
 
-            return statistics != null ? statistics.SuccessPercent : 0;
-        }
+        ////    return statistics != null ? statistics.SuccessPercent : 0;
+        ////}
 
-        public void DeleteStatistics(int statisticsId)
-        {
-            moderation.DeleteStatistics(statisticsId);
-        }
+        ////public void DeleteStatistics(int statisticsId)
+        ////{
+        ////    moderation.DeleteStatistics(statisticsId);
+        ////}
 
         #endregion
 
@@ -95,34 +95,34 @@ namespace MemoBll.Managers
         public List<UserDTO> GetAllUsersByCourse(int courseId)
         {
             List<User> users = moderation.GetAllUsersByCourse(courseId).ToList();
-            List<UserDTO> usersDto = new List<UserDTO>();
+            List<UserDTO> usersDTO = new List<UserDTO>();
             foreach (var user in users)
             {
-                usersDto.Add(converterToDto.ConvertToUserDTO(user));
+                usersDTO.Add(converterToDTO.ConvertToUserDTO(user));
             }
 
-            return usersDto;
+            return usersDTO;
         }
 
-        public List<UserDTO> GetAllUsersByDeck(string deckName)
+        public List<UserDTO> GetAllUsersByDeck(int deckId)
         {
-            List<User> users = moderation.GetAllUsersByDeck(deckName).ToList();
-            List<UserDTO> usersDto = new List<UserDTO>();
+            List<User> users = moderation.GetAllUsersByDeck(deckId).ToList();
+            List<UserDTO> usersDTO = new List<UserDTO>();
             foreach (var user in users)
             {
-                usersDto.Add(converterToDto.ConvertToUserDTO(user));
+                usersDTO.Add(converterToDTO.ConvertToUserDTO(user));
             }
 
-            return usersDto;
+            return usersDTO;
         }
 
         #endregion
 
         #region ForAnswers
 
-        public void CreateAnswer(Answer answer)
+        public Answer CreateAnswer(Answer answer)
         {
-            moderation.CreateAnswer(answer);
+           return moderation.CreateAnswer(answer);
         }
 
         public void UpdateAnswer(Answer answer)
@@ -135,6 +135,10 @@ namespace MemoBll.Managers
             moderation.RemoveAnswer(answerId);
         }
 
+        public Answer GetAnswer(int id)
+        {
+            return moderation.GetAnswer(id);
+        }
         #endregion
 
         #region ForCategories
@@ -152,6 +156,36 @@ namespace MemoBll.Managers
         public void RemoveCategory(int categoryId)
         {
             moderation.RemoveCategory(categoryId);
+        }
+
+        public CategoryDTO FindCategoryDTOByName(string categoryName)
+        {
+            Category category = moderation.FindCategoryByName(categoryName);
+            return converterToDTO.ConvertToCategoryDTO(category);
+        }
+
+        public Category FindCategoryByName(string categoryName)
+        {
+            return moderation.FindCategoryByName(categoryName);
+        }
+
+        public CategoryDTO FindCategoryByLinking(string categoryLinking)
+        {
+            Category category = moderation.FindCategoryByLinking(categoryLinking);
+            return converterToDTO.ConvertToCategoryDTO(category);
+        }
+
+        public Category GetCategory(int id)
+        {
+            return moderation.GetCategory(id);
+        }
+
+        public Category FindCategoryAndUpdateValues(CategoryDTO categoryDTO)
+        {
+            Category category = moderation.GetCategory(categoryDTO.Id);
+            category.Name = categoryDTO.Name;
+            category.Linking = categoryDTO.Linking;
+            return category;
         }
 
         #endregion
@@ -172,7 +206,42 @@ namespace MemoBll.Managers
         {
             moderation.RemoveCourse(courseId);
         }
+        public Course GetCourse(int id)
+        {
+           return  moderation.GetCourse(id);
+        }
 
+        public CourseDTO FindCourseDTOByName(string courseName)
+        {
+            Course course = moderation.FindCourseByName(courseName);
+            return converterToDTO.ConvertToCourseDTO(course);
+        }
+
+        public Course FindCourseByName(string courseName)
+        {
+            return moderation.FindCourseByName(courseName);
+        }
+
+        public Course FindCourseAndUpdateValues(CourseWithDecksDTO courseDTO)
+        {
+            Course course = moderation.GetCourse (courseDTO.Id);
+            course.Name = courseDTO.Name;
+            course.Linking = courseDTO.Linking;
+            course.Description = courseDTO.Description;
+            course.Price = courseDTO.Price;
+            course.Photo = courseDTO.Photo;
+
+            Category category = moderation.FindCategoryByName(courseDTO.CategoryName);
+            course.Category = category;
+
+            course.Decks.Clear();
+            for (int i = 0; i < courseDTO.DeckNames.Length; i++)
+            {
+                course.Decks.Add(moderation.FindDeckByName(courseDTO.DeckNames[i]));
+            }
+            
+            return course;
+        }
         #endregion
 
         #region ForDecks
@@ -191,6 +260,36 @@ namespace MemoBll.Managers
         {
             moderation.RemoveDeck(deckId);
         }
+        public Deck GetDeck(int id)
+        {
+            return moderation.GetDeck(id);
+        }
+
+        public Deck FindDeckAndUpdateValues(DeckDTO deckDTO)
+        {
+            Deck deck = moderation.GetDeck(deckDTO.Id);
+            deck.Name = deckDTO.Name;
+            deck.Linking = deckDTO.Linking;
+            deck.Description = deckDTO.Description;
+            deck.Price = deckDTO.Price;
+            deck.Photo = deckDTO.Photo;
+
+            Category category = moderation.FindCategoryByName(deckDTO.CategoryName);
+            deck.Category = category;
+
+            return deck;
+        }
+
+        public DeckDTO FindDeckDTOByName(string deckName)
+        {
+            Deck deck = moderation.FindDeckByName(deckName);
+            return converterToDTO.ConvertToDeckDTO(deck);
+        }
+
+        public Deck FindDeckByName(string deckName)
+        {
+            return moderation.FindDeckByName(deckName);
+        }
 
         #endregion
 
@@ -206,11 +305,54 @@ namespace MemoBll.Managers
             moderation.UpdateCard(card);
         }
 
+        public Card FindCardAndUpdateValues(CardDTO cardDTO)
+        {
+            Card card = FindCardById(cardDTO.Id);
+            card.Question = cardDTO.Question;
+
+
+            for (int i = 0; i < card.Answers.Count(); i++)
+            {
+                Answer answer = moderation.GetAnswer(card.Answers.ElementAtOrDefault(i).Id);
+                answer.Text = cardDTO.Answers.ElementAtOrDefault(i).Text;
+                answer.IsCorrect = cardDTO.Answers.ElementAtOrDefault(i).IsCorrect;
+                moderation.UpdateAnswer(answer);
+            }
+
+            return card;
+        }
+
         public void RemoveCard(int cardId)
         {
             moderation.RemoveCard(cardId);
         }
 
+        public Card FindCardById(int cardId)
+        {
+
+            return moderation.FindCardById(cardId);
+            
+        }
+
+        public CardDTO GetCardById(int cardId)
+        {
+            return converterToDTO.ConvertToCardDTO(moderation.GetCardById(cardId));
+        }
+
+        #endregion
+
+        #region CardType
+
+        public IEnumerable<CardTypeDTO> GetAllCardTypes()
+        {
+            var cardTypes = moderation.GetAllCardTypes();
+            return converterToDTO.ConvertToCardTypeListDTO(cardTypes);
+        }
+
+        public CardType FindCardTypeByName(string cardTypeName)
+        {
+            return moderation.FindCardTypeByName(cardTypeName);
+        }
         #endregion
     }
 }

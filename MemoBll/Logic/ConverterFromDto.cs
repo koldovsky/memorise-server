@@ -1,16 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MemoBll.Interfaces;
+using MemoDAL;
+using MemoDAL.EF;
 using MemoDAL.Entities;
 using MemoDTO;
+using Microsoft.AspNet.Identity;
 
 namespace MemoBll.Logic
 {
-    public class ConverterFromDto : IConverterFromDto
+    public class ConverterFromDTO : IConverterFromDTO
     {
+        private IUnitOfWork unitOfWork;
+
+        public ConverterFromDTO()
+        {
+            unitOfWork = new UnitOfWork(new MemoContext());
+        }
+
+        public ConverterFromDTO(IUnitOfWork uow)
+        {
+            unitOfWork = uow;
+        }
+
         public Answer ConvertToAnswer(AnswerDTO answerDTO)
         {
             return new Answer
@@ -33,11 +46,11 @@ namespace MemoBll.Logic
             return new Card()
             {
                 Id = cardDTO.Id,
-                Question = cardDTO.Question == null ? "" : cardDTO.Question,
-                CardType = ConvertToCardType(cardDTO.CardType == null ? new CardTypeDTO() : cardDTO.CardType),
-                Deck = ConvertToDeck(cardDTO.Deck == null ? new DeckDTO() : cardDTO.Deck),
-                Answers = ConvertToAnswerList(cardDTO.Answers == null ? new List<AnswerDTO>() : cardDTO.Answers),
-                Comments = ConvertToCommentList(cardDTO.Comments == null ? new List<CommentDTO>() : cardDTO.Comments)
+                Question = cardDTO.Question ?? "",
+                CardType = ConvertToCardType(cardDTO.CardType ?? new CardTypeDTO()),
+                Deck = ConvertToDeck(cardDTO.Deck ?? new DeckDTO()),
+                Answers = ConvertToAnswerList(cardDTO.Answers ?? new List<AnswerDTO>()),
+                Comments = ConvertToCommentList(cardDTO.Comments ?? new List<CommentDTO>())
             };
         }
 
@@ -71,8 +84,8 @@ namespace MemoBll.Logic
             {
                 Id = commentDTO.Id,
                 Message = commentDTO.Message,
-                Course = ConvertToCourse(commentDTO.Course == null ? new CourseDTO() : commentDTO.Course),
-                User = ConvertToUser(commentDTO.User == null ? new UserDTO() : commentDTO.User)
+                Course = ConvertToCourse(commentDTO.Course ?? new CourseDTO()),
+                User = ConvertToUser(commentDTO.User ?? new UserDTO())
             };
         }
 
@@ -95,6 +108,19 @@ namespace MemoBll.Logic
             };
         }
 
+        public Course ConvertToCourse(CourseWithDecksDTO courseWithDecksDto)
+        {
+            return new Course
+            {
+                Id = courseWithDecksDto.Id,
+                Name = courseWithDecksDto.Name,
+                Description = courseWithDecksDto.Description,
+                Linking = courseWithDecksDto.Linking,
+                Price = courseWithDecksDto.Price,
+                Photo = courseWithDecksDto.Photo
+            };
+        }
+
         public List<Course> ConvertToCourseList(IEnumerable<CourseDTO> courses)
         {
             throw new NotImplementedException();
@@ -107,8 +133,9 @@ namespace MemoBll.Logic
                   Id = deckDTO.Id,
                   Name = deckDTO.Name,
                   Linking = deckDTO.Linking,
-                  Price = deckDTO.Price
-            };
+                  Price = deckDTO.Price,
+                  Description = deckDTO.Description
+    };
         }
 
         public List<Deck> ConvertToDeckList(IEnumerable<DeckDTO> decks)
@@ -126,30 +153,89 @@ namespace MemoBll.Logic
             throw new NotImplementedException();
         }
 
-        public Statistics ConvertToStatistic(StatisticDTO statistic)
+        public Statistics ConvertToStatistics(StatisticsDTO statistics)
         {
-            throw new NotImplementedException();
+            return new Statistics
+            {
+                Id = statistics.Id,
+                CardStatus = statistics.CardStatus,
+                User = unitOfWork.Users.FindByName(statistics.UserLogin),
+                Card = unitOfWork.Cards.Get(statistics.CardId)
+            };
         }
 
-        public UserCourse ConvertToUserCourse(UserCourseDTO userCourse)
+        public CourseSubscription ConvertToCourseSubscription(CourseSubscriptionDTO courseSubscription)
         {
-            throw new NotImplementedException();
+            return new CourseSubscription
+            {
+                Id = courseSubscription.Id,
+                Rating = courseSubscription.Rating,
+                User = unitOfWork.Users.FindByName(courseSubscription.UserLogin),
+                Course = unitOfWork.Courses.Get(courseSubscription.CourseId)
+            };
         }
 
-        /// <summary>
-        /// It is EmptyUser
-        /// </summary>
-        /// <param name="userDTO"></param>
-        /// <returns></returns>
+        public DeckSubscription ConvertToDeckSubscription(DeckSubscriptionDTO deckSubscription)
+        {
+            return new DeckSubscription
+            {
+                Id = deckSubscription.Id,
+                Rating = deckSubscription.Rating,
+                User = unitOfWork.Users.FindByName(deckSubscription.UserLogin),
+                Deck = unitOfWork.Decks.Get(deckSubscription.DeckId)
+            };
+        }
+        
         public User ConvertToUser(UserDTO userDTO)
         {
-            User user = new User();
+            UserProfile userProfileDetails = new UserProfile()
+            {
+                IsBlocked = userDTO.IsBlocked,
+                FirstName = userDTO.FirstName,
+                LastName = userDTO.LastName,
+                Gender = userDTO.Gender,
+                Country = userDTO.Country,
+                City = userDTO.City
+            };
+            User user = new User()
+            {
+                Id = userDTO.Id,
+                UserName = userDTO.Login,
+                Email = userDTO.Email,
+                UserProfile = userProfileDetails
+            };
             return user;
+        }
+
+        public UserProfile ConvertToUserProfile(UserDTO userDTO)
+        {
+            User user = new User()
+            {
+                Id = userDTO.Id,
+                UserName = userDTO.Login,
+                Email = userDTO.Email
+            };
+            UserProfile userProfileDetails = new UserProfile()
+            {
+                IsBlocked = userDTO.IsBlocked,
+                FirstName = userDTO.FirstName,
+                LastName = userDTO.LastName,
+                Gender = userDTO.Gender,
+                Country = userDTO.Country,
+                City = userDTO.City,
+                User = user
+            };
+            return userProfileDetails;
         }
 
         public List<User> ConvertToUserList(IEnumerable<UserDTO> users)
         {
-            throw new NotImplementedException();
+            List<User> listedUsers = new List<User>();
+            foreach (UserDTO user in users)
+            {
+                listedUsers.Add(ConvertToUser(user));
+            }
+            return listedUsers;
         }
     }
 }

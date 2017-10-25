@@ -13,6 +13,7 @@ namespace MemoBll.Interfaces
         CourseWithDecksDTO ConvertToCourseWithDecksDTO(Course course);
         CategoryDTO ConvertToCategoryDTO(Category category);
         CardTypeDTO ConvertToCardTypeDTO(CardType cardtype);
+        List<CardTypeDTO> ConvertToCardTypeListDTO(IEnumerable<CardType> cardTypes);
         AnswerDTO ConvertToAnswerDTO(Answer answer);
         List<AnswerDTO> ConvertToAnswerListDTO(IEnumerable<Answer> answers);
         RoleDTO ConvertToRoleDTO(Role role);
@@ -23,6 +24,9 @@ namespace MemoBll.Interfaces
         CommentDTO ConvertToCommentDTO(Comment comment);
         List<CommentDTO> ConvertToCommentListDTO(IEnumerable<Comment> comments);
         ReportDTO ConvertToReportDTO(Report report);
-        StatisticDTO ConvertToStatisticDTO(Statistics statistic);
-        UserCourseDTO ConvertToUserCourseDTO(UserCourse userCourse);}
+        StatisticsDTO ConvertToStatisticsDTO(Statistics statistics);
+        List<StatisticsDTO> ConvertToStatisticsListDTO(IEnumerable<Statistics> statistics);
+        CourseSubscriptionDTO ConvertToCourseSubscriptionDTO(CourseSubscription subscription);
+        DeckSubscriptionDTO ConvertToDeckSubscriptionDTO(DeckSubscription subscription);
+    }
 }

@@ -3,31 +3,36 @@ using System.Collections.Generic;
 
 namespace MemoBll.Interfaces
 {
-	public interface IAdministration
-	{
-		IEnumerable<Role> GetAllRoles();
-		IEnumerable<Role> GetRoles(int userId);
+    public interface IAdministration
+    {
+        IEnumerable<Role> GetAllRoles();
 
-		void CreateRole(Role role);
-		void UpdateRole(Role role);
-		void DeleteRole(Role role);
+        IEnumerable<Role> GetRoles(int userId);
 
-		IEnumerable<Statistics> GetDeckStatistics(int deckId);
-		Course GetCourse(int courseId);
-		IEnumerable<Statistics> GetStatistics(int deckId, int userId);
-		void DeleteStatistics(int statisticsId);
+        void CreateRole(Role role);
 
-		IEnumerable<User> GetAllUsersOnRole(string roleName);
-		User GetUser(int userId);
-		IEnumerable<User> GetAllBlockedUsers();
+        void UpdateRole(Role role);
 
-		void BlockUser(int userId);
-		void UnblockUser(int userId);
-		void DeleteUser(User user);
+        void DeleteRole(Role role);
 
-		IEnumerable<Role> GetUserRoles(int userId);
-		void SetUserRole(User user, Role role);
-		void RemoveRoleFromUser(User user, Role role);
+        Course GetCourse(int courseId);
+        
+        IEnumerable<User> GetAllUsersOnRole(string roleName);
 
+        User GetUser(int userId);
+
+        IEnumerable<User> GetAllBlockedUsers();
+
+        void BlockUser(int userId);
+
+        void UnblockUser(int userId);
+
+        void DeleteUser(User user);
+
+        IEnumerable<Role> GetUserRoles(int userId);
+
+        void SetUserRole(User user, Role role);
+
+        void RemoveRoleFromUser(User user, Role role);
     }
 }

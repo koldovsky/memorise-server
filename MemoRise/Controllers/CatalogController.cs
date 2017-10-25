@@ -1,10 +1,11 @@
-﻿using System;
+﻿using MemoBll.Managers;
+using MemoDTO;
+using MemoRise.Helpers;
+using MemoRise.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using MemoBll.Managers;
-using MemoDTO;
-using MemoRise.Helpers;
 
 namespace MemoRise.Controllers
 {
@@ -24,7 +25,47 @@ namespace MemoRise.Controllers
             catch (ArgumentNullException ex)
             {
                 var message = $"Categories collection is empty.";
-                return this.BadRequest(ex.Message);
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public IHttpActionResult GetCategoriesByPage([FromBody]SearchDataModel searchDataModel)
+        {
+            int totalCount = 0;
+            try
+            {
+                IEnumerable<CategoryDTO> categories = catalog.GetAllCategories();
+                if (!string.IsNullOrEmpty(searchDataModel.SearchString))
+                {
+                    categories = categories.Where(category => category.Name.ToLower().Contains(searchDataModel.SearchString.ToLower()));
+                }
+
+                totalCount = categories.Count();
+                categories = searchDataModel.Sort ? categories.OrderByDescending(name => name.Name) : categories.OrderBy(name => name.Name);
+
+                if (searchDataModel.Page == 1 && searchDataModel.PageSize == 0)
+                {
+                    categories = categories.ToList();
+                }
+                else
+                {
+                    categories = categories.Skip((searchDataModel.Page - 1) * searchDataModel.PageSize)
+                                 .Take(searchDataModel.PageSize)
+                                 .ToList();
+                }
+
+                var temp = new { items = categories, totalCount = totalCount };
+                return Ok(temp);
+            }
+            catch (ArgumentNullException ex)
+            {
+                var message = $"Courses collection is empty. {ex.Message}";
+                return BadRequest(message);
             }
             catch (Exception ex)
             {
@@ -37,28 +78,68 @@ namespace MemoRise.Controllers
         {
             try
             {
-                List<CourseDTO> courses = this.catalog.GetAllCourses().ToList();
-                PhotoUrlLoader.LoadCoursesPhotos(courses);
-                return this.Ok(courses);
+                List<CourseDTO> courses = catalog.GetAllCourses().ToList();
+
+                return Ok(courses);
             }
             catch (ArgumentNullException ex)
             {
                 var message = $"Courses collection is empty. {ex.Message}";
-                return this.BadRequest(message);
+                return BadRequest(message);
             }
             catch (Exception ex)
             {
-                return this.BadRequest(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
+        [HttpPost]
+        public IHttpActionResult GetCoursesByPage([FromBody]SearchDataModel searchDataModel)
+        {
+            int totalCount = 0;
+            try
+            {
+                IEnumerable<CourseDTO> courses = catalog.GetAllCourses();
+                if (!string.IsNullOrEmpty(searchDataModel.SearchString))
+                {
+                    courses = courses.Where(course => course.Name.ToLower().Contains(searchDataModel.SearchString.ToLower()));
+                }
+
+                totalCount = courses.Count();
+                courses = searchDataModel.Sort ? courses.OrderByDescending(name => name.Name) : courses.OrderBy(name => name.Name);
+
+                if (searchDataModel.Page == 1 && searchDataModel.PageSize == 0)
+                {
+                    courses = courses.ToList();
+                }
+                else
+                {
+                    courses = courses.Skip((searchDataModel.Page - 1) * searchDataModel.PageSize)
+                                 .Take(searchDataModel.PageSize)
+                                 .ToList();
+                }
+
+                var temp = new { items = courses, totalCount = totalCount };
+                return Ok(temp);
+            }
+            catch (ArgumentNullException ex)
+            {
+                var message = $"Courses collection is empty. {ex.Message}";
+                return BadRequest(message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        // [Authorize]
         [HttpGet]
         public IHttpActionResult GetDecks()
         {
             try
             {
                 List<DeckDTO> decks = catalog.GetAllDecks().ToList();
-                PhotoUrlLoader.LoadDecksPhotos(decks);
 
                 return Ok(decks);
             }
@@ -73,19 +154,57 @@ namespace MemoRise.Controllers
             }
         }
 
+        [HttpPost]
+        public IHttpActionResult GetDecksByPage([FromBody]SearchDataModel searchDataModel)
+        {
+            int totalCount = 0;
+            try
+            {
+                IEnumerable<DeckDTO> decks = catalog.GetAllDecks();
+                if (!string.IsNullOrEmpty(searchDataModel.SearchString))
+                {
+                    decks = decks.Where(deck => deck.Name.ToLower().Contains(searchDataModel.SearchString.ToLower()));
+                }
+
+                totalCount = decks.Count();
+                decks = searchDataModel.Sort ? decks.OrderByDescending(name => name.Name) : decks.OrderBy(name => name.Name);
+
+                if (searchDataModel.Page == 1 && searchDataModel.PageSize == 0)
+                {
+                    decks = decks.ToList();
+                }
+                else
+                {
+                    decks = decks.Skip((searchDataModel.Page - 1) * searchDataModel.PageSize)
+                                 .Take(searchDataModel.PageSize)
+                                 .ToList();
+                }
+
+                var temp = new { items = decks, totalCount = totalCount };
+                return Ok(temp);
+            }
+            catch (ArgumentNullException ex)
+            {
+                var message = $"Courses collection is empty. {ex.Message}";
+                return BadRequest(message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet]
         [Route("Catalog/GetCoursesByCategory/{categoryName}")]
         public IHttpActionResult GetCoursesByCategory(string categoryName)
         {
             try
             {
-                IEnumerable<CourseDTO> courses = catalog.
-                                          GetAllCoursesByCategory(categoryName);
+                IEnumerable<CourseDTO> courses = catalog.GetAllCoursesByCategory(categoryName);
                 if (courses == null)
                 {
                     throw new Exception("Courses aren't found by this category!");
                 }
-                PhotoUrlLoader.LoadCoursesPhotos(courses);
 
                 return Ok(courses.ToList());
             }
@@ -97,7 +216,7 @@ namespace MemoRise.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message); ;
+                return BadRequest(ex.Message);
             }
         }
 
@@ -113,7 +232,6 @@ namespace MemoRise.Controllers
                 {
                     throw new Exception("Decks aren't found by this category!");
                 }
-                PhotoUrlLoader.LoadDecksPhotos(decks);
 
                 return Ok(decks.ToList());
             }
@@ -127,7 +245,6 @@ namespace MemoRise.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
         }
 
         [HttpGet]
@@ -138,7 +255,6 @@ namespace MemoRise.Controllers
             {
                 List<DeckDTO> decks = catalog.GetAllDecksByCourse(courseName)
                                      .ToList();
-                PhotoUrlLoader.LoadDecksPhotos(decks);
                 return Ok(decks);
             }
             catch (ArgumentNullException ex)
@@ -154,15 +270,36 @@ namespace MemoRise.Controllers
         }
 
         [HttpGet]
+        [Route("Catalog/GetDeckByLinking/{linking}")]
+        public IHttpActionResult GetDeckByLinking(string linking)
+        {
+            try
+            {
+                DeckDTO deck = catalog.GetDeckDTO(linking);
+
+                // PhotoUrlLoader.LoadDecksPhotos(deck);
+                return Ok(deck);
+            }
+            catch (ArgumentNullException ex)
+            {
+                var message = $"DEck with linking = {linking} " +
+                              $"not found. {ex.Message}";
+                return BadRequest(message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
         [Route("Catalog/GetCourse/{courseName}")]
         public IHttpActionResult GetCourse(string courseName)
         {
             try
             {
-
                 CourseWithDecksDTO course = catalog
                                            .GetCourseWithDecksDTO(courseName);
-                PhotoUrlLoader.LoadCourseAndDecksPhotos(course);
 
                 return Ok(course);
             }
