@@ -22,7 +22,7 @@ namespace MemoRise.Controllers
         [Authorize]
         public IHttpActionResult CreateCategory(CategoryDTO categoryDTO)
         {
-            
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -89,7 +89,7 @@ namespace MemoRise.Controllers
                 var category = moderation.FindCategoryDTOByName(categoryName);
                 return Ok(category);
             }
-            catch (NullReferenceException ex)
+            catch (NullReferenceException)
             {
                 return Ok(new CategoryDTO { Name = "unique" });
             }
@@ -106,7 +106,7 @@ namespace MemoRise.Controllers
         [Authorize]
         public IHttpActionResult CreateCourse(CourseDTO courseDTO)
         {
-          
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -130,7 +130,7 @@ namespace MemoRise.Controllers
         [Authorize]
         public IHttpActionResult UpdateCourse(CourseWithDecksDTO courseDTO)
         {
-           
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -166,7 +166,7 @@ namespace MemoRise.Controllers
         [HttpGet]
         [Authorize]
         [Route("Moderator/FindCourseByName/{courseName}")]
-        public IHttpActionResult FindCourseByName (string courseName)
+        public IHttpActionResult FindCourseByName(string courseName)
         {
 
             try
@@ -176,7 +176,7 @@ namespace MemoRise.Controllers
                 var course = moderation.FindCourseDTOByName(courseName);
                 return Ok(course);
             }
-            catch (NullReferenceException ex)
+            catch (NullReferenceException)
             {
                 return Ok(new CourseDTO { Name = "unique" });
             }
@@ -202,7 +202,7 @@ namespace MemoRise.Controllers
                 var deck = moderation.FindDeckDTOByName(deckName);
                 return Ok(deck);
             }
-            catch (NullReferenceException ex)
+            catch (NullReferenceException)
             {
                 return Ok(new DeckDTO { Name = "unique" });
             }
@@ -211,7 +211,7 @@ namespace MemoRise.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
+
 
         [HttpPost]
         [Authorize]
@@ -284,7 +284,7 @@ namespace MemoRise.Controllers
         }
 
         #endregion
-        
+
         #region Cards
 
         [HttpPost]
@@ -302,7 +302,7 @@ namespace MemoRise.Controllers
                 card.Deck = moderation.FindDeckByName(cardDTO.DeckName);
                 card.CardType = moderation.FindCardTypeByName(cardDTO.CardTypeName);
                 card.Answers = new List<Answer>();
-                foreach(var answer in cardDTO.Answers)
+                foreach (var answer in cardDTO.Answers)
                 {
                     card.Answers.Add(moderation.CreateAnswer(converter.ConvertToAnswer(answer)));
                 }
@@ -360,7 +360,7 @@ namespace MemoRise.Controllers
             {
                 List<CardTypeDTO> cardTypes = moderation.GetAllCardTypes()
                     .ToList();
-                                               
+
                 return Ok(cardTypes);
             }
             catch (ArgumentNullException ex)
@@ -374,6 +374,6 @@ namespace MemoRise.Controllers
             }
         }
         #endregion
-       
+
     }
 }

@@ -74,7 +74,7 @@ namespace MemoDAL.EF
                 new Deck{Name = "Base knowledge", Linking="BaseKnowledge", Description = "Deck description", Price=12, Category = categories[0] }
             };
             context.Decks.AddRange(decks);
-            
+
             #endregion
 
             #region Courses
@@ -111,7 +111,7 @@ namespace MemoDAL.EF
                 courses[4].Decks.Add(decks[i]);
             }
             context.Courses.AddRange(courses);
-            
+
             #endregion
 
             #region User Courses
@@ -132,7 +132,7 @@ namespace MemoDAL.EF
                 new CardType{Name = "Code input"}
             };
             context.CardTypes.AddRange(cardTypes);
-            
+
             #endregion
 
             #region Cards
