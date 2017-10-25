@@ -97,6 +97,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Incorrect email input!.
+        /// </summary>
+        public static string PATTERN_NOT_VALID {
+            get {
+                return ResourceManager.GetString("PATTERN_NOT_VALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This field is required!.
         /// </summary>
         public static string REQUIRED {

@@ -272,8 +272,14 @@ namespace MemoBll.Logic
         {
             return new UserDTO
             {
+                Id = user.Id,
                 Login = user.UserName,
                 Email = user.Email,
+                FirstName = user.UserProfile.FirstName,
+                LastName = user.UserProfile.LastName,
+                Gender = user.UserProfile.Gender,
+                Country = user.UserProfile.Country,
+                City = user.UserProfile.City,
                 IsBlocked = user.UserProfile.IsBlocked
             };
         }

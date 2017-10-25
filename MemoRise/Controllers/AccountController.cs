@@ -10,13 +10,13 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Cors;
+using MemoDAL.Repositories;
+using MemoDAL.Repositories.Interfaces;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Linq;
-using MemoDAL.Repositories;
 using MemoRise.Models;
 using MemoRise.Results;
 
@@ -26,14 +26,22 @@ namespace MemoRise.Controllers
     public class AccountController : ApiController
     {
         IUnitOfWork unitOfWork;
-        AuthRepository _repo = new AuthRepository();
+        IAuthRepository _repo;
+
         public AccountController()
         {
             unitOfWork = new UnitOfWork(new MemoContext());
+            _repo = new AuthRepository();
         }
         public AccountController(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
+        }
+
+        public AccountController(IUnitOfWork unitOfWork, IAuthRepository _repo)
+        {
+            this.unitOfWork = unitOfWork;
+            this._repo = _repo;
         }
 
         [HttpPost]
@@ -65,7 +73,7 @@ namespace MemoRise.Controllers
             string password = Encoding.UTF8.GetString(
                               Convert.FromBase64String(newUser.Password));
             var result = await unitOfWork.Users
-                        .CreateAsync(user,password);
+                        .CreateAsync(user, password);
             if (result.Succeeded)
             {
                 result = unitOfWork.Users.AddToRole(user.Id, "Customer");
@@ -110,7 +118,7 @@ namespace MemoRise.Controllers
         {
             get { return Request.GetOwinContext().Authentication; }
         }
-        
+
         [HttpGet]
         [OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
@@ -130,7 +138,7 @@ namespace MemoRise.Controllers
                 return new ChallengeResult(provider, this);
             }
 
-            var redirectUriValidationResult = ValidateClientAndRedirectUri(this.Request, ref redirectUri);
+            var redirectUriValidationResult = ValidateClientAndRedirectUri(Request, ref redirectUri);
 
             if (!string.IsNullOrWhiteSpace(redirectUriValidationResult))
             {
@@ -160,9 +168,7 @@ namespace MemoRise.Controllers
                                             externalLogin.LoginProvider,
                                             hasRegistered.ToString(),
                                             externalLogin.UserName);
-
             return Redirect(redirectUri);
-
         }
 
         private string ValidateClientAndRedirectUri(HttpRequestMessage request, ref string redirectUriOutput)
@@ -190,22 +196,16 @@ namespace MemoRise.Controllers
                 return "client_Id is required";
             }
 
-            var client = unitOfWork.Users.FindById(clientId);//_repo.FindClient(clientId);//
+            var client = unitOfWork.Users.FindById(clientId);
 
             if (client == null)
             {
                 return string.Format("Client_id '{0}' is not registered in the system.", clientId);
             }
 
-            //if (!string.Equals(client.AllowedOrigin, redirectUri.GetLeftPart(UriPartial.Authority), StringComparison.OrdinalIgnoreCase))
-            //{
-            //    return string.Format("The given URL is not allowed by Client_id '{0}' configuration.", clientId);
-            //}
-
             redirectUriOutput = redirectUri.AbsoluteUri;
 
             return string.Empty;
-
         }
 
         private string GetQueryString(HttpRequestMessage request, string key)
@@ -260,9 +260,7 @@ namespace MemoRise.Controllers
         private async Task<ParsedExternalAccessToken> VerifyExternalAccessToken(string provider, string accessToken)
         {
             ParsedExternalAccessToken parsedToken = null;
-
             var verifyTokenEndPoint = "";
-
             if (provider == "Facebook")
             {
                 var appToken = "332333880510904|c82dSSPzEzFi9832ltrLExFE14Y";
@@ -310,15 +308,12 @@ namespace MemoRise.Controllers
                 //    }
 
                 //}
-
             }
-
             return parsedToken;
         }
 
         private JObject GenerateLocalAccessTokenResponse(string userName)
         {
-
             var tokenExpiration = TimeSpan.FromDays(1);
 
             ClaimsIdentity identity = new ClaimsIdentity(OAuthDefaults.AuthenticationType);
@@ -344,15 +339,14 @@ namespace MemoRise.Controllers
                 new JProperty(".issued", ticket.Properties.IssuedUtc.ToString()),
                 new JProperty(".expires", ticket.Properties.ExpiresUtc.ToString())
             );
-
             return tokenResponse;
         }
-        
+
         [HttpPost]
         [AllowAnonymous]
         public async Task<IHttpActionResult> RegisterExternal([FromBody] RegisterExternalBindingModel model)
         {
-
+            //User.Identity.GetUserId()
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -378,8 +372,14 @@ namespace MemoRise.Controllers
             {
                 IsBlocked = false
             };
-            user = new User() { UserName = model.UserName, Email = model.Email, UserProfile = userProfile };
-            
+
+            user = new User()
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+                UserProfile = userProfile
+            };
+
             IdentityResult result = await _repo.CreateAsync(user);
 
             if (result.Succeeded)
@@ -390,6 +390,7 @@ namespace MemoRise.Controllers
             {
                 return GetErrorResult(result);
             }
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -402,29 +403,28 @@ namespace MemoRise.Controllers
             };
 
             result = await _repo.AddLoginAsync(user.Id, info.Login);
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
 
-            //generate access token response
             var accessTokenResponse = GenerateLocalAccessTokenResponse(model.UserName);
 
             return Ok(accessTokenResponse);
         }
 
-        [AllowAnonymous]
         [HttpGet]
-        [Route("ObtainLocalAccessToken")]
+        [AllowAnonymous]
         public async Task<IHttpActionResult> ObtainLocalAccessToken(string provider, string externalAccessToken)
         {
-
             if (string.IsNullOrWhiteSpace(provider) || string.IsNullOrWhiteSpace(externalAccessToken))
             {
                 return BadRequest("Provider or external access token is not sent");
             }
 
             var verifiedAccessToken = await VerifyExternalAccessToken(provider, externalAccessToken);
+
             if (verifiedAccessToken == null)
             {
                 return BadRequest("Invalid Provider or External Access Token");
@@ -439,29 +439,9 @@ namespace MemoRise.Controllers
                 return BadRequest("External user is not registered");
             }
 
-            //generate access token response
             var accessTokenResponse = GenerateLocalAccessTokenResponse(user.UserName);
 
             return Ok(accessTokenResponse);
-
         }
-
-        //TODO: add pasword confirmation
-        //private async Task<bool> sendConfirmationEmailAsync(User user)
-        //{
-
-        //    var code = await unitOfWork.Users
-        //        .GenerateEmailConfirmationTokenAsync(user.Id);
-        //    var callbackUrl = Url.Action("ConfirmEmail", "Account",
-        //   new { userId = user.Id, code = code },
-        //   protocol: Request.Url.Scheme);
-
-        //    await unitOfWork.Users.SendEmailAsync(
-        //        user.Id,
-        //        "Confirm your account",
-        //        "Please confirm your account by clicking this link: <a href=\""
-        //        + callbackUrl + "\">link</a>");
-
-        //}
     }
 }

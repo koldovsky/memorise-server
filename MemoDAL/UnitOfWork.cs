@@ -26,13 +26,14 @@ namespace MemoDAL
 			this.courseSubscriptions = new CourseSubscriptionsRepository(dbContext);
 			this.users = new UserRepository(new UserStore<User>(dbContext));
             this.deckSubscriptions = new DeckSubscriptionsRepository(dbContext);
+		    this.userProfiles = new UserProfileRepository(dbContext);
 		}
 
         #region Fields
 
 		private MemoContext dbContext;
 		private IAnswerRepository answers;
-		private ICardRepository cards;
+        private ICardRepository cards;
 		private ICardTypeRepository cardTypes;
 		private ICategoryRepository categories;
 		private ICommentRepository comments;
@@ -44,6 +45,7 @@ namespace MemoDAL
 		private ICourseSubscriptionRepository courseSubscriptions;
 		private UserRepository users;
 	    private IDeckSubscriptionRepository deckSubscriptions;
+	    private IUserProfileRepository userProfiles;
 		private bool disposed = false;
 
         #endregion
@@ -110,7 +112,12 @@ namespace MemoDAL
             get { return users; }
         }
 
-	    public IDeckSubscriptionRepository DeckSubscriptions
+	    public IUserProfileRepository UserProfiles
+	    {
+	        get { return userProfiles; }
+	    }
+
+        public IDeckSubscriptionRepository DeckSubscriptions
 	    {
             get { return deckSubscriptions; }
 	    }

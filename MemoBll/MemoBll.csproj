@@ -57,6 +57,7 @@
     <Compile Include="Interfaces\ICatalog.cs" />
     <Compile Include="Logic\Administration.cs" />
     <Compile Include="Logic\UserSubscriptions.cs" />
+    <Compile Include="ManagersInterfaces\IUserProfileBll.cs" />
     <Compile Include="Managers\AdministrationBll.cs" />
     <Compile Include="Logic\CardEditor.cs" />
     <Compile Include="Managers\CatalogBll.cs" />
@@ -74,7 +75,7 @@
     <Compile Include="Logic\Filter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Managers\QuizBll.cs" />
-    <Compile Include="Logic\UserProfile.cs" />
+    <Compile Include="Logic\UserProfileDetails.cs" />
     <Compile Include="Managers\UserProfileBll.cs" />
   </ItemGroup>
   <ItemGroup>

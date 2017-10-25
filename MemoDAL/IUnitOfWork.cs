@@ -20,6 +20,7 @@ namespace MemoDAL
         IStatisticsRepository Statistics { get; }
         ICourseSubscriptionRepository CourseSubscriptions { get; }
         UserRepository Users { get; }
+        IUserProfileRepository UserProfiles { get; }
         IDeckSubscriptionRepository DeckSubscriptions { get; }
 
         void Save();

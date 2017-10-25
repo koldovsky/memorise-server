@@ -25,7 +25,7 @@ namespace MemoBll.Interfaces
         Role ConvertToRole(RoleDTO role);
 
         User ConvertToUser(UserDTO user);
-
+        UserProfile ConvertToUserProfile(UserDTO user);
         List<User> ConvertToUserList(IEnumerable<UserDTO> users);
 
         Card ConvertToCard(CardDTO card);
