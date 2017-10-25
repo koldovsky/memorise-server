@@ -365,8 +365,29 @@ namespace MemoRise.Controllers
             }
             catch (ArgumentNullException ex)
             {
-                var message = $"CardsType collection is empty.";
+                var message = $"CardsType collection is empty. {ex.Message}";
+                return BadRequest(message);
+            }
+            catch (Exception ex)
+            {
                 return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("Moderator/GetCardById/{cardId}")]
+        public IHttpActionResult GetCardById(int cardId)
+        {
+            try
+            {
+                CardDTO cardDto =  moderation.GetCardById(cardId);
+                return Ok(cardDto);
+            }
+            catch (ArgumentNullException ex)
+            {
+                var message = $"Card with id = {cardId} not found. {ex.Message}";
+                return BadRequest(message);
             }
             catch (Exception ex)
             {

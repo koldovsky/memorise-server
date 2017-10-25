@@ -260,6 +260,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CodeAnswerTests.cs" />
     <Compile Include="Helpers\UploadManager.cs" />
     <Compile Include="Identity\CustomJwtFormat.cs" />
     <Compile Include="Identity\CustomOAuthProvider.cs" />

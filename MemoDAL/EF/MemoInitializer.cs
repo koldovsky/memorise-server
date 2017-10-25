@@ -261,7 +261,7 @@ namespace MemoDAL.EF
                 },
                 new Card
                 {
-                     Question = @"Return sum a and b",
+                     Question = @"Return remainder from dividing a to b",
                      CardType = cardTypes[3],
                      Deck = decks[12]
                 },
@@ -737,7 +737,7 @@ namespace MemoDAL.EF
                     Text = @"
                             public class Quiz
                             {
-                                public int Sum(int a, int b)
+                                public int Remainder(int a, int b)
                                 {
                                     //Type your code here
                                 }
