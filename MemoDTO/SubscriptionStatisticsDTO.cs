@@ -9,6 +9,7 @@ namespace MemoDTO
     public class SubscriptionStatisticsDTO
     {
         public string UserLogin { get; set; }
+
         public int ItemId { get; set; }
     }
 }

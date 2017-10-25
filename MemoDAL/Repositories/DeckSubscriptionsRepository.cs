@@ -4,8 +4,12 @@ using MemoDAL.Repositories.Interfaces;
 
 namespace MemoDAL.Repositories
 {
-    public class DeckSubscriptionsRepository: BaseRepository<DeckSubscription>, IDeckSubscriptionRepository
+    public class DeckSubscriptionsRepository :
+        BaseRepository<DeckSubscription>, 
+        IDeckSubscriptionRepository
     {
-        public DeckSubscriptionsRepository(MemoContext context) : base(context) { }
+        public DeckSubscriptionsRepository(MemoContext context) : base(context)
+        {
+        }
     }
 }

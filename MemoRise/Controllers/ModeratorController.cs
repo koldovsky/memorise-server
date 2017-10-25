@@ -51,9 +51,9 @@ namespace MemoRise.Controllers
 
             try
             {
-                Category category = converter.ConvertToCategory(categoryDTO);
+                Category category = moderation.FindCategoryAndUpdateValues(categoryDTO);
                 moderation.UpdateCategory(category);
-                return Ok();
+                return Ok(categoryDTO);
             }
             catch (Exception ex)
             {
@@ -92,6 +92,27 @@ namespace MemoRise.Controllers
             catch (NullReferenceException)
             {
                 return Ok(new CategoryDTO { Name = "unique" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("Moderator/FindCategoryByLinking/{categoryLinking}")]
+        public IHttpActionResult FindCategoryByLinking(string categoryLinking)
+        {
+            try
+            {
+                
+                var category = moderation.FindCategoryByLinking(categoryLinking);
+                return Ok(category);
+            }
+            catch (NullReferenceException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {
@@ -217,11 +238,7 @@ namespace MemoRise.Controllers
         [Authorize]
         public IHttpActionResult CreateDeck(DeckDTO deckDTO)
         {
-            //deckDTO = decoder.DecodeDeck(deckDTO);
-
-            //ModelState.Clear();
-            //this.Validate(deckDTO);
-
+            
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -245,18 +262,14 @@ namespace MemoRise.Controllers
         [Authorize]
         public IHttpActionResult UpdateDeck(DeckDTO deckDTO)
         {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             try
             {
-                Deck deck = converter.ConvertToDeck(deckDTO);
-                Category category = moderation.FindCategoryByName(deckDTO.CategoryName);
-                deck.Category = category;
-
-                List<Card> cards = new List<Card>();
-                deckDTO.CardIds.ForEach(x => cards.Add(moderation.FindCardById(x)));
-
-                List<Course> courses = new List<Course>();
-                deckDTO.CourseNames.ForEach(x => courses.Add(moderation.FindCourseByName(x)));
-
+                Deck deck = moderation.FindDeckAndUpdateValues(deckDTO);
                 moderation.UpdateDeck(deck);
 
                 return Ok(deckDTO);
@@ -326,9 +339,9 @@ namespace MemoRise.Controllers
 
             try
             {
-                Card card = converter.ConvertToCard(cardDTO);
+                Card card = moderation.FindCardAndUpdateValues(cardDTO);
                 moderation.UpdateCard(card);
-                return Ok();
+                return Ok(cardDTO);
             }
             catch (Exception ex)
             {

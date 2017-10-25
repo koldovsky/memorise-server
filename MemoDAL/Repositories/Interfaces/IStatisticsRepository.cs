@@ -2,7 +2,7 @@
 
 namespace MemoDAL.Repositories.Interfaces
 {
-    public interface IStatisticsRepository: IRepository<Statistics>
+    public interface IStatisticsRepository : IRepository<Statistics>
     {
     }
 }

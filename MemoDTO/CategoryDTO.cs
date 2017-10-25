@@ -24,5 +24,9 @@ namespace MemoDTO
            ErrorMessageResourceType = typeof(Resources.ErrorMessages),
            ErrorMessageResourceName = "ONLY_ALPHANUMERIC")]
         public string Linking { get; set; }
+
+        public string[] CourseNames { get; set; }
+
+        public string[] DeckNames { get; set; }
     }
 }

@@ -25,7 +25,9 @@ namespace MemoBll.Interfaces
         Role ConvertToRole(RoleDTO role);
 
         User ConvertToUser(UserDTO user);
+
         UserProfile ConvertToUserProfile(UserDTO user);
+
         List<User> ConvertToUserList(IEnumerable<UserDTO> users);
 
         Card ConvertToCard(CardDTO card);
@@ -39,7 +41,9 @@ namespace MemoBll.Interfaces
         Report ConvertToReport(ReportDTO report);
 
         Statistics ConvertToStatistics(StatisticsDTO statistics);
+
         CourseSubscription ConvertToCourseSubscription(CourseSubscriptionDTO courseSubscription);
+
         DeckSubscription ConvertToDeckSubscription(DeckSubscriptionDTO deckSubscription);
     }
 }
