@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using MemoBll.Interfaces;
-using MemoDAL.Entities;
 using MemoDAL;
 using MemoDAL.EF;
+using MemoDAL.Entities;
 using Microsoft.AspNet.Identity;
 
 namespace MemoBll.Logic
 {
     public class UserSubscriptions : IUserSubscriptions
     {
-        IUnitOfWork unitOfWork;
+        private IUnitOfWork unitOfWork;
 
         public UserSubscriptions()
         {
@@ -45,9 +44,6 @@ namespace MemoBll.Logic
             if (subscription == null)
             {
                 var course = unitOfWork.Courses.Get(courseId);
-                //var decks = course
-                //    ?.Decks.ToList()
-                //    ?? throw new ArgumentNullException();
                 subscription = new CourseSubscription
                 {
                     Rating = -1,
@@ -55,10 +51,6 @@ namespace MemoBll.Logic
                     Course = course
                 };
                 unitOfWork.CourseSubscriptions.Create(subscription);
-                //decks.ForEach(deck =>
-                //{
-                //    CreateDeckSubscription(userLogin, deck.Id);
-                //});
                 unitOfWork.Save();
             }
 
