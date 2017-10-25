@@ -44,7 +44,7 @@ namespace MemoDAL.EF
             // CATEGORY
             IList<Category> categories = new List<Category>
             {
-                new Category{Name = ".Net", Linking = "_Net"},
+                new Category{Name = ".Net", Linking = "Net"},
                 new Category{Name = "Java", Linking = "Java"},
                 new Category{Name = "JavaScript", Linking = "JavaScript"},
                 new Category{Name = "Python", Linking = "Python"},
@@ -74,7 +74,7 @@ namespace MemoDAL.EF
                 new Deck{Name = "Base knowledge", Linking="BaseKnowledge", Description = "Deck description", Price=12, Category = categories[0] }
             };
             context.Decks.AddRange(decks);
-            
+
             #endregion
 
             #region Courses
@@ -111,7 +111,7 @@ namespace MemoDAL.EF
                 courses[4].Decks.Add(decks[i]);
             }
             context.Courses.AddRange(courses);
-            
+
             #endregion
 
             #region User Courses
@@ -132,7 +132,7 @@ namespace MemoDAL.EF
                 new CardType{Name = "Code input"}
             };
             context.CardTypes.AddRange(cardTypes);
-            
+
             #endregion
 
             #region Cards
@@ -261,7 +261,7 @@ namespace MemoDAL.EF
                 },
                 new Card
                 {
-                     Question = @"Return sum a and b",
+                     Question = @"Return remainder from dividing a to b",
                      CardType = cardTypes[3],
                      Deck = decks[12]
                 },
@@ -737,7 +737,7 @@ namespace MemoDAL.EF
                     Text = @"
                             public class Quiz
                             {
-                                public int Sum(int a, int b)
+                                public int Remainder(int a, int b)
                                 {
                                     //Type your code here
                                 }

@@ -44,7 +44,7 @@ namespace MemoDTO
             ErrorMessageResourceName = "ONLY_NUMBERS")]
         public int Price { get; set; }
 		public IEnumerable<DeckDTO> Decks { get; set; }
-        //public CategoryDTO Category { get; set; }
+        
         public string CategoryName { get; set; }
         public string[] DeckNames { get; set; }
     }
