@@ -26,6 +26,7 @@ namespace MemoDTO
         public string Linking { get; set; }
 
         public string[] CourseNames { get; set; }
+
         public string[] DeckNames { get; set; }
     }
 }
