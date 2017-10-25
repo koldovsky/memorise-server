@@ -135,7 +135,7 @@ namespace MemoBll.Logic
                   Linking = deckDTO.Linking,
                   Price = deckDTO.Price,
                   Description = deckDTO.Description
-    };
+            };
         }
 
         public List<Deck> ConvertToDeckList(IEnumerable<DeckDTO> decks)

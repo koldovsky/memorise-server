@@ -59,7 +59,7 @@ namespace MemoBll.Logic
                 Photo = course.Photo,
                 Description = course.Description,
                 CategoryName = course.Category.Name
-        };
+            ;
         }
 
         public List<CourseDTO> ConvertToCourseListDTO(IEnumerable<Course> courses)
