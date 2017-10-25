@@ -44,6 +44,7 @@ namespace MemoRise.Controllers
                 {
                     categories = categories.Where(category => category.Name.ToLower().Contains(searchDataModel.SearchString.ToLower()));
                 }
+
                 totalCount = categories.Count();
                 categories = searchDataModel.Sort ? categories.OrderByDescending(name => name.Name) : categories.OrderBy(name => name.Name);
 
@@ -57,6 +58,7 @@ namespace MemoRise.Controllers
                                  .Take(searchDataModel.PageSize)
                                  .ToList();
                 }
+
                 var temp = new { items = categories, totalCount = totalCount };
                 return Ok(temp);
             }
@@ -102,6 +104,7 @@ namespace MemoRise.Controllers
                 {
                     courses = courses.Where(course => course.Name.ToLower().Contains(searchDataModel.SearchString.ToLower()));
                 }
+
                 totalCount = courses.Count();
                 courses = searchDataModel.Sort ? courses.OrderByDescending(name => name.Name) : courses.OrderBy(name => name.Name);
 
@@ -115,6 +118,7 @@ namespace MemoRise.Controllers
                                  .Take(searchDataModel.PageSize)
                                  .ToList();
                 }
+
                 var temp = new { items = courses, totalCount = totalCount };
                 return Ok(temp);
             }
@@ -161,6 +165,7 @@ namespace MemoRise.Controllers
                 {
                     decks = decks.Where(deck => deck.Name.ToLower().Contains(searchDataModel.SearchString.ToLower()));
                 }
+
                 totalCount = decks.Count();
                 decks = searchDataModel.Sort ? decks.OrderByDescending(name => name.Name) : decks.OrderBy(name => name.Name);
 
@@ -174,6 +179,7 @@ namespace MemoRise.Controllers
                                  .Take(searchDataModel.PageSize)
                                  .ToList();
                 }
+
                 var temp = new { items = decks, totalCount = totalCount };
                 return Ok(temp);
             }
