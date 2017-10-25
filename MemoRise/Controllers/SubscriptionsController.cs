@@ -5,7 +5,7 @@ using MemoDTO;
 
 namespace MemoRise.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class SubscriptionsController : ApiController
     {
         private UserSubscriptionsBll userSubscriptions = new UserSubscriptionsBll();

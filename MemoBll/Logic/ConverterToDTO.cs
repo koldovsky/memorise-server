@@ -83,8 +83,7 @@ namespace MemoBll.Logic
                 Price = course.Price,
                 Description = course.Description,
                 Decks = ConvertToDeckListDTO(course.Decks),
-                //Category = ConvertToCategoryDTO(course.Category),
-                CategoryName= course.Category.Name,
+                CategoryName = course.Category.Name,
                 Photo = course.Photo,
                 DeckNames = course.Decks.Select(x => x.Name).ToArray()
             };
@@ -92,10 +91,17 @@ namespace MemoBll.Logic
 
         public CategoryDTO ConvertToCategoryDTO(Category category)
         {
-            return new CategoryDTO {
-                Id =category.Id,
+            return new CategoryDTO
+            {
+                Id = category.Id,
                 Name = category.Name,
-                Linking = category.Linking
+                Linking = category.Linking,
+                DeckNames = category.Decks
+                .Where(x => x.Category.Id == category.Id)
+                .Select(x => x.Name).ToArray(),
+                CourseNames = category.Courses
+                .Where(x => x.Category.Id == category.Id)
+                .Select(x => x.Name).ToArray(),
             };
         }
 
@@ -136,21 +142,21 @@ namespace MemoBll.Logic
             return answerDTOs;
         }
 
-        //public RoleDTO ConvertToRoleDTO(Role role)
-        //{
-        //    return new RoleDTO { Name = role.Name };
-        //}
+        ////public RoleDTO ConvertToRoleDTO(Role role)
+        ////{
+        ////    return new RoleDTO { Name = role.Name };
+        ////}
 
-        //public UserDTO ConvertToUserDTO(User user)
-        //{
-        //    return new UserDTO
-        //    {
-        //        Email = user.Email,
-        //        IsBlocked = user.IsBlocked,
-        //        Login = user.Login,
-        //        Photo = user.Photo
-        //    };
-        //}
+        ////public UserDTO ConvertToUserDTO(User user)
+        ////{
+        ////    return new UserDTO
+        ////    {
+        ////        Email = user.Email,
+        ////        IsBlocked = user.IsBlocked,
+        ////        Login = user.Login,
+        ////        Photo = user.Photo
+        ////    };
+        ////}
 
         public List<UserDTO> ConvertToUserListDTO(IEnumerable<User> users)
         {
@@ -165,15 +171,22 @@ namespace MemoBll.Logic
 
         public CardDTO ConvertToCardDTO(Card card)
         {
-            return new CardDTO
+            if(card != null)
             {
-                Id = card.Id,
-                Question = card.Question,
-                CardType = ConvertToCardTypeDTO(card.CardType),
-                Deck = ConvertToDeckDTO(card.Deck),
-                Answers = ConvertToAnswerListDTO(card.Answers),
-                Comments = ConvertToCommentListDTO(card.Comments)
-            };
+                return new CardDTO
+                {
+                    Id = card.Id,
+                    Question = card.Question,
+                    CardType = ConvertToCardTypeDTO(card.CardType),
+                    Deck = ConvertToDeckDTO(card.Deck),
+                    Answers = ConvertToAnswerListDTO(card.Answers),
+                    Comments = ConvertToCommentListDTO(card.Comments)
+                };
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public List<CardDTO> ConvertToCardListDTO(IEnumerable<Card> cards)

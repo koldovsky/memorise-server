@@ -46,7 +46,7 @@ namespace MemoBll.Logic
             return new Card()
             {
                 Id = cardDTO.Id,
-                Question = cardDTO.Question ?? "",
+                Question = cardDTO.Question ?? string.Empty,
                 CardType = ConvertToCardType(cardDTO.CardType ?? new CardTypeDTO()),
                 Deck = ConvertToDeck(cardDTO.Deck ?? new DeckDTO()),
                 Answers = ConvertToAnswerList(cardDTO.Answers ?? new List<AnswerDTO>()),
@@ -241,6 +241,7 @@ namespace MemoBll.Logic
             {
                 listedUsers.Add(ConvertToUser(user));
             }
+
             return listedUsers;
         }
     }

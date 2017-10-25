@@ -7,7 +7,7 @@ namespace MemoRise.Controllers
 {
     public class StatisticsController : ApiController
     {
-        UserStatisticsBll statistics = new UserStatisticsBll();
+        private UserStatisticsBll statistics = new UserStatisticsBll();
 
         [HttpGet]
         [Route("Statistics/GetStatistics/{userLogin}/{cardId}")]

@@ -2,7 +2,7 @@
 
 namespace MemoDAL.Entities
 {
-    public class CourseSubscription: BaseEntity
+    public class CourseSubscription : BaseEntity
     {
         public int Rating { get; set; }
 
@@ -15,6 +15,7 @@ namespace MemoDAL.Entities
         public int CourseId { get; set; }
 
         public virtual User User { get; set; }
+
         public virtual Course Course { get; set; }
     }
 }
