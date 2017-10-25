@@ -2,7 +2,7 @@
 
 namespace MemoDAL.Repositories.Interfaces
 {
-    public interface IDeckSubscriptionRepository: IRepository<DeckSubscription>
+    public interface IDeckSubscriptionRepository : IRepository<DeckSubscription>
     {
     }
 }

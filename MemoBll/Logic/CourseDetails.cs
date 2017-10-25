@@ -10,7 +10,7 @@ namespace MemoBll.Logic
 {
     public class CourseDetails : ICourseDetails
     {
-        IUnitOfWork unitOfWork;
+        private IUnitOfWork unitOfWork;
 
         public CourseDetails()
         {

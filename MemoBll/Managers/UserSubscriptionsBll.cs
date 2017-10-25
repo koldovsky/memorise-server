@@ -10,8 +10,8 @@ namespace MemoBll.Managers
 {
     public class UserSubscriptionsBll
     {
-        IUserSubscriptions userSubscriptions;
-        IConverterToDTO converterToDto;
+        private IUserSubscriptions userSubscriptions;
+        private IConverterToDTO converterToDto;
         private IConverterFromDTO converterFromDto;
 
         public UserSubscriptionsBll()

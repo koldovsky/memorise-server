@@ -9,10 +9,10 @@ using Microsoft.AspNet.Identity;
 
 namespace MemoBll.Logic
 {
-    class UserStatistics : IUserStatistics
+    public class UserStatistics : IUserStatistics
     {
-        IUnitOfWork unitOfWork;
-        private string errorMessage = "";
+        private IUnitOfWork unitOfWork;
+        private string errorMessage = string.Empty;
 
         public UserStatistics()
         {
@@ -26,10 +26,9 @@ namespace MemoBll.Logic
 
         public Statistics GetStatistics(string userName, int cardId)
         {
-            //errorMessage = $"There is no statistics for user {userName} and card with Id {cardId}";
             var stats = unitOfWork.Statistics.GetAll()
                 .FirstOrDefault(s => s.User.UserName == userName && s.Card.Id == cardId);
-            return stats; // ?? throw new ArgumentNullException(errorMessage);
+            return stats;
         }
 
         public IEnumerable<Statistics> GetDeckStatistics(string userName, int deckId)
