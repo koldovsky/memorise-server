@@ -21,8 +21,8 @@ namespace MemoRise.Helpers
 
         private bool IsAnswerForCardId16Right(CompilerResults compilerResult)
         {
-            var calcType = compilerResult.CompiledAssembly.GetType("Quiz");
-            var calc = Activator.CreateInstance(calcType);
+            Type calcType = compilerResult.CompiledAssembly.GetType("Quiz");
+            object calc = Activator.CreateInstance(calcType);
 
             int actualResult = (int)calcType.InvokeMember("Sum", BindingFlags.InvokeMethod, null, calc, new object[] { 0, 0 });
             int expectedResult = 0;
@@ -50,8 +50,8 @@ namespace MemoRise.Helpers
         }
         private bool IsAnswerForCardId17Right(CompilerResults compilerResult)
         {
-            var calcType = compilerResult.CompiledAssembly.GetType("Quiz");
-            var calc = Activator.CreateInstance(calcType);
+            Type calcType = compilerResult.CompiledAssembly.GetType("Quiz");
+            object calc = Activator.CreateInstance(calcType);
 
             bool isDivideByZeroException = false;
             try
