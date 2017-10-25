@@ -44,7 +44,7 @@ namespace MemoDAL.EF
             // CATEGORY
             IList<Category> categories = new List<Category>
             {
-                new Category{Name = ".Net", Linking = "_Net"},
+                new Category{Name = ".Net", Linking = "Net"},
                 new Category{Name = "Java", Linking = "Java"},
                 new Category{Name = "JavaScript", Linking = "JavaScript"},
                 new Category{Name = "Python", Linking = "Python"},

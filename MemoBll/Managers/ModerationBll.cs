@@ -135,6 +135,10 @@ namespace MemoBll.Managers
             moderation.RemoveAnswer(answerId);
         }
 
+        public Answer GetAnswer(int id)
+        {
+            return moderation.GetAnswer(id);
+        }
         #endregion
 
         #region ForCategories
@@ -163,6 +167,25 @@ namespace MemoBll.Managers
         public Category FindCategoryByName(string categoryName)
         {
             return moderation.FindCategoryByName(categoryName);
+        }
+
+        public CategoryDTO FindCategoryByLinking(string categoryLinking)
+        {
+            Category category = moderation.FindCategoryByLinking(categoryLinking);
+            return converterToDTO.ConvertToCategoryDTO(category);
+        }
+
+        public Category GetCategory(int id)
+        {
+            return moderation.GetCategory(id);
+        }
+
+        public Category FindCategoryAndUpdateValues(CategoryDTO categoryDTO)
+        {
+            Category category = moderation.GetCategory(categoryDTO.Id);
+            category.Name = categoryDTO.Name;
+            category.Linking = categoryDTO.Linking;
+            return category;
         }
 
         #endregion
@@ -237,6 +260,25 @@ namespace MemoBll.Managers
         {
             moderation.RemoveDeck(deckId);
         }
+        public Deck GetDeck(int id)
+        {
+            return moderation.GetDeck(id);
+        }
+
+        public Deck FindDeckAndUpdateValues(DeckDTO deckDTO)
+        {
+            Deck deck = moderation.GetDeck(deckDTO.Id);
+            deck.Name = deckDTO.Name;
+            deck.Linking = deckDTO.Linking;
+            deck.Description = deckDTO.Description;
+            deck.Price = deckDTO.Price;
+            deck.Photo = deckDTO.Photo;
+
+            Category category = moderation.FindCategoryByName(deckDTO.CategoryName);
+            deck.Category = category;
+
+            return deck;
+        }
 
         public DeckDTO FindDeckDTOByName(string deckName)
         {
@@ -263,23 +305,33 @@ namespace MemoBll.Managers
             moderation.UpdateCard(card);
         }
 
+        public Card FindCardAndUpdateValues(CardDTO cardDTO)
+        {
+            Card card = FindCardById(cardDTO.Id);
+            card.Question = cardDTO.Question;
+
+
+            for (int i = 0; i < card.Answers.Count(); i++)
+            {
+                Answer answer = moderation.GetAnswer(card.Answers.ElementAtOrDefault(i).Id);
+                answer.Text = cardDTO.Answers.ElementAtOrDefault(i).Text;
+                answer.IsCorrect = cardDTO.Answers.ElementAtOrDefault(i).IsCorrect;
+                moderation.UpdateAnswer(answer);
+            }
+
+            return card;
+        }
+
         public void RemoveCard(int cardId)
         {
             moderation.RemoveCard(cardId);
         }
 
-        public Card FindCardById(string cardId)
+        public Card FindCardById(int cardId)
         {
-            int id;
-            int.TryParse(cardId, out id);
-            if (id != 0)
-            {
-                return moderation.FindCardById(id);
-            }
-            else
-            {
-                throw new ArgumentNullException();
-            }
+
+            return moderation.FindCardById(cardId);
+            
         }
 
         public CardDTO GetCardById(int cardId)

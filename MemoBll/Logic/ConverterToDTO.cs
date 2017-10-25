@@ -95,7 +95,13 @@ namespace MemoBll.Logic
             return new CategoryDTO {
                 Id =category.Id,
                 Name = category.Name,
-                Linking = category.Linking
+                Linking = category.Linking,
+                DeckNames = category.Decks
+                .Where(x => x.Category.Id == category.Id)
+                .Select(x => x.Name).ToArray(),
+                CourseNames = category.Courses
+                .Where(x => x.Category.Id == category.Id)
+                .Select(x => x.Name).ToArray(),
             };
         }
 
