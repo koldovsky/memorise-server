@@ -1,9 +1,9 @@
-﻿using System.Web.Http;
-using MemoDTO;
+﻿using MemoDTO;
 using System.Collections.Generic;
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Web.Http;
 using MemoBll.Managers;
 using Microsoft.CSharp;
 using System.CodeDom.Compiler;
@@ -58,7 +58,6 @@ namespace MemoRise.Controllers
             catch (Exception ex)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
-
             }
         }
 
@@ -73,6 +72,7 @@ namespace MemoRise.Controllers
                 {
                     cards = cards.Where(card => card.Question.ToLower().Contains(searchDataModel.SearchString.ToLower()));
                 }
+
                 totalCount = cards.Count();
                 cards = searchDataModel.Sort ? cards.OrderByDescending(name => name.CardType.Name) : cards.OrderBy(name => name.CardType.Name);
 
@@ -86,6 +86,7 @@ namespace MemoRise.Controllers
                                  .Take(searchDataModel.PageSize)
                                  .ToList();
                 }
+
                 var temp = new { items = cards, totalCount = totalCount };
                 return Ok(temp);
             }
@@ -119,7 +120,6 @@ namespace MemoRise.Controllers
             catch (Exception ex)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
-
             }
         }
 

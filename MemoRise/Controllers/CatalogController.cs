@@ -77,7 +77,7 @@ namespace MemoRise.Controllers
             try
             {
                 List<CourseDTO> courses = catalog.GetAllCourses().ToList();
-                
+
                 return Ok(courses);
             }
             catch (ArgumentNullException ex)
@@ -128,7 +128,8 @@ namespace MemoRise.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        //[Authorize]
+
+        // [Authorize]
         [HttpGet]
         public IHttpActionResult GetDecks()
         {
@@ -193,8 +194,7 @@ namespace MemoRise.Controllers
         {
             try
             {
-                IEnumerable<CourseDTO> courses = catalog.
-                                          GetAllCoursesByCategory(categoryName);
+                IEnumerable<CourseDTO> courses = catalog.GetAllCoursesByCategory(categoryName);
                 if (courses == null)
                 {
                     throw new Exception("Courses aren't found by this category!");
@@ -210,7 +210,7 @@ namespace MemoRise.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message); ;
+                return BadRequest(ex.Message);
             }
         }
 
@@ -239,7 +239,6 @@ namespace MemoRise.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
         }
 
         [HttpGet]
@@ -271,7 +270,8 @@ namespace MemoRise.Controllers
             try
             {
                 DeckDTO deck = catalog.GetDeckDTO(linking);
-                //PhotoUrlLoader.LoadDecksPhotos(deck);
+
+                // PhotoUrlLoader.LoadDecksPhotos(deck);
                 return Ok(deck);
             }
             catch (ArgumentNullException ex)
@@ -292,7 +292,6 @@ namespace MemoRise.Controllers
         {
             try
             {
-
                 CourseWithDecksDTO course = catalog
                                            .GetCourseWithDecksDTO(courseName);
 
