@@ -59,19 +59,19 @@ namespace MemoDAL.EF
             // DECK
             IList<Deck> decks = new List<Deck>
             {
-                new Deck{Name = "Arrays", Linking = "Arrays", Description = "Deck description", Price = 0, Category = categories[0]},
-                new Deck{Name = "Generics", Linking = "Generics", Description = "Deck description", Price = 0, Category = categories[0]},
-                new Deck{Name = "LINQ", Linking = "LINQ", Description = "Deck description", Price = 0, Category = categories[0]},
-                new Deck{Name = "Database First", Linking = "DatabaseFirst", Description = "Deck description", Price = 0, Category = categories[0]},
-                new Deck{Name = "Model First", Linking = "ModelFirst", Description = "Deck description", Price = 0, Category = categories[0]},
-                new Deck{Name = "Code First", Linking = "CodeFirst", Description = "Deck description", Price = 0, Category = categories[0]},
-                new Deck{Name = "Web API", Linking = "WebAPI", Description = "Deck description", Price = 0, Category = categories[0]},
-                new Deck{Name = "IIS", Linking = "IIS", Description = "Deck description", Price = 0, Category = categories[0]},
-                new Deck{Name = "Routing", Linking = "Routing", Description = "Deck description", Price = 0, Category = categories[0]},
-                new Deck{Name = "XAML", Linking = "XAML", Description = "Deck description", Price = 0, Category = categories[0]},
-                new Deck{Name = "Binding", Linking = "Binding", Description = "Deck description", Price = 0, Category = categories[0]},
-                new Deck{Name = "CSS", Linking = "CSS", Description = "Deck description", Price = 0, Category = categories[2]},
-                new Deck{Name = "Base knowledge", Linking="BaseKnowledge", Description = "Deck description", Price=12, Category = categories[0] }
+                new Deck{Name = "Arrays", Linking = "Arrays", Description = "Deck description", Price = 0, Category = categories[0], Photo = @"https://i.imgur.com/qYAgx66.png"},
+                new Deck{Name = "Generics", Linking = "Generics", Description = "Deck description", Price = 0, Category = categories[0], Photo = @"https://i.imgur.com/YYc2V8A.png"},
+                new Deck{Name = "LINQ", Linking = "LINQ", Description = "Deck description", Price = 0, Category = categories[0], Photo = @"https://i.imgur.com/jwBRMP4.png"},
+                new Deck{Name = "Database First", Linking = "DatabaseFirst", Description = "Deck description", Price = 0, Category = categories[0], Photo = @"https://i.imgur.com/ZmzHx0S.png"},
+                new Deck{Name = "Model First", Linking = "ModelFirst", Description = "Deck description", Price = 0, Category = categories[0], Photo = @"https://i.imgur.com/MSRN6WC.png"},
+                new Deck{Name = "Code First", Linking = "CodeFirst", Description = "Deck description", Price = 0, Category = categories[0], Photo = @"https://i.imgur.com/Jq7sfsp.png"},
+                new Deck{Name = "Web API", Linking = "WebAPI", Description = "Deck description", Price = 0, Category = categories[0], Photo = @"https://i.imgur.com/M4L85kg.png"},
+                new Deck{Name = "IIS", Linking = "IIS", Description = "Deck description", Price = 0, Category = categories[0], Photo = @"https://i.imgur.com/CRPMCQ8.png"},
+                new Deck{Name = "Routing", Linking = "Routing", Description = "Deck description", Price = 0, Category = categories[0], Photo = @"https://i.imgur.com/oiU5ZTp.png"},
+                new Deck{Name = "XAML", Linking = "XAML", Description = "Deck description", Price = 0, Category = categories[0], Photo = @"https://i.imgur.com/Jliebsp.png"},
+                new Deck{Name = "Binding", Linking = "Binding", Description = "Deck description", Price = 0, Category = categories[0], Photo = @"https://i.imgur.com/zDi5DBO.png"},
+                new Deck{Name = "CSS", Linking = "CSS", Description = "Deck description", Price = 0, Category = categories[2], Photo = @"https://i.imgur.com/A3lbO5t.png"},
+                new Deck{Name = "Base knowledge", Linking="BaseKnowledge", Description = "Deck description", Price=12, Category = categories[0], Photo = @"https://i.imgur.com/yMtHjwy.png"}
             };
             context.Decks.AddRange(decks);
 
@@ -82,11 +82,11 @@ namespace MemoDAL.EF
             // COURSE
             IList<Course> courses = new List<Course>
             {
-                new Course{Name = "C#", Linking = "cSharp", Description = "C# course description",Price = 0,Category = categories[0]},
-                new Course{Name = "ASP.MVC", Linking = "ASPMVC", Description = "ASP.MVC course description",Price = 0,Category = categories[0]},
-                new Course{Name = "EntityFramework",Linking = "EF", Description = "EntityFramework course description",Price=100,Category = categories[0]},
-                new Course{Name = "WPF", Linking = "WPF", Description = "WPF course description",Price = 0,Category = categories[0]},
-                new Course{Name = "JQUERY", Linking = "JQ", Description = "JQUERY course description", Price = 0, Category = categories[2]}
+                new Course{Name = "C#", Linking = "cSharp", Description = "C# course description",Price = 0,Category = categories[0], Photo = @"https://i.imgur.com/6ayw4TN.png"},
+                new Course{Name = "ASP.MVC", Linking = "ASPMVC", Description = "ASP.MVC course description",Price = 0,Category = categories[0], Photo = @"https://i.imgur.com/jTuKNU3.png"},
+                new Course{Name = "EntityFramework",Linking = "EF", Description = "EntityFramework course description",Price=100,Category = categories[0], Photo = @"https://i.imgur.com/oICDyxz.png"},
+                new Course{Name = "WPF", Linking = "WPF", Description = "WPF course description",Price = 0,Category = categories[0], Photo = @"https://i.imgur.com/pO8UwID.png"},
+                new Course{Name = "JQUERY", Linking = "JQ", Description = "JQUERY course description", Price = 0, Category = categories[2], Photo = @"https://i.imgur.com/kdOqFtB.jpg"}
             };
             for (int i = 0; i < 3; i++)
             {
