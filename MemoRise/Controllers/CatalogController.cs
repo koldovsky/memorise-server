@@ -65,7 +65,7 @@ namespace MemoRise.Controllers
             }
             catch (ArgumentNullException ex)
             {
-                var message = $"Courses collection is empty. {ex.Message}";
+                var message = $"Categories collection is empty. {ex.Message}";
                 return BadRequest(message);
             }
             catch (Exception ex)
@@ -189,7 +189,7 @@ namespace MemoRise.Controllers
             }
             catch (ArgumentNullException ex)
             {
-                var message = $"Courses collection is empty. {ex.Message}";
+                var message = $"Decks collection is empty. {ex.Message}";
                 return BadRequest(message);
             }
             catch (Exception ex)
