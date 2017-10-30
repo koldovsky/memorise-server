@@ -165,7 +165,7 @@ namespace MemoRise.Controllers
         {
             if (identityUpdate == null)
             {
-                return BadRequest();
+                return BadRequest("Object has null value!");
             }
 
             if (!ModelState.IsValid)
@@ -174,7 +174,9 @@ namespace MemoRise.Controllers
             }
             try
             {
-                return Ok(userProfile.UpdateUserByLogin(identityUpdate.ExistingLogin, identityUpdate.NewUserData));
+                return Ok(userProfile.UpdateUserByLogin(
+                    identityUpdate.ExistingLogin,
+                    identityUpdate.NewUserData));
             }
             catch (ArgumentNullException ex)
             {
