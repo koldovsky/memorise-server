@@ -56,7 +56,7 @@ namespace MemoRise.Controllers
                       newUser.Email);
             if (userWithSuchEmail != null)
             {
-                return BadRequest("user with such email already exists!");
+                return BadRequest("Error, user with such email already exists!");
             }
             UserProfile userProfile = new UserProfile
             {
