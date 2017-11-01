@@ -1,8 +1,6 @@
-﻿using System;
-using System.Configuration;
+﻿using MemoDAL.EF;
 using MemoDAL.Entities;
 using MemoDAL.Repositories;
-using MemoDAL.EF;
 using MemoRise.Identity;
 using MemoRise.Providers;
 using Microsoft.AspNet.Identity;
@@ -14,22 +12,23 @@ using Microsoft.Owin.Security.Facebook;
 using Microsoft.Owin.Security.Jwt;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
-
-
+using System;
+using System.Configuration;
 
 namespace MemoRise
 {
     public partial class Startup
     {
         public static OAuthBearerAuthenticationOptions OAuthBearerOptions { get; private set; }
+
         public static FacebookAuthenticationOptions FacebookAuthOptions { get; private set; }
 
         public void Configuration(IAppBuilder app)
         {
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             ConfigureOAuth(app);
-           
         }
+
         public void ConfigureOAuth(IAppBuilder app)
         {
             var issuer = ConfigurationManager.AppSettings["issuer"];
@@ -63,7 +62,7 @@ namespace MemoRise
             OAuthBearerOptions = new OAuthBearerAuthenticationOptions();
 
             app.UseOAuthBearerAuthentication(OAuthBearerOptions);
-            
+
             FacebookAuthOptions = new FacebookAuthenticationOptions()
             {
                 AppId = "332333880510904",
@@ -71,27 +70,6 @@ namespace MemoRise
                 Provider = new FacebookAuthProvider()
             };
             app.UseFacebookAuthentication(FacebookAuthOptions);
-
-
-            // Uncomment the following lines to enable logging in with third 
-            //party login providers
-            //app.UseMicrosoftAccountAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
-
-            //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
-
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
-
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
         }
     }
 }

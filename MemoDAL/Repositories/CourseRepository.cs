@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace MemoDAL.Repositories
 {
-	public class CourseRepository : BaseRepository<Course>, ICourseRepository
+    public class CourseRepository : BaseRepository<Course>, ICourseRepository
     {
         public CourseRepository(MemoContext context) : base(context)
         {
@@ -25,7 +25,7 @@ namespace MemoDAL.Repositories
                 .ToList();
         }
 
-        public Course GetCourseWithDecks(Func<Course, Boolean> predicate)
+        public Course GetCourseWithDecks(Func<Course, bool> predicate)
         {
             return MemoContext.Set<Course>().Include("Decks")
                 .FirstOrDefault(predicate);

@@ -2,12 +2,13 @@
 
 namespace MemoDAL.Entities
 {
-    public class CardType: BaseEntity
+    public class CardType : BaseEntity
     {
         public CardType()
         {
-            Cards = new List<Card>();
+            this.Cards = new List<Card>();
         }
+
         public string Name { get; set; }
 
         public virtual ICollection<Card> Cards { get; set; }

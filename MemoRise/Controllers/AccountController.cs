@@ -1,8 +1,17 @@
 ﻿using MemoDAL;
 using MemoDAL.EF;
 using MemoDAL.Entities;
+using MemoDAL.Repositories;
+using MemoDAL.Repositories.Interfaces;
 using MemoDTO;
+using MemoRise.Models;
+using MemoRise.Results;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.OAuth;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
 using System.Net.Http;
@@ -10,16 +19,6 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
-using MemoDAL.Repositories;
-using MemoDAL.Repositories.Interfaces;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.OAuth;
-using Newtonsoft.Json.Linq;
-using MemoRise.Models;
-using MemoRise.Results;
-
 
 namespace MemoRise.Controllers
 {
@@ -56,7 +55,7 @@ namespace MemoRise.Controllers
                       newUser.Email);
             if (userWithSuchEmail != null)
             {
-                return BadRequest("user with such email already exists!");
+                return BadRequest("Error, user with such email already exists!");
             }
             UserProfile userProfile = new UserProfile
             {

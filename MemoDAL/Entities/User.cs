@@ -2,7 +2,7 @@
 
 namespace MemoDAL.Entities
 {
-	public class User : IdentityUser
+    public class User : IdentityUser
     {
         public virtual UserProfile UserProfile { get; set; }
     }

@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System;
-using MemoDAL;
+﻿using MemoDAL;
 using MemoDAL.EF;
 using MemoDAL.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MemoBll.Logic
 {
     public class Filter
     {
-        IUnitOfWork unitOfWork;
+        private IUnitOfWork unitOfWork;
 		
         public Filter()
         {

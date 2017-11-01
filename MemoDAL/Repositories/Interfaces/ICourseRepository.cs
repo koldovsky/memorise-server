@@ -4,12 +4,12 @@ using MemoDAL.Entities;
 
 namespace MemoDAL.Repositories.Interfaces
 {
-    public interface ICourseRepository: IRepository<Course>
+    public interface ICourseRepository : IRepository<Course>
     {
         IEnumerable<Course> GetSomeAmount(
             int previousNumbersOfCourses,
             int numbersOfCoursesOnPage);
 
-        Course GetCourseWithDecks(Func<Course, Boolean> predicate);
+        Course GetCourseWithDecks(Func<Course, bool> predicate);
     }
 }

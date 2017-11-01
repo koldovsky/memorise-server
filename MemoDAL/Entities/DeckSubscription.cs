@@ -2,7 +2,7 @@
 
 namespace MemoDAL.Entities
 {
-    public class DeckSubscription: BaseEntity
+    public class DeckSubscription : BaseEntity
     {
         public int Rating { get; set; }
 
@@ -15,6 +15,7 @@ namespace MemoDAL.Entities
         public int DeckId { get; set; }
 
         public virtual User User { get; set; }
+
         public virtual Deck Deck { get; set; }
     }
 }

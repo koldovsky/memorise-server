@@ -10,7 +10,7 @@ namespace MemoBll.Logic
 {
     public class Quiz : IQuiz
     {
-        IUnitOfWork unitOfWork;
+        private IUnitOfWork unitOfWork;
 
         public Quiz()
         {
@@ -38,6 +38,7 @@ namespace MemoBll.Logic
             {
                 result.AddRange(deck.Cards);
             }
+
             return result;
         }
 
@@ -60,6 +61,7 @@ namespace MemoBll.Logic
                     listCards.Add(temp);
                 }
             }
+
             return listCards;
         }
 
@@ -83,6 +85,7 @@ namespace MemoBll.Logic
                         return answer.IsCorrect;
                     }
                 }
+
                 return false;
             }
             else

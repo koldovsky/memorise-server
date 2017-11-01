@@ -2,7 +2,7 @@
 
 namespace MemoDAL.Entities
 {
-    public class Statistics: BaseEntity
+    public class Statistics : BaseEntity
     {
         public int CardStatus { get; set; }
 
@@ -15,6 +15,7 @@ namespace MemoDAL.Entities
         public int CardId { get; set; }
 
         public virtual User User { get; set; }
+
         public virtual Card Card { get; set; }
     }
 }

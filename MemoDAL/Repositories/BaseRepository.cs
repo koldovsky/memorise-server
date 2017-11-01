@@ -5,44 +5,44 @@ using System.Data.Entity.Migrations;
 
 namespace MemoDAL.Repositories
 {
-	public abstract class BaseRepository<T>:
-        IRepository<T> where T:Entities.BaseEntity
+    public abstract class BaseRepository<T> :
+        IRepository<T> where T : Entities.BaseEntity
     {
-        private DbContext Context;
+        private DbContext context;
 
         public BaseRepository(DbContext context)
         {
-            this.Context = context;
-        }
-
-        public IEnumerable<T> GetAll()
-        {
-            return Context.Set<T>(); 
-        }
-
-        public T Get(int id)
-        {
-            return Context.Set<T>().Find(id);
-        }
-
-        public void Create(T obj)
-        {
-            Context.Set<T>().Add(obj);
-        }
-
-        public void Update(T obj)
-        {
-            Context.Entry(obj).State = EntityState.Modified;
-        }
-
-        public void Delete(int id)
-        {
-            Context.Set<T>().Remove(Get(id));
+            this.context = context;
         }
 
         public MemoContext MemoContext
         {
-            get { return Context as MemoContext; }
+            get { return context as MemoContext; }
+        }
+
+        public IEnumerable<T> GetAll()
+        {
+            return context.Set<T>();
+        }
+
+        public T Get(int id)
+        {
+            return context.Set<T>().Find(id);
+        }
+
+        public void Create(T obj)
+        {
+            context.Set<T>().Add(obj);
+        }
+
+        public void Update(T obj)
+        {
+            context.Entry(obj).State = EntityState.Modified;
+        }
+
+        public void Delete(int id)
+        {
+            context.Set<T>().Remove(Get(id));
         }
     }
 }

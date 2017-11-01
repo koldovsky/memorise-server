@@ -10,45 +10,16 @@ namespace MemoDAL.EF
     {
         protected override void Seed(MemoContext context)
         {
-            // ROLE
-            //IList<Role> roles = new List<Role>()
-            //{
-            //    new Role {Name = "Admin"},
-            //    new Role {Name = "Moderator"},
-            //    new Role {Name = "Guest"},
-            //    new Role {Name = "Customer"}
-            //};
-            //foreach (var role in roles)
-            //{
-            //    context.Roles.Add(role);
-            //}
-            ////USER
-            //IList<User> users = new List<User>()
-            //{
-            //    new User{Login = "user1",Password = "1",Email = "user1@gmail",IsBlocked=false},
-            //    new User{Login = "user2",Password = "2",Email = "user2@gmail",IsBlocked=false},
-            //    new User{Login = "user3",Password = "3",Email = "user3@gmail",IsBlocked=false},
-            //    new User{Login = "user4",Password = "4",Email = "user4@gmail",IsBlocked=false}
-            //};
-            //for (int i = 0; i < users.Count; i++)
-            //{
-            //    users[i].Roles.Add(roles[i]);
-            //}
-            //foreach (var user in users)
-            //{
-            //    context.Users.Add(user);
-            //}
-
             #region Categories
 
             // CATEGORY
             IList<Category> categories = new List<Category>
             {
-                new Category{Name = ".Net", Linking = "Net"},
-                new Category{Name = "Java", Linking = "Java"},
-                new Category{Name = "JavaScript", Linking = "JavaScript"},
-                new Category{Name = "Python", Linking = "Python"},
-                new Category{Name = "Ruby", Linking = "Ruby"}
+                new Category { Name = ".Net", Linking = "Net" },
+                new Category { Name = "Java", Linking = "Java" },
+                new Category { Name = "JavaScript", Linking = "JavaScript" },
+                new Category { Name = "Python", Linking = "Python" },
+                new Category { Name = "Ruby", Linking = "Ruby" }
             };
             context.Categories.AddRange(categories);
 
@@ -59,19 +30,19 @@ namespace MemoDAL.EF
             // DECK
             IList<Deck> decks = new List<Deck>
             {
-                new Deck{Name = "Arrays", Linking = "Arrays", Description = "Deck description", Price = 0, Category = categories[0]},
-                new Deck{Name = "Generics", Linking = "Generics", Description = "Deck description", Price = 0, Category = categories[0]},
-                new Deck{Name = "LINQ", Linking = "LINQ", Description = "Deck description", Price = 0, Category = categories[0]},
-                new Deck{Name = "Database First", Linking = "DatabaseFirst", Description = "Deck description", Price = 0, Category = categories[0]},
-                new Deck{Name = "Model First", Linking = "ModelFirst", Description = "Deck description", Price = 0, Category = categories[0]},
-                new Deck{Name = "Code First", Linking = "CodeFirst", Description = "Deck description", Price = 0, Category = categories[0]},
-                new Deck{Name = "Web API", Linking = "WebAPI", Description = "Deck description", Price = 0, Category = categories[0]},
-                new Deck{Name = "IIS", Linking = "IIS", Description = "Deck description", Price = 0, Category = categories[0]},
-                new Deck{Name = "Routing", Linking = "Routing", Description = "Deck description", Price = 0, Category = categories[0]},
-                new Deck{Name = "XAML", Linking = "XAML", Description = "Deck description", Price = 0, Category = categories[0]},
-                new Deck{Name = "Binding", Linking = "Binding", Description = "Deck description", Price = 0, Category = categories[0]},
-                new Deck{Name = "CSS", Linking = "CSS", Description = "Deck description", Price = 0, Category = categories[2]},
-                new Deck{Name = "Base knowledge", Linking="BaseKnowledge", Description = "Deck description", Price=12, Category = categories[0] }
+                new Deck { Name = "Arrays", Linking = "Arrays", Description = "Deck description", Price = 0, Category = categories[0], Photo = @"https://i.imgur.com/qYAgx66.png" },
+                new Deck { Name = "Generics", Linking = "Generics", Description = "Deck description", Price = 0, Category = categories[0], Photo = @"https://i.imgur.com/YYc2V8A.png" },
+                new Deck { Name = "LINQ", Linking = "LINQ", Description = "Deck description", Price = 0, Category = categories[0], Photo = @"https://i.imgur.com/jwBRMP4.png" },
+                new Deck { Name = "Database First", Linking = "DatabaseFirst", Description = "Deck description", Price = 0, Category = categories[0], Photo = @"https://i.imgur.com/ZmzHx0S.png" },
+                new Deck { Name = "Model First", Linking = "ModelFirst", Description = "Deck description", Price = 0, Category = categories[0], Photo = @"https://i.imgur.com/MSRN6WC.png" },
+                new Deck { Name = "Code First", Linking = "CodeFirst", Description = "Deck description", Price = 0, Category = categories[0], Photo = @"https://i.imgur.com/Jq7sfsp.png" },
+                new Deck { Name = "Web API", Linking = "WebAPI", Description = "Deck description", Price = 0, Category = categories[0], Photo = @"https://i.imgur.com/M4L85kg.png" },
+                new Deck { Name = "IIS", Linking = "IIS", Description = "Deck description", Price = 0, Category = categories[0], Photo = @"https://i.imgur.com/CRPMCQ8.png" },
+                new Deck { Name = "Routing", Linking = "Routing", Description = "Deck description", Price = 0, Category = categories[0], Photo = @"https://i.imgur.com/oiU5ZTp.png" },
+                new Deck { Name = "XAML", Linking = "XAML", Description = "Deck description", Price = 0, Category = categories[0], Photo = @"https://i.imgur.com/Jliebsp.png" },
+                new Deck { Name = "Binding", Linking = "Binding", Description = "Deck description", Price = 0, Category = categories[0], Photo = @"https://i.imgur.com/zDi5DBO.png" },
+                new Deck { Name = "CSS", Linking = "CSS", Description = "Deck description", Price = 0, Category = categories[2], Photo = @"https://i.imgur.com/A3lbO5t.png" },
+                new Deck { Name = "Base knowledge", Linking = "BaseKnowledge", Description = "Deck description", Price = 12, Category = categories[0], Photo = @"https://i.imgur.com/yMtHjwy.png" }
             };
             context.Decks.AddRange(decks);
 
@@ -82,42 +53,40 @@ namespace MemoDAL.EF
             // COURSE
             IList<Course> courses = new List<Course>
             {
-                new Course{Name = "C#", Linking = "cSharp", Description = "C# course description",Price = 0,Category = categories[0]},
-                new Course{Name = "ASP.MVC", Linking = "ASPMVC", Description = "ASP.MVC course description",Price = 0,Category = categories[0]},
-                new Course{Name = "EntityFramework",Linking = "EF", Description = "EntityFramework course description",Price=100,Category = categories[0]},
-                new Course{Name = "WPF", Linking = "WPF", Description = "WPF course description",Price = 0,Category = categories[0]},
-                new Course{Name = "JQUERY", Linking = "JQ", Description = "JQUERY course description", Price = 0, Category = categories[2]}
+                new Course { Name = "C#", Linking = "cSharp", Description = "C# course description", Price = 0, Category = categories[0], Photo = @"https://i.imgur.com/6ayw4TN.png" },
+                new Course { Name = "ASP.MVC", Linking = "ASPMVC", Description = "ASP.MVC course description", Price = 0, Category = categories[0], Photo = @"https://i.imgur.com/jTuKNU3.png" },
+                new Course { Name = "EntityFramework", Linking = "EF", Description = "EntityFramework course description", Price = 100, Category = categories[0], Photo = @"https://i.imgur.com/oICDyxz.png" },
+                new Course { Name = "WPF", Linking = "WPF", Description = "WPF course description", Price = 0, Category = categories[0], Photo = @"https://i.imgur.com/pO8UwID.png" },
+                new Course { Name = "JQUERY", Linking = "JQ", Description = "JQUERY course description", Price = 0, Category = categories[2], Photo = @"https://i.imgur.com/kdOqFtB.jpg" }
             };
             for (int i = 0; i < 3; i++)
             {
                 courses[0].Decks.Add(decks[i]);
             }
+
             courses[0].Decks.Add(decks[12]);
 
             for (int i = 3; i < 6; i++)
             {
                 courses[1].Decks.Add(decks[i]);
             }
+
             for (int i = 6; i < 9; i++)
             {
                 courses[2].Decks.Add(decks[i]);
             }
+
             for (int i = 9; i < 11; i++)
             {
                 courses[3].Decks.Add(decks[i]);
             }
+
             for (int i = 11; i < 12; i++)
             {
                 courses[4].Decks.Add(decks[i]);
             }
+
             context.Courses.AddRange(courses);
-
-            #endregion
-
-            #region User Courses
-
-            //USERCOURSE
-            // context.UserCourses.Add(new UserCourse { User = users[0], Course = courses[0], Rating = 4 });
 
             #endregion
 
@@ -126,10 +95,10 @@ namespace MemoDAL.EF
             // CARDTYPE
             IList<CardType> cardTypes = new List<CardType>
             {
-                new CardType{Name = "One answer"},
-                new CardType{Name = "Few answers"},
-                new CardType{Name = "Words input"},
-                new CardType{Name = "Code input"}
+                new CardType { Name = "One answer" },
+                new CardType { Name = "Few answers" },
+                new CardType { Name = "Words input" },
+                new CardType { Name = "Code input" }
             };
             context.CardTypes.AddRange(cardTypes);
 
@@ -265,10 +234,9 @@ namespace MemoDAL.EF
                      CardType = cardTypes[3],
                      Deck = decks[12]
                 },
-
                 #endregion
-
             };
+
             context.Cards.AddRange(cards);
 
             #endregion
@@ -371,7 +339,7 @@ namespace MemoDAL.EF
                 new Answer
                 {
                     Text = "The default value of numeric array elements is zero.",
-                    IsCorrect =true,
+                    IsCorrect = true,
                     Card = cards[2]
                 },
 

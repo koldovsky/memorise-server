@@ -123,6 +123,7 @@ namespace MemoRise.Controllers
             {
                 return BadRequest(ModelState);
             }
+
             try
             {
                 return Ok(userProfile.UpdateUserById(user));
@@ -145,6 +146,7 @@ namespace MemoRise.Controllers
             {
                 return BadRequest(ModelState);
             }
+
             try
             {
                 return Ok(userProfile.UpdateUserProfileById(user));
@@ -165,16 +167,19 @@ namespace MemoRise.Controllers
         {
             if (identityUpdate == null)
             {
-                return BadRequest();
+                return BadRequest("Object has null value!");
             }
 
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
             try
             {
-                return Ok(userProfile.UpdateUserByLogin(identityUpdate.ExistingLogin, identityUpdate.NewUserData));
+                return Ok(userProfile.UpdateUserByLogin(
+                    identityUpdate.ExistingLogin,
+                    identityUpdate.NewUserData));
             }
             catch (ArgumentNullException ex)
             {

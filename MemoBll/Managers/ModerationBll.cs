@@ -206,9 +206,10 @@ namespace MemoBll.Managers
         {
             moderation.RemoveCourse(courseId);
         }
+
         public Course GetCourse(int id)
         {
-           return  moderation.GetCourse(id);
+           return moderation.GetCourse(id);
         }
 
         public CourseDTO FindCourseDTOByName(string courseName)
@@ -224,7 +225,7 @@ namespace MemoBll.Managers
 
         public Course FindCourseAndUpdateValues(CourseWithDecksDTO courseDTO)
         {
-            Course course = moderation.GetCourse (courseDTO.Id);
+            Course course = moderation.GetCourse(courseDTO.Id);
             course.Name = courseDTO.Name;
             course.Linking = courseDTO.Linking;
             course.Description = courseDTO.Description;
@@ -260,6 +261,7 @@ namespace MemoBll.Managers
         {
             moderation.RemoveDeck(deckId);
         }
+
         public Deck GetDeck(int id)
         {
             return moderation.GetDeck(id);
@@ -310,7 +312,6 @@ namespace MemoBll.Managers
             Card card = FindCardById(cardDTO.Id);
             card.Question = cardDTO.Question;
 
-
             for (int i = 0; i < card.Answers.Count(); i++)
             {
                 Answer answer = moderation.GetAnswer(card.Answers.ElementAtOrDefault(i).Id);
@@ -329,9 +330,7 @@ namespace MemoBll.Managers
 
         public Card FindCardById(int cardId)
         {
-
             return moderation.FindCardById(cardId);
-            
         }
 
         public CardDTO GetCardById(int cardId)

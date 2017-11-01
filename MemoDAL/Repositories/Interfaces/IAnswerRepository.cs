@@ -2,7 +2,7 @@
 
 namespace MemoDAL.Repositories.Interfaces
 {
-    public interface IAnswerRepository: IRepository<Answer>
+    public interface IAnswerRepository : IRepository<Answer>
     {
     }
 }

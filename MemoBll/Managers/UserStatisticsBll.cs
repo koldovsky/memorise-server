@@ -11,9 +11,9 @@ namespace MemoBll.Managers
 {
     public class UserStatisticsBll
     {
-        IUserStatistics statistics;
-        IConverterToDTO converterToDTO;
-        IConverterFromDTO converterFromDTO;
+        private IUserStatistics statistics;
+        private IConverterToDTO converterToDTO;
+        private IConverterFromDTO converterFromDTO;
 
         public UserStatisticsBll()
         {
@@ -31,7 +31,6 @@ namespace MemoBll.Managers
             this.statistics = statistics;
             this.converterToDTO = converterToDTO;
             this.converterFromDTO = converterFromDTO;
-
         }
 
         public StatisticsDTO GetStatistics(

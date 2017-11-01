@@ -1,9 +1,6 @@
 ﻿using System;
 using System.CodeDom.Compiler;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Web;
 
 namespace MemoRise.Helpers
 {
@@ -48,12 +45,14 @@ namespace MemoRise.Helpers
                 return false;
             }
         }
+
         private bool IsAnswerForCardId17Right(CompilerResults compilerResult)
         {
             Type calcType = compilerResult.CompiledAssembly.GetType("Quiz");
             object calc = Activator.CreateInstance(calcType);
 
             bool isDivideByZeroException = false;
+
             try
             {
                 calcType.InvokeMember("Remainder", BindingFlags.InvokeMethod, null, calc, new object[] { 0, 0 });
@@ -62,7 +61,7 @@ namespace MemoRise.Helpers
             {
                 isDivideByZeroException = true;
             }
-            
+
             int actualResult2 = (int)calcType.InvokeMember("Remainder", BindingFlags.InvokeMethod, null, calc, new object[] { 7, 5 });
             int expectedResult2 = 2;
             int actualResult3 = (int)calcType.InvokeMember("Remainder", BindingFlags.InvokeMethod, null, calc, new object[] { 5, 7 });

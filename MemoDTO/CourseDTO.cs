@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-using System;
-
 namespace MemoDTO
 {
     public class CourseDTO
@@ -18,9 +16,9 @@ namespace MemoDTO
         public string Name { get; set; }
 
         [Required]
-        [StringLength( ValidationItems.MAX_LENGTH_INPUT, 
+        [StringLength(ValidationItems.MAX_LENGTH_INPUT, 
             ErrorMessageResourceType = typeof(Resources.ErrorMessages), 
-            ErrorMessageResourceName = "TOO_LONG" )]
+            ErrorMessageResourceName = "TOO_LONG")]
         [RegularExpression(ValidationItems.ONLY_ALPHANUMERIC,
             ErrorMessageResourceType = typeof(Resources.ErrorMessages),
             ErrorMessageResourceName = "ONLY_ALPHANUMERIC")]
@@ -34,8 +32,8 @@ namespace MemoDTO
             ErrorMessageResourceType = typeof(Resources.ErrorMessages),
             ErrorMessageResourceName = "INCORRECT_INPUT")]
         public string Description { get; set; }
-        
-		public string Photo { get; set; }
+
+        public string Photo { get; set; }
 
         [RegularExpression(ValidationItems.ONLY_NUMBERS,
             ErrorMessageResourceType = typeof(Resources.ErrorMessages),

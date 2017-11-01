@@ -17,8 +17,7 @@ namespace MemoRise
                     controller = "Home",
                     action = "Index",
                     id = UrlParameter.Optional
-                }
-            );
+                });
         }
     }
 }
