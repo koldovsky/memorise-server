@@ -11,7 +11,7 @@ namespace MemoBll.Logic
 {
     public class UserProfileDetails : IUserProfile
     {
-        IUnitOfWork unitOfWork;
+        private IUnitOfWork unitOfWork;
 
         public UserProfileDetails()
         {
@@ -25,15 +25,7 @@ namespace MemoBll.Logic
 
         public IEnumerable<Course> GetCoursesByUser(string userLogin)
         {
-            //List<Course> courses = new List<Course>();
-            //IEnumerable<UserCourse> userCourses = unitOfWork.UserCourses
-            //    .GetAll().Where(x => x.User.UserName == userLogin);
-            //foreach (UserCourse userCourse in userCourses)
-            //{
-            //    courses.Add(userCourse.Course);
-            //}
-            //return courses;
-            throw  new NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public User GetUserByEmail(string userEmail)
@@ -79,17 +71,6 @@ namespace MemoBll.Logic
             return true;
         }
 
-        private void InitUserWithData(User currentUser, User dataUser)
-        {
-            currentUser.UserName = dataUser.UserName;
-            currentUser.Email = dataUser.Email;
-            currentUser.UserProfile.FirstName = dataUser.UserProfile.FirstName;
-            currentUser.UserProfile.LastName = dataUser.UserProfile.LastName;
-            currentUser.UserProfile.Gender = dataUser.UserProfile.Gender;
-            currentUser.UserProfile.Country = dataUser.UserProfile.Country;
-            currentUser.UserProfile.City = dataUser.UserProfile.City;
-        }
-
         public bool UpdateUserByLogin(string existingLogin, User newUserData)
         {
             User currentUser = unitOfWork.Users.FindByName(existingLogin);
@@ -101,18 +82,18 @@ namespace MemoBll.Logic
 
         public IEnumerable<Deck> GetDecksByUser(string userLogin)
         {
-            //List<Deck> decks = new List<Deck>();
-            //IEnumerable<UserCourse> userDecks = unitOfWork.UserCourses
-            //    .GetAll().Where(x => x.User.UserName == userLogin);
-            //foreach (UserCourse userCourse in userDecks)
-            //{
-            //    foreach (Deck deck in userCourse.Course.Decks)
-            //    {
-            //        decks.Add(deck);
-            //    }
-            //}
-            //return decks;
-            throw new  NotImplementedException();
+            throw new NotImplementedException();
+        }
+
+        private void InitUserWithData(User currentUser, User dataUser)
+        {
+            currentUser.UserName = dataUser.UserName;
+            currentUser.Email = dataUser.Email;
+            currentUser.UserProfile.FirstName = dataUser.UserProfile.FirstName;
+            currentUser.UserProfile.LastName = dataUser.UserProfile.LastName;
+            currentUser.UserProfile.Gender = dataUser.UserProfile.Gender;
+            currentUser.UserProfile.Country = dataUser.UserProfile.Country;
+            currentUser.UserProfile.City = dataUser.UserProfile.City;
         }
     }
 }

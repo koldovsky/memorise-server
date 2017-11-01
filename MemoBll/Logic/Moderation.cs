@@ -131,8 +131,8 @@ namespace MemoBll.Logic
                 {
                     RemoveCard(card.Id);
                 }
-
             }
+
             unitOfWork.Decks.Delete(deckId);
             unitOfWork.Save();
         }
@@ -183,8 +183,8 @@ namespace MemoBll.Logic
                 {
                     RemoveAnswer(answer.Id);
                 }
-
             }
+
             unitOfWork.Cards.Delete(cardId);
             unitOfWork.Save();
         }
@@ -196,7 +196,7 @@ namespace MemoBll.Logic
 
         public Card GetCardById(int cardId)
         {
-            if(unitOfWork.Cards.Get(cardId) == null)
+            if (unitOfWork.Cards.Get(cardId) == null)
             {
                 throw new ArgumentNullException();
             }
@@ -260,7 +260,8 @@ namespace MemoBll.Logic
             unitOfWork.Categories.Delete(categoryId);
             unitOfWork.Save();
         }
-        public  Category GetCategory(int id)
+
+        public Category GetCategory(int id)
         {
             return unitOfWork.Categories
                .GetAll()
@@ -334,6 +335,7 @@ namespace MemoBll.Logic
             unitOfWork.Save();
             return answer;
         }
+
         public Answer GetAnswer(int id)
         {
             return unitOfWork.Answers
@@ -359,6 +361,5 @@ namespace MemoBll.Logic
         ////}
 
         #endregion
-       
     }
 }

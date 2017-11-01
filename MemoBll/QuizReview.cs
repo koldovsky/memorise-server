@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using MemoDAL;
-using MemoDAL.Entities;
+﻿using MemoDAL;
 using MemoDAL.EF;
+using MemoDAL.Entities;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MemoBll
 {
     public class QuizReview
     {
-        IUnitOfWork unitOfWork;
+        private IUnitOfWork unitOfWork;
 
         public QuizReview()
         {
