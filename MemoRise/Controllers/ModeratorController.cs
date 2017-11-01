@@ -1,20 +1,20 @@
-﻿using System;
-using System.Web.Http;
-using MemoDTO;
+﻿using MemoBll.Logic;
 using MemoBll.Managers;
-using MemoBll.Logic;
 using MemoDAL.Entities;
+using MemoDTO;
+using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
+using System.Text;
+using System.Web.Http;
 
 namespace MemoRise.Controllers
 {
     public class ModeratorController : ApiController
     {
-        ModerationBll moderation = new ModerationBll();
-        ConverterFromDTO converter = new ConverterFromDTO();
-        ConverterToDTO converterToDTO = new ConverterToDTO();
+        private ModerationBll moderation = new ModerationBll();
+        private ConverterFromDTO converter = new ConverterFromDTO();
+        private ConverterToDTO converterToDTO = new ConverterToDTO();
 
         #region Categories
 
@@ -22,7 +22,6 @@ namespace MemoRise.Controllers
         [Authorize]
         public IHttpActionResult CreateCategory(CategoryDTO categoryDTO)
         {
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -106,7 +105,6 @@ namespace MemoRise.Controllers
         {
             try
             {
-
                 var category = moderation.FindCategoryByLinking(categoryLinking);
                 return Ok(category);
             }
@@ -127,7 +125,6 @@ namespace MemoRise.Controllers
         [Authorize]
         public IHttpActionResult CreateCourse(CourseDTO courseDTO)
         {
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -151,11 +148,11 @@ namespace MemoRise.Controllers
         [Authorize]
         public IHttpActionResult UpdateCourse(CourseWithDecksDTO courseDTO)
         {
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
             try
             {
                 Course course = moderation.FindCourseAndUpdateValues(courseDTO);
@@ -184,12 +181,12 @@ namespace MemoRise.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpGet]
         [Authorize]
         [Route("Moderator/FindCourseByName/{courseName}")]
         public IHttpActionResult FindCourseByName(string courseName)
         {
-
             try
             {
                 courseName = Encoding.UTF8.GetString(
@@ -201,7 +198,6 @@ namespace MemoRise.Controllers
             {
                 return Ok(new CourseDTO { Name = "unique" });
             }
-
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -233,12 +229,10 @@ namespace MemoRise.Controllers
             }
         }
 
-
         [HttpPost]
         [Authorize]
         public IHttpActionResult CreateDeck(DeckDTO deckDTO)
         {
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -262,11 +256,11 @@ namespace MemoRise.Controllers
         [Authorize]
         public IHttpActionResult UpdateDeck(DeckDTO deckDTO)
         {
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
             try
             {
                 Deck deck = moderation.FindDeckAndUpdateValues(deckDTO);
@@ -319,6 +313,7 @@ namespace MemoRise.Controllers
                 {
                     card.Answers.Add(moderation.CreateAnswer(converter.ConvertToAnswer(answer)));
                 }
+
                 moderation.CreateCard(card);
                 return Ok(converterToDTO.ConvertToCardDTO(card));
             }
@@ -329,7 +324,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpPut]
-        [Authorize()]
+        [Authorize]
         public IHttpActionResult UpdateCard(CardDTO cardDTO)
         {
             if (!ModelState.IsValid)
@@ -350,7 +345,7 @@ namespace MemoRise.Controllers
         }
 
         [HttpDelete]
-        [Authorize()]
+        [Authorize]
         [Route("Moderator/DeleteCard/{cardId}")]
         public IHttpActionResult DeleteCard(int cardId)
         {
@@ -408,6 +403,5 @@ namespace MemoRise.Controllers
             }
         }
         #endregion
-
     }
 }

@@ -1,37 +1,18 @@
-﻿using System;
-using MemoDAL.Repositories;
-using MemoDAL.EF;
-using MemoDAL.Repositories.Interfaces;
+﻿using MemoDAL.EF;
 using MemoDAL.Entities;
-using Microsoft.AspNet.Identity.EntityFramework;
+using MemoDAL.Repositories;
+using MemoDAL.Repositories.Interfaces;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 
 namespace MemoDAL
 {
     public class UnitOfWork : IUnitOfWork
     {
-        public UnitOfWork(MemoContext context)
-        {
-            this.dbContext = context;
-            this.answers = new AnswerRepository(dbContext);
-            this.cards = new CardRepository(dbContext);
-            this.cardTypes = new CardTypeRepository(dbContext);
-            this.categories = new CategoryRepository(dbContext);
-            this.comments = new CommentRepository(dbContext);
-            this.courses = new CourseRepository(dbContext);
-            this.decks = new DeckRepository(dbContext);
-            this.reports = new ReportRepository(dbContext);
-            this.roles = new RoleRepository(new RoleStore<Role>(dbContext));
-            this.statistics = new StatisticsRepository(dbContext);
-            this.courseSubscriptions = new CourseSubscriptionsRepository(dbContext);
-            this.users = new UserRepository(new UserStore<User>(dbContext));
-            this.deckSubscriptions = new DeckSubscriptionsRepository(dbContext);
-            this.userProfiles = new UserProfileRepository(dbContext);
-        }
-
         #region Fields
 
-        private MemoContext dbContext;
+        private MemoContext databaseContext;
         private IAnswerRepository answers;
         private ICardRepository cards;
         private ICardTypeRepository cardTypes;
@@ -49,6 +30,25 @@ namespace MemoDAL
         private bool disposed = false;
 
         #endregion
+
+        public UnitOfWork(MemoContext context)
+        {
+            this.databaseContext = context;
+            this.answers = new AnswerRepository(databaseContext);
+            this.cards = new CardRepository(databaseContext);
+            this.cardTypes = new CardTypeRepository(databaseContext);
+            this.categories = new CategoryRepository(databaseContext);
+            this.comments = new CommentRepository(databaseContext);
+            this.courses = new CourseRepository(databaseContext);
+            this.decks = new DeckRepository(databaseContext);
+            this.reports = new ReportRepository(databaseContext);
+            this.roles = new RoleRepository(new RoleStore<Role>(databaseContext));
+            this.statistics = new StatisticsRepository(databaseContext);
+            this.courseSubscriptions = new CourseSubscriptionsRepository(databaseContext);
+            this.users = new UserRepository(new UserStore<User>(databaseContext));
+            this.deckSubscriptions = new DeckSubscriptionsRepository(databaseContext);
+            this.userProfiles = new UserProfileRepository(databaseContext);
+        }
 
         #region Properties
 
@@ -126,7 +126,13 @@ namespace MemoDAL
 
         public void Save()
         {
-            dbContext.SaveChanges();
+            databaseContext.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         protected virtual void Dispose(bool disposing)
@@ -135,16 +141,11 @@ namespace MemoDAL
             {
                 if (disposing)
                 {
-                    dbContext.Dispose();
+                    databaseContext.Dispose();
                 }
+
                 this.disposed = true;
             }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
     }
 }

@@ -5,7 +5,7 @@ namespace MemoDAL.Repositories
 {
     public class UserRepository : UserManager<User>
     {
-        IUserStore<User> store;
+        private IUserStore<User> store;
 
         public UserRepository(IUserStore<User> store)
                 : base(store)

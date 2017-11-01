@@ -1,5 +1,5 @@
-﻿using MemoDAL.Entities;
-using MemoDAL.EF;
+﻿using MemoDAL.EF;
+using MemoDAL.Entities;
 using MemoDAL.Repositories.Interfaces;
 
 namespace MemoDAL.Repositories

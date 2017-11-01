@@ -13,7 +13,7 @@ namespace MemoDAL.Repositories
 {
     public class AuthRepository : IAuthRepository
     {
-        IUnitOfWork unitOfWork;
+        private IUnitOfWork unitOfWork;
 
         public AuthRepository()
         {

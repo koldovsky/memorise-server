@@ -8,8 +8,11 @@ namespace MemoDAL.Repositories.Interfaces
     public interface IAuthRepository
     {
         Task<User> FindAsync(UserLoginInfo loginInfo);
+
         Task<IdentityUser> FindClient(string userId);
+
         Task<IdentityResult> CreateAsync(User user);
+
         Task<IdentityResult> AddLoginAsync(string userId, UserLoginInfo login);
     }
 }

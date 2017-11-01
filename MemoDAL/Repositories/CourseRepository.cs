@@ -25,7 +25,7 @@ namespace MemoDAL.Repositories
                 .ToList();
         }
 
-        public Course GetCourseWithDecks(Func<Course, Boolean> predicate)
+        public Course GetCourseWithDecks(Func<Course, bool> predicate)
         {
             return MemoContext.Set<Course>().Include("Decks")
                 .FirstOrDefault(predicate);

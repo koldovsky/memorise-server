@@ -1,8 +1,6 @@
-﻿using System;
-using System.Configuration;
+﻿using MemoDAL.EF;
 using MemoDAL.Entities;
 using MemoDAL.Repositories;
-using MemoDAL.EF;
 using MemoRise.Identity;
 using MemoRise.Providers;
 using Microsoft.AspNet.Identity;
@@ -14,6 +12,8 @@ using Microsoft.Owin.Security.Facebook;
 using Microsoft.Owin.Security.Jwt;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
+using System;
+using System.Configuration;
 
 namespace MemoRise
 {
@@ -70,7 +70,6 @@ namespace MemoRise
                 Provider = new FacebookAuthProvider()
             };
             app.UseFacebookAuthentication(FacebookAuthOptions);
- 
         }
     }
 }

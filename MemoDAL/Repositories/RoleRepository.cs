@@ -6,8 +6,8 @@ namespace MemoDAL.Repositories
 {
     public class RoleRepository : RoleManager<Role>
     {
-        public RoleRepository(RoleStore<Role> store)
-                    : base(store)
-        { }
+        public RoleRepository(RoleStore<Role> store) : base(store)
+        {
+        }
     }
 }

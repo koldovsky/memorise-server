@@ -1,19 +1,15 @@
-﻿using System.Linq;
-using System.Security.Claims;
-using System.Security.Principal;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Web;
-using MemoDAL.EF;
+﻿using MemoDAL.EF;
 using MemoDAL.Repositories;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
-using Microsoft.Owin.Security.DataHandler.Encoder;
 using System;
+using System.Linq;
+using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MemoRise.Identity
 {
@@ -22,7 +18,6 @@ namespace MemoRise.Identity
         public override Task GrantResourceOwnerCredentials(
             OAuthGrantResourceOwnerCredentialsContext context)
         {
-
             var user = context.OwinContext.Get<MemoContext>().Users
                        .FirstOrDefault(u => u.UserName == context.UserName);
 
@@ -33,13 +28,13 @@ namespace MemoRise.Identity
                 .CheckPassword(user, password))
             {
                 context.SetError("invalid_grant",
-                                "The user name or password is incorrect");
+                "The user name or password is incorrect");
                 context.Rejected();
                 return Task.FromResult<object>(null);
             }
 
-            var ticket = new AuthenticationTicket(SetClaimsIdentity(context,
-                                       user), new AuthenticationProperties());
+            var ticket = new AuthenticationTicket(SetClaimsIdentity(context,user),
+            new AuthenticationProperties());
             context.Validated(ticket);
 
             return Task.FromResult<object>(null);

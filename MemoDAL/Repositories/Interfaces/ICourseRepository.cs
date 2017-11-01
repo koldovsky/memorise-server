@@ -10,6 +10,6 @@ namespace MemoDAL.Repositories.Interfaces
             int previousNumbersOfCourses,
             int numbersOfCoursesOnPage);
 
-        Course GetCourseWithDecks(Func<Course, Boolean> predicate);
+        Course GetCourseWithDecks(Func<Course, bool> predicate);
     }
 }

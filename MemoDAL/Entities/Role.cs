@@ -4,6 +4,5 @@ namespace MemoDAL.Entities
 {
     public class Role : IdentityRole
     {
-
     }
 }
