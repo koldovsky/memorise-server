@@ -9,13 +9,14 @@ namespace MemoRise.Identity
 {
     public class CustomJwtFormat : ISecureDataFormat<AuthenticationTicket>
     {
-        private static readonly byte[] _secret = TextEncodings.Base64Url
+        private static readonly byte[] SECRETKEY = TextEncodings.Base64Url
                      .Decode(ConfigurationManager.AppSettings["secret"]);
-        private readonly string _issuer;
+
+        private readonly string issuerName;
 
         public CustomJwtFormat(string issuer)
         {
-            _issuer = issuer;
+            issuerName = issuer;
         }
 
         public string Protect(AuthenticationTicket data)
@@ -25,13 +26,17 @@ namespace MemoRise.Identity
                 throw new ArgumentNullException(nameof(data));
             }
 
-            var signingKey = new HmacSigningCredentials(_secret);
+            var signingKey = new HmacSigningCredentials(SECRETKEY);
             var issued = data.Properties.IssuedUtc;
             var expires = data.Properties.ExpiresUtc;
 
             return new JwtSecurityTokenHandler().WriteToken(
-                   new JwtSecurityToken(_issuer, "Any", data.Identity.Claims,
-                   issued.Value.UtcDateTime, expires.Value.UtcDateTime,
+                   new JwtSecurityToken(
+                       issuerName,
+                       "Any",
+                       data.Identity.Claims,
+                   issued.Value.UtcDateTime,
+                   expires.Value.UtcDateTime,
                    signingKey));
         }
 

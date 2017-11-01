@@ -123,6 +123,7 @@ namespace MemoRise.Controllers
             {
                 return BadRequest(ModelState);
             }
+
             try
             {
                 return Ok(userProfile.UpdateUserById(user));
@@ -145,6 +146,7 @@ namespace MemoRise.Controllers
             {
                 return BadRequest(ModelState);
             }
+
             try
             {
                 return Ok(userProfile.UpdateUserProfileById(user));
@@ -172,6 +174,7 @@ namespace MemoRise.Controllers
             {
                 return BadRequest(ModelState);
             }
+
             try
             {
                 return Ok(userProfile.UpdateUserByLogin(

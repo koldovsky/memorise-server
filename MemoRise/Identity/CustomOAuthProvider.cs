@@ -27,13 +27,15 @@ namespace MemoRise.Identity
             if (!context.OwinContext.Get<UserRepository>()
                 .CheckPassword(user, password))
             {
-                context.SetError("invalid_grant",
+                context.SetError(
+                "invalid_grant",
                 "The user name or password is incorrect");
                 context.Rejected();
                 return Task.FromResult<object>(null);
             }
 
-            var ticket = new AuthenticationTicket(SetClaimsIdentity(context,user),
+            var ticket = new AuthenticationTicket(
+                SetClaimsIdentity(context, user),
             new AuthenticationProperties());
             context.Validated(ticket);
 

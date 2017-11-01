@@ -1,22 +1,22 @@
-﻿using MemoDTO;
-using System.Collections.Generic;
+﻿using MemoBll.Managers;
+using MemoDTO;
+using MemoRise.Helpers;
+using MemoRise.Models;
+using Microsoft.CSharp;
 using System;
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using MemoBll.Managers;
-using Microsoft.CSharp;
-using System.CodeDom.Compiler;
-using System.Data;
-using System.Linq;
-using MemoRise.Models;
-using MemoRise.Helpers;
 
 namespace MemoRise.Controllers
 {
     public class QuizController : ApiController
     {
-        QuizBll quiz = new QuizBll();
+        private QuizBll quiz = new QuizBll();
 
         [HttpGet]
         [Route("Quiz/GetCardsByCourse/{courseLink}")]
@@ -180,6 +180,7 @@ namespace MemoRise.Controllers
                         codeAnswerDTO.IsRight = false;
                     }
                 }
+
                 return Ok(codeAnswerDTO);
             }
             catch (Exception ex)

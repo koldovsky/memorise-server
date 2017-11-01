@@ -2,7 +2,6 @@
 using System.CodeDom.Compiler;
 using System.Reflection;
 
-
 namespace MemoRise.Helpers
 {
     public class CodeAnswerTests
@@ -46,12 +45,14 @@ namespace MemoRise.Helpers
                 return false;
             }
         }
+
         private bool IsAnswerForCardId17Right(CompilerResults compilerResult)
         {
             Type calcType = compilerResult.CompiledAssembly.GetType("Quiz");
             object calc = Activator.CreateInstance(calcType);
 
             bool isDivideByZeroException = false;
+
             try
             {
                 calcType.InvokeMember("Remainder", BindingFlags.InvokeMethod, null, calc, new object[] { 0, 0 });
