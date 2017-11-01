@@ -6,7 +6,7 @@ namespace MemoDAL.Entities
     {
         public Course()
         {
-           Coments = new List<Comment>();
+            Coments = new List<Comment>();
             Decks = new List<Deck>();
         }
         public string Name { get; set; }

@@ -4,7 +4,7 @@ using MemoDAL.Entities;
 
 namespace MemoDAL.Repositories.Interfaces
 {
-    public interface ICourseRepository: IRepository<Course>
+    public interface ICourseRepository : IRepository<Course>
     {
         IEnumerable<Course> GetSomeAmount(
             int previousNumbersOfCourses,

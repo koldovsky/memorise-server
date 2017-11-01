@@ -2,7 +2,7 @@
 
 namespace MemoDAL.Entities
 {
-    public class Deck: BaseEntity
+    public class Deck : BaseEntity
     {
         public Deck()
         {

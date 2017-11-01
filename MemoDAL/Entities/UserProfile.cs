@@ -2,7 +2,7 @@
 
 namespace MemoDAL.Entities
 {
-	public class UserProfile : BaseEntity
+    public class UserProfile : BaseEntity
     {
         public UserProfile()
         {

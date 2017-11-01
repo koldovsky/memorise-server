@@ -22,10 +22,10 @@ namespace MemoRise.Identity
         public override Task GrantResourceOwnerCredentials(
             OAuthGrantResourceOwnerCredentialsContext context)
         {
-            
+
             var user = context.OwinContext.Get<MemoContext>().Users
                        .FirstOrDefault(u => u.UserName == context.UserName);
-            
+
             string password = Encoding.UTF8.GetString(
                 Convert.FromBase64String(context.Password));
 

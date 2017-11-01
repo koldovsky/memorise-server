@@ -106,7 +106,7 @@ namespace MemoRise.Controllers
         {
             try
             {
-                
+
                 var category = moderation.FindCategoryByLinking(categoryLinking);
                 return Ok(category);
             }
@@ -238,7 +238,7 @@ namespace MemoRise.Controllers
         [Authorize]
         public IHttpActionResult CreateDeck(DeckDTO deckDTO)
         {
-            
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -394,7 +394,7 @@ namespace MemoRise.Controllers
         {
             try
             {
-                CardDTO cardDto =  moderation.GetCardById(cardId);
+                CardDTO cardDto = moderation.GetCardById(cardId);
                 return Ok(cardDto);
             }
             catch (ArgumentNullException ex)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MemoDAL.Repositories
 {
-	public interface IRepository<T> where T : BaseEntity
+    public interface IRepository<T> where T : BaseEntity
     {
         IEnumerable<T> GetAll();
         T Get(int id);

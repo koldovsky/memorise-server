@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace MemoDAL.Repositories
 {
-	public class CourseRepository : BaseRepository<Course>, ICourseRepository
+    public class CourseRepository : BaseRepository<Course>, ICourseRepository
     {
         public CourseRepository(MemoContext context) : base(context)
         {

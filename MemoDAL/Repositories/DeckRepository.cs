@@ -7,11 +7,11 @@ using System.Linq;
 
 namespace MemoDAL.Repositories
 {
-	public class DeckRepository : BaseRepository<Deck>, IDeckRepository
+    public class DeckRepository : BaseRepository<Deck>, IDeckRepository
     {
         public DeckRepository(MemoContext context) : base(context) { }
-        
-        public IEnumerable<Deck> GetSomeAmount(int previousNumbersOfDecks, 
+
+        public IEnumerable<Deck> GetSomeAmount(int previousNumbersOfDecks,
                                                int numbersOfDecksOnPage)
         {
             return MemoContext.Decks

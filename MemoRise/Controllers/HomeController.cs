@@ -22,25 +22,27 @@ namespace MemoRise.Controllers
         {
             unitOfWork.Answers.GetAll();
 
-            string [] roles = { "Customer","Admin","Moderator"};
+            string[] roles = { "Customer", "Admin", "Moderator" };
             if (!unitOfWork.Roles.RoleExists(roles[0]))
             {
-                foreach( var role in roles)
+                foreach (var role in roles)
                 {
-                    unitOfWork.Roles.Create(new Role { Name = role});
+                    unitOfWork.Roles.Create(new Role { Name = role });
                 }
                 UserProfile up = new UserProfile { IsBlocked = false };
 
-                User user = new User {
+                User user = new User
+                {
                     UserName = "user1",
                     Email = "user1@gmail.com",
-                    UserProfile = up };
-                var result = await unitOfWork.Users.CreateAsync(user,"123123");
+                    UserProfile = up
+                };
+                var result = await unitOfWork.Users.CreateAsync(user, "123123");
                 if (result.Succeeded)
                     result = unitOfWork.Users.AddToRole(user.Id, "Customer");
 
             }
-            
+
             ViewBag.Title = "Home Page";
 
             return View();

@@ -2,7 +2,7 @@
 
 namespace MemoDAL.Repositories.Interfaces
 {
-    public interface IReportRepository: IRepository<Report>
+    public interface IReportRepository : IRepository<Report>
     {
     }
 }

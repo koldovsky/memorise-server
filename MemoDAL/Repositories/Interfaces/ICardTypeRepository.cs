@@ -2,7 +2,7 @@
 
 namespace MemoDAL.Repositories.Interfaces
 {
-    public interface ICardTypeRepository: IRepository<CardType>
+    public interface ICardTypeRepository : IRepository<CardType>
     {
     }
 }

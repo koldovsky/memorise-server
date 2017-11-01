@@ -5,8 +5,8 @@ using System.Data.Entity.Migrations;
 
 namespace MemoDAL.Repositories
 {
-	public abstract class BaseRepository<T>:
-        IRepository<T> where T:Entities.BaseEntity
+    public abstract class BaseRepository<T> :
+        IRepository<T> where T : Entities.BaseEntity
     {
         private DbContext Context;
 
@@ -17,7 +17,7 @@ namespace MemoDAL.Repositories
 
         public IEnumerable<T> GetAll()
         {
-            return Context.Set<T>(); 
+            return Context.Set<T>();
         }
 
         public T Get(int id)

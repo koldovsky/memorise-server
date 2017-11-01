@@ -1,6 +1,6 @@
 ﻿namespace MemoDAL.Entities
 {
-    public class Comment: BaseEntity
+    public class Comment : BaseEntity
     {
         public string Message { get; set; }
 
