@@ -12,8 +12,8 @@ namespace MemoBll.Managers
 {
 	public class QuizBll
     {
-        IQuiz quiz;
-        IConverterToDTO converterToDTO;
+        private IQuiz quiz;
+        private IConverterToDTO converterToDTO;
 
         public QuizBll()
         {

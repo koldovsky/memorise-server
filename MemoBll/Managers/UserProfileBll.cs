@@ -13,9 +13,9 @@ namespace MemoBll.Managers
 {
     public class UserProfileBll : IUserProfileBll
     {
-        IUserProfile userProfile;
-        IConverterToDTO converterToDTO;
-        IConverterFromDTO converterFromDTO;
+        private IUserProfile userProfile;
+        private IConverterToDTO converterToDTO;
+        private IConverterFromDTO converterFromDTO;
 
         public UserProfileBll()
         {
@@ -24,8 +24,7 @@ namespace MemoBll.Managers
             converterFromDTO = new ConverterFromDTO();
         }
 
-        public UserProfileBll(IUserProfile userProfile, IConverterToDTO converterToDto,
-            IConverterFromDTO converterFromDto)
+        public UserProfileBll(IUserProfile userProfile, IConverterToDTO converterToDto, IConverterFromDTO converterFromDto)
         {
             this.userProfile = userProfile;
             this.converterToDTO = converterToDto;

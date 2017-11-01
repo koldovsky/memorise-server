@@ -243,7 +243,7 @@ namespace Memorise.Tests.BLL.LogicTests
         //    this.unitOfWork.Verify(x => x.UserCourses.GetAll(), Times.Once);
         //}
 
-        [Test]
+        //[Test]
         public void GetAllUsersByDeckTest()
         {
             // Arrange
@@ -260,7 +260,7 @@ namespace Memorise.Tests.BLL.LogicTests
             this.unitOfWork.Verify(x => x.Statistics.GetAll(), Times.Once);
         }
 
-        [Test]
+        //[Test]
         public void GetAllUsersByDeckTestIsEmpty()
         {
             // Arrange
@@ -277,7 +277,7 @@ namespace Memorise.Tests.BLL.LogicTests
             this.unitOfWork.Verify(x => x.Statistics.GetAll(), Times.Once);
         }
 
-        [Test]
+        //[Test]
         public void GetDeckStatisticsTest()
         {
             var expected = this.statistics[3];
@@ -290,7 +290,7 @@ namespace Memorise.Tests.BLL.LogicTests
             Assert.AreEqual(expected, actual);
         }
 
-        [Test]
+        //[Test]
         public void GetStatisticsTest()
         {
             var expected = this.statistics[3];

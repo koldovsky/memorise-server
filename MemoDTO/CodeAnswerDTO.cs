@@ -9,7 +9,9 @@ namespace MemoDTO
     public class CodeAnswerDTO
     {
         public int CardId { get; set; }
+
         public string CodeAnswerText { get; set; }
+
         public bool IsRight { get; set; }
     }
 }
