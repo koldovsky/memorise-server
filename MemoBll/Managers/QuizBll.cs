@@ -54,6 +54,12 @@ namespace MemoBll.Managers
 
             return converterToDTO.ConvertToCardListDTO(cards);
         }
+        public List<CardDTO> GetCardsByCourseForSubscribed(string courseLink, int numberOfCards)
+        {
+            List<Card> cards = quiz.GetCardsByCourseForSubscribed(courseLink, numberOfCards).ToList();
+
+            return converterToDTO.ConvertToCardListDTO(cards);
+        }
 
         public bool IsAnswerCorrect(int cardId, string answerText)
         {

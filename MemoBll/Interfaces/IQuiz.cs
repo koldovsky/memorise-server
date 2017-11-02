@@ -14,5 +14,7 @@ namespace MemoBll.Interfaces
         bool IsAnswerCorrect(int cardId, string answerText);
 
         IEnumerable<Card> GetCardsByCourse(string courseName);
+
+        IEnumerable<Card> GetCardsByCourseForSubscribed(string courseName, int numberOfCards);
     }
 }

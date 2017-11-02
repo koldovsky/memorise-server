@@ -17,6 +17,7 @@ namespace MemoRise.Controllers
     public class QuizController : ApiController
     {
         private QuizBll quiz = new QuizBll();
+        private UserStatisticsBll statistics = new UserStatisticsBll();
 
         [HttpGet]
         [Route("Quiz/GetCardsByCourse/{courseLink}")]
@@ -58,6 +59,50 @@ namespace MemoRise.Controllers
             catch (Exception ex)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("Quiz/GetCardsByCourseForSubscribed/{courseLink}/{numberOfCards}/{userLogin}")]
+        public IHttpActionResult GetCardsByCourseForSubscribed(string courseLink, int numberOfCards, string userLogin)
+        {
+            try
+            {
+                //var statiscOfCourse = statistics.GetCourseStatistics();
+                List<CardDTO> cards = quiz.GetCardsByCourseForSubscribed(courseLink, numberOfCards);
+                return Ok(cards);
+            }
+            catch (ArgumentNullException ex)
+            {
+                var message = $"Course with link = {courseLink} not found. {ex.Message}";
+                return BadRequest(message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("Quiz/GetCardsByDeckForSubscribed/{deckLink}/{numberOfCards}")]
+        public IHttpActionResult GetCardsByDeckForSubscribed(string deckLink, int numberOfCards)
+        {
+            try
+            {
+                // todo:
+                List<CardDTO> cards = quiz.GetCardsByDeck(deckLink);
+                return Ok(cards);
+            }
+            catch (ArgumentNullException ex)
+            {
+                var message = $"Deck with name = {deckLink} not found. {ex.Message}";
+                return BadRequest(message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
 

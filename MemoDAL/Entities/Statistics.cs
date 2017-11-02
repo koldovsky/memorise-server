@@ -15,7 +15,6 @@ namespace MemoDAL.Entities
         [Index("IX_UserId_CardId", 2, IsUnique = true)]
         public int CardId { get; set; }
 
-        //[Index("IX_UserId_CardId", 3, IsUnique = true)]
         [Column(TypeName = "datetime2")]
         public DateTime DateOfPassingQuiz { get; set; }
 

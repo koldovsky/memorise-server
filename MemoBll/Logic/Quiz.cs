@@ -42,6 +42,20 @@ namespace MemoBll.Logic
             return result;
         }
 
+        public IEnumerable<Card> GetCardsByCourseForSubscribed(string courseLink, int numberOfCards)
+        {
+            var result = new List<Card>();
+            var decks = unitOfWork.Courses
+                .GetAll().FirstOrDefault(x => x.Linking == courseLink)?.Decks
+                ?? throw new ArgumentNullException();
+            foreach (var deck in decks)
+            {
+                result.AddRange(deck.Cards);
+            }
+
+            return result;
+        }
+
         public IEnumerable<Card> GetCardsByDeck(string deckLink)
         {
             return unitOfWork.Decks
