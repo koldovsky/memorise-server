@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MemoDAL.Entities
 {
@@ -13,6 +14,12 @@ namespace MemoDAL.Entities
         [ForeignKey(nameof(Card))]
         [Index("IX_UserId_CardId", 2, IsUnique = true)]
         public int CardId { get; set; }
+
+        //[Index("IX_UserId_CardId", 3, IsUnique = true)]
+        [Column(TypeName = "datetime2")]
+        public DateTime DateOfPassingQuiz { get; set; }
+
+        public int NumbersOfSequentialCorrectAnswers { get; set; }
 
         public virtual User User { get; set; }
 

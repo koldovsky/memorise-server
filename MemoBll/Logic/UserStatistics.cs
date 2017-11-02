@@ -46,6 +46,7 @@ namespace MemoBll.Logic
             var decks = unitOfWork.Courses.Get(courseId)
                 ?.Decks
                 ?? throw new ArgumentNullException(errorMessage);
+
             var cards = decks
                 .Select(d => d.Cards).Aggregate((acc, c) => acc.Concat(c).ToList());
 
@@ -61,7 +62,8 @@ namespace MemoBll.Logic
                 {
                     Card = unitOfWork.Cards.Get(cardId),
                     CardStatus = 0,
-                    User = unitOfWork.Users.FindByName(userLogin)
+                    User = unitOfWork.Users.FindByName(userLogin),
+                    NumbersOfSequentialCorrectAnswers = 0
                 };
                 unitOfWork.Statistics.Create(statistics);
                 unitOfWork.Save();
@@ -93,6 +95,15 @@ namespace MemoBll.Logic
 
         public Statistics UpdateStatistics(Statistics statistics)
         {
+            if(statistics.CardStatus == 1)
+            {
+                statistics.NumbersOfSequentialCorrectAnswers++;
+                statistics.DateOfPassingQuiz = DateTime.Now;
+            }
+            else
+            {
+                statistics.NumbersOfSequentialCorrectAnswers = 0;
+            }
             unitOfWork.Statistics.Update(statistics);
             unitOfWork.Save();
 
