@@ -10,6 +10,9 @@ namespace MemoBll.Logic
 {
     public class Quiz : IQuiz
     {
+        private const int CORRECT = 1;
+        private const int INCORRECT = -1;
+        private const int NOANSWER = 0;
         private IUnitOfWork unitOfWork;
 
         public Quiz()
@@ -42,19 +45,128 @@ namespace MemoBll.Logic
             return result;
         }
 
-        public IEnumerable<Card> GetCardsByCourseForSubscribed(string courseLink, int numberOfCards)
+        #region QuizLogic
+
+        public IEnumerable<Card> GetCardsForSubscription(
+            int numberOfCards,
+            IEnumerable<Statistics> statistics)
         {
-            var result = new List<Card>();
-            var decks = unitOfWork.Courses
-                .GetAll().FirstOrDefault(x => x.Linking == courseLink)?.Decks
-                ?? throw new ArgumentNullException();
-            foreach (var deck in decks)
+            var cardsForQuiz = new List<Card>();
+            int numberOfCardsLeft;
+
+            // someMethod to check and add cards from repeat if need
+            // cardsForQuiz.addRange(someMethod);
+
+            if (cardsForQuiz.Count == numberOfCards)
             {
-                result.AddRange(deck.Cards);
+                return cardsForQuiz;
             }
 
-            return result;
+            numberOfCardsLeft = numberOfCards - cardsForQuiz.Count();
+
+            if (numberOfCardsLeft == numberOfCards)
+            {
+                if (numberOfCards % 2 == 0)
+                {
+                    cardsForQuiz.AddRange(GetCardsWithInCorrectPriority(numberOfCards / 2, statistics));
+                }
+                else
+                {
+                    cardsForQuiz.AddRange(GetCardsWithInCorrectPriority((numberOfCards / 2) + 1, statistics));
+                }
+
+                cardsForQuiz.AddRange(GetCardsWithNoAnswerPriority(numberOfCards / 2, statistics));
+            }
+            else 
+            {
+                cardsForQuiz.AddRange(GetCardsWithInCorrectPriority(numberOfCardsLeft, statistics));
+            }
+            
+            return cardsForQuiz;
         }
+
+        public IEnumerable<Card> GetCardsWithInCorrectPriority(
+            int numberOfCards, 
+            IEnumerable<Statistics> currentStatistics)
+        {
+            var cardsForQuiz = new List<Card>();
+
+            int numberOfCardsLeft = numberOfCards;
+
+            for (int cardStatus = INCORRECT; cardStatus <= CORRECT; cardStatus++)
+            {
+                cardsForQuiz.AddRange(GetCardsWithSomeStatus(
+                    numberOfCardsLeft,
+                    currentStatistics,
+                    cardStatus));
+
+                numberOfCardsLeft = numberOfCards - cardsForQuiz.Count();
+
+                if (numberOfCardsLeft == 0)
+                {
+                    return cardsForQuiz;
+                }
+            }
+
+            return cardsForQuiz;
+        }
+
+        public IEnumerable<Card> GetCardsWithNoAnswerPriority(
+            int numberOfCards, 
+            IEnumerable<Statistics> currentStatistics)
+        {
+            var cardsForQuiz = new List<Card>();
+
+            int numberOfCardsLeft = numberOfCards;
+
+            cardsForQuiz.AddRange(
+                GetCardsWithSomeStatus(
+                    numberOfCardsLeft,
+                currentStatistics, 
+                NOANSWER));
+            
+            if (cardsForQuiz.Count == numberOfCards)
+            {
+                return cardsForQuiz;
+            }
+
+            numberOfCardsLeft = numberOfCards - cardsForQuiz.Count();
+
+            cardsForQuiz.AddRange(
+                GetCardsWithSomeStatus(
+                    numberOfCardsLeft,
+                currentStatistics, 
+                INCORRECT));
+
+            if (cardsForQuiz.Count == numberOfCards)
+            {
+                return cardsForQuiz;
+            }
+
+            numberOfCardsLeft = numberOfCards - cardsForQuiz.Count();
+
+            cardsForQuiz.AddRange(
+                GetCardsWithSomeStatus(
+                    numberOfCardsLeft,
+                currentStatistics, 
+                CORRECT));
+
+            return cardsForQuiz;
+        }
+
+        public IEnumerable<Card> GetCardsWithSomeStatus(
+            int numberOfCards,
+            IEnumerable<Statistics> currentStatistics, 
+            int cardStatus)
+        {
+            return currentStatistics
+                .Where(statistics => statistics.CardStatus == cardStatus)
+                .Select(statistics => statistics.Card)
+                .OrderBy(card => Guid.NewGuid())
+                .Take(numberOfCards);
+        }
+       
+        #endregion
 
         public IEnumerable<Card> GetCardsByDeck(string deckLink)
         {

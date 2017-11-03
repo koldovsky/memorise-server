@@ -1,4 +1,5 @@
 ﻿using MemoBll.Managers;
+using MemoBll.Logic;
 using MemoDTO;
 using MemoRise.Helpers;
 using MemoRise.Models;
@@ -11,13 +12,15 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using MemoDAL.Entities;
 
 namespace MemoRise.Controllers
 {
     public class QuizController : ApiController
     {
         private QuizBll quiz = new QuizBll();
-        private UserStatisticsBll statistics = new UserStatisticsBll();
+        private UserStatistics statistics = new UserStatistics();
+        private ModerationBll moderation = new ModerationBll();
 
         [HttpGet]
         [Route("Quiz/GetCardsByCourse/{courseLink}")]
@@ -64,13 +67,17 @@ namespace MemoRise.Controllers
 
         [HttpGet]
         [Authorize]
-        [Route("Quiz/GetCardsByCourseForSubscribed/{courseLink}/{numberOfCards}/{userLogin}")]
-        public IHttpActionResult GetCardsByCourseForSubscribed(string courseLink, int numberOfCards, string userLogin)
+        [Route("Quiz/GetCardsForSubscribedCourse/{courseLink}/{numberOfCards}/{userLogin}")]
+        public IHttpActionResult GetCardsForSubscribedCourse(string courseLink, int numberOfCards, string userLogin)
         {
             try
             {
-                //var statiscOfCourse = statistics.GetCourseStatistics();
-                List<CardDTO> cards = quiz.GetCardsByCourseForSubscribed(courseLink, numberOfCards);
+                CourseDTO currentCourse = moderation.FindCourseByLinking(courseLink);
+
+                IEnumerable<Statistics> courseStatistics = statistics.GetCourseStatistics(userLogin, currentCourse.Id);
+                
+                List<CardDTO> cards = quiz.GetCardsForSubscription(numberOfCards, courseStatistics);
+                
                 return Ok(cards);
             }
             catch (ArgumentNullException ex)
@@ -86,13 +93,17 @@ namespace MemoRise.Controllers
 
         [HttpGet]
         [Authorize]
-        [Route("Quiz/GetCardsByDeckForSubscribed/{deckLink}/{numberOfCards}")]
-        public IHttpActionResult GetCardsByDeckForSubscribed(string deckLink, int numberOfCards)
+        [Route("Quiz/GetCardsForSubscribedDeck/{deckLink}/{numberOfCards}/{userLogin}")]
+        public IHttpActionResult GetCardsForSubscribedDeck(string deckLink, int numberOfCards, string userLogin)
         {
             try
             {
-                // todo:
-                List<CardDTO> cards = quiz.GetCardsByDeck(deckLink);
+                DeckDTO currentDeck = moderation.FindDeckByLinking(deckLink);
+
+                IEnumerable<Statistics> deckStatistics = statistics.GetDeckStatistics(userLogin, currentDeck.Id);
+
+                List<CardDTO> cards = quiz.GetCardsForSubscription(numberOfCards, deckStatistics);
+
                 return Ok(cards);
             }
             catch (ArgumentNullException ex)

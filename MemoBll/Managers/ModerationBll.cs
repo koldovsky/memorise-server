@@ -223,6 +223,12 @@ namespace MemoBll.Managers
             return moderation.FindCourseByName(courseName);
         }
 
+        public CourseDTO FindCourseByLinking(string courseLinking)
+        {
+            Course course = moderation.FindCourseByLinking(courseLinking);
+            return converterToDTO.ConvertToCourseDTO(course);
+        }
+
         public Course FindCourseAndUpdateValues(CourseWithDecksDTO courseDTO)
         {
             Course course = moderation.GetCourse(courseDTO.Id);
@@ -293,6 +299,11 @@ namespace MemoBll.Managers
             return moderation.FindDeckByName(deckName);
         }
 
+        public DeckDTO FindDeckByLinking(string deckLinking)
+        {
+            Deck deck = moderation.FindDeckByLinking(deckLinking);
+            return converterToDTO.ConvertToDeckDTO(deck);
+        }
         #endregion
 
         #region ForCards

@@ -95,7 +95,7 @@ namespace MemoBll.Logic
 
         public Statistics UpdateStatistics(Statistics statistics)
         {
-            if(statistics.CardStatus == 1)
+            if (statistics.CardStatus == 1)
             {
                 statistics.NumbersOfSequentialCorrectAnswers++;
                 statistics.DateOfPassingQuiz = DateTime.Now;
@@ -104,6 +104,7 @@ namespace MemoBll.Logic
             {
                 statistics.NumbersOfSequentialCorrectAnswers = 0;
             }
+
             unitOfWork.Statistics.Update(statistics);
             unitOfWork.Save();
 

@@ -15,6 +15,8 @@ namespace MemoBll.Interfaces
 
         IEnumerable<Card> GetCardsByCourse(string courseName);
 
-        IEnumerable<Card> GetCardsByCourseForSubscribed(string courseName, int numberOfCards);
+        IEnumerable<Card> GetCardsForSubscription(
+            int numberOfCards,
+            IEnumerable<Statistics> statistics);
     }
 }
