@@ -13,6 +13,23 @@ namespace MemoBll.Logic
         private const int CORRECT = 1;
         private const int INCORRECT = -1;
         private const int NOANSWER = 0;
+
+        private const int NOREPEAT = 0;
+        private const int ONEREPEAT = 1;
+        private const int TWOREPEAT = 2;
+        private const int THREEREPEAT = 3;
+        private const int TOURREPEAT = 4;
+
+        private const int FirstRepeatInHours = 12;
+        private const int SecondRepeatInHours = 48;
+        private const int ThirdRepeatInHours = 24 * 6;
+        private const int FourthRepeatInHours = 24 * 20;
+
+        private const int FirstDeadlineForRepeatInHours = 24;
+        private const int SecondDeadlineForRepeatInHours = 72;
+        private const int ThirdDeadlineForRepeatInHours = 24 * 8;
+        private const int FourthDeadlineForRepeatInHours = 24 * 24;
+
         private IUnitOfWork unitOfWork;
 
         public Quiz()
@@ -54,8 +71,12 @@ namespace MemoBll.Logic
             var cardsForQuiz = new List<Card>();
             int numberOfCardsLeft;
 
-            // someMethod to check and add cards from repeat if need
-            // cardsForQuiz.addRange(someMethod);
+            IEnumerable<Card> cardsToRepeat = GetCartsForRepeat(statistics);
+
+            if (cardsToRepeat.Count() > 0)
+            {
+                cardsForQuiz.AddRange(cardsToRepeat);
+            }
 
             if (cardsForQuiz.Count == numberOfCards)
             {
@@ -154,18 +175,83 @@ namespace MemoBll.Logic
             return cardsForQuiz;
         }
 
+        public void SetCardStatusToNoAnswerIfLateness(IEnumerable<Statistics> statistics)
+        {
+            if(statistics != null)
+            {
+                statistics.ToList().ForEach(stat =>
+                {
+                    if (stat.CardStatus == CORRECT)
+                    {
+                        int passedHours = (DateTime.Now - stat.DateOfPassingQuiz).Hours;
+
+                        if (stat.counter == NOREPEAT && passedHours > FirstDeadlineForRepeatInHours ||
+                        stat.counter == ONEREPEAT && passedHours > SecondDeadlineForRepeatInHours ||
+                        stat.counter == TWOREPEAT && passedHours > ThirdDeadlineForRepeatInHours ||
+                        stat.counter == THREEREPEAT && passedHours > FourthDeadlineForRepeatInHours
+                        )
+                        {
+                            stat.CardStatus = 0;
+                        }
+                    }
+                });
+            }
+        }
+
+        /// <summary>
+        /// Returns cards with status you sent. If there will not be cards with 
+        /// this status, IEnumerable will be empty
+        /// </summary>
+        /// <param name="numberOfCards">if you pass null it means get all cards</param>
+        /// <param name="currentStatistics">entries IEnumerable of statistics</param>
+        /// <param name="cardStatus">CORRECT = 1, INCORRECT = -1, NOANSWER = 0</param>
+        /// <returns>IEnumerable of cards with status cardStatus</returns>
         public IEnumerable<Card> GetCardsWithSomeStatus(
-            int numberOfCards,
+            int? numberOfCards,
             IEnumerable<Statistics> currentStatistics, 
             int cardStatus)
         {
+            int cardsNumber = numberOfCards ?? -1;
+            if(cardsNumber == -1)
+            {
+                return currentStatistics
+                .Where(statistics => statistics.CardStatus == cardStatus)
+                .Select(statistics => statistics.Card)
+                .OrderBy(card => Guid.NewGuid());
+            }
             return currentStatistics
                 .Where(statistics => statistics.CardStatus == cardStatus)
                 .Select(statistics => statistics.Card)
                 .OrderBy(card => Guid.NewGuid())
-                .Take(numberOfCards);
+                .Take(cardsNumber);
         }
-       
+
+        private IEnumerable<Card> GetCartsForRepeat(IEnumerable<Statistics> statistics)
+        {
+            List<Card> result = new List<Card>();
+            if (statistics != null)
+            {
+                SetCardStatusToNoAnswerIfLateness(statistics);
+                statistics.ToList().ForEach(stat =>
+                {
+                    if (stat.CardStatus == CORRECT)
+                    {
+                        int passedHours = (DateTime.Now - stat.DateOfPassingQuiz).Hours;
+
+                        if (stat.counter == NOREPEAT && passedHours > FirstRepeatInHours ||
+                        stat.counter == ONEREPEAT && passedHours > SecondRepeatInHours ||
+                        stat.counter == TWOREPEAT && passedHours > ThirdRepeatInHours ||
+                        stat.counter == THREEREPEAT && passedHours > FourthRepeatInHours
+                        )
+                        {
+                            result.Add(stat.Card);
+                        }
+                    }
+                });
+            }
+            return result;
+        }
+
         #endregion
 
         public IEnumerable<Card> GetCardsByDeck(string deckLink)

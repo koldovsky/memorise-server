@@ -20,6 +20,8 @@ namespace MemoDAL.Entities
 
         public int NumbersOfSequentialCorrectAnswers { get; set; }
 
+        public byte counter { get; set; }
+
         public virtual User User { get; set; }
 
         public virtual Card Card { get; set; }

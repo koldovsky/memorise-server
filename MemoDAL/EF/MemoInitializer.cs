@@ -234,6 +234,114 @@ namespace MemoDAL.EF
                      CardType = cardTypes[3],
                      Deck = decks[12]
                 },
+                new Card
+                {
+                     Question = "2What key word is used in class declaration to prevent the class from being inherited from other classes?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "2What operator is used for checking the object with type and this will return a Boolean value?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "2What is name of the compiler for C#?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "2What is the base type for all other types in C#?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = @"2Return sum a and b",
+                     CardType = cardTypes[3],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = @"2Return remainder from dividing a to b",
+                     CardType = cardTypes[3],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "3What key word is used in class declaration to prevent the class from being inherited from other classes?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "3What operator is used for checking the object with type and this will return a Boolean value?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "3What is name of the compiler for C#?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "3What is the base type for all other types in C#?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = @"3Return sum a and b",
+                     CardType = cardTypes[3],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = @"3Return remainder from dividing a to b",
+                     CardType = cardTypes[3],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "4What key word is used in class declaration to prevent the class from being inherited from other classes?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "4What operator is used for checking the object with type and this will return a Boolean value?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "4What is name of the compiler for C#?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "4What is the base type for all other types in C#?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = @"4Return sum a and b",
+                     CardType = cardTypes[3],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = @"4Return remainder from dividing a to b",
+                     CardType = cardTypes[3],
+                     Deck = decks[12]
+                },
                 #endregion
             };
 
