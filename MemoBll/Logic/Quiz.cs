@@ -89,90 +89,96 @@ namespace MemoBll.Logic
             {
                 if (numberOfCards % 2 == 0)
                 {
-                    cardsForQuiz.AddRange(GetCardsWithInCorrectPriority(numberOfCards / 2, statistics));
+                    cardsForQuiz.AddRange(GetCardsWithInCorrectPriority(cardsForQuiz, numberOfCards / 2, statistics));
                 }
                 else
                 {
-                    cardsForQuiz.AddRange(GetCardsWithInCorrectPriority((numberOfCards / 2) + 1, statistics));
+                    cardsForQuiz.AddRange(GetCardsWithInCorrectPriority(cardsForQuiz, (numberOfCards / 2) + 1, statistics));
                 }
 
-                cardsForQuiz.AddRange(GetCardsWithNoAnswerPriority(numberOfCards / 2, statistics));
+                cardsForQuiz.AddRange(GetCardsWithNoAnswerPriority(cardsForQuiz, numberOfCards / 2, statistics));
             }
             else 
             {
-                cardsForQuiz.AddRange(GetCardsWithInCorrectPriority(numberOfCardsLeft, statistics));
+                cardsForQuiz.AddRange(GetCardsWithInCorrectPriority(cardsForQuiz, numberOfCardsLeft, statistics));
             }
             
             return cardsForQuiz;
         }
 
         public IEnumerable<Card> GetCardsWithInCorrectPriority(
+            List<Card> cardsForQuiz,
             int numberOfCards, 
             IEnumerable<Statistics> currentStatistics)
         {
-            var cardsForQuiz = new List<Card>();
 
+            var cards = new List<Card>();
             int numberOfCardsLeft = numberOfCards;
 
             for (int cardStatus = INCORRECT; cardStatus <= CORRECT; cardStatus++)
             {
-                cardsForQuiz.AddRange(GetCardsWithSomeStatus(
+                cards.AddRange(
+                    GetCardsWithSomeStatus(
+                    cardsForQuiz,
                     numberOfCardsLeft,
                     currentStatistics,
                     cardStatus));
 
-                numberOfCardsLeft = numberOfCards - cardsForQuiz.Count();
+                numberOfCardsLeft = numberOfCards - cards.Count();
 
                 if (numberOfCardsLeft == 0)
                 {
-                    return cardsForQuiz;
+                    return cards;
                 }
             }
 
-            return cardsForQuiz;
+            return cards;
         }
 
         public IEnumerable<Card> GetCardsWithNoAnswerPriority(
+            List<Card> cardsForQuiz,
             int numberOfCards, 
             IEnumerable<Statistics> currentStatistics)
         {
-            var cardsForQuiz = new List<Card>();
-
+            var cards = new List<Card>();
             int numberOfCardsLeft = numberOfCards;
 
-            cardsForQuiz.AddRange(
-                GetCardsWithSomeStatus(
-                    numberOfCardsLeft,
-                currentStatistics, 
-                NOANSWER));
-            
-            if (cardsForQuiz.Count == numberOfCards)
+            cards.AddRange(
+               GetCardsWithSomeStatus(
+               cardsForQuiz,
+               numberOfCardsLeft,
+               currentStatistics,
+               NOANSWER));
+
+            if (cards.Count == numberOfCards)
             {
-                return cardsForQuiz;
+                return cards;
             }
 
-            numberOfCardsLeft = numberOfCards - cardsForQuiz.Count();
+            numberOfCardsLeft = numberOfCards - cards.Count();
 
-            cardsForQuiz.AddRange(
-                GetCardsWithSomeStatus(
-                    numberOfCardsLeft,
-                currentStatistics, 
-                INCORRECT));
+            cards.AddRange(
+            GetCardsWithSomeStatus(
+               cardsForQuiz,
+               numberOfCardsLeft,
+               currentStatistics,
+               INCORRECT));
 
-            if (cardsForQuiz.Count == numberOfCards)
+            if (cards.Count == numberOfCards)
             {
-                return cardsForQuiz;
+                return cards;
             }
 
-            numberOfCardsLeft = numberOfCards - cardsForQuiz.Count();
+            numberOfCardsLeft = numberOfCards - cards.Count();
 
-            cardsForQuiz.AddRange(
+            cards.AddRange(
                 GetCardsWithSomeStatus(
-                    numberOfCardsLeft,
+                cardsForQuiz,
+                numberOfCardsLeft, 
                 currentStatistics, 
                 CORRECT));
 
-            return cardsForQuiz;
+            return cards;
         }
 
         public void SetCardStatusToNoAnswerIfLateness(IEnumerable<Statistics> statistics)
@@ -207,23 +213,18 @@ namespace MemoBll.Logic
         /// <param name="cardStatus">CORRECT = 1, INCORRECT = -1, NOANSWER = 0</param>
         /// <returns>IEnumerable of cards with status cardStatus</returns>
         public IEnumerable<Card> GetCardsWithSomeStatus(
-            int? numberOfCards,
-            IEnumerable<Statistics> currentStatistics, 
-            int cardStatus)
+             List<Card> cardsForQuiz,
+             int numberOfCards,
+             IEnumerable<Statistics> currentStatistics,
+             int cardStatus)
         {
-            int cardsNumber = numberOfCards ?? -1;
-            if(cardsNumber == -1)
-            {
-                return currentStatistics
-                .Where(statistics => statistics.CardStatus == cardStatus)
-                .Select(statistics => statistics.Card)
-                .OrderBy(card => Guid.NewGuid());
-            }
-            return currentStatistics
-                .Where(statistics => statistics.CardStatus == cardStatus)
-                .Select(statistics => statistics.Card)
-                .OrderBy(card => Guid.NewGuid())
-                .Take(cardsNumber);
+            return
+                 currentStatistics
+                 .Where(statistics => statistics.CardStatus == cardStatus
+                 && !cardsForQuiz.Select(c => c.Id).Contains(statistics.Card.Id))
+                 .Select(statistics => statistics.Card)
+                 .OrderBy(card => Guid.NewGuid())
+                 .Take(numberOfCards);
         }
 
         private IEnumerable<Card> GetCartsForRepeat(IEnumerable<Statistics> statistics)

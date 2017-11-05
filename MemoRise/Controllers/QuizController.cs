@@ -75,6 +75,11 @@ namespace MemoRise.Controllers
                 CourseDTO currentCourse = moderation.FindCourseByLinking(courseLink);
 
                 IEnumerable<Statistics> courseStatistics = statistics.GetCourseStatistics(userLogin, currentCourse.Id);
+
+                if (numberOfCards > courseStatistics.Count())
+                {
+                    numberOfCards = courseStatistics.Count();
+                }
                 
                 List<CardDTO> cards = quiz.GetCardsForSubscription(numberOfCards, courseStatistics);
                 
@@ -101,6 +106,11 @@ namespace MemoRise.Controllers
                 DeckDTO currentDeck = moderation.FindDeckByLinking(deckLink);
 
                 IEnumerable<Statistics> deckStatistics = statistics.GetDeckStatistics(userLogin, currentDeck.Id);
+
+                if (numberOfCards > deckStatistics.Count())
+                {
+                    numberOfCards = deckStatistics.Count();
+                }
 
                 List<CardDTO> cards = quiz.GetCardsForSubscription(numberOfCards, deckStatistics);
 
