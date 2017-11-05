@@ -822,6 +822,216 @@ namespace MemoDAL.EF
                     IsCorrect = true,
                     Card = cards[17]
                 },
+                new Answer
+                {
+                    Text = "sealed",
+                    IsCorrect = true,
+                    Card = cards[18]
+                },
+                new Answer
+                {
+                    Text = "is",
+                    IsCorrect = true,
+                    Card = cards[19]
+                },
+                new Answer
+                {
+                    Text = "CSC",
+                    IsCorrect = true,
+                    Card = cards[20]
+                },
+                new Answer
+                {
+                    Text = "csc",
+                    IsCorrect = true,
+                    Card = cards[20]
+                },
+                new Answer
+                {
+                    Text = "object",
+                    IsCorrect = true,
+                    Card = cards[21]
+                },
+                new Answer
+                {
+                    Text = "System.Object",
+                    IsCorrect = true,
+                    Card = cards[21]
+                },
+                new Answer
+                {
+                    Text = "Object",
+                    IsCorrect = true,
+                    Card = cards[21]
+                },
+                new Answer
+                {
+                    Text = @"
+                            public class Quiz
+                            {
+                                public int Sum(int a, int b)
+                                {
+                                    //Type your code here
+                                }
+                            }
+                    ",
+                    IsCorrect = true,
+                    Card = cards[22]
+                },
+                new Answer
+                {
+                    Text = @"
+                            public class Quiz
+                            {
+                                public int Remainder(int a, int b)
+                                {
+                                    //Type your code here
+                                }
+                            }
+                    ",
+                    IsCorrect = true,
+                    Card = cards[23]
+                },
+                new Answer
+                {
+                    Text = "sealed",
+                    IsCorrect = true,
+                    Card = cards[24]
+                },
+                new Answer
+                {
+                    Text = "is",
+                    IsCorrect = true,
+                    Card = cards[25]
+                },
+                new Answer
+                {
+                    Text = "CSC",
+                    IsCorrect = true,
+                    Card = cards[26]
+                },
+                new Answer
+                {
+                    Text = "csc",
+                    IsCorrect = true,
+                    Card = cards[26]
+                },
+                new Answer
+                {
+                    Text = "object",
+                    IsCorrect = true,
+                    Card = cards[27]
+                },
+                new Answer
+                {
+                    Text = "System.Object",
+                    IsCorrect = true,
+                    Card = cards[27]
+                },
+                new Answer
+                {
+                    Text = "Object",
+                    IsCorrect = true,
+                    Card = cards[27]
+                },
+                new Answer
+                {
+                    Text = @"
+                            public class Quiz
+                            {
+                                public int Sum(int a, int b)
+                                {
+                                    //Type your code here
+                                }
+                            }
+                    ",
+                    IsCorrect = true,
+                    Card = cards[28]
+                },
+                new Answer
+                {
+                    Text = @"
+                            public class Quiz
+                            {
+                                public int Remainder(int a, int b)
+                                {
+                                    //Type your code here
+                                }
+                            }
+                    ",
+                    IsCorrect = true,
+                    Card = cards[29]
+                },
+                new Answer
+                {
+                    Text = "sealed",
+                    IsCorrect = true,
+                    Card = cards[30]
+                },
+                new Answer
+                {
+                    Text = "is",
+                    IsCorrect = true,
+                    Card = cards[31]
+                },
+                new Answer
+                {
+                    Text = "CSC",
+                    IsCorrect = true,
+                    Card = cards[32]
+                },
+                new Answer
+                {
+                    Text = "csc",
+                    IsCorrect = true,
+                    Card = cards[32]
+                },
+                new Answer
+                {
+                    Text = "object",
+                    IsCorrect = true,
+                    Card = cards[33]
+                },
+                new Answer
+                {
+                    Text = "System.Object",
+                    IsCorrect = true,
+                    Card = cards[33]
+                },
+                new Answer
+                {
+                    Text = "Object",
+                    IsCorrect = true,
+                    Card = cards[33]
+                },
+                new Answer
+                {
+                    Text = @"
+                            public class Quiz
+                            {
+                                public int Sum(int a, int b)
+                                {
+                                    //Type your code here
+                                }
+                            }
+                    ",
+                    IsCorrect = true,
+                    Card = cards[34]
+                },
+                new Answer
+                {
+                    Text = @"
+                            public class Quiz
+                            {
+                                public int Remainder(int a, int b)
+                                {
+                                    //Type your code here
+                                }
+                            }
+                    ",
+                    IsCorrect = true,
+                    Card = cards[35]
+                },
                 #endregion
             };
             context.Answers.AddRange(answers);
