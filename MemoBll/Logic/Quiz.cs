@@ -71,7 +71,7 @@ namespace MemoBll.Logic
             var cardsForQuiz = new List<Card>();
             int numberOfCardsLeft;
 
-            IEnumerable<Card> cardsToRepeat = GetCartsForRepeat(statistics);
+            IEnumerable<Card> cardsToRepeat = GetCardsForRepeat(statistics);
 
             if (cardsToRepeat.Count() > 0)
             {
@@ -204,14 +204,6 @@ namespace MemoBll.Logic
             }
         }
 
-        /// <summary>
-        /// Returns cards with status you sent. If there will not be cards with 
-        /// this status, IEnumerable will be empty
-        /// </summary>
-        /// <param name="numberOfCards">if you pass null it means get all cards</param>
-        /// <param name="currentStatistics">entries IEnumerable of statistics</param>
-        /// <param name="cardStatus">CORRECT = 1, INCORRECT = -1, NOANSWER = 0</param>
-        /// <returns>IEnumerable of cards with status cardStatus</returns>
         public IEnumerable<Card> GetCardsWithSomeStatus(
              List<Card> cardsForQuiz,
              int numberOfCards,
@@ -227,7 +219,18 @@ namespace MemoBll.Logic
                  .Take(numberOfCards);
         }
 
-        private IEnumerable<Card> GetCartsForRepeat(IEnumerable<Statistics> statistics)
+        public IEnumerable<Card> GetCardsForRepeat(string userLogin)
+        {
+            UserStatistics userStatistics = new UserStatistics(unitOfWork);
+
+            IEnumerable<Statistics> statisticsForUser = userStatistics.GetUserStatistics(userLogin);
+
+            IEnumerable<Card> cardsForRepeat = GetCardsForRepeat(statisticsForUser);
+
+            return cardsForRepeat;
+        }
+
+        private IEnumerable<Card> GetCardsForRepeat(IEnumerable<Statistics> statistics)
         {
             List<Card> result = new List<Card>();
             if (statistics != null)

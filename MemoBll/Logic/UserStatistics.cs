@@ -31,6 +31,13 @@ namespace MemoBll.Logic
             return stats;
         }
 
+        public IEnumerable<Statistics> GetUserStatistics(string userLogin)
+        {
+            var stats = unitOfWork.Statistics.GetAll()
+                .Where(stat => stat.User.UserName == userLogin);
+            return stats;
+        }
+
         public IEnumerable<Statistics> GetDeckStatistics(string userName, int deckId)
         {
             errorMessage = $"Can not find deck with Id {deckId}";

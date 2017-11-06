@@ -18,5 +18,7 @@ namespace MemoBll.Interfaces
         IEnumerable<Card> GetCardsForSubscription(
             int numberOfCards,
             IEnumerable<Statistics> statistics);
+
+        IEnumerable<Card> GetCardsForRepeat(string userLogin);
     }
 }

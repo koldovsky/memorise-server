@@ -47,6 +47,7 @@
     <Compile Include="Interfaces\IConverterFromDTO.cs" />
     <Compile Include="Interfaces\IUserStatistics.cs" />
     <Compile Include="Interfaces\IUserSubscriptions.cs" />
+    <Compile Include="Logic\ConstsAndEnumsForQuiz.cs" />
     <Compile Include="Logic\ConverterFromDTO.cs" />
     <Compile Include="Logic\CourseDetails.cs" />
     <Compile Include="Interfaces\ICourseDetails.cs" />

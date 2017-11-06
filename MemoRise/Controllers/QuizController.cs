@@ -127,6 +127,25 @@ namespace MemoRise.Controllers
             }
         }
 
+        [HttpGet]
+        [Authorize]
+        [Route("Quiz/GetCardsNeedToRepeat/{userLogin}")]
+        public IHttpActionResult GetCardsNeedToRepeat(string userLogin)
+        {
+            try
+            {
+                List<CardDTO> cards = new List<CardDTO>();
+
+                cards = quiz.GetCardsForRepeat(userLogin);
+
+                return Ok(cards);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost]
         public IHttpActionResult GetSearchCardsByDeckLinking([FromBody]SearchDataModel searchDataModel)  
         {
