@@ -14,6 +14,10 @@ namespace MemoBll.Logic
         private IUnitOfWork unitOfWork;
         private string errorMessage = string.Empty;
 
+        private const int CORRECT = 1;
+        private const int INCORRECT = -1;
+        private const int NOANSWER = 0;
+
         public UserStatistics()
         {
             unitOfWork = new UnitOfWork(new MemoContext());
@@ -105,7 +109,12 @@ namespace MemoBll.Logic
             if (statistics.CardStatus == 1)
             {
                 statistics.NumbersOfSequentialCorrectAnswers++;
-                statistics.DateOfPassingQuiz = DateTime.Now;
+                Statistics previousStatistics = unitOfWork.Statistics.Get(statistics.Id);
+                if(previousStatistics.NumbersOfSequentialCorrectAnswers == 0)
+                {
+                    statistics.DateOfPassingQuiz = DateTime.Now;
+                }
+                
             }
             else
             {

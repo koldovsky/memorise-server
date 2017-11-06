@@ -191,10 +191,10 @@ namespace MemoBll.Logic
                     {
                         int passedHours = (DateTime.Now - stat.DateOfPassingQuiz).Hours;
 
-                        if (stat.counter == NOREPEAT && passedHours > FirstDeadlineForRepeatInHours ||
-                        stat.counter == ONEREPEAT && passedHours > SecondDeadlineForRepeatInHours ||
-                        stat.counter == TWOREPEAT && passedHours > ThirdDeadlineForRepeatInHours ||
-                        stat.counter == THREEREPEAT && passedHours > FourthDeadlineForRepeatInHours
+                        if (stat.NumbersOfSequentialCorrectAnswers == NOREPEAT && passedHours > FirstDeadlineForRepeatInHours ||
+                        stat.NumbersOfSequentialCorrectAnswers == ONEREPEAT && passedHours > SecondDeadlineForRepeatInHours ||
+                        stat.NumbersOfSequentialCorrectAnswers == TWOREPEAT && passedHours > ThirdDeadlineForRepeatInHours ||
+                        stat.NumbersOfSequentialCorrectAnswers == THREEREPEAT && passedHours > FourthDeadlineForRepeatInHours
                         )
                         {
                             stat.CardStatus = 0;
@@ -242,10 +242,10 @@ namespace MemoBll.Logic
                     {
                         int passedHours = (DateTime.Now - stat.DateOfPassingQuiz).Hours;
 
-                        if (stat.counter == NOREPEAT && passedHours > FirstRepeatInHours ||
-                        stat.counter == ONEREPEAT && passedHours > SecondRepeatInHours ||
-                        stat.counter == TWOREPEAT && passedHours > ThirdRepeatInHours ||
-                        stat.counter == THREEREPEAT && passedHours > FourthRepeatInHours
+                        if (stat.NumbersOfSequentialCorrectAnswers == NOREPEAT && passedHours > FirstRepeatInHours ||
+                        stat.NumbersOfSequentialCorrectAnswers == ONEREPEAT && passedHours > SecondRepeatInHours ||
+                        stat.NumbersOfSequentialCorrectAnswers == TWOREPEAT && passedHours > ThirdRepeatInHours ||
+                        stat.NumbersOfSequentialCorrectAnswers == THREEREPEAT && passedHours > FourthRepeatInHours
                         )
                         {
                             result.Add(stat.Card);

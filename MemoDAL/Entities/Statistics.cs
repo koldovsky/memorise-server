@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MemoDAL.Entities
@@ -18,9 +19,8 @@ namespace MemoDAL.Entities
         [Column(TypeName = "datetime2")]
         public DateTime DateOfPassingQuiz { get; set; }
 
+        [Required]
         public int NumbersOfSequentialCorrectAnswers { get; set; }
-
-        public byte counter { get; set; }
 
         public virtual User User { get; set; }
 
