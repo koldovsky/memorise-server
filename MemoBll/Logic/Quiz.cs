@@ -198,6 +198,7 @@ namespace MemoBll.Logic
                         )
                         {
                             stat.CardStatus = 0;
+                            stat.NumbersOfSequentialCorrectAnswers = 0;
                         }
                     }
                 });

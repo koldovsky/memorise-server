@@ -108,13 +108,11 @@ namespace MemoBll.Logic
         {
             if (statistics.CardStatus == 1)
             {
-                statistics.NumbersOfSequentialCorrectAnswers++;
-                Statistics previousStatistics = unitOfWork.Statistics.Get(statistics.Id);
-                if(previousStatistics.NumbersOfSequentialCorrectAnswers == 0)
+                if (statistics.NumbersOfSequentialCorrectAnswers == 0)
                 {
                     statistics.DateOfPassingQuiz = DateTime.Now;
                 }
-                
+                statistics.NumbersOfSequentialCorrectAnswers++;
             }
             else
             {
