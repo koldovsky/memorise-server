@@ -56,6 +56,8 @@ namespace MemoBll.Interfaces
 
         Course FindCourseByName(string courseName);
 
+        Course FindCourseByLinking(string courseLinking);
+
         void CreateDeck(Deck deck);
 
         void UpdateDeck(Deck deck);
@@ -65,6 +67,8 @@ namespace MemoBll.Interfaces
         Deck GetDeck(int id);
 
         Deck FindDeckByName(string deckName);
+
+        Deck FindDeckByLinking(string deckLinking);
 
         void CreateCard(Card card);
 

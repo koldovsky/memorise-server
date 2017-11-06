@@ -1,4 +1,5 @@
 ﻿using MemoBll.Managers;
+using MemoBll.Logic;
 using MemoDTO;
 using MemoRise.Helpers;
 using MemoRise.Models;
@@ -11,12 +12,15 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using MemoDAL.Entities;
 
 namespace MemoRise.Controllers
 {
     public class QuizController : ApiController
     {
         private QuizBll quiz = new QuizBll();
+        private UserStatistics statistics = new UserStatistics();
+        private ModerationBll moderation = new ModerationBll();
 
         [HttpGet]
         [Route("Quiz/GetCardsByCourse/{courseLink}")]
@@ -58,6 +62,87 @@ namespace MemoRise.Controllers
             catch (Exception ex)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("Quiz/GetCardsForSubscribedCourse/{courseLink}/{numberOfCards}/{userLogin}")]
+        public IHttpActionResult GetCardsForSubscribedCourse(string courseLink, int numberOfCards, string userLogin)
+        {
+            try
+            {
+                CourseDTO currentCourse = moderation.FindCourseByLinking(courseLink);
+
+                IEnumerable<Statistics> courseStatistics = statistics.GetCourseStatistics(userLogin, currentCourse.Id);
+
+                if (numberOfCards > courseStatistics.Count())
+                {
+                    numberOfCards = courseStatistics.Count();
+                }
+                
+                List<CardDTO> cards = quiz.GetCardsForSubscription(numberOfCards, courseStatistics);
+                
+                return Ok(cards);
+            }
+            catch (ArgumentNullException ex)
+            {
+                var message = $"Course with link = {courseLink} not found. {ex.Message}";
+                return BadRequest(message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("Quiz/GetCardsForSubscribedDeck/{deckLink}/{numberOfCards}/{userLogin}")]
+        public IHttpActionResult GetCardsForSubscribedDeck(string deckLink, int numberOfCards, string userLogin)
+        {
+            try
+            {
+                DeckDTO currentDeck = moderation.FindDeckByLinking(deckLink);
+
+                IEnumerable<Statistics> deckStatistics = statistics.GetDeckStatistics(userLogin, currentDeck.Id);
+
+                if (numberOfCards > deckStatistics.Count())
+                {
+                    numberOfCards = deckStatistics.Count();
+                }
+
+                List<CardDTO> cards = quiz.GetCardsForSubscription(numberOfCards, deckStatistics);
+
+                return Ok(cards);
+            }
+            catch (ArgumentNullException ex)
+            {
+                var message = $"Deck with name = {deckLink} not found. {ex.Message}";
+                return BadRequest(message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("Quiz/GetCardsNeedToRepeat/{userLogin}")]
+        public IHttpActionResult GetCardsNeedToRepeat(string userLogin)
+        {
+            try
+            {
+                List<CardDTO> cards = new List<CardDTO>();
+
+                cards = quiz.GetCardsForRepeat(userLogin);
+
+                return Ok(cards);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
 

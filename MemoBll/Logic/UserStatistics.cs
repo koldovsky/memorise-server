@@ -14,6 +14,10 @@ namespace MemoBll.Logic
         private IUnitOfWork unitOfWork;
         private string errorMessage = string.Empty;
 
+        private const int CORRECT = 1;
+        private const int INCORRECT = -1;
+        private const int NOANSWER = 0;
+
         public UserStatistics()
         {
             unitOfWork = new UnitOfWork(new MemoContext());
@@ -28,6 +32,13 @@ namespace MemoBll.Logic
         {
             var stats = unitOfWork.Statistics.GetAll()
                 .FirstOrDefault(s => s.User.UserName == userName && s.Card.Id == cardId);
+            return stats;
+        }
+
+        public IEnumerable<Statistics> GetUserStatistics(string userLogin)
+        {
+            var stats = unitOfWork.Statistics.GetAll()
+                .Where(stat => stat.User.UserName == userLogin);
             return stats;
         }
 
@@ -46,6 +57,7 @@ namespace MemoBll.Logic
             var decks = unitOfWork.Courses.Get(courseId)
                 ?.Decks
                 ?? throw new ArgumentNullException(errorMessage);
+
             var cards = decks
                 .Select(d => d.Cards).Aggregate((acc, c) => acc.Concat(c).ToList());
 
@@ -61,7 +73,8 @@ namespace MemoBll.Logic
                 {
                     Card = unitOfWork.Cards.Get(cardId),
                     CardStatus = 0,
-                    User = unitOfWork.Users.FindByName(userLogin)
+                    User = unitOfWork.Users.FindByName(userLogin),
+                    NumbersOfSequentialCorrectAnswers = 0
                 };
                 unitOfWork.Statistics.Create(statistics);
                 unitOfWork.Save();
@@ -93,6 +106,19 @@ namespace MemoBll.Logic
 
         public Statistics UpdateStatistics(Statistics statistics)
         {
+            if (statistics.CardStatus == 1)
+            {
+                if (statistics.NumbersOfSequentialCorrectAnswers == 0)
+                {
+                    statistics.DateOfPassingQuiz = DateTime.Now;
+                }
+                statistics.NumbersOfSequentialCorrectAnswers++;
+            }
+            else
+            {
+                statistics.NumbersOfSequentialCorrectAnswers = 0;
+            }
+
             unitOfWork.Statistics.Update(statistics);
             unitOfWork.Save();
 

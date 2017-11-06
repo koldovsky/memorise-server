@@ -234,6 +234,114 @@ namespace MemoDAL.EF
                      CardType = cardTypes[3],
                      Deck = decks[12]
                 },
+                new Card
+                {
+                     Question = "2What key word is used in class declaration to prevent the class from being inherited from other classes?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "2What operator is used for checking the object with type and this will return a Boolean value?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "2What is name of the compiler for C#?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "2What is the base type for all other types in C#?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = @"2Return sum a and b",
+                     CardType = cardTypes[3],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = @"2Return remainder from dividing a to b",
+                     CardType = cardTypes[3],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "3What key word is used in class declaration to prevent the class from being inherited from other classes?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "3What operator is used for checking the object with type and this will return a Boolean value?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "3What is name of the compiler for C#?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "3What is the base type for all other types in C#?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = @"3Return sum a and b",
+                     CardType = cardTypes[3],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = @"3Return remainder from dividing a to b",
+                     CardType = cardTypes[3],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "4What key word is used in class declaration to prevent the class from being inherited from other classes?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "4What operator is used for checking the object with type and this will return a Boolean value?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "4What is name of the compiler for C#?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = "4What is the base type for all other types in C#?",
+                     CardType = cardTypes[2],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = @"4Return sum a and b",
+                     CardType = cardTypes[3],
+                     Deck = decks[12]
+                },
+                new Card
+                {
+                     Question = @"4Return remainder from dividing a to b",
+                     CardType = cardTypes[3],
+                     Deck = decks[12]
+                },
                 #endregion
             };
 
@@ -713,6 +821,216 @@ namespace MemoDAL.EF
                     ",
                     IsCorrect = true,
                     Card = cards[17]
+                },
+                new Answer
+                {
+                    Text = "sealed",
+                    IsCorrect = true,
+                    Card = cards[18]
+                },
+                new Answer
+                {
+                    Text = "is",
+                    IsCorrect = true,
+                    Card = cards[19]
+                },
+                new Answer
+                {
+                    Text = "CSC",
+                    IsCorrect = true,
+                    Card = cards[20]
+                },
+                new Answer
+                {
+                    Text = "csc",
+                    IsCorrect = true,
+                    Card = cards[20]
+                },
+                new Answer
+                {
+                    Text = "object",
+                    IsCorrect = true,
+                    Card = cards[21]
+                },
+                new Answer
+                {
+                    Text = "System.Object",
+                    IsCorrect = true,
+                    Card = cards[21]
+                },
+                new Answer
+                {
+                    Text = "Object",
+                    IsCorrect = true,
+                    Card = cards[21]
+                },
+                new Answer
+                {
+                    Text = @"
+                            public class Quiz
+                            {
+                                public int Sum(int a, int b)
+                                {
+                                    //Type your code here
+                                }
+                            }
+                    ",
+                    IsCorrect = true,
+                    Card = cards[22]
+                },
+                new Answer
+                {
+                    Text = @"
+                            public class Quiz
+                            {
+                                public int Remainder(int a, int b)
+                                {
+                                    //Type your code here
+                                }
+                            }
+                    ",
+                    IsCorrect = true,
+                    Card = cards[23]
+                },
+                new Answer
+                {
+                    Text = "sealed",
+                    IsCorrect = true,
+                    Card = cards[24]
+                },
+                new Answer
+                {
+                    Text = "is",
+                    IsCorrect = true,
+                    Card = cards[25]
+                },
+                new Answer
+                {
+                    Text = "CSC",
+                    IsCorrect = true,
+                    Card = cards[26]
+                },
+                new Answer
+                {
+                    Text = "csc",
+                    IsCorrect = true,
+                    Card = cards[26]
+                },
+                new Answer
+                {
+                    Text = "object",
+                    IsCorrect = true,
+                    Card = cards[27]
+                },
+                new Answer
+                {
+                    Text = "System.Object",
+                    IsCorrect = true,
+                    Card = cards[27]
+                },
+                new Answer
+                {
+                    Text = "Object",
+                    IsCorrect = true,
+                    Card = cards[27]
+                },
+                new Answer
+                {
+                    Text = @"
+                            public class Quiz
+                            {
+                                public int Sum(int a, int b)
+                                {
+                                    //Type your code here
+                                }
+                            }
+                    ",
+                    IsCorrect = true,
+                    Card = cards[28]
+                },
+                new Answer
+                {
+                    Text = @"
+                            public class Quiz
+                            {
+                                public int Remainder(int a, int b)
+                                {
+                                    //Type your code here
+                                }
+                            }
+                    ",
+                    IsCorrect = true,
+                    Card = cards[29]
+                },
+                new Answer
+                {
+                    Text = "sealed",
+                    IsCorrect = true,
+                    Card = cards[30]
+                },
+                new Answer
+                {
+                    Text = "is",
+                    IsCorrect = true,
+                    Card = cards[31]
+                },
+                new Answer
+                {
+                    Text = "CSC",
+                    IsCorrect = true,
+                    Card = cards[32]
+                },
+                new Answer
+                {
+                    Text = "csc",
+                    IsCorrect = true,
+                    Card = cards[32]
+                },
+                new Answer
+                {
+                    Text = "object",
+                    IsCorrect = true,
+                    Card = cards[33]
+                },
+                new Answer
+                {
+                    Text = "System.Object",
+                    IsCorrect = true,
+                    Card = cards[33]
+                },
+                new Answer
+                {
+                    Text = "Object",
+                    IsCorrect = true,
+                    Card = cards[33]
+                },
+                new Answer
+                {
+                    Text = @"
+                            public class Quiz
+                            {
+                                public int Sum(int a, int b)
+                                {
+                                    //Type your code here
+                                }
+                            }
+                    ",
+                    IsCorrect = true,
+                    Card = cards[34]
+                },
+                new Answer
+                {
+                    Text = @"
+                            public class Quiz
+                            {
+                                public int Remainder(int a, int b)
+                                {
+                                    //Type your code here
+                                }
+                            }
+                    ",
+                    IsCorrect = true,
+                    Card = cards[35]
                 },
                 #endregion
             };

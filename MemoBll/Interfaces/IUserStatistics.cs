@@ -7,6 +7,8 @@ namespace MemoBll.Interfaces
     {
         Statistics GetStatistics(string userId, int cardId);
 
+        IEnumerable<Statistics> GetUserStatistics(string userId);
+
         IEnumerable<Statistics> GetDeckStatistics(string userId, int deckId);
 
         IEnumerable<Statistics> GetCourseStatistics(string userId, int courseId);

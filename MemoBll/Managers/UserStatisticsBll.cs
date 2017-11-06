@@ -42,6 +42,14 @@ namespace MemoBll.Managers
                 : null;
         }
 
+        public IEnumerable<StatisticsDTO> GetUserStatistics(string userId)
+        {
+            var userStatistics = statistics.GetUserStatistics(userId);
+            return userStatistics
+                ?.Select(stat => stat != null ?
+                converterToDTO.ConvertToStatisticsDTO(stat) : null);
+        }
+
         public IEnumerable<StatisticsDTO> GetDeckStatistics(
             string userLogin,
             int deckId)
