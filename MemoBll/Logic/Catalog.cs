@@ -73,5 +73,19 @@ namespace MemoBll.Logic
                 .GetAll()
                 .FirstOrDefault(x => x.Linking == linking);
         }
+
+        public Course GetCourse(int courseId)
+        {
+            return unitOfWork.Courses
+                .GetAll()
+                .FirstOrDefault(x => x.Id == courseId);
+        }
+
+        public Deck GetDeck(int deckId)
+        {
+            return unitOfWork.Decks
+                .GetAll()
+                .FirstOrDefault(x => x.Id == deckId);
+        }
     }
 }

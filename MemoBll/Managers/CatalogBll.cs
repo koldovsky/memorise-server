@@ -69,5 +69,20 @@ namespace MemoBll.Managers
         {
             return converterToDTO.ConvertToDeckDTO(catalog.GetDeck(linking));
         }
+
+        public CourseDTO GetCourseDTO(string linking)
+        {
+            return converterToDTO.ConvertToCourseDTO(catalog.GetCourse(linking));
+        }
+
+        public DeckDTO GetDeckDTO(int id)
+        {
+            return converterToDTO.ConvertToDeckDTO(catalog.GetDeck(id));
+        }
+
+        public CourseDTO GetCourseDTO(int id)
+        {
+            return converterToDTO.ConvertToCourseDTO(catalog.GetCourse(id));
+        }
     }
 }
