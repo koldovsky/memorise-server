@@ -15,36 +15,26 @@ namespace MemoBll.Logic.QuizAlgorithms
             int numberOfCards,
             IEnumerable<Statistics> currentStatistics)
         {
-            List<Statistics> currentStatisticsList = currentStatistics.ToList();
             List<Card> result = new List<Card>();
-
-            if (numberOfCards < currentStatistics.Count())
+            if (currentStatistics != null)
             {
-                random = new Random();
-
-                int r = random.Next(currentStatistics.Count());
-
-                int[] indexes = Enumerable.Range(0, currentStatistics.Count()-1).ToArray();
-
-                for (int i = 0; i < numberOfCards; i++)
+                if (numberOfCards < currentStatistics.Count())
                 {
-                    int j = random.Next(i, currentStatistics.Count()-1);
-
-                    int temp = indexes[i];
-                    indexes[i] = indexes[j];
-                    indexes[j] = temp;
-
-                    result.Add(currentStatisticsList[indexes[i]].Card);
+                    return
+                     currentStatistics
+                     .Select(statistics => statistics.Card)
+                     .OrderBy(card => Guid.NewGuid())
+                     .Take(numberOfCards);
                 }
-
-                return result;
+                else
+                {
+                    currentStatistics.ToList().ForEach(stat => {
+                        result.Add(stat.Card);
+                    });
+                    return result;
+                }
             }
-            else
-            {
-                currentStatisticsList.ForEach(x => result.Add(x.Card));
-                return result;
-            }
-
+            return result;
         }
     }
 }
