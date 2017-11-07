@@ -14,11 +14,10 @@ namespace MemoBll.Logic
         private const int INCORRECT = -1;
         private const int NOANSWER = 0;
 
-        private const int NOREPEAT = 0;
-        private const int ONEREPEAT = 1;
-        private const int TWOREPEAT = 2;
-        private const int THREEREPEAT = 3;
-        private const int TOURREPEAT = 4;
+        private const int ONECORRECT = 1;
+        private const int TWOCORRECT = 2;
+        private const int THREECORRECT = 3;
+        private const int FOURCORRECT = 4;
 
         private const int FirstRepeatInHours = 12;
         private const int SecondRepeatInHours = 48;
@@ -191,10 +190,10 @@ namespace MemoBll.Logic
                     {
                         int passedHours = (DateTime.Now - stat.DateOfPassingQuiz).Hours;
 
-                        if (stat.NumbersOfSequentialCorrectAnswers == NOREPEAT && passedHours > FirstDeadlineForRepeatInHours ||
-                        stat.NumbersOfSequentialCorrectAnswers == ONEREPEAT && passedHours > SecondDeadlineForRepeatInHours ||
-                        stat.NumbersOfSequentialCorrectAnswers == TWOREPEAT && passedHours > ThirdDeadlineForRepeatInHours ||
-                        stat.NumbersOfSequentialCorrectAnswers == THREEREPEAT && passedHours > FourthDeadlineForRepeatInHours
+                        if (stat.NumbersOfSequentialCorrectAnswers == ONECORRECT && passedHours > FirstDeadlineForRepeatInHours ||
+                        stat.NumbersOfSequentialCorrectAnswers == TWOCORRECT && passedHours > SecondDeadlineForRepeatInHours ||
+                        stat.NumbersOfSequentialCorrectAnswers == THREECORRECT && passedHours > ThirdDeadlineForRepeatInHours ||
+                        stat.NumbersOfSequentialCorrectAnswers == FOURCORRECT && passedHours > FourthDeadlineForRepeatInHours
                         )
                         {
                             stat.CardStatus = 0;
@@ -243,10 +242,10 @@ namespace MemoBll.Logic
                     {
                         int passedHours = (DateTime.Now - stat.DateOfPassingQuiz).Hours;
 
-                        if (stat.NumbersOfSequentialCorrectAnswers == NOREPEAT && passedHours > FirstRepeatInHours ||
-                        stat.NumbersOfSequentialCorrectAnswers == ONEREPEAT && passedHours > SecondRepeatInHours ||
-                        stat.NumbersOfSequentialCorrectAnswers == TWOREPEAT && passedHours > ThirdRepeatInHours ||
-                        stat.NumbersOfSequentialCorrectAnswers == THREEREPEAT && passedHours > FourthRepeatInHours
+                        if (stat.NumbersOfSequentialCorrectAnswers == ONECORRECT && passedHours > FirstRepeatInHours ||
+                        stat.NumbersOfSequentialCorrectAnswers == TWOCORRECT && passedHours > SecondRepeatInHours ||
+                        stat.NumbersOfSequentialCorrectAnswers == THREECORRECT && passedHours > ThirdRepeatInHours ||
+                        stat.NumbersOfSequentialCorrectAnswers == FOURCORRECT && passedHours > FourthRepeatInHours
                         )
                         {
                             result.Add(stat.Card);
