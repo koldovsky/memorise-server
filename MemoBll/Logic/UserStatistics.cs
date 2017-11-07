@@ -37,7 +37,7 @@ namespace MemoBll.Logic
 
         public IEnumerable<Statistics> GetUserStatistics(string userLogin)
         {
-            var stats = unitOfWork.Statistics.GetAll()
+            IEnumerable<Statistics> stats = unitOfWork.Statistics.GetAll()
                 .Where(stat => stat.User.UserName == userLogin);
             return stats;
         }
