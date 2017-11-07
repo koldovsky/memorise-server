@@ -57,6 +57,9 @@
     <Compile Include="Logic\Catalog.cs" />
     <Compile Include="Interfaces\ICatalog.cs" />
     <Compile Include="Logic\Administration.cs" />
+    <Compile Include="Logic\QuizAlgorithms\DefaultAlgorithm.cs" />
+    <Compile Include="Logic\QuizAlgorithms\IAlgorithm.cs" />
+    <Compile Include="Logic\QuizAlgorithms\QuizLogic.cs" />
     <Compile Include="Logic\UserSubscriptions.cs" />
     <Compile Include="ManagersInterfaces\IUserProfileBll.cs" />
     <Compile Include="Managers\AdministrationBll.cs" />
