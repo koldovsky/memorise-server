@@ -11,5 +11,7 @@ namespace MemoBll.Logic.QuizAlgorithms
     {
         IEnumerable<Card> GetCardsForQuiz(int numberOfCards,
             IEnumerable<Statistics> statistics);
+
+        IEnumerable<Card> GetCardsForRepeat(IEnumerable<Statistics> statistics);
     }
 }

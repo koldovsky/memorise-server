@@ -53,7 +53,12 @@ namespace MemoBll.Logic
             return quizLogic.GetCards(numberOfCards, statistics);
         }
 
-        public IEnumerable<Card> GetCardsByDeck(string deckLink)
+        public IEnumerable<Card> GetCardsForRepeat(IEnumerable<Statistics> statistics)
+        {
+            return quizLogic.GetAllCardsForRepeat(statistics);
+        }
+
+            public IEnumerable<Card> GetCardsByDeck(string deckLink)
         {
             return unitOfWork.Decks
                 .GetAll().FirstOrDefault(x => x.Linking == deckLink)?.Cards
@@ -104,5 +109,6 @@ namespace MemoBll.Logic
                 throw new ArgumentNullException();
             }
         }
+
     }
 }

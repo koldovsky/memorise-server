@@ -46,5 +46,10 @@ namespace MemoBll.Logic.QuizAlgorithms
             }
 
         }
+
+        public IEnumerable<Card> GetCardsForRepeat(IEnumerable<Statistics> statistics)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

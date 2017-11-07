@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MemoDAL.Entities;
+using MemoDAL;
+using MemoDAL.EF;
 
 namespace MemoBll.Logic.QuizAlgorithms
 {
@@ -183,18 +185,7 @@ namespace MemoBll.Logic.QuizAlgorithms
                  .Take(numberOfCards);
         }
 
-        //public IEnumerable<Card> GetCardsForRepeat(string userLogin)
-        //{
-        //    UserStatistics userStatistics = new UserStatistics(unitOfWork);
-
-        //    IEnumerable<Statistics> statisticsForUser = userStatistics.GetUserStatistics(userLogin);
-
-        //    IEnumerable<Card> cardsForRepeat = GetCardsForRepeat(statisticsForUser);
-
-        //    return cardsForRepeat;
-        //}
-
-        private IEnumerable<Card> GetCardsForRepeat(IEnumerable<Statistics> statistics)
+        public IEnumerable<Card> GetCardsForRepeat(IEnumerable<Statistics> statistics)
         {
             List<Card> result = new List<Card>();
             if (statistics != null)

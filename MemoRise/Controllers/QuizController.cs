@@ -136,7 +136,8 @@ namespace MemoRise.Controllers
             {
                 List<CardDTO> cards = new List<CardDTO>();
 
-               // cards = quiz.GetCardsForRepeat(userLogin);
+                IEnumerable<Statistics> userStatistics = statistics.GetUserStatistics(userLogin);
+                cards = quiz.GetCardsForRepeat(userStatistics);
 
                 return Ok(cards);
             }

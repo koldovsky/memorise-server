@@ -22,5 +22,10 @@ namespace MemoBll.Logic.QuizAlgorithms
         {
             return this.algorithm.GetCardsForQuiz(numberOfCards,statistics); 
         }
+
+        public IEnumerable<Card> GetAllCardsForRepeat (IEnumerable<Statistics> statistics)
+        {
+            return this.algorithm.GetCardsForRepeat(statistics);
+        }
     }
 }
