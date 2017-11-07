@@ -9,7 +9,7 @@ namespace MemoBll.Logic.QuizAlgorithms
 {
     public class QuizLogic
     {
-        private IAlgorithm algorithm;
+        private IAlgorithm algorithm = new DefaultAlgorithm();
 
         public void SetAlgorithm(string className)
         {
@@ -17,9 +17,10 @@ namespace MemoBll.Logic.QuizAlgorithms
             this.algorithm = Activator.CreateInstance(type) as IAlgorithm;
         }
 
-        public IEnumerable<Card> GetCards()
+        public IEnumerable<Card> GetCards(int numberOfCards,
+            IEnumerable<Statistics> statistics)
         {
-            return this.algorithm.GetCardsForQuiz(); 
+            return this.algorithm.GetCardsForQuiz(numberOfCards,statistics); 
         }
     }
 }
