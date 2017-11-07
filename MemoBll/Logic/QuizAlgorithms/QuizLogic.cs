@@ -17,9 +17,11 @@ namespace MemoBll.Logic.QuizAlgorithms
             this.algorithm = Activator.CreateInstance(type) as IAlgorithm;
         }
 
-        public IEnumerable<Card> GetCards()
+        public IEnumerable<Card> GetCards(
+            int numberOfCards,
+            IEnumerable<Statistics> currentStatistics)
         {
-            return this.algorithm.GetCardsForQuiz(); 
+            return this.algorithm.GetCardsForQuiz(numberOfCards, currentStatistics); 
         }
     }
 }

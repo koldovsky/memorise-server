@@ -9,7 +9,9 @@ namespace MemoBll.Logic.QuizAlgorithms
 {
     class DefaultAlgorithm : IAlgorithm
     {
-        public IEnumerable<Card> GetCardsForQuiz()
+        public IEnumerable<Card> GetCardsForQuiz(
+            int numberOfCards, 
+            IEnumerable<Statistics> currentStatistics)
         {
             throw new NotImplementedException();
         }

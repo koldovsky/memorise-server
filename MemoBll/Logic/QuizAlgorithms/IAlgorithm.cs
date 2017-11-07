@@ -9,6 +9,8 @@ namespace MemoBll.Logic.QuizAlgorithms
 {
     public interface IAlgorithm
     {
-        IEnumerable<Card> GetCardsForQuiz();
+        IEnumerable<Card> GetCardsForQuiz(
+            int numberOfCards,
+            IEnumerable<Statistics> currentStatistics);
     }
 }
