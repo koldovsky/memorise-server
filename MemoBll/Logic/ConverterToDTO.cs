@@ -273,24 +273,32 @@ namespace MemoBll.Logic
 
         public CourseSubscriptionDTO ConvertToCourseSubscriptionDTO(CourseSubscription subscription)
         {
-            return new CourseSubscriptionDTO
+            if(subscription != null)
             {
-                Id = subscription.Id,
-                Rating = subscription.Rating,
-                UserLogin = subscription.User?.UserName,
-                CourseId = subscription.CourseId
-            };
+                return new CourseSubscriptionDTO
+                {
+                    Id = subscription.Id,
+                    Rating = subscription.Rating,
+                    UserLogin = subscription.User?.UserName,
+                    CourseId = subscription.CourseId
+                };
+            }
+            return null;
         }
 
         public DeckSubscriptionDTO ConvertToDeckSubscriptionDTO(DeckSubscription subscription)
         {
-            return new DeckSubscriptionDTO
+            if(subscription != null)
             {
-                Id = subscription.Id,
-                Rating = subscription.Rating,
-                UserLogin = subscription.User?.UserName,
-                DeckId = subscription.DeckId
-            };
+                return new DeckSubscriptionDTO
+                {
+                    Id = subscription.Id,
+                    Rating = subscription.Rating,
+                    UserLogin = subscription.User?.UserName,
+                    DeckId = subscription.DeckId
+                };
+            }
+            return null;
         }
 
         public RoleDTO ConvertToRoleDTO(Role role)
