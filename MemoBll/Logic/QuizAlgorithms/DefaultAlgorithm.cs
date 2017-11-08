@@ -75,9 +75,9 @@ namespace MemoBll.Logic.QuizAlgorithms
                 SetCardStatusToNoAnswerIfLateness(statistics);
                 statistics.ToList().ForEach(stat =>
                 {
-                    if (stat.CardStatus == CORRECT)
+                    if (stat != null && stat.CardStatus == CORRECT)
                     {
-                        int passedHours = (DateTime.Now - stat.DateOfPassingQuiz).Hours;
+                        double passedHours = (DateTime.Now - stat.DateOfPassingQuiz).TotalHours;
 
                         if (stat.NumbersOfSequentialCorrectAnswers == ONECORRECT && passedHours > FirstRepeatInHours ||
                         stat.NumbersOfSequentialCorrectAnswers == TWOCORRECT && passedHours > SecondRepeatInHours ||
@@ -174,9 +174,9 @@ namespace MemoBll.Logic.QuizAlgorithms
             {
                 statistics.ToList().ForEach(stat =>
                 {
-                    if (stat.CardStatus == CORRECT)
+                    if (stat != null && stat.CardStatus == CORRECT)
                     {
-                        int passedHours = (DateTime.Now - stat.DateOfPassingQuiz).Hours;
+                        double passedHours = (DateTime.Now - stat.DateOfPassingQuiz).TotalHours;
 
                         if (stat.NumbersOfSequentialCorrectAnswers == ONECORRECT && passedHours > FirstDeadlineForRepeatInHours ||
                         stat.NumbersOfSequentialCorrectAnswers == TWOCORRECT && passedHours > SecondDeadlineForRepeatInHours ||

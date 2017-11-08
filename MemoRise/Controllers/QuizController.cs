@@ -150,7 +150,7 @@ namespace MemoRise.Controllers
                     }
                 });
 
-                return Ok(deckSubscriptionDTOs);
+                return Ok(decksNeedToRepeat);
             }
             catch (Exception ex)
             {
