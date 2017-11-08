@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlgorithmDTO.cs" />
     <Compile Include="AnswerDTO.cs" />
     <Compile Include="CardDTO.cs" />
     <Compile Include="CardTypeDTO.cs" />

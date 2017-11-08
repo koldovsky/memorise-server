@@ -1,5 +1,4 @@
-﻿
-namespace MemoBll.Logic
+﻿namespace MemoBll.Logic
 {
     public enum Repeat
     {

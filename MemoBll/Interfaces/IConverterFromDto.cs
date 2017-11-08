@@ -20,6 +20,8 @@ namespace MemoBll.Interfaces
 
         Answer ConvertToAnswer(AnswerDTO answer);
 
+        Algorithm ConvertToAlgorithm(AlgorithmDTO algorithmDTO);
+
         List<Answer> ConvertToAnswerList(IEnumerable<AnswerDTO> answers);
 
         Role ConvertToRole(RoleDTO role);

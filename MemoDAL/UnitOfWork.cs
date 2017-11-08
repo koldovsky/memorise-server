@@ -13,6 +13,7 @@ namespace MemoDAL
         #region Fields
 
         private MemoContext databaseContext;
+        private IAlgorithmRepository algorithms;
         private IAnswerRepository answers;
         private ICardRepository cards;
         private ICardTypeRepository cardTypes;
@@ -34,6 +35,7 @@ namespace MemoDAL
         public UnitOfWork(MemoContext context)
         {
             this.databaseContext = context;
+            this.algorithms = new AlgorithmRepository(databaseContext);
             this.answers = new AnswerRepository(databaseContext);
             this.cards = new CardRepository(databaseContext);
             this.cardTypes = new CardTypeRepository(databaseContext);
@@ -51,6 +53,11 @@ namespace MemoDAL
         }
 
         #region Properties
+
+        public IAlgorithmRepository Algorithms
+        {
+            get { return algorithms; }
+        }
 
         public IAnswerRepository Answers
         {

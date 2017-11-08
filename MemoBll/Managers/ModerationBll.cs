@@ -364,5 +364,11 @@ namespace MemoBll.Managers
             return moderation.FindCardTypeByName(cardTypeName);
         }
         #endregion
+
+        public IEnumerable<AlgorithmDTO> GetAllAlgorithms()
+        {
+            return moderation.GetAllAlgorithms()
+                .Select(c => converterToDTO.ConvertToAlgorithmDTO(c));
+        }
     }
 }

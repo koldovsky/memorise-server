@@ -6,6 +6,10 @@ namespace MemoBll.Interfaces
 {
 	public interface IConverterToDTO
     {
+        AlgorithmDTO ConvertToAlgorithmDTO(Algorithm answer);
+
+        List<AlgorithmDTO> ConvertToAlgorithmListDTO(IEnumerable<Algorithm> algorithms);
+
         DeckDTO ConvertToDeckDTO(Deck deck);
 
         List<DeckDTO> ConvertToDeckListDTO(IEnumerable<Deck> decks);

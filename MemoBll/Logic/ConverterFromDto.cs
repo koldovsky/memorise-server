@@ -24,6 +24,17 @@ namespace MemoBll.Logic
             unitOfWork = uow;
         }
 
+        public Algorithm ConvertToAlgorithm(AlgorithmDTO algorithmDTO)
+        {
+            return new Algorithm
+            {
+                Id = algorithmDTO.Id,
+                Name = algorithmDTO.Name,
+                Description = algorithmDTO.Description,
+                IsActive = algorithmDTO.IsActive
+            };
+        }
+
         public Answer ConvertToAnswer(AnswerDTO answerDTO)
         {
             return new Answer

@@ -32,7 +32,7 @@ namespace MemoBll.Logic
         public IEnumerable<DeckSubscription> GetDeckSubscriptions(
             string userLogin)
         {
-            return unitOfWork.DeckSubscriptions.GetAll()
+             return unitOfWork.DeckSubscriptions.GetAll()
                 .Where(subscription => subscription.User.UserName == userLogin);
         }
 

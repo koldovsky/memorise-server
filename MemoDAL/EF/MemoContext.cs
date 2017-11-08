@@ -11,6 +11,8 @@ namespace MemoDAL.EF
             Database.SetInitializer(new MemoInitializer());
         }
 
+        public DbSet<Algorithm> Algorithms { get; set; }
+
         public DbSet<Answer> Answers { get; set; }
 
         public DbSet<Card> Cards { get; set; }

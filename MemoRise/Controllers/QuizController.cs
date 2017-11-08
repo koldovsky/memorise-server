@@ -20,7 +20,9 @@ namespace MemoRise.Controllers
     {
         private QuizBll quiz = new QuizBll();
         private UserStatistics statistics = new UserStatistics();
+        private UserSubscriptionsBll userSubscriptions = new UserSubscriptionsBll();
         private ModerationBll moderation = new ModerationBll();
+        private CatalogBll catalogBll = new CatalogBll();
 
         [HttpGet]
         [Route("Quiz/GetCardsByCourse/{courseLink}")]
@@ -129,16 +131,71 @@ namespace MemoRise.Controllers
 
         [HttpGet]
         [Authorize]
-        [Route("Quiz/GetCardsNeedToRepeat/{userLogin}")]
-        public IHttpActionResult GetCardsNeedToRepeat(string userLogin)
+        [Route("Quiz/GetDecksNeedToRepeat/{userLogin}")]
+        public IHttpActionResult GetDecksNeedToRepeat(string userLogin)
         {
             try
             {
-                List<CardDTO> cards = new List<CardDTO>();
+                List<DeckDTO> decksNeedToRepeat = new List<DeckDTO>();
 
-                cards = quiz.GetCardsForRepeat(userLogin);
+                List<DeckSubscriptionDTO> deckSubscriptionDTOs = new List<DeckSubscriptionDTO>();
 
-                return Ok(cards);
+                deckSubscriptionDTOs = userSubscriptions.GetDeckSubscriptions(userLogin).ToList();
+
+                deckSubscriptionDTOs.ForEach(deckSub =>
+                {
+                    if(quiz.GetCardsForRepeat(statistics.GetDeckStatistics(userLogin, deckSub.DeckId)).Count() > 0)
+                    {
+                        decksNeedToRepeat.Add(catalogBll.GetDeckDTO(deckSub.DeckId));
+                    }
+                });
+
+                return Ok(decksNeedToRepeat);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("Quiz/GetCoursesNeedToRepeat/{userLogin}")]
+        public IHttpActionResult GetCoursesNeedToRepeat(string userLogin)
+        {
+            try
+            {
+                List<CourseDTO> coursesNeedToRepeat = new List<CourseDTO>();
+
+                List<CourseSubscriptionDTO> courseSubscriptionDTOs = new List<CourseSubscriptionDTO>();
+
+                courseSubscriptionDTOs = userSubscriptions.GetCourseSubscriptions(userLogin).ToList();
+
+                courseSubscriptionDTOs.ForEach(courseSub =>
+                {
+                    if (quiz.GetCardsForRepeat(statistics.GetCourseStatistics(userLogin, courseSub.CourseId)).Count() > 0)
+                    {
+                        coursesNeedToRepeat.Add(catalogBll.GetCourseDTO(courseSub.CourseId));
+                    }
+                });
+
+                return Ok(coursesNeedToRepeat);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [Authorize]
+        public IHttpActionResult ChangeAlgorithm(AlgorithmDTO algorithm)
+        {
+            try
+            {
+                quiz.ChangeAlgorithm(algorithm);
+
+                return Ok(algorithm);
             }
             catch (Exception ex)
             {

@@ -20,5 +20,9 @@ namespace MemoBll.Interfaces
         Course GetCourse(string courseName);
 
         Deck GetDeck(string linking);
+
+        Course GetCourse(int courseId);
+
+        Deck GetDeck(int deckId);
     }
 }

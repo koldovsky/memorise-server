@@ -121,6 +121,28 @@ namespace MemoBll.Logic
             return cardTypeDTOs;
         }
 
+        public AlgorithmDTO ConvertToAlgorithmDTO(Algorithm algorithm)
+        {
+            return new AlgorithmDTO
+            {
+                Id = algorithm.Id,
+                Name = algorithm.Name,
+                Description = algorithm.Description,
+                IsActive = algorithm.IsActive
+            };
+        }
+
+        public List<AlgorithmDTO> ConvertToAlgorithmListDTO(IEnumerable<Algorithm> algorithms)
+        {
+            List<AlgorithmDTO> algorithmDTOs = new List<AlgorithmDTO>();
+            foreach (Algorithm algorithm in algorithms)
+            {
+                algorithmDTOs.Add(ConvertToAlgorithmDTO(algorithm));
+            }
+
+            return algorithmDTOs;
+        }
+
         public AnswerDTO ConvertToAnswerDTO(Answer answer)
         {
             return new AnswerDTO
@@ -251,24 +273,32 @@ namespace MemoBll.Logic
 
         public CourseSubscriptionDTO ConvertToCourseSubscriptionDTO(CourseSubscription subscription)
         {
-            return new CourseSubscriptionDTO
+            if(subscription != null)
             {
-                Id = subscription.Id,
-                Rating = subscription.Rating,
-                UserLogin = subscription.User?.UserName,
-                CourseId = subscription.CourseId
-            };
+                return new CourseSubscriptionDTO
+                {
+                    Id = subscription.Id,
+                    Rating = subscription.Rating,
+                    UserLogin = subscription.User?.UserName,
+                    CourseId = subscription.CourseId
+                };
+            }
+            return null;
         }
 
         public DeckSubscriptionDTO ConvertToDeckSubscriptionDTO(DeckSubscription subscription)
         {
-            return new DeckSubscriptionDTO
+            if(subscription != null)
             {
-                Id = subscription.Id,
-                Rating = subscription.Rating,
-                UserLogin = subscription.User?.UserName,
-                DeckId = subscription.DeckId
-            };
+                return new DeckSubscriptionDTO
+                {
+                    Id = subscription.Id,
+                    Rating = subscription.Rating,
+                    UserLogin = subscription.User?.UserName,
+                    DeckId = subscription.DeckId
+                };
+            }
+            return null;
         }
 
         public RoleDTO ConvertToRoleDTO(Role role)
