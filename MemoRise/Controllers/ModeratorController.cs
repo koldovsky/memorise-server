@@ -403,5 +403,27 @@ namespace MemoRise.Controllers
             }
         }
         #endregion
+
+        [HttpGet]
+        [Authorize]
+        public IHttpActionResult GetAllAlgorithms()
+        {
+            try
+            {
+                List<AlgorithmDTO> algorithms = moderation.GetAllAlgorithms()
+                    .ToList();
+
+                return Ok(algorithms);
+            }
+            catch (ArgumentNullException ex)
+            {
+                var message = $"Algorithms collection is empty. {ex.Message}";
+                return BadRequest(message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

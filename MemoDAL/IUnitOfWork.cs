@@ -8,6 +8,8 @@ namespace MemoDAL
 {
     public interface IUnitOfWork : IDisposable
     {
+        IAlgorithmRepository Algorithms { get; }
+
         IAnswerRepository Answers { get; }
 
         ICardRepository Cards { get; }

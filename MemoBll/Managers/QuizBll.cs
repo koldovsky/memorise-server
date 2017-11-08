@@ -71,6 +71,12 @@ namespace MemoBll.Managers
             return converterToDTO.ConvertToCardListDTO(quiz.GetCardsForRepeat(statistics));
         }
 
+        public void ChangeAlgorithm(AlgorithmDTO algorithm)
+        {
+            Algorithm newAlgorithm = quiz.GetAlgorithm(algorithm.Id);
+            quiz.UpdateAlgorithms(newAlgorithm);
+        }
+
         public bool IsAnswerCorrect(int cardId, string answerText)
         {
             return quiz.IsAnswerCorrect(cardId, answerText);

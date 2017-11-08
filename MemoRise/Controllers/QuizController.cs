@@ -147,6 +147,22 @@ namespace MemoRise.Controllers
             }
         }
 
+        [HttpPut]
+        [Authorize]
+        public IHttpActionResult ChangeAlgorithm(AlgorithmDTO algorithm)
+        {
+            try
+            {
+                quiz.ChangeAlgorithm(algorithm);
+
+                return Ok(algorithm);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost]
         public IHttpActionResult GetSearchCardsByDeckLinking([FromBody]SearchDataModel searchDataModel)  
         {

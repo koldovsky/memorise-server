@@ -82,6 +82,8 @@ namespace MemoBll.Interfaces
 
         IEnumerable<CardType> GetAllCardTypes();
 
+        IEnumerable<Algorithm> GetAllAlgorithms();
+
         CardType FindCardTypeByName(string cardTypeName);
     }
 }

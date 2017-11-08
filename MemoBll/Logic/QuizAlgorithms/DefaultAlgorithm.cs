@@ -1,15 +1,11 @@
-﻿using System;
+﻿using MemoDAL.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MemoDAL.Entities;
-using MemoDAL;
-using MemoDAL.EF;
 
 namespace MemoBll.Logic.QuizAlgorithms
 {
-    class DefaultAlgorithm : IAlgorithm
+    public class DefaultAlgorithm : IAlgorithm
     {
         private const int CORRECT = 1;
         private const int INCORRECT = -1;
@@ -30,7 +26,8 @@ namespace MemoBll.Logic.QuizAlgorithms
         private const int ThirdDeadlineForRepeatInHours = 24 * 8;
         private const int FourthDeadlineForRepeatInHours = 24 * 24;
 
-        public IEnumerable<Card> GetCardsForQuiz(int numberOfCards,
+        public IEnumerable<Card> GetCardsForQuiz(
+            int numberOfCards,
            IEnumerable<Statistics> statistics)
         {
             var cardsForQuiz = new List<Card>();
@@ -40,7 +37,7 @@ namespace MemoBll.Logic.QuizAlgorithms
 
             if (cardsToRepeat.Count() > 0)
             {
-                cardsForQuiz.AddRange(cardsToRepeat);
+                cardsForQuiz.AddRange(cardsToRepeat.Take(numberOfCards));
             }
 
             if (cardsForQuiz.Count == numberOfCards)
@@ -76,7 +73,6 @@ namespace MemoBll.Logic.QuizAlgorithms
             int numberOfCards,
             IEnumerable<Statistics> currentStatistics)
         {
-
             var cards = new List<Card>();
             int numberOfCardsLeft = numberOfCards;
 

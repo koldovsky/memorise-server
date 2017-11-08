@@ -355,11 +355,11 @@ namespace MemoBll.Logic
             unitOfWork.Save();
         }
 
-        ////public Statistics GetStatistics(string deckName, int userId)
-        ////{
-        ////    throw new NotImplementedException();
-        ////}
-
         #endregion
+
+        public IEnumerable<Algorithm> GetAllAlgorithms()
+        {
+            return unitOfWork.Algorithms.GetAll();
+        }
     }
 }

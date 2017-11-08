@@ -1,4 +1,5 @@
-﻿using MemoDAL.Entities;
+﻿using MemoDAL;
+using MemoDAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,14 @@ namespace MemoBll.Logic.QuizAlgorithms
 {
     public class QuizLogic
     {
-        private IAlgorithm algorithm = new DefaultAlgorithm();
+        private IAlgorithm algorithm;
+
+        
+        public QuizLogic(IUnitOfWork unitOfWork)
+        {
+            string className = unitOfWork.Algorithms.GetAll().FirstOrDefault(alg => alg.IsActive == true).ClassName;
+            SetAlgorithm(className);
+        }
 
         public void SetAlgorithm(string className)
         {

@@ -20,5 +20,9 @@ namespace MemoBll.Interfaces
             IEnumerable<Statistics> statistics);
 
         IEnumerable<Card> GetCardsForRepeat(IEnumerable<Statistics> statistics);
+
+        void UpdateAlgorithms(Algorithm algorithm);
+
+        Algorithm GetAlgorithm(int id);
     }
 }

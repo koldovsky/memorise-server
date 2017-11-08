@@ -17,13 +17,12 @@ namespace MemoBll.Logic
         public Quiz()
         {
             this.unitOfWork = new UnitOfWork(new MemoContext());
-            this.quizLogic = new QuizLogic();
         }
 
         public Quiz(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
-            this.quizLogic = new QuizLogic();
+            this.quizLogic = new QuizLogic(unitOfWork);
         }
 
         public IEnumerable<Answer> GetAllAnswersInCard(int cardId)
@@ -58,11 +57,32 @@ namespace MemoBll.Logic
             return quizLogic.GetAllCardsForRepeat(statistics);
         }
 
-            public IEnumerable<Card> GetCardsByDeck(string deckLink)
+        public IEnumerable<Card> GetCardsByDeck(string deckLink)
         {
             return unitOfWork.Decks
                 .GetAll().FirstOrDefault(x => x.Linking == deckLink)?.Cards
                 ?? throw new ArgumentNullException();
+        }
+        
+        public Algorithm GetAlgorithm(int id)
+        {
+            return unitOfWork.Algorithms
+                .GetAll()
+                .FirstOrDefault(x => x.Id == id);
+        }
+
+        public void UpdateAlgorithms(Algorithm algorithm)
+        {
+            var algorithms = unitOfWork.Algorithms.GetAll().ToList();
+
+            foreach (var alg in algorithms)
+            {
+                alg.IsActive = false;
+                UpdateAlgorithm(alg);
+            }
+
+            algorithm.IsActive = true;
+            UpdateAlgorithm(algorithm);
         }
 
         public IEnumerable<Card> GetCardsByDeckArray(string[] deckLink)
@@ -110,5 +130,10 @@ namespace MemoBll.Logic
             }
         }
 
+        private void UpdateAlgorithm(Algorithm algorithm)
+        {
+            unitOfWork.Algorithms.Update(algorithm);
+            unitOfWork.Save();
+        }
     }
 }

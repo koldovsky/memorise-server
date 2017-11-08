@@ -121,6 +121,28 @@ namespace MemoBll.Logic
             return cardTypeDTOs;
         }
 
+        public AlgorithmDTO ConvertToAlgorithmDTO(Algorithm algorithm)
+        {
+            return new AlgorithmDTO
+            {
+                Id = algorithm.Id,
+                Name = algorithm.Name,
+                Description = algorithm.Description,
+                IsActive = algorithm.IsActive
+            };
+        }
+
+        public List<AlgorithmDTO> ConvertToAlgorithmListDTO(IEnumerable<Algorithm> algorithms)
+        {
+            List<AlgorithmDTO> algorithmDTOs = new List<AlgorithmDTO>();
+            foreach (Algorithm algorithm in algorithms)
+            {
+                algorithmDTOs.Add(ConvertToAlgorithmDTO(algorithm));
+            }
+
+            return algorithmDTOs;
+        }
+
         public AnswerDTO ConvertToAnswerDTO(Answer answer)
         {
             return new AnswerDTO
