@@ -2,6 +2,8 @@
 
 Requirements
 
-IIS 7.5+
-Microsoft .NET Framework 4.5+
-Visual Studio 2017
+Install VisualStudio 2017, SQL Server Express 2017
+
+Download project from GIT
+
+Open folder 'memorise-server' ans start MemoRise.sln
