@@ -823,6 +823,20 @@ namespace MemoDAL.EF
                                 }
                             }
                     ",
+                    IsCorrect = false,
+                    Card = cards[16]
+                },
+                new Answer
+                {
+                    Text = @"
+                            public class Quiz
+                            {
+                                public int Sum(int a, int b)
+                                {
+                                    return a + b;
+                                }
+                            }
+                    ",
                     IsCorrect = true,
                     Card = cards[16]
                 },
@@ -834,6 +848,20 @@ namespace MemoDAL.EF
                                 public int Remainder(int a, int b)
                                 {
                                     //Type your code here
+                                }
+                            }
+                    ",
+                    IsCorrect = false,
+                    Card = cards[17]
+                },
+                new Answer
+                {
+                    Text = @"
+                            public class Quiz
+                            {
+                                public int Remainder(int a, int b)
+                                {
+                                    return a % b;
                                 }
                             }
                     ",
@@ -936,6 +964,7 @@ namespace MemoDAL.EF
                 new Answer
                 {
                     Text = "LongLength",
+
                     IsCorrect = true,
                     Card = cards[22]
                 },
@@ -954,7 +983,7 @@ namespace MemoDAL.EF
                 new Answer
                 {
                     Text = "true",
-                    IsCorrect = true,
+                    IsCorrect = false,
                     Card = cards[23]
                 },
                 new Answer
