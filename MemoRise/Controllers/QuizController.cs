@@ -313,12 +313,12 @@ namespace MemoRise.Controllers
                     bool isAnswerRight = codeAnswerTests.IsAnswerRight(codeAnswerDTO.CardId, compileResult);
                     if (isAnswerRight)
                     {
-                        codeAnswerDTO.CodeAnswerText += "Right";
+                        codeAnswerDTO.CodeAnswerText += "Your answer is correct";
                         codeAnswerDTO.IsRight = true;
                     }
                     else
                     {
-                        codeAnswerDTO.CodeAnswerText += "Wrong";
+                        codeAnswerDTO.CodeAnswerText += "Your answer is uncorrect";
                         codeAnswerDTO.IsRight = false;
                     }
                 }
