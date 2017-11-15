@@ -13,6 +13,7 @@ namespace MemoRise.Areas.HelpPage
             {
                 throw new ArgumentNullException("errorMessage");
             }
+
             ErrorMessage = errorMessage;
         }
 

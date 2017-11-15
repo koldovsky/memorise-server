@@ -11,13 +11,13 @@ namespace MemoBll.Logic
 {
     public class UserStatistics : IUserStatistics
     {
-        private IUnitOfWork unitOfWork;
-        private string errorMessage = string.Empty;
-
         private const int CORRECT = 1;
         private const int INCORRECT = -1;
         private const int NOANSWER = 0;
 
+        private IUnitOfWork unitOfWork;
+        private string errorMessage = string.Empty;
+                
         public UserStatistics()
         {
             unitOfWork = new UnitOfWork(new MemoContext());
@@ -112,6 +112,7 @@ namespace MemoBll.Logic
                 {
                     statistics.DateOfPassingQuiz = DateTime.Now;
                 }
+
                 statistics.NumbersOfSequentialCorrectAnswers++;
             }
             else

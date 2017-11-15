@@ -17,6 +17,7 @@ namespace MemoRise.Areas.HelpPage
             {
                 throw new ArgumentNullException("src");
             }
+
             Src = src;
         }
 

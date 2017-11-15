@@ -1,5 +1,6 @@
-﻿using MemoBll.Managers;
-using MemoBll.Logic;
+﻿using MemoBll.Logic;
+using MemoBll.Managers;
+using MemoDAL.Entities;
 using MemoDTO;
 using MemoRise.Helpers;
 using MemoRise.Models;
@@ -12,7 +13,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using MemoDAL.Entities;
 
 namespace MemoRise.Controllers
 {
@@ -144,7 +144,7 @@ namespace MemoRise.Controllers
 
                 deckSubscriptionDTOs.ForEach(deckSub =>
                 {
-                    if(quiz.GetCardsForRepeat(statistics.GetDeckStatistics(userLogin, deckSub.DeckId)).Count() > 0)
+                    if (quiz.GetCardsForRepeat(statistics.GetDeckStatistics(userLogin, deckSub.DeckId)).Count() > 0)
                     {
                         decksNeedToRepeat.Add(catalogBll.GetDeckDTO(deckSub.DeckId));
                     }

@@ -273,7 +273,7 @@ namespace MemoBll.Logic
 
         public CourseSubscriptionDTO ConvertToCourseSubscriptionDTO(CourseSubscription subscription)
         {
-            if(subscription != null)
+            if (subscription != null)
             {
                 return new CourseSubscriptionDTO
                 {
@@ -283,12 +283,13 @@ namespace MemoBll.Logic
                     CourseId = subscription.CourseId
                 };
             }
+
             return null;
         }
 
         public DeckSubscriptionDTO ConvertToDeckSubscriptionDTO(DeckSubscription subscription)
         {
-            if(subscription != null)
+            if (subscription != null)
             {
                 return new DeckSubscriptionDTO
                 {
@@ -298,6 +299,7 @@ namespace MemoBll.Logic
                     DeckId = subscription.DeckId
                 };
             }
+
             return null;
         }
 

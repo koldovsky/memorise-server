@@ -10,7 +10,6 @@ namespace MemoBll.Logic.QuizAlgorithms
     {
         private IAlgorithm algorithm;
 
-        
         public QuizLogic(IUnitOfWork unitOfWork)
         {
             string className = unitOfWork.Algorithms.GetAll().FirstOrDefault(alg => alg.IsActive == true).ClassName;
@@ -23,13 +22,14 @@ namespace MemoBll.Logic.QuizAlgorithms
             this.algorithm = Activator.CreateInstance(type) as IAlgorithm;
         }
 
-        public IEnumerable<Card> GetCards(int numberOfCards,
+        public IEnumerable<Card> GetCards(
+            int numberOfCards,
             IEnumerable<Statistics> statistics)
         {
-            return this.algorithm.GetCardsForQuiz(numberOfCards,statistics); 
+            return this.algorithm.GetCardsForQuiz(numberOfCards, statistics); 
         }
 
-        public IEnumerable<Card> GetAllCardsForRepeat (IEnumerable<Statistics> statistics)
+        public IEnumerable<Card> GetAllCardsForRepeat(IEnumerable<Statistics> statistics)
         {
             return this.algorithm.GetCardsForRepeat(statistics);
         }

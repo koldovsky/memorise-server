@@ -1289,7 +1289,6 @@ namespace MemoDAL.EF
             {
                 new Algorithm { Name = "Five Repeat intervals", Description = "Quiz cads depends on card status and have reminder for repeat.", ClassName = "DefaultAlgorithm", IsActive = true },
                 new Algorithm { Name = "Just random", Description = "You get random quiz cards without any logic.", ClassName = "RandomAlgorithm", IsActive = false }
-                
             };
             context.Algorithms.AddRange(algorithms);
 
