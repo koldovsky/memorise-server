@@ -148,7 +148,7 @@ namespace MemoBll.Logic.QuizAlgorithms
             {
                 statistics.ToList().ForEach(stat =>
                 {
-                    if (stat.CardStatus == CORRECT)
+                    if (stat != null && stat.CardStatus == CORRECT)
                     {
                         int passedHours = (DateTime.Now - stat.DateOfPassingQuiz).Hours;
 
@@ -189,7 +189,7 @@ namespace MemoBll.Logic.QuizAlgorithms
                 SetCardStatusToNoAnswerIfLateness(statistics);
                 statistics.ToList().ForEach(stat =>
                 {
-                    if (stat.CardStatus == CORRECT)
+                    if (stat != null && stat.CardStatus == CORRECT)
                     {
                         int passedHours = (DateTime.Now - stat.DateOfPassingQuiz).Hours;
 
