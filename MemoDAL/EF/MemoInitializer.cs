@@ -198,148 +198,166 @@ namespace MemoDAL.EF
 
                 #region Base knowledge
 
-                new Card
+                new Card //12
                 {
-                     Question = "What key word is used in class declaration to prevent the class from being inherited from other classes?",
+                     Question = @"What key word is used in class declaration to prevent 
+                                the class from being inherited from other classes?",
                      CardType = cardTypes[2],
                      Deck = decks[12]
                 },
-                new Card
+                new Card //13
                 {
-                     Question = "What operator is used for checking the object with type and this will return a Boolean value?",
+                     Question = @"What operator is used for checking the object 
+                                with type and this will return a Boolean value?",
                      CardType = cardTypes[2],
                      Deck = decks[12]
                 },
-                new Card
+                new Card //14
                 {
                      Question = "What is name of the compiler for C#?",
                      CardType = cardTypes[2],
                      Deck = decks[12]
                 },
-                new Card
+                new Card  //15
                 {
                      Question = "What is the base type for all other types in C#?",
                      CardType = cardTypes[2],
                      Deck = decks[12]
                 },
-                new Card
+                new Card //16
                 {
                      Question = @"Return sum a and b",
                      CardType = cardTypes[3],
                      Deck = decks[12]
                 },
-                new Card
+                new Card //17
                 {
                      Question = @"Return remainder from dividing a to b",
                      CardType = cardTypes[3],
                      Deck = decks[12]
                 },
-                new Card
+                new Card //18
                 {
-                     Question = "2What key word is used in class declaration to prevent the class from being inherited from other classes?",
-                     CardType = cardTypes[2],
+                     Question = "The assignment operators cannot be overloaded.",
+                     CardType = cardTypes[0],
                      Deck = decks[12]
                 },
-                new Card
+                new Card //19
                 {
-                     Question = "2What operator is used for checking the object with type and this will return a Boolean value?",
-                     CardType = cardTypes[2],
+                     Question = @"Which of the following property of Array class in C# gets 
+                                a 32-bit integer, the total number of elements 
+                                in all the dimensions of the Array?",
+                     CardType = cardTypes[0],
                      Deck = decks[12]
                 },
-                new Card
+                new Card //20
                 {
-                     Question = "2What is name of the compiler for C#?",
-                     CardType = cardTypes[2],
+                     Question = "Which of the following converts a type to a signed byte type in C#?",
+                     CardType = cardTypes[0],
                      Deck = decks[12]
                 },
-                new Card
+                new Card //21
                 {
-                     Question = "2What is the base type for all other types in C#?",
-                     CardType = cardTypes[2],
+                     Question = "Which of the following is correct about params in C#?",
+                     CardType = cardTypes[0],
                      Deck = decks[12]
                 },
-                new Card
+                new Card //22
                 {
-                     Question = @"2Return sum a and b",
-                     CardType = cardTypes[3],
+                     Question = @"Which of the following property of Array class in C# 
+                                gets a 64-bit integer, the total number of 
+                                elements in all the dimensions of the Array?",
+                     CardType = cardTypes[0],
                      Deck = decks[12]
                 },
-                new Card
+                new Card //23
                 {
-                     Question = @"2Return remainder from dividing a to b",
-                     CardType = cardTypes[3],
+                     Question = @"User-defined exception classes are derived from 
+                                the ApplicationException class in C#?",
+                     CardType = cardTypes[0],
                      Deck = decks[12]
                 },
-                new Card
+                new Card //24
                 {
-                     Question = "3What key word is used in class declaration to prevent the class from being inherited from other classes?",
-                     CardType = cardTypes[2],
+                     Question = @"Which of the following preprocessor directive allows 
+                                generating a level one warning from a specific 
+                                location in your code in C#?",
+                     CardType = cardTypes[0],
                      Deck = decks[12]
                 },
-                new Card
+                new Card //25
                 {
-                     Question = "3What operator is used for checking the object with type and this will return a Boolean value?",
-                     CardType = cardTypes[2],
+                     Question = "Which of the following converts a type to a 64-bit integer in C#?",
+                     CardType = cardTypes[0],
                      Deck = decks[12]
                 },
-                new Card
+                new Card //26
                 {
-                     Question = "3What is name of the compiler for C#?",
-                     CardType = cardTypes[2],
+                     Question = "Which of the following is correct about C#?",
+                     CardType = cardTypes[0],
                      Deck = decks[12]
                 },
-                new Card
+                new Card //27
                 {
-                     Question = "3What is the base type for all other types in C#?",
-                     CardType = cardTypes[2],
+                     Question = @"Which of the following operator returns 
+                                the address of an variable in C#?",
+                     CardType = cardTypes[0],
                      Deck = decks[12]
                 },
-                new Card
+                new Card //28
                 {
-                     Question = @"3Return sum a and b",
-                     CardType = cardTypes[3],
+                     Question = @"Which of the following property of Array class in C# 
+                                checks whether the Array is readonly?",
+                     CardType = cardTypes[0],
                      Deck = decks[12]
                 },
-                new Card
+                new Card //29
                 {
-                     Question = @"3Return remainder from dividing a to b",
-                     CardType = cardTypes[3],
+                     Question = @"Dynamic polymorphism is implemented by 
+                                abstract classes and virtual functions.",
+                     CardType = cardTypes[0],
                      Deck = decks[12]
                 },
-                new Card
+                new Card //30
                 {
-                     Question = "4What key word is used in class declaration to prevent the class from being inherited from other classes?",
-                     CardType = cardTypes[2],
+                     Question = @"Which of the following converts a type to 
+                                a single Unicode character, where possible in C#?",
+                     CardType = cardTypes[0],
                      Deck = decks[12]
                 },
-                new Card
+                new Card //31
                 {
-                     Question = "4What operator is used for checking the object with type and this will return a Boolean value?",
-                     CardType = cardTypes[2],
+                     Question = "Which of the following is true about C# structures?",
+                     CardType = cardTypes[0],
                      Deck = decks[12]
                 },
-                new Card
+                new Card //32
                 {
-                     Question = "4What is name of the compiler for C#?",
-                     CardType = cardTypes[2],
+                     Question = @"Which of the following preprocessor directive defines 
+                                a sequence of characters as symbol in C#?",
+                     CardType = cardTypes[0],
                      Deck = decks[12]
                 },
-                new Card
+                new Card //33
                 {
-                     Question = "4What is the base type for all other types in C#?",
-                     CardType = cardTypes[2],
+                     Question = @"Which of the following is the correct about
+                                class member functions?",
+                     CardType = cardTypes[0],
                      Deck = decks[12]
                 },
-                new Card
+                new Card //34
                 {
-                     Question = @"4Return sum a and b",
-                     CardType = cardTypes[3],
+                     Question = @"Which of the following statements is correct 
+                                about access specifiers in C#?",
+                     CardType = cardTypes[0],
                      Deck = decks[12]
                 },
-                new Card
+                new Card //35
                 {
-                     Question = @"4Return remainder from dividing a to b",
-                     CardType = cardTypes[3],
+                     Question = @"Which of the following method copies the actual 
+                                value of an argument into the formal 
+                                parameter of the function?",
+                     CardType = cardTypes[0],
                      Deck = decks[12]
                 },
                 #endregion
@@ -824,212 +842,410 @@ namespace MemoDAL.EF
                 },
                 new Answer
                 {
-                    Text = "sealed",
+                    Text = "true",
                     IsCorrect = true,
                     Card = cards[18]
                 },
                 new Answer
                 {
-                    Text = "is",
+                    Text = "false",
+                    IsCorrect = false,
+                    Card = cards[18]
+                },
+                new Answer
+                {
+                    Text = "Rank",
+                    IsCorrect = false,
+                    Card = cards[19]
+                },
+                new Answer
+                {
+                    Text = "LongLength",
+                    IsCorrect = false,
+                    Card = cards[19]
+                },
+                new Answer
+                {
+                    Text = "Length",
                     IsCorrect = true,
                     Card = cards[19]
                 },
                 new Answer
                 {
-                    Text = "CSC",
+                    Text = "None of the above.",
+                    IsCorrect = false,
+                    Card = cards[19]
+                },
+                new Answer
+                {
+                    Text = "ToInt64",
+                    IsCorrect = false,
+                    Card = cards[20]
+                },
+                new Answer
+                {
+                    Text = "ToSbyte",
                     IsCorrect = true,
                     Card = cards[20]
                 },
                 new Answer
                 {
-                    Text = "csc",
-                    IsCorrect = true,
+                    Text = "ToSingle",
+                    IsCorrect = false,
                     Card = cards[20]
                 },
                 new Answer
                 {
-                    Text = "object",
+                    Text = "ToInt32",
+                    IsCorrect = false,
+                    Card = cards[20]
+                },
+                new Answer
+                {
+                    Text = @"By using the params keyword, a method parameter 
+                            can be specified which takes a variable number 
+                            of arguments or even no argument.",
+                    IsCorrect = false,
+                    Card = cards[21]
+                },
+                new Answer
+                {
+                    Text = @"Additional parameters are not permitted after 
+                            the params keyword in a method declaration.",
+                    IsCorrect = false,
+                    Card = cards[21]
+                },
+                new Answer
+                {
+                    Text = "Only one params keyword is allowed in a method declaration.",
+                    IsCorrect = false,
+                    Card = cards[21]
+                },
+                new Answer
+                {
+                    Text = "All of the above.",
                     IsCorrect = true,
                     Card = cards[21]
                 },
                 new Answer
                 {
-                    Text = "System.Object",
-                    IsCorrect = true,
-                    Card = cards[21]
+                    Text = "Rank",
+                    IsCorrect = false,
+                    Card = cards[22]
                 },
                 new Answer
                 {
-                    Text = "Object",
-                    IsCorrect = true,
-                    Card = cards[21]
-                },
-                new Answer
-                {
-                    Text = @"
-                            public class Quiz
-                            {
-                                public int Sum(int a, int b)
-                                {
-                                    //Type your code here
-                                }
-                            }
-                    ",
+                    Text = "LongLength",
                     IsCorrect = true,
                     Card = cards[22]
                 },
                 new Answer
                 {
-                    Text = @"
-                            public class Quiz
-                            {
-                                public int Remainder(int a, int b)
-                                {
-                                    //Type your code here
-                                }
-                            }
-                    ",
+                    Text = "Length",
+                    IsCorrect = false,
+                    Card = cards[22]
+                },
+                new Answer
+                {
+                    Text = "None of the above.",
+                    IsCorrect = false,
+                    Card = cards[22]
+                },
+                new Answer
+                {
+                    Text = "true",
                     IsCorrect = true,
                     Card = cards[23]
                 },
                 new Answer
                 {
-                    Text = "sealed",
+                    Text = "false",
+                    IsCorrect = false,
+                    Card = cards[23]
+                },
+                new Answer
+                {
+                    Text = "warning",
                     IsCorrect = true,
                     Card = cards[24]
                 },
                 new Answer
                 {
-                    Text = "is",
+                    Text = "region",
+                    IsCorrect = false,
+                    Card = cards[24]
+                },
+                new Answer
+                {
+                    Text = "line",
+                    IsCorrect = false,
+                    Card = cards[24]
+                },
+                new Answer
+                {
+                    Text = "error",
+                    IsCorrect = false,
+                    Card = cards[24]
+                },
+                new Answer
+                {
+                    Text = "ToInt64",
                     IsCorrect = true,
                     Card = cards[25]
                 },
                 new Answer
                 {
-                    Text = "CSC",
+                    Text = "ToSbyte",
+                    IsCorrect = false,
+                    Card = cards[25]
+                },
+                new Answer
+                {
+                    Text = "ToSingle",
+                    IsCorrect = false,
+                    Card = cards[25]
+                },
+                new Answer
+                {
+                    Text = "ToInt32",
+                    IsCorrect = false,
+                    Card = cards[25]
+                },
+                new Answer
+                {
+                    Text = @"C# is a modern, general-purpose, object-oriented 
+                            programming language developed by Microsoft.",
+                    IsCorrect = false,
+                    Card = cards[26]
+                },
+                new Answer
+                {
+                    Text = @"C# was developed by Anders Hejlsberg and 
+                            his team during the development of .Net Framework.",
+                    IsCorrect = false,
+                    Card = cards[26]
+                },
+                new Answer
+                {
+                    Text = @"C# is designed for Common Language 
+                            Infrastructure (CLI).",
+                    IsCorrect = false,
+                    Card = cards[26]
+                },
+                new Answer
+                {
+                    Text = "All of the above.",
                     IsCorrect = true,
                     Card = cards[26]
                 },
                 new Answer
                 {
-                    Text = "csc",
-                    IsCorrect = true,
-                    Card = cards[26]
+                    Text = "sizeof",
+                    IsCorrect = false,
+                    Card = cards[27]
                 },
                 new Answer
                 {
-                    Text = "object",
+                    Text = "typeof",
+                    IsCorrect = false,
+                    Card = cards[27]
+                },
+                new Answer
+                {
+                    Text = "&",
                     IsCorrect = true,
                     Card = cards[27]
                 },
                 new Answer
                 {
-                    Text = "System.Object",
-                    IsCorrect = true,
+                    Text = "*",
+                    IsCorrect = false,
                     Card = cards[27]
                 },
                 new Answer
                 {
-                    Text = "Object",
-                    IsCorrect = true,
-                    Card = cards[27]
+                    Text = "IsFixedSize",
+                    IsCorrect = false,
+                    Card = cards[28]
                 },
                 new Answer
                 {
-                    Text = @"
-                            public class Quiz
-                            {
-                                public int Sum(int a, int b)
-                                {
-                                    //Type your code here
-                                }
-                            }
-                    ",
+                    Text = "IsReadOnly",
                     IsCorrect = true,
                     Card = cards[28]
                 },
                 new Answer
                 {
-                    Text = @"
-                            public class Quiz
-                            {
-                                public int Remainder(int a, int b)
-                                {
-                                    //Type your code here
-                                }
-                            }
-                    ",
+                    Text = "Length",
+                    IsCorrect = false,
+                    Card = cards[28]
+                },
+                new Answer
+                {
+                    Text = "None of the above.",
+                    IsCorrect = false,
+                    Card = cards[28]
+                },
+                new Answer
+                {
+                    Text = "true",
                     IsCorrect = true,
                     Card = cards[29]
                 },
                 new Answer
                 {
-                    Text = "sealed",
+                    Text = "false",
+                    IsCorrect = false,
+                    Card = cards[29]
+                },
+                new Answer
+                {
+                    Text = "ToSingle",
+                    IsCorrect = false,
+                    Card = cards[30]
+                },
+                new Answer
+                {
+                    Text = "ToByte",
+                    IsCorrect = false,
+                    Card = cards[30]
+                },
+                new Answer
+                {
+                    Text = "ToChar",
                     IsCorrect = true,
                     Card = cards[30]
                 },
                 new Answer
                 {
-                    Text = "is",
+                    Text = "ToDateTime",
+                    IsCorrect = false,
+                    Card = cards[30]
+                },
+                new Answer
+                {
+                    Text = @"Unlike classes, structures cannot 
+                            inherit other structures or classes.",
+                    IsCorrect = false,
+                    Card = cards[31]
+                },
+                new Answer
+                {
+                    Text = @"Structure members cannot be specified 
+                            as abstract, virtual, or protected.",
+                    IsCorrect = false,
+                    Card = cards[31]
+                },
+                new Answer
+                {
+                    Text = "A structure can implement one or more interfaces.",
+                    IsCorrect = false,
+                    Card = cards[31]
+                },
+                new Answer
+                {
+                    Text = "All of the above.",
                     IsCorrect = true,
                     Card = cards[31]
                 },
                 new Answer
                 {
-                    Text = "CSC",
+                    Text = "define",
                     IsCorrect = true,
                     Card = cards[32]
                 },
                 new Answer
                 {
-                    Text = "csc",
-                    IsCorrect = true,
+                    Text = "undef",
+                    IsCorrect = false,
                     Card = cards[32]
                 },
                 new Answer
                 {
-                    Text = "object",
+                    Text = "region",
+                    IsCorrect = false,
+                    Card = cards[32]
+                },
+                new Answer
+                {
+                    Text = "endregion",
+                    IsCorrect = false,
+                    Card = cards[32]
+                },
+                new Answer
+                {
+                    Text = @"A member function of a class is a function that 
+                            has its definition or its prototype within 
+                            the class definition similar to any other variable.",
+                    IsCorrect = false,
+                    Card = cards[33]
+                },
+                new Answer
+                {
+                    Text = @"It operates on any object of the class of which 
+                            it is a member, and has access to all 
+                            the members of a class for that object.",
+                    IsCorrect = false,
+                    Card = cards[33]
+                },
+                new Answer
+                {
+                    Text = "Both of the above.",
                     IsCorrect = true,
                     Card = cards[33]
                 },
                 new Answer
                 {
-                    Text = "System.Object",
-                    IsCorrect = true,
+                    Text = "None of the above.",
+                    IsCorrect = false,
                     Card = cards[33]
                 },
                 new Answer
                 {
-                    Text = "Object",
-                    IsCorrect = true,
-                    Card = cards[33]
+                    Text = "Encapsulation is implemented by using access specifiers.",
+                    IsCorrect = false,
+                    Card = cards[34]
                 },
                 new Answer
                 {
-                    Text = @"
-                            public class Quiz
-                            {
-                                public int Sum(int a, int b)
-                                {
-                                    //Type your code here
-                                }
-                            }
-                    ",
+                    Text = "An access specifier defines the scope and visibility of a class member.",
+                    IsCorrect = false,
+                    Card = cards[34]
+                },
+                new Answer
+                {
+                    Text = "Both of the above.",
                     IsCorrect = true,
                     Card = cards[34]
                 },
                 new Answer
                 {
-                    Text = @"
-                            public class Quiz
-                            {
-                                public int Remainder(int a, int b)
-                                {
-                                    //Type your code here
-                                }
-                            }
-                    ",
+                    Text = "endregion",
+                    IsCorrect = false,
+                    Card = cards[34]
+                },
+                new Answer
+                {
+                    Text = "Value parameters",
                     IsCorrect = true,
+                    Card = cards[35]
+                },
+                new Answer
+                {
+                    Text = "Reference parameters",
+                    IsCorrect = false,
+                    Card = cards[35]
+                },
+                new Answer
+                {
+                    Text = "Output parameters",
+                    IsCorrect = false,
+                    Card = cards[35]
+                },
+                new Answer
+                {
+                    Text = "None of the above.",
+                    IsCorrect = false,
                     Card = cards[35]
                 },
                 #endregion
