@@ -68,6 +68,32 @@ namespace MemoBll.Logic.QuizAlgorithms
             return cardsForQuiz;
         }
 
+        public IEnumerable<Card> GetCardsForRepeat(IEnumerable<Statistics> statistics)
+        {
+            List<Card> result = new List<Card>();
+            if (statistics != null)
+            {
+                SetCardStatusToNoAnswerIfLateness(statistics);
+                statistics.ToList().ForEach(stat =>
+                {
+                    if (stat != null && stat.CardStatus == CORRECT)
+                    {
+                        int passedHours = (DateTime.Now - stat.DateOfPassingQuiz).Hours;
+
+                        if (stat.NumbersOfSequentialCorrectAnswers == ONECORRECT && passedHours > FirstRepeatInHours ||
+                        stat.NumbersOfSequentialCorrectAnswers == TWOCORRECT && passedHours > SecondRepeatInHours ||
+                        stat.NumbersOfSequentialCorrectAnswers == THREECORRECT && passedHours > ThirdRepeatInHours ||
+                        stat.NumbersOfSequentialCorrectAnswers == FOURCORRECT && passedHours > FourthRepeatInHours)
+                        {
+                            result.Add(stat.Card);
+                        }
+                    }
+                });
+            }
+
+            return result;
+        }
+
         private IEnumerable<Card> GetCardsWithInCorrectPriority(
             List<Card> cardsForQuiz,
             int numberOfCards,
@@ -179,32 +205,5 @@ namespace MemoBll.Logic.QuizAlgorithms
                  .OrderBy(card => Guid.NewGuid())
                  .Take(numberOfCards);
         }
-
-        public IEnumerable<Card> GetCardsForRepeat(IEnumerable<Statistics> statistics)
-        {
-            List<Card> result = new List<Card>();
-            if (statistics != null)
-            {
-                SetCardStatusToNoAnswerIfLateness(statistics);
-                statistics.ToList().ForEach(stat =>
-                {
-                    if (stat != null && stat.CardStatus == CORRECT)
-                    {
-                        int passedHours = (DateTime.Now - stat.DateOfPassingQuiz).Hours;
-
-                        if (stat.NumbersOfSequentialCorrectAnswers == ONECORRECT && passedHours > FirstRepeatInHours ||
-                        stat.NumbersOfSequentialCorrectAnswers == TWOCORRECT && passedHours > SecondRepeatInHours ||
-                        stat.NumbersOfSequentialCorrectAnswers == THREECORRECT && passedHours > ThirdRepeatInHours ||
-                        stat.NumbersOfSequentialCorrectAnswers == FOURCORRECT && passedHours > FourthRepeatInHours
-                        )
-                        {
-                            result.Add(stat.Card);
-                        }
-                    }
-                });
-            }
-            return result;
-        }
-
     }
 }
