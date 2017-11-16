@@ -113,13 +113,13 @@ namespace MemoDAL.EF
 
                 new Card
                 {
-                    Question = "Which of the following is the correct output of the C#.NET code snippet given below?  \n int[ , , ] a = new int[ 3, 2, 3 ]; \n Console.WriteLine(a.Length); ",
+                    Question = "Which of the following is the correct output of the C#.NET code snippet given below?  \n ```C#\n int[ , , ] a = new int[ 3, 2, 3 ]; \n Console.WriteLine(a.Length);\n``` ",
                     Deck = decks[0],
                     CardType  = cardTypes[0]
                 },
                 new Card
                 {
-                    Question = "Which of the following statements are correct about the C#.NET code snippet given below?  \n int[][][] intMyArr = new int[2][][];",
+                    Question = "Which of the following statements are correct about the C#.NET code snippet given below?  \n ```C#\n int[][][] intMyArr = new int[2][][];\n``` ",
                     Deck = decks[0],
                     CardType  = cardTypes[1]
                 },
@@ -814,57 +814,33 @@ namespace MemoDAL.EF
                 },
                 new Answer
                 {
-                    Text = @"
-                            public class Quiz
-                            {
-                                public int Sum(int a, int b)
-                                {
-                                    //Type your code here
-                                }
-                            }
-                    ",
+                    Text = "\npublic class Quiz\n{\n\tpublic int Sum(int a, int b)\n"
+                            +
+                            "\t{\n\t\t//Type your code here;\n\t}\n}",
                     IsCorrect = false,
                     Card = cards[16]
                 },
                 new Answer
                 {
-                    Text = @"
-                            public class Quiz
-                            {
-                                public int Sum(int a, int b)
-                                {
-                                    return a + b;
-                                }
-                            }
-                    ",
+                    Text = "\npublic class Quiz\n{\n\tpublic int Sum(int a, int b)\n"
+                            +
+                            "\t{\n\t\treturn a + b;\n\t}\n}",
                     IsCorrect = true,
                     Card = cards[16]
                 },
                 new Answer
                 {
-                    Text = @"
-                            public class Quiz
-                            {
-                                public int Remainder(int a, int b)
-                                {
-                                    //Type your code here
-                                }
-                            }
-                    ",
+                    Text = "\npublic class Quiz\n{\n\tpublic int Remainder(int a, int b)\n"
+                            +
+                            "\t{\n\t\t//Type your code here;\n\t}\n}",
                     IsCorrect = false,
                     Card = cards[17]
                 },
                 new Answer
                 {
-                    Text = @"
-                            public class Quiz
-                            {
-                                public int Remainder(int a, int b)
-                                {
-                                    return a % b;
-                                }
-                            }
-                    ",
+                    Text = "\npublic class Quiz\n{\n\tpublic int Remainder(int a, int b)\n"
+                            +
+                            "\t{\n\t\treturn a % b;\n\t}\n}",
                     IsCorrect = true,
                     Card = cards[17]
                 },
