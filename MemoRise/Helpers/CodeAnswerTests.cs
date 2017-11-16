@@ -6,12 +6,16 @@ namespace MemoRise.Helpers
 {
     public class CodeAnswerTests
     {
+        private const int cardSum = 17;
+
+        private const int cardRemaind = 18;
+
         public bool IsAnswerRight(int cardId, CompilerResults compilerResult)
         {
             switch (cardId)
             {
-                case 17: return IsAnswerForCardId16Right(compilerResult);
-                case 18: return IsAnswerForCardId17Right(compilerResult);
+                case cardSum: return IsAnswerForCardId16Right(compilerResult);
+                case cardRemaind: return IsAnswerForCardId17Right(compilerResult);
                 default: return false;
             }
         }
@@ -21,15 +25,24 @@ namespace MemoRise.Helpers
             Type calcType = compilerResult.CompiledAssembly.GetType("Quiz");
             object calc = Activator.CreateInstance(calcType);
 
-            int actualResult = (int)calcType.InvokeMember("Sum", BindingFlags.InvokeMethod, null, calc, new object[] { 0, 0 });
+            int actualResult = (int)calcType
+                .InvokeMember("Sum", BindingFlags.InvokeMethod, null, calc, new object[] { 0, 0 });
             int expectedResult = 0;
-            int actualResult2 = (int)calcType.InvokeMember("Sum", BindingFlags.InvokeMethod, null, calc, new object[] { -5, 7 });
+
+            int actualResult2 = (int)calcType
+                .InvokeMember("Sum", BindingFlags.InvokeMethod, null, calc, new object[] { -5, 7 });
             int expectedResult2 = 2;
-            int actualResult3 = (int)calcType.InvokeMember("Sum", BindingFlags.InvokeMethod, null, calc, new object[] { 10, 130 });
+
+            int actualResult3 = (int)calcType
+                .InvokeMember("Sum", BindingFlags.InvokeMethod, null, calc, new object[] { 10, 130 });
             int expectedResult3 = 140;
-            int actualResult4 = (int)calcType.InvokeMember("Sum", BindingFlags.InvokeMethod, null, calc, new object[] { 4, -54 });
+
+            int actualResult4 = (int)calcType
+                .InvokeMember("Sum", BindingFlags.InvokeMethod, null, calc, new object[] { 4, -54 });
             int expectedResult4 = -50;
-            int actualResult5 = (int)calcType.InvokeMember("Sum", BindingFlags.InvokeMethod, null, calc, new object[] { -4, -54 });
+
+            int actualResult5 = (int)calcType
+                .InvokeMember("Sum", BindingFlags.InvokeMethod, null, calc, new object[] { -4, -54 });
             int expectedResult5 = -58;
 
             if (actualResult == expectedResult &&
@@ -62,21 +75,36 @@ namespace MemoRise.Helpers
                 isDivideByZeroException = true;
             }
 
-            int actualResult2 = (int)calcType.InvokeMember("Remainder", BindingFlags.InvokeMethod, null, calc, new object[] { 7, 5 });
+            int actualResult2 = (int)calcType
+                .InvokeMember("Remainder", BindingFlags.InvokeMethod, null, calc, new object[] { 7, 5 });
             int expectedResult2 = 2;
-            int actualResult3 = (int)calcType.InvokeMember("Remainder", BindingFlags.InvokeMethod, null, calc, new object[] { 5, 7 });
+
+            int actualResult3 = (int)calcType
+                .InvokeMember("Remainder", BindingFlags.InvokeMethod, null, calc, new object[] { 5, 7 });
             int expectedResult3 = 5;
-            int actualResult4 = (int)calcType.InvokeMember("Remainder", BindingFlags.InvokeMethod, null, calc, new object[] { 2, -47 });
+
+            int actualResult4 = (int)calcType
+                .InvokeMember("Remainder", BindingFlags.InvokeMethod, null, calc, new object[] { 2, -47 });
             int expectedResult4 = 2;
-            int actualResult5 = (int)calcType.InvokeMember("Remainder", BindingFlags.InvokeMethod, null, calc, new object[] { 54, -7 });
+
+            int actualResult5 = (int)calcType
+                .InvokeMember("Remainder", BindingFlags.InvokeMethod, null, calc, new object[] { 54, -7 });
             int expectedResult5 = 5;
-            int actualResult6 = (int)calcType.InvokeMember("Remainder", BindingFlags.InvokeMethod, null, calc, new object[] { -74, 13 });
+
+            int actualResult6 = (int)calcType
+                .InvokeMember("Remainder", BindingFlags.InvokeMethod, null, calc, new object[] { -74, 13 });
             int expectedResult6 = -9;
-            int actualResult7 = (int)calcType.InvokeMember("Remainder", BindingFlags.InvokeMethod, null, calc, new object[] { -3, 58 });
+
+            int actualResult7 = (int)calcType
+                .InvokeMember("Remainder", BindingFlags.InvokeMethod, null, calc, new object[] { -3, 58 });
             int expectedResult7 = -3;
-            int actualResult8 = (int)calcType.InvokeMember("Remainder", BindingFlags.InvokeMethod, null, calc, new object[] { -54, -11 });
+
+            int actualResult8 = (int)calcType
+                .InvokeMember("Remainder", BindingFlags.InvokeMethod, null, calc, new object[] { -54, -11 });
             int expectedResult8 = -10;
-            int actualResult9 = (int)calcType.InvokeMember("Remainder", BindingFlags.InvokeMethod, null, calc, new object[] { -11, -51 });
+
+            int actualResult9 = (int)calcType
+                .InvokeMember("Remainder", BindingFlags.InvokeMethod, null, calc, new object[] { -11, -51 });
             int expectedResult9 = -11;
 
             if (isDivideByZeroException &&
