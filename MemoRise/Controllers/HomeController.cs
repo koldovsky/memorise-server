@@ -48,7 +48,7 @@ namespace MemoRise.Controllers
                 }
             }
 
-            ViewBag.Title = "Home Page";
+            ViewBag.Title = "Memorise Server";
 
             return View();
         }
