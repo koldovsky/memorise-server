@@ -286,8 +286,7 @@ namespace MemoRise.Controllers
             }
             catch (ArgumentNullException ex)
             {
-                var message = $"DEck with linking = {linking} " +
-                              $"not found. {ex.Message}";
+                var message = $"DEck with linking = {linking} not found. {ex.Message}";
                 return BadRequest(message);
             }
             catch (Exception ex)
