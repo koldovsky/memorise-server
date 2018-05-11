@@ -24,6 +24,7 @@ namespace MemoRise.Controllers
 {
     public class AccountController : ApiController
     {
+        // TODO: Remove this comment
         IUnitOfWork unitOfWork;
         IAuthRepository _repo;
 
